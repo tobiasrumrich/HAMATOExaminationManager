@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+		"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="default" extends="struts-default">
+		<default-action-ref name="ShowRoomList" />
+		<action name="ShowRoomList"
+			class="de.hatoma.exman.action.ShowRoomListAction">
+			<result>/roomlist.jsp</result>
+		</action>
+		<action name="AddRoom">
+			<result>/roomform.jsp</result>
+		</action>
+		<action name="ShowRoom" class="de.hatoma.exman.action.HandleRoomAction"
+			method="show">
+			<result name="input" type="chain">ShowRoomList</result>
+			<result>/roomform.jsp</result>
+		</action>
+		<action name="SaveRoom" class="de.hatoma.exman.action.HandleRoomAction"
+			method="save">
+			<result name="success" type="chain">ShowRoomList</result>
+			<result name="input">/roomform.jsp</result>
+		</action>
+		
+	</package>
+</struts>

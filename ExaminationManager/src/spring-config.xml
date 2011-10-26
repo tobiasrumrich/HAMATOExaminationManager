@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+
+	<!-- Data source definition -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:~/db/exman" />
+		<property name="username" value="TOMCAT_DB_USER" />
+		<property name="password" value="TOMCAT_DB_USER" />
+	</bean>
+	<!-- Hibernate session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="de.hatoma.exman.model.*" />
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.H2Dialect
+				hibernate.show_sql=false
+				hibernate.format_sql=false
+				hibernate.hbm2ddl.auto=update
+
+			</value>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="post-update">
+					<bean class="org.hibernate.envers.event.AuditEventListener"></bean>
+				</entry>
+				<entry key="post-insert">
+					<bean class="org.hibernate.envers.event.AuditEventListener"></bean>
+				</entry>
+				<entry key="post-delete">
+					<bean class="org.hibernate.envers.event.AuditEventListener"></bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- Pointcut configuration -->
+	<aop:config>
+		<aop:pointcut id="serviceMethods"
+			expression="execution(* de.hatoma.exman.service..*.*(..))" />
+	</aop:config>
+
+	<!-- Transaction configuration -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+
+	<!-- Services -->
+	<bean name="roomService" class="de.hatoma.exman.service.room.RoomService">
+		<property name="roomDAO" ref="roomDAO" />
+	</bean>
+	<bean name="courseService" class="de.hatoma.exman.service.room.CourseService">
+		<property name="courseDAO" ref="courseDAO" />
+	</bean>
+	<bean name="lectureService" class="de.hatoma.exman.service.room.LectureService">
+		<property name="roomService" ref="roomService" />
+		<property name="courseService" ref="courseService" />
+		<property name="lectureDAO" ref="lectureDAO" />
+	</bean>
+
+	<!-- DAOs -->
+	<bean name="roomDAO" class="de.hatoma.exman.dao.room.RoomDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean name="courseDAO" class="de.hatoma.exman.dao.room.CourseDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean name="lectureDAO" class="de.hatoma.exman.dao.room.LectureDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>
