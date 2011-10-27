@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
@@ -24,7 +27,8 @@ public class ExamAttendance implements Serializable {
 	//private UserKlasse lastChangedBy;
 	private Date lastChangedOn;
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}

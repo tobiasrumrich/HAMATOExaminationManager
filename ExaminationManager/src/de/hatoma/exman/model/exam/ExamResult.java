@@ -3,6 +3,10 @@ package de.hatoma.exman.model.exam;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class ExamResult implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,6 +23,9 @@ public class ExamResult implements Serializable {
 	
 	private Date supplementalOralExamDate; 
 	private ExamGrade supplementOralExamGrade;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}

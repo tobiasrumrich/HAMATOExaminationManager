@@ -3,6 +3,9 @@ package de.hatoma.exman.model.study;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
@@ -18,6 +21,9 @@ public class StudyBranch implements Serializable{
 	private String shortTag;
 	private String longTag;
 	private String branchName;
+	private long id;
+	
+	
 	public String getShortTag() {
 		return shortTag;
 	}
@@ -35,6 +41,20 @@ public class StudyBranch implements Serializable{
 	}
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
+	}
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	
