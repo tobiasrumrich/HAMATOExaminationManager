@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RevisionEntity;
+import org.hibernate.envers.RevisionTimestamp;
 
 /**
  * The room entity.
@@ -23,6 +25,8 @@ import org.hibernate.envers.Audited;
 @Table(name = "ROOM")
 @AuditTable(value = "ADT_ROOM")
 public class Room implements Serializable {
+	
+
 
 	/** The serial version uid. */
 	private static final long serialVersionUID = 7664217191744579056L;
@@ -39,6 +43,8 @@ public class Room implements Serializable {
 	private boolean beamer;
 	/** The set of lectures to be held in this room. */
 	private Set<Lecture> lectures;
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

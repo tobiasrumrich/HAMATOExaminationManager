@@ -13,7 +13,7 @@
 		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:~/db/exman" />
 		<property name="username" value="TOMCAT_DB_USER" />
-		<property name="password" value="TOMCAT_DB_USER" />
+		<property name="password" value="" />
 	</bean>
 	<!-- Hibernate session factory -->
 	<bean id="sessionFactory"
@@ -31,17 +31,36 @@
 		</property>
 		<property name="eventListeners">
 			<map>
-				<entry key="post-update">
-					<bean class="org.hibernate.envers.event.AuditEventListener"></bean>
-				</entry>
 				<entry key="post-insert">
-					<bean class="org.hibernate.envers.event.AuditEventListener"></bean>
+					<list>
+						<bean class="org.hibernate.ejb.event.EJB3PostInsertEventListener" />
+						<bean class="org.hibernate.envers.event.AuditEventListener" />
+					</list>
+				</entry>
+				<entry key="post-update">
+					<list>
+						<bean class="org.hibernate.ejb.event.EJB3PostUpdateEventListener" />
+						<bean class="org.hibernate.envers.event.AuditEventListener" />
+					</list>
 				</entry>
 				<entry key="post-delete">
-					<bean class="org.hibernate.envers.event.AuditEventListener"></bean>
+					<list>
+						<bean class="org.hibernate.ejb.event.EJB3PostDeleteEventListener" />
+						<bean class="org.hibernate.envers.event.AuditEventListener" />
+					</list>
+				</entry>
+				<entry key="pre-collection-update">
+					<bean class="org.hibernate.envers.event.AuditEventListener" />
+				</entry>
+				<entry key="pre-collection-remove">
+					<bean class="org.hibernate.envers.event.AuditEventListener" />
+				</entry>
+				<entry key="post-collection-recreate">
+					<bean class="org.hibernate.envers.event.AuditEventListener" />
 				</entry>
 			</map>
 		</property>
+
 	</bean>
 
 	<!-- Pointcut configuration -->
