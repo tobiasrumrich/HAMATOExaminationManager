@@ -1,16 +1,19 @@
 package de.hatoma.exman.model.envers;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.Entity;
+
 import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
 
 @Entity
 @RevisionEntity(ExManRevisionListener.class)
-public class ExManRevisionEntity {
+public class ExManRevisionEntity implements Serializable {
 	
     @Id
     @GeneratedValue

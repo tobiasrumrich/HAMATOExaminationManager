@@ -25,5 +25,8 @@
 			<result name="input">/roomform.jsp</result>
 		</action>
 		
+		<action name="AuditTrail" class="de.hatoma.exman.action.HandleRoomAction">
+			<result>/auditTrail.jsp</result>
+		</action>
 	</package>
 </struts>

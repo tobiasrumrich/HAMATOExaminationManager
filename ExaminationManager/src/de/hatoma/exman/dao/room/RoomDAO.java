@@ -3,12 +3,33 @@ package de.hatoma.exman.dao.room;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditQueryCreator;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import de.hatoma.exman.model.exam.ExamAttendance;
 import de.hatoma.exman.model.room.Room;
 
 public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
 
+	public void something () {
+		
+		AuditReader auditReader = AuditReaderFactory.get(getHibernateTemplate().getSessionFactory().getCurrentSession());
+		//ExamResult currentRevision = auditReader.getCurrentRevision(ExamResult.class, true);
+		//auditReader.getRevisions(ExamResult.class, );
+		
+		AuditQueryCreator query = auditReader.createQuery();
+		
+		long primaryKey = 0;
+		long revision = 0;
+		//Revisionierte historische Version aufrufen
+		ExamAttendance oldRevision = auditReader.find(ExamAttendance.class, primaryKey, revision);
+		
+		//Get RevisionEntity for this revision
+		ExamAttendance revisionEntity = auditReader.findRevision(RevisionEntity.class, revision);
+	}
+	
 	/** {@inheritDoc} */
 	@Override
 	public Room save(Room room) {
