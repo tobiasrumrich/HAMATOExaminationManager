@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
@@ -24,10 +25,12 @@ public class Exam implements Serializable {
 
 	private long id;
 
+	
 	private Examiner examiner;
 	private Date date;
 	private ExamSubject examSubject;
 
+	@OneToOne
 	public Examiner getExaminer() {
 		return examiner;
 	}
@@ -64,6 +67,7 @@ public class Exam implements Serializable {
 	/**
 	 * @return the examSubject
 	 */
+	@OneToOne
 	public ExamSubject getExamSubject() {
 		return examSubject;
 	}

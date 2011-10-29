@@ -10,6 +10,11 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import de.hatoma.exman.model.study.Maniple;
+import javax.persistence.ManyToOne;
+import de.hatoma.exman.model.person.Student;
+import java.util.Collection;
+import javax.persistence.OneToMany;
 
 @Entity
 @Audited
@@ -17,10 +22,16 @@ import org.hibernate.envers.Audited;
 @AuditTable(value = "ADT_Centuries")
 public class Century implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Maniple maniple;
-	private StudyBranch studyBranch;
 	private Character character;
 	private long id;
+	private StudyBranch studyBranch;
+	private Maniple maniple;
+	private Collection<Student> student;
+	
+	
+	public Character getCharacter() {
+		return character;
+	}
 	/**
 	 * @return the id
 	 */
@@ -29,10 +40,34 @@ public class Century implements Serializable {
 	public long getId() {
 		return id;
 	}
+	public StudyBranch getStudyBranch() {
+		return studyBranch;
+	}
+	public void setCharacter(Character character) {
+		this.character = character;
+	}
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+	public void setStudyBranch(StudyBranch studyBranch) {
+		this.studyBranch = studyBranch;
+	}
+	@ManyToOne
+	public Maniple getManiple() {
+	    return maniple;
+	}
+	public void setManiple(Maniple param) {
+	    this.maniple = param;
+	}
+	@OneToMany(mappedBy = "century")
+	public Collection<Student> getStudent() {
+	    return student;
+	}
+	public void setStudent(Collection<Student> param) {
+	    this.student = param;
+	}
+	
 }

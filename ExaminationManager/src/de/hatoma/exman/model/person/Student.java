@@ -10,6 +10,9 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import de.hatoma.exman.model.study.Maniple;
+import javax.persistence.ManyToOne;
+import de.hatoma.exman.model.study.Century;
 
 
 @Entity
@@ -21,6 +24,10 @@ public class Student extends AbstractPerson implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
+
+	private Maniple maniple;
+
+	private Century century;
 
 	/**
 	 * @return the id
@@ -36,6 +43,24 @@ public class Student extends AbstractPerson implements Serializable {
 	 */
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	@ManyToOne
+	public Maniple getManiple() {
+	    return maniple;
+	}
+
+	public void setManiple(Maniple param) {
+	    this.maniple = param;
+	}
+
+	@ManyToOne
+	public Century getCentury() {
+	    return century;
+	}
+
+	public void setCentury(Century param) {
+	    this.century = param;
 	}
 	
 	

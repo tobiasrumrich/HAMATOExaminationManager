@@ -3,19 +3,25 @@ package de.hatoma.exman.model.exam;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+
+@Entity
+@Audited
+@Table(name = "ExamResults")
+@AuditTable(value = "ExamResults_Revisions")
 public class ExamResult implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private long id;
-	
-	//TODO: User Ÿber Spring Framework
-	//private UserKlasse lastChangedBy;
-	private Date lastChangedOn;
+
 	
 	private int attempt;
 	private Date dateOfExam;
@@ -32,12 +38,7 @@ public class ExamResult implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Date getLastChangedOn() {
-		return lastChangedOn;
-	}
-	public void setLastChangedOn(Date lastChangedOn) {
-		this.lastChangedOn = lastChangedOn;
-	}
+
 	public int getAttempt() {
 		return attempt;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.query.AuditQueryCreator;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -27,7 +28,7 @@ public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
 		ExamAttendance oldRevision = auditReader.find(ExamAttendance.class, primaryKey, revision);
 		
 		//Get RevisionEntity for this revision
-		ExamAttendance revisionEntity = auditReader.findRevision(RevisionEntity.class, revision);
+		RevisionEntity revisionEntity = auditReader.findRevision(RevisionEntity.class, revision);
 	}
 	
 	/** {@inheritDoc} */

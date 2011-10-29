@@ -1,15 +1,21 @@
 package de.hatoma.exman.model.study;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+
+import de.hatoma.exman.model.person.Student;
+import de.hatoma.exman.model.study.Century;
 
 @Entity
 @Audited
@@ -21,7 +27,11 @@ public class Maniple implements Serializable {
 	private StudyBranch branchOfStudy;
 	private int year;
 	private long id;
+	private Collection<Student> student;
+	private Collection<Century> century;
 
+
+	@OneToOne
 	public StudyBranch getBranchOfStudy() {
 		return branchOfStudy;
 	}
@@ -53,5 +63,25 @@ public class Maniple implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	@OneToMany(mappedBy = "maniple")
+	public Collection<Student> getStudent() {
+	    return student;
+	}
+
+	public void setStudent(Collection<Student> param) {
+	    this.student = param;
+	}
+
+	@OneToMany(mappedBy = "maniple")
+	public Collection<Century> getCentury() {
+	    return century;
+	}
+
+	public void setCentury(Collection<Century> param) {
+	    this.century = param;
+	}
+
+
 
 }
