@@ -3,7 +3,7 @@
 		<entity-name>de.hatoma.exman.model.person.Student</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>128</entity-height>
-		<entity-X-Coordinate>622</entity-X-Coordinate>
+		<entity-X-Coordinate>631</entity-X-Coordinate>
 		<entity-Y-Coordinate>301</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
@@ -14,8 +14,8 @@
 		<entity-name>de.hatoma.exman.model.study.Maniple</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>186</entity-height>
-		<entity-X-Coordinate>954</entity-X-Coordinate>
-		<entity-Y-Coordinate>50</entity-Y-Coordinate>
+		<entity-X-Coordinate>889</entity-X-Coordinate>
+		<entity-Y-Coordinate>52</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -25,8 +25,8 @@
 		<entity-name>de.hatoma.exman.model.study.Century</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>186</entity-height>
-		<entity-X-Coordinate>954</entity-X-Coordinate>
-		<entity-Y-Coordinate>373</entity-Y-Coordinate>
+		<entity-X-Coordinate>889</entity-X-Coordinate>
+		<entity-Y-Coordinate>375</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -36,7 +36,7 @@
 		<entity-name>de.hatoma.exman.model.exam.ExamSubject</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>186</entity-height>
-		<entity-X-Coordinate>370</entity-X-Coordinate>
+		<entity-X-Coordinate>350</entity-X-Coordinate>
 		<entity-Y-Coordinate>50</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
@@ -47,7 +47,7 @@
 		<entity-name>de.hatoma.exman.model.exam.ExamResult</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>188</entity-height>
-		<entity-X-Coordinate>622</entity-X-Coordinate>
+		<entity-X-Coordinate>631</entity-X-Coordinate>
 		<entity-Y-Coordinate>500</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
@@ -69,7 +69,7 @@
 		<entity-name>de.hatoma.exman.model.exam.ExamAttendance</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>148</entity-height>
-		<entity-X-Coordinate>360</entity-X-Coordinate>
+		<entity-X-Coordinate>350</entity-X-Coordinate>
 		<entity-Y-Coordinate>291</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
@@ -80,7 +80,7 @@
 		<entity-name>de.hatoma.exman.model.study.StudyBranch</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>148</entity-height>
-		<entity-X-Coordinate>622</entity-X-Coordinate>
+		<entity-X-Coordinate>631</entity-X-Coordinate>
 		<entity-Y-Coordinate>69</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
