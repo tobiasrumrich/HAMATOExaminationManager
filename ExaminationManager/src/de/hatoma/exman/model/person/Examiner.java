@@ -14,26 +14,36 @@ import org.hibernate.envers.Audited;
 
 @Entity
 @Audited
-@Table(name = "Examiner")
-@AuditTable(value = "ADT_Examiner")
-public class Examiner extends AbstractPerson implements Serializable {
+@Table(name = "Examiners")
+@AuditTable(value = "Examiner_Revisions")
+public class Examiner implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private long id;
-	/**
-	 * @return the id
-	 */
+	private String forename;
+	private String lastname;
+	
+	public String getForename() {
+		return forename;
+	}
+	public void setForename(String forename) {
+		this.forename = forename;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 	
 	
 
