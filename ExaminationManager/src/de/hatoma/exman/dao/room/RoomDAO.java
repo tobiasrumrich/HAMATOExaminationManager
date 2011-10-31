@@ -6,30 +6,19 @@ import org.hibernate.Query;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.RevisionEntity;
+import org.hibernate.envers.query.AuditQuery;
 import org.hibernate.envers.query.AuditQueryCreator;
+import org.hibernate.envers.query.criteria.SimpleAuditExpression;
+import org.hibernate.envers.query.property.PropertyNameGetter;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import de.hatoma.exman.model.envers.ExManRevisionEntity;
 import de.hatoma.exman.model.exam.ExamAttendance;
+import de.hatoma.exman.model.exam.ExamResult;
 import de.hatoma.exman.model.room.Room;
 
 public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
 
-	public void something () {
-		
-		AuditReader auditReader = AuditReaderFactory.get(getHibernateTemplate().getSessionFactory().getCurrentSession());
-		//ExamResult currentRevision = auditReader.getCurrentRevision(ExamResult.class, true);
-		//auditReader.getRevisions(ExamResult.class, );
-		
-		AuditQueryCreator query = auditReader.createQuery();
-		
-		long primaryKey = 0;
-		long revision = 0;
-		//Revisionierte historische Version aufrufen
-		ExamAttendance oldRevision = auditReader.find(ExamAttendance.class, primaryKey, revision);
-		
-		//Get RevisionEntity for this revision
-		RevisionEntity revisionEntity = auditReader.findRevision(RevisionEntity.class, revision);
-	}
 	
 	/** {@inheritDoc} */
 	@Override

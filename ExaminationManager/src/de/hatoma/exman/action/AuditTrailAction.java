@@ -16,30 +16,9 @@ public class AuditTrailAction implements Action {
 	
 	@Override
 	public String execute(){
-		rooms = new HashSet<Room>(roomService.listRooms());
 		return null;
-		
 	}
 	
-
-	public HashSet<Room> getRooms() {
-		return rooms;
-	}
-
-	public void setRooms(HashSet<Room> rooms) {
-		this.rooms = rooms;
-	}
-
-	public IRoomService getRoomService() {
-		return roomService;
-	}
-
-	public void setRoomService(IRoomService roomService) {
-		this.roomService = roomService;
-	}
-
-	private IRoomService roomService;
-
 
 
 }
