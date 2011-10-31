@@ -2,9 +2,9 @@
 	<entity>
 		<entity-name>de.hatoma.exman.model.person.Student</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>128</entity-height>
+		<entity-height>186</entity-height>
 		<entity-X-Coordinate>631</entity-X-Coordinate>
-		<entity-Y-Coordinate>301</entity-Y-Coordinate>
+		<entity-Y-Coordinate>533</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -14,8 +14,8 @@
 		<entity-name>de.hatoma.exman.model.study.Maniple</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>186</entity-height>
-		<entity-X-Coordinate>889</entity-X-Coordinate>
-		<entity-Y-Coordinate>52</entity-Y-Coordinate>
+		<entity-X-Coordinate>860</entity-X-Coordinate>
+		<entity-Y-Coordinate>285</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -25,8 +25,8 @@
 		<entity-name>de.hatoma.exman.model.study.Century</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>186</entity-height>
-		<entity-X-Coordinate>889</entity-X-Coordinate>
-		<entity-Y-Coordinate>375</entity-Y-Coordinate>
+		<entity-X-Coordinate>631</entity-X-Coordinate>
+		<entity-Y-Coordinate>285</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -35,9 +35,9 @@
 	<entity>
 		<entity-name>de.hatoma.exman.model.exam.ExamSubject</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>186</entity-height>
+		<entity-height>206</entity-height>
 		<entity-X-Coordinate>350</entity-X-Coordinate>
-		<entity-Y-Coordinate>50</entity-Y-Coordinate>
+		<entity-Y-Coordinate>40</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -47,8 +47,8 @@
 		<entity-name>de.hatoma.exman.model.exam.ExamResult</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>188</entity-height>
-		<entity-X-Coordinate>631</entity-X-Coordinate>
-		<entity-Y-Coordinate>500</entity-Y-Coordinate>
+		<entity-X-Coordinate>350</entity-X-Coordinate>
+		<entity-Y-Coordinate>514</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -59,7 +59,7 @@
 		<entity-width>120</entity-width>
 		<entity-height>166</entity-height>
 		<entity-X-Coordinate>110</entity-X-Coordinate>
-		<entity-Y-Coordinate>282</entity-Y-Coordinate>
+		<entity-Y-Coordinate>306</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -70,7 +70,7 @@
 		<entity-width>120</entity-width>
 		<entity-height>148</entity-height>
 		<entity-X-Coordinate>350</entity-X-Coordinate>
-		<entity-Y-Coordinate>291</entity-Y-Coordinate>
+		<entity-Y-Coordinate>315</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -79,9 +79,9 @@
 	<entity>
 		<entity-name>de.hatoma.exman.model.study.StudyBranch</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>148</entity-height>
+		<entity-height>186</entity-height>
 		<entity-X-Coordinate>631</entity-X-Coordinate>
-		<entity-Y-Coordinate>69</entity-Y-Coordinate>
+		<entity-Y-Coordinate>50</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -90,7 +90,7 @@
 	<entity>
 		<entity-name>de.hatoma.exman.model.person.Examiner</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>70</entity-height>
+		<entity-height>128</entity-height>
 		<entity-X-Coordinate>110</entity-X-Coordinate>
 		<entity-Y-Coordinate>50</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>

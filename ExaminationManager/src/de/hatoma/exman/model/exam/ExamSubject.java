@@ -6,9 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
@@ -24,10 +25,11 @@ public class ExamSubject implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private long id;
-	private StudyBranch brachOfStudy;
 	private String title;
 	private int year;
 	private String description;
+	private StudyBranch studyBranch;
+	private String moduleIdentifier;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,13 +40,6 @@ public class ExamSubject implements Serializable {
 		this.id = id;
 	}
 	
-	@OneToOne
-	public StudyBranch getBrachOfStudy() {
-		return brachOfStudy;
-	}
-	public void setBrachOfStudy(StudyBranch brachOfStudy) {
-		this.brachOfStudy = brachOfStudy;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -62,6 +57,26 @@ public class ExamSubject implements Serializable {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	@ManyToOne
+	public StudyBranch getStudyBranch() {
+	    return studyBranch;
+	}
+	public void setStudyBranch(StudyBranch param) {
+	    this.studyBranch = param;
+	}
+	/**
+	 * @return the moduleIdentifier
+	 */
+	@NaturalId
+	public String getModuleIdentifier() {
+		return moduleIdentifier;
+	}
+	/**
+	 * @param moduleIdentifier the moduleIdentifier to set
+	 */
+	public void setModuleIdentifier(String moduleIdentifier) {
+		this.moduleIdentifier = moduleIdentifier;
 	}
 	
 	

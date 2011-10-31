@@ -10,11 +10,14 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import de.hatoma.exman.model.exam.ExamSubject;
+import java.util.Collection;
+import javax.persistence.OneToMany;
 
 @Entity
 @Audited
 @Table(name = "StudyBranches")
-@AuditTable(value = "ADT_StudyBranches")
+@AuditTable(value = "StudyBranches_Revisions")
 public class StudyBranch implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -22,6 +25,7 @@ public class StudyBranch implements Serializable{
 	private String longTag;
 	private String branchName;
 	private long id;
+	private Collection<ExamSubject> examSubject;
 	
 	
 	public String getShortTag() {
@@ -55,6 +59,13 @@ public class StudyBranch implements Serializable{
 	 */
 	public void setId(long id) {
 		this.id = id;
+	}
+	@OneToMany(mappedBy = "studyBranch")
+	public Collection<ExamSubject> getExamSubject() {
+	    return examSubject;
+	}
+	public void setExamSubject(Collection<ExamSubject> param) {
+	    this.examSubject = param;
 	}
 	
 	

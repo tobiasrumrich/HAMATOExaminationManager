@@ -1,20 +1,21 @@
 package de.hatoma.exman.model.study;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import de.hatoma.exman.model.study.Maniple;
-import javax.persistence.ManyToOne;
+
 import de.hatoma.exman.model.person.Student;
-import java.util.Collection;
-import javax.persistence.OneToMany;
 
 @Entity
 @Audited
@@ -40,6 +41,8 @@ public class Century implements Serializable {
 	public long getId() {
 		return id;
 	}
+	
+	@OneToOne
 	public StudyBranch getStudyBranch() {
 		return studyBranch;
 	}
