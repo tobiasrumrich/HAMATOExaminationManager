@@ -6,8 +6,8 @@
 
 <struts>
 	<package name="default" extends="struts-default">
-		<default-action-ref name="ShowRoomList" />
-		<action name="ShowRoomList"
+		<default-action-ref name="Start" />
+		<!-- <action name="ShowRoomList"
 			class="de.hatoma.exman.action.ShowRoomListAction">
 			<result>/roomlist.jsp</result>
 		</action>
@@ -27,6 +27,12 @@
 		
 		<action name="AuditTrail" class="de.hatoma.exman.action.HandleRoomAction">
 			<result>/auditTrail.jsp</result>
+		</action> -->
+		
+		<action name="Start">
+			<result>/index.jsp</result>
 		</action>
+		
+		
 	</package>
 </struts>
