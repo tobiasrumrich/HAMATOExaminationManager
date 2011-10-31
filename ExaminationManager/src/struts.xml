@@ -7,32 +7,21 @@
 <struts>
 	<package name="default" extends="struts-default">
 		<default-action-ref name="Start" />
-		<!-- <action name="ShowRoomList"
-			class="de.hatoma.exman.action.ShowRoomListAction">
-			<result>/roomlist.jsp</result>
-		</action>
-		<action name="AddRoom">
-			<result>/roomform.jsp</result>
-		</action>
-		<action name="ShowRoom" class="de.hatoma.exman.action.HandleRoomAction"
-			method="show">
-			<result name="input" type="chain">ShowRoomList</result>
-			<result>/roomform.jsp</result>
-		</action>
-		<action name="SaveRoom" class="de.hatoma.exman.action.HandleRoomAction"
-			method="save">
-			<result name="success" type="chain">ShowRoomList</result>
-			<result name="input">/roomform.jsp</result>
-		</action>
-		
-		<action name="AuditTrail" class="de.hatoma.exman.action.HandleRoomAction">
-			<result>/auditTrail.jsp</result>
-		</action> -->
-		
+		<!-- <action name="ShowRoomList" class="de.hatoma.exman.action.ShowRoomListAction"> 
+			<result>/roomlist.jsp</result> </action> <action name="AddRoom"> <result>/roomform.jsp</result> 
+			</action> <action name="ShowRoom" class="de.hatoma.exman.action.HandleRoomAction" 
+			method="show"> <result name="input" type="chain">ShowRoomList</result> <result>/roomform.jsp</result> 
+			</action> <action name="SaveRoom" class="de.hatoma.exman.action.HandleRoomAction" 
+			method="save"> <result name="success" type="chain">ShowRoomList</result> 
+			<result name="input">/roomform.jsp</result> </action> <action name="AuditTrail" 
+			class="de.hatoma.exman.action.HandleRoomAction"> <result>/auditTrail.jsp</result> 
+			</action> -->
+		<!-- es darf bei den results nur die Typen "tiles" und "chain" geben. Direktes 
+			verlinken auf JSP muss wegen der Templating Engine vermieden werden. -->
 		<action name="Start">
 			<result>/index.jsp</result>
 		</action>
-		
-		
+
+
 	</package>
 </struts>

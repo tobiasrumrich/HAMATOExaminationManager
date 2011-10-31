@@ -4,6 +4,9 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <listener>
+        <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
+    </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:spring-config.xml</param-value>

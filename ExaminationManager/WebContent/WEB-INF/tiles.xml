@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<!-- Main layout -->
+	<definition name="mainLayout" template="/layout/mainLayout.jsp">
+		<put-attribute name="title" value="txtTitle"/>
+		<put-attribute name="header" value="/tiles/header.jsp"/>
+	</definition>
+	<!-- Screens -->
+	<definition name="albumList" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/albumList.jsp"/>
+	</definition>
+	<definition name="albumForm" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/albumForm.jsp"/>
+	</definition>
+</tiles-definitions>
