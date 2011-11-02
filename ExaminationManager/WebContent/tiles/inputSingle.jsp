@@ -2,10 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <h2>Prüfung anlegen</h2>
-<s:form validate="true" action="SaveNewExam">
+<s:form validate="true">
 	<s:textfield name="lecturer" key="lblLecturer" required="true" />
 	<s:textfield name="date" key="lblDate" required="true" />
-	<s:submit key="btnSave" action="SaveNewExam" name="type" value="submit" />
-	<s:submit key="btnCancel" action="SaveNewExam" name="type"
-		value="cancle" />
+	<s:submit key="btnSave" action="SaveNewExam" />
+	<s:submit key="btnCancel" action="SaveNewExam" name="btnCancle" />
 </s:form>
