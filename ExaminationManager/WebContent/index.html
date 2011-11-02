@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>extJS</title>
+<link rel="stylesheet" type="text/css"
+	href="extjs/resources/css/ext-all.css">
+<style type="text/css">
+#header {
+	background: #7F99BE url(resources/img/layout-browser-hd-bg.gif) repeat-x center;
+}
+
+#header h1 {
+	font-size: 16px;
+	color: #fff;
+	font-weight: normal;
+	padding: 5px 10px;
+}
+</style>
+<script type="text/javascript" src="extjs/ext.js"></script>
+<script type="text/javascript">
+	Ext
+			.application({
+				name : 'HelloExt',
+				launch : function() {
+
+					Ext
+							.create(
+									'Ext.container.Viewport',
+									{
+										layout : 'border',
+										items : [
+												{
+													xtype : 'box',
+													id : 'header',
+													region : 'north',
+													html : '<h1>HAMATO Examnination Manager</h1>',
+													height : 30
+												},
+												{
+													region : 'west',
+													id: 'navigation',
+													collapsible : true,
+													title : 'Navigation',
+													width : 150,
+													
+												    layout:'accordion',
+												    defaults: {
+												        // applied to each contained panel
+												        bodyStyle: 'padding:0px'
+												    },
+												    layoutConfig: {
+												        // layout-specific configs go here
+												        titleCollapse: false,
+												        animate: true,
+												        activeOnTop: true
+												    },
+												    items: [{
+												        title: 'Reports',
+												        items : [{
+												        	xtype:'button',
+												   			
+												        	text:'SUPERBUTTON',
+												        	href:'https://google.de/',
+												        	width:'100%'
+												        }]
+												       
+												    },{
+												        title: 'Prüfungsleistungen erfassen',
+												        html: 'Panel content!'
+												    },{
+												        title: 'Prüfungsübersicht',
+												        html: 'Panel content!'
+												    }, {
+												    	title: 'Sonstiges',
+												    	html: 'Hund'
+												    }]
+												// could use a TreePanel or AccordionLayout for navigational items
+												},
+												{
+													region : 'south',
+													title : 'South Panel',
+													collapsible : true,
+													html : 'Information goes here',
+													split : true,
+													height : 100,
+													minHeight : 100
+												},
+												{
+													region : 'east',
+													title : 'East Panel',
+													collapsible : true,
+													split : true,
+													width : 150
+												},
+												{
+													region : 'center',
+													xtype : 'tabpanel', // TabPanel itself has no title
+													activeTab : 0, // First tab active by default
+													items : {
+														title : 'Default Tab',
+														html : 'The first tab\'s content. Others may be added dynamically'
+													}
+												} ]
+									});
+
+					 
+
+				}
+			});
+	
+	
+	Ext.create('Ext.Button', {
+	    text    : 'Dynamic Handler Button',
+	    renderTo: 'navigation_reports',
+	    handler : function() {
+	        // this button will spit out a different number every time you click it.
+	        // so firstly we must check if that number is already set:
+	        if (this.clickCount) {
+	            // looks like the property is already set, so lets just add 1 to that number and alert the user
+	            this.clickCount++;
+	            alert('You have clicked the button "' + this.clickCount + '" times.\n\nTry clicking it again..');
+	        } else {
+	            // if the clickCount property is not set, we will set it and alert the user
+	            this.clickCount = 1;
+	            alert('You just clicked the button for the first time!\n\nTry pressing it again..');
+	        }
+	    }
+	});
+</script>
+</head>
+<body>
+</body>
+</html>
