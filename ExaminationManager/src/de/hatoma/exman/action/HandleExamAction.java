@@ -6,8 +6,7 @@ import de.hatoma.exman.model.exam.Exam;
 
 public class HandleExamAction extends ActionSupport {
 	private Exam exam;
-	private String lecturer;
-	private String date;
+	
 
 	/**
 	 * 
@@ -18,19 +17,13 @@ public class HandleExamAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String getLecturer() {
-		return lecturer;
+	public Exam getExam() {
+		return exam;
 	}
 
-	public void setLecturer(String lecturer) {
-		this.lecturer = lecturer;
+	public void setExam(Exam exam) {
+		this.exam = exam;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
+	
 }
