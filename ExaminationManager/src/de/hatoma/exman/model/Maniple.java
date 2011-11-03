@@ -1,4 +1,4 @@
-package de.hatoma.exman.model.study;
+package de.hatoma.exman.model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,24 +14,39 @@ import javax.persistence.Table;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-import de.hatoma.exman.model.person.Student;
+import de.hatoma.exman.model.Century;
 
 @Entity
 @Audited
-@Table(name = "Centuries")
-@AuditTable(value = "ADT_Centuries")
-public class Century implements Serializable {
+@Table(name = "Maniple")
+@AuditTable(value = "ADT_Maniple")
+public class Maniple implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	private Character character;
+	private StudyBranch branchOfStudy;
+	private int year;
 	private long id;
-	private StudyBranch studyBranch;
-	private Maniple maniple;
 	private Collection<Student> student;
-	
-	
-	public Character getCharacter() {
-		return character;
+	private Collection<Century> century;
+
+
+	@OneToOne
+	public StudyBranch getBranchOfStudy() {
+		return branchOfStudy;
 	}
+
+	public void setBranchOfStudy(StudyBranch branchOfStudy) {
+		this.branchOfStudy = branchOfStudy;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -41,36 +55,32 @@ public class Century implements Serializable {
 	public long getId() {
 		return id;
 	}
-	
-	@OneToOne
-	public StudyBranch getStudyBranch() {
-		return studyBranch;
-	}
-	public void setCharacter(Character character) {
-		this.character = character;
-	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
-	public void setStudyBranch(StudyBranch studyBranch) {
-		this.studyBranch = studyBranch;
-	}
-	@ManyToOne
-	public Maniple getManiple() {
-	    return maniple;
-	}
-	public void setManiple(Maniple param) {
-	    this.maniple = param;
-	}
-	@OneToMany(mappedBy = "century")
+
+	@OneToMany(mappedBy = "maniple")
 	public Collection<Student> getStudent() {
 	    return student;
 	}
+
 	public void setStudent(Collection<Student> param) {
 	    this.student = param;
 	}
-	
+
+	@OneToMany(mappedBy = "maniple")
+	public Collection<Century> getCentury() {
+	    return century;
+	}
+
+	public void setCentury(Collection<Century> param) {
+	    this.century = param;
+	}
+
+
+
 }

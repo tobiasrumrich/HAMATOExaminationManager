@@ -1,4 +1,4 @@
-package de.hatoma.exman.model.exam;
+package de.hatoma.exman.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-import de.hatoma.exman.model.person.Examiner;
 
 @Entity
 @Audited

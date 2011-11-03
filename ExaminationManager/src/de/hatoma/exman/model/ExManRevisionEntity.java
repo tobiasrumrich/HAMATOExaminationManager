@@ -1,4 +1,4 @@
-package de.hatoma.exman.model.envers;
+package de.hatoma.exman.model;
 
 import java.io.Serializable;
 

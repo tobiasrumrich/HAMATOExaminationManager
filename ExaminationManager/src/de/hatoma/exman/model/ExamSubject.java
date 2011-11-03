@@ -1,4 +1,4 @@
-package de.hatoma.exman.model.exam;
+package de.hatoma.exman.model;
 
 import java.io.Serializable;
 
@@ -13,7 +13,6 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-import de.hatoma.exman.model.study.StudyBranch;
 
 @Entity
 @Audited

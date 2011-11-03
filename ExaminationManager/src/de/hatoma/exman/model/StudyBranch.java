@@ -1,4 +1,4 @@
-package de.hatoma.exman.model.study;
+package de.hatoma.exman.model;
 
 import java.io.Serializable;
 
@@ -10,7 +10,8 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import de.hatoma.exman.model.exam.ExamSubject;
+
+
 import java.util.Collection;
 import javax.persistence.OneToMany;
 
