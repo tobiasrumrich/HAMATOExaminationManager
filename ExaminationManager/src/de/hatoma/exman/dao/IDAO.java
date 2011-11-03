@@ -2,7 +2,7 @@ package de.hatoma.exman.dao;
 
 import java.util.List;
 
-public interface IDAO<T> {
+public interface IDao<T> {
 
 	T save(T entity);
 

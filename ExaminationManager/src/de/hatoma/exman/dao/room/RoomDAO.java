@@ -12,9 +12,9 @@ import org.hibernate.envers.query.criteria.SimpleAuditExpression;
 import org.hibernate.envers.query.property.PropertyNameGetter;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import de.hatoma.exman.model.envers.ExManRevisionEntity;
-import de.hatoma.exman.model.exam.ExamAttendance;
-import de.hatoma.exman.model.exam.ExamResult;
+import de.hatoma.exman.model.ExManRevisionEntity;
+import de.hatoma.exman.model.ExamAttendance;
+import de.hatoma.exman.model.ExamResult;
 import de.hatoma.exman.model.room.Room;
 
 public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
