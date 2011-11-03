@@ -2,187 +2,133 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>HATOMA Examination Manager</title>
-<link type="text/css"
-	href="jquery/css/smoothness/jquery-ui-1.8.16.custom..css"
-	rel="stylesheet" />
-<script type="text/javascript" src="jquery/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript"
-	src="jquery/js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$("#schroeter").accordion({
-			header : "h3",
-			active : 0,
-			collapsible : false,
-			fillSpace : true,
-			animated: true
-		});
-		$("#sessioninfo").html('<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
-	});
-		
-</script>
+<title>extJS</title>
+<link rel="stylesheet" type="text/css"
+	href="extjs/resources/css/ext-all.css">
 <style type="text/css">
-html {
-height : 100%;
+#header {
+	background: #7F99BE url(resources/img/layout-browser-hd-bg.gif) repeat-x center;
 }
 
-
-body {
-	height : 100%;
-font-family: "Lucida Grande", "Lucida Sans Unicode", tahoma, Verdana, Geneva, Arial, Helvetica, sans-serif;
-	margin:0px;
-	padding:0px;
-	background-image:url(resources/img/header_bg.gif);
-	background-repeat: repeat-x;
+#header h1 {
+	font-size: 16px;
+	color: #fff;
+	font-weight: normal;
+	padding: 5px 10px;
 }
-
-
-
-div#header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height:54px;
-	background-image:url(resources/img/header_bg.gif);
-	background-repeat: repeat-x;
-
-line-height: 54px;
-padding: 0px 0px 0px 13px;
-color:white;
-z-index:2;
-}
-
-div#navigation-wrapper {
-background:#b9d9eb;
-float:left;
-width:250px;
-clear:both;
-height:100%;
-
-}
-
-div#navigation {
-position:relative;
-top:54px;
-height:340px;
-}
-
-
-div#header h1 {
-font-size:120%;
-padding:0px;
-margin:0px;
-}
-
-div#container {
-width:1000px;
-height : 100%;
-}
-
-div#main-wrapper {
-height:100%;
-overflow:scroll;
-
-}
-
-div#main {
-position:relative;
-top:54px;
-padding:10px;
-
-}
-
-div#main h1 {
-margin:0px;
-
-}
-
-/******/
-.ui-accordion {
- margin:0px; padding:0px; border:0px; height:0px;
-}
-
-.ui-accordion-header {
-padding: 5px 0px 5px 10px;
-background:lightgray;
-margin:0px;
-font-size:90%;
-}
-
-.ui-accordion-header a {color:black; text-decoration:none;}
-.ui-accordion * :focus { outline: 0; }
-.ui-accordion-content { background:#eeeeee; }
-.ui-accordion-content-active { /*padding: 5px 0px 5px 10px*/margin:0px;} 
- span#sessioninfo {
-	float:right;
-	padding-right:20px;
-}
-
 </style>
+<script type="text/javascript" src="extjs/ext.js"></script>
+<script type="text/javascript">
+	Ext
+			.application({
+				name : 'HelloExt',
+				launch : function() {
+
+					Ext
+							.create(
+									'Ext.container.Viewport',
+									{
+										layout : 'border',
+										items : [
+												{
+													xtype : 'box',
+													id : 'header',
+													region : 'north',
+													html : '<h1>HAMATO Examnination Manager</h1>',
+													height : 30
+												},
+												{
+													region : 'west',
+													id: 'navigation',
+													collapsible : true,
+													title : 'Navigation',
+													width : 150,
+													
+												    layout:'accordion',
+												    defaults: {
+												        // applied to each contained panel
+												        bodyStyle: 'padding:0px'
+												    },
+												    layoutConfig: {
+												        // layout-specific configs go here
+												        titleCollapse: false,
+												        animate: true,
+												        activeOnTop: true
+												    },
+												    items: [{
+												        title: 'Reports',
+												        items : [{
+												        	xtype:'button',
+												   			
+												        	text:'SUPERBUTTON',
+												        	href:'https://google.de/',
+												        	width:'100%'
+												        }]
+												       
+												    },{
+												        title: 'Prüfungsleistungen erfassen',
+												        html: 'Panel content!'
+												    },{
+												        title: 'Prüfungsübersicht',
+												        html: 'Panel content!'
+												    }, {
+												    	title: 'Sonstiges',
+												    	html: 'Hund'
+												    }]
+												// could use a TreePanel or AccordionLayout for navigational items
+												},
+												{
+													region : 'south',
+													title : 'South Panel',
+													collapsible : true,
+													html : 'Information goes here',
+													split : true,
+													height : 100,
+													minHeight : 100
+												},
+												{
+													region : 'east',
+													title : 'East Panel',
+													collapsible : true,
+													split : true,
+													width : 150
+												},
+												{
+													region : 'center',
+													xtype : 'tabpanel', // TabPanel itself has no title
+													activeTab : 0, // First tab active by default
+													items : {
+														title : 'Default Tab',
+														html : 'The first tab\'s content. Others may be added dynamically'
+													}
+												} ]
+									});
+
+					 
+
+				}
+			});
+	
+	
+	Ext.create('Ext.Button', {
+	    text    : 'Dynamic Handler Button',
+	    renderTo: 'navigation_reports',
+	    handler : function() {
+	        // this button will spit out a different number every time you click it.
+	        // so firstly we must check if that number is already set:
+	        if (this.clickCount) {
+	            // looks like the property is already set, so lets just add 1 to that number and alert the user
+	            this.clickCount++;
+	            alert('You have clicked the button "' + this.clickCount + '" times.\n\nTry clicking it again..');
+	        } else {
+	            // if the clickCount property is not set, we will set it and alert the user
+	            this.clickCount = 1;
+	            alert('You just clicked the button for the first time!\n\nTry pressing it again..');
+	        }
+	    }
+	});
+</script>
 </head>
 <body>
-
-		<div id="header">
-<span id="sessioninfo">&lt;sessioninfo&gt;</span>			
-<h1>HATOMA Examination Manager</h1>
-			
-		</div>
-
-	<div id="container">
-		<div id="navigation-wrapper">
-			<div id="navigation">
-				<div id="schroeter">
-		<div>
-			<h3>
-				<a href="#">Reports</a>
-			</h3>
-			<div>
-<p>Notenübersicht zu Person</p>
-<p>Notenübersicht zu Manipel</p>
-</div>
-		</div>
-		
-		<div>
-			<h3>
-				<a href="#">Prüfungsergebnisse</a>
-			</h3>
-			<div>
-<p>Batcherfassung</p>
-<p>Einzelerfassung</p>
-</div>
-		</div>
-
-		<div>
-			<h3>
-				<a href="#">Prüfungsübersicht</a>
-			</h3>
-			<div>
-<p>Neue Prüfung anlegen</p>
-<p>Prüfungen verwalten</p>
-</div>
-		</div>
-
-		<div>
-			<h3>
-				<a href="#">Sonstiges</a>
-			</h3>
-<div>
-<p>dsadsd</p>
-</div>
-		</div>
-</div>
-
-			</div>
-		</div>
-		<div id="main-wrapper">
-		<div id="main">
-			<h1>&lt;HEADLINE&gt;</h1>
-<p>&lt;CONTENT&gt;</p>
-		</div>
-</div>
-	</div>
-
 </body>
 </html>
