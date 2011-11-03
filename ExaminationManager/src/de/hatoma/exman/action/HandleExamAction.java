@@ -1,12 +1,11 @@
 package de.hatoma.exman.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-
-import de.hatoma.exman.model.exam.Exam;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 
 public class HandleExamAction extends ActionSupport {
-	private Exam exam;
-	
+
+	private String message;
 
 	/**
 	 * 
@@ -17,13 +16,12 @@ public class HandleExamAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public Exam getExam() {
-		return exam;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setExam(Exam exam) {
-		this.exam = exam;
+	@RequiredStringValidator(message = "das erste Feld ist benštigt!", key = "i18n.key", shortCircuit = true, trim = true)
+	public void setMessage(String message) {
+		this.message = message;
 	}
-
-	
 }
