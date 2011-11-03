@@ -6,17 +6,6 @@
 
 <struts>
 	<package name="default" extends="struts-default, tiles-default">
-
-		<!-- <action name="ShowRoomList" class="de.hatoma.exman.action.ShowRoomListAction"> 
-			<result>/roomlist.jsp</result> </action> <action name="AddRoom"> <result>/roomform.jsp</result> 
-			</action> <action name="ShowRoom" class="de.hatoma.exman.action.HandleRoomAction" 
-			method="show"> <result name="input" type="chain">ShowRoomList</result> <result>/roomform.jsp</result> 
-			</action> <action name="SaveRoom" class="de.hatoma.exman.action.HandleRoomAction" 
-			method="save"> <result name="success" type="chain">ShowRoomList</result> 
-			<result name="input">/roomform.jsp</result> </action> <action name="AuditTrail" 
-			class="de.hatoma.exman.action.HandleRoomAction"> <result>/auditTrail.jsp</result> 
-			</action> -->
-
 		<!-- es darf bei den results nur die Typen "tiles" und "chain" geben. Direktes 
 			verlinken auf JSP muss wegen der Templating Engine vermieden werden. -->
 		<action name="">
@@ -30,7 +19,11 @@
 		</action>
 		<action name="SaveNewExam" class="de.hatoma.exman.action.HandleExamAction"
 			method="save">
-			<result name="success" type="chain">InputSingle</result>
+			<result name="success" type="chain">InputSingleSuccess</result>
+			<result name="input" type="tiles">inputSingle</result>
+		</action>
+		<action name="InputSingleSuccess">
+			<result type="tiles">inputSingleSuccess</result>
 		</action>
 	</package>
 </struts>

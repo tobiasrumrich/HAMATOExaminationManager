@@ -18,8 +18,8 @@
 	</h1>
 	<ul>
 		<li><s:url action="Home" id="homeUrl" /> <s:a href="%{homeUrl}">asd</s:a></li>
-		<li><s:url action="InputSingle" id="inputSingleUrl"
-				namespace="/ExamResults" /> <s:a href="%{inputSingleUrl}">Prüfungsergebnisse erfassen (einzelnd)</s:a></li>
+		<li><s:url action="InputSingle" id="inputSingleUrl" /> <s:a
+				href="%{inputSingleUrl}">Prüfungsergebnisse erfassen (einzelnd)</s:a></li>
 	</ul>
 	<hr />
 	<!-- Content -->
