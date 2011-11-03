@@ -66,26 +66,15 @@
 	</aop:config>
 
 	<!-- Services -->
-	<bean name="roomService" class="de.hatoma.exman.service.room.RoomService">
-		<property name="roomDAO" ref="roomDAO" />
-	</bean>
-	<bean name="courseService" class="de.hatoma.exman.service.room.CourseService">
-		<property name="courseDAO" ref="courseDAO" />
-	</bean>
-	<bean name="lectureService" class="de.hatoma.exman.service.room.LectureService">
-		<property name="roomService" ref="roomService" />
-		<property name="courseService" ref="courseService" />
-		<property name="lectureDAO" ref="lectureDAO" />
-	</bean>
-
-	<!-- DAOs -->
-	<bean name="roomDAO" class="de.hatoma.exman.dao.room.RoomDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="courseDAO" class="de.hatoma.exman.dao.room.CourseDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="lectureDAO" class="de.hatoma.exman.dao.room.LectureDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="roomService" class="de.hatoma.exman.service.room.RoomService"> 
+		<property name="roomDAO" ref="roomDAO" /> </bean> <bean name="courseService" 
+		class="de.hatoma.exman.service.room.CourseService"> <property name="courseDAO" 
+		ref="courseDAO" /> </bean> <bean name="lectureService" class="de.hatoma.exman.service.room.LectureService"> 
+		<property name="roomService" ref="roomService" /> <property name="courseService" 
+		ref="courseService" /> <property name="lectureDAO" ref="lectureDAO" /> </bean> -->
+	<!-- DAOs --><!-- <bean name="roomDAO" class="de.hatoma.exman.dao.room.RoomDAO"> <property 
+		name="sessionFactory" ref="sessionFactory" /> </bean> <bean name="courseDAO" 
+		class="de.hatoma.exman.dao.room.CourseDAO"> <property name="sessionFactory" 
+		ref="sessionFactory" /> </bean> <bean name="lectureDAO" class="de.hatoma.exman.dao.room.LectureDAO"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> -->
 </beans>
