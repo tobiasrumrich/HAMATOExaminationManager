@@ -15,6 +15,7 @@ import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import de.hatoma.exman.model.Century;
+import javax.persistence.Basic;
 
 @Entity
 @Audited
@@ -39,6 +40,7 @@ public class Maniple implements Serializable {
 		this.branchOfStudy = branchOfStudy;
 	}
 
+	@Basic(optional = false)
 	public int getYear() {
 		return year;
 	}
