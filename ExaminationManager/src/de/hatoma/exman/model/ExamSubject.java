@@ -57,7 +57,7 @@ public class ExamSubject implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@ManyToOne
+	@ManyToOne(optional = false)
 	public StudyBranch getStudyBranch() {
 	    return studyBranch;
 	}

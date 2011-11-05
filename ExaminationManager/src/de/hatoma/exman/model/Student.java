@@ -11,6 +11,9 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import de.hatoma.exman.model.ExamAttendance;
+import java.util.Collection;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -52,10 +55,8 @@ public class Student implements Serializable {
 	}
 
 	private Maniple maniple;
-
-	private Century century;
-
-	@ManyToOne
+	private Collection<ExamAttendance> examAttendance;
+	@ManyToOne(optional = false)
 	public Maniple getManiple() {
 		return maniple;
 	}
@@ -64,13 +65,15 @@ public class Student implements Serializable {
 		this.maniple = param;
 	}
 
-	@ManyToOne
-	public Century getCentury() {
-		return century;
+	@OneToMany(mappedBy = "student")
+	public Collection<ExamAttendance> getExamAttendance() {
+	    return examAttendance;
 	}
 
-	public void setCentury(Century param) {
-		this.century = param;
+	public void setExamAttendance(Collection<ExamAttendance> param) {
+	    this.examAttendance = param;
 	}
+
+	
 
 }

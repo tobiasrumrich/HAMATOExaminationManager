@@ -29,7 +29,7 @@ public class Exam implements Serializable {
 	private Date date;
 	private ExamSubject examSubject;
 
-	@OneToOne
+	@OneToOne(optional = false)
 	public Examiner getExaminer() {
 		return examiner;
 	}
@@ -66,7 +66,7 @@ public class Exam implements Serializable {
 	/**
 	 * @return the examSubject
 	 */
-	@OneToOne
+	@OneToOne(optional = false)
 	public ExamSubject getExamSubject() {
 		return examSubject;
 	}

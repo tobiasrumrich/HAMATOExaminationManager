@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><entities>
 	<entity>
+		<entity-name>de.hatoma.exman.model.ExamAttendance</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>148</entity-height>
+		<entity-X-Coordinate>350</entity-X-Coordinate>
+		<entity-Y-Coordinate>315</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>true</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
 		<entity-name>de.hatoma.exman.model.Examiner</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>128</entity-height>
@@ -11,35 +22,13 @@
 	</entity>
 
 	<entity>
-		<entity-name>de.hatoma.exman.model.ExamSubject</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>206</entity-height>
-		<entity-X-Coordinate>350</entity-X-Coordinate>
-		<entity-Y-Coordinate>40</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>de.hatoma.exman.model.StudyBranch</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>186</entity-height>
-		<entity-X-Coordinate>631</entity-X-Coordinate>
-		<entity-Y-Coordinate>50</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>de.hatoma.exman.model.Exam</entity-name>
+		<entity-name>de.hatoma.exman.model.Maniple</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>166</entity-height>
-		<entity-X-Coordinate>110</entity-X-Coordinate>
+		<entity-X-Coordinate>854</entity-X-Coordinate>
 		<entity-Y-Coordinate>306</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
+		<relation-collapsed>true</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
@@ -55,46 +44,46 @@
 	</entity>
 
 	<entity>
-		<entity-name>de.hatoma.exman.model.Maniple</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>186</entity-height>
-		<entity-X-Coordinate>860</entity-X-Coordinate>
-		<entity-Y-Coordinate>285</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>de.hatoma.exman.model.ExamAttendance</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>148</entity-height>
-		<entity-X-Coordinate>350</entity-X-Coordinate>
-		<entity-Y-Coordinate>315</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>de.hatoma.exman.model.Century</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>186</entity-height>
-		<entity-X-Coordinate>631</entity-X-Coordinate>
-		<entity-Y-Coordinate>285</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
 		<entity-name>de.hatoma.exman.model.Student</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>186</entity-height>
 		<entity-X-Coordinate>631</entity-X-Coordinate>
-		<entity-Y-Coordinate>533</entity-Y-Coordinate>
+		<entity-Y-Coordinate>296</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
+		<relation-collapsed>true</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>de.hatoma.exman.model.ExamSubject</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>206</entity-height>
+		<entity-X-Coordinate>350</entity-X-Coordinate>
+		<entity-Y-Coordinate>40</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>true</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>de.hatoma.exman.model.StudyBranch</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>186</entity-height>
+		<entity-X-Coordinate>631</entity-X-Coordinate>
+		<entity-Y-Coordinate>50</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>true</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>de.hatoma.exman.model.Exam</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>166</entity-height>
+		<entity-X-Coordinate>110</entity-X-Coordinate>
+		<entity-Y-Coordinate>306</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>true</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 </entities>

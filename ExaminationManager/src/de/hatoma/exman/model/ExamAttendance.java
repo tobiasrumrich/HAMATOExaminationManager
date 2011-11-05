@@ -11,6 +11,10 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import de.hatoma.exman.model.Student;
+import java.util.Collection;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -25,12 +29,12 @@ public class ExamAttendance implements Serializable {
 	private long id;
 	private Student student;
 
-	@OneToOne
+	@OneToOne(optional = false)
 	public Exam getExam() {
 		return exam;
 	}
 
-	@OneToOne
+	@OneToOne(optional = false)
 	public ExamResult getExamResult() {
 		return examResult;
 	}
@@ -39,11 +43,6 @@ public class ExamAttendance implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
-	}
-
-	@OneToOne
-	public Student getStudent() {
-		return student;
 	}
 
 	public void setExam(Exam exam) {
@@ -57,7 +56,14 @@ public class ExamAttendance implements Serializable {
 		this.id = id;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	@ManyToOne(optional = false)
+	public Student getStudent() {
+	    return student;
 	}
+
+	public void setStudent(Student param) {
+	    this.student = param;
+	}
+
+	
 }

@@ -11,6 +11,12 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import javax.persistence.Temporal;
+import javax.persistence.Enumerated;
+import static javax.persistence.EnumType.ORDINAL;
+import static javax.persistence.TemporalType.TIMESTAMP;
+import javax.persistence.Column;
+import javax.persistence.Basic;
 
 @Entity
 @Audited
@@ -39,6 +45,8 @@ public class ExamResult implements Serializable {
 		this.id = id;
 	}
 
+	@Column(nullable = false)
+	@Basic(optional = false)
 	public int getAttempt() {
 		return attempt;
 	}
