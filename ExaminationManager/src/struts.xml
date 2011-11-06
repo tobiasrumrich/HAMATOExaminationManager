@@ -25,5 +25,15 @@
 		<action name="InputSingleSuccess">
 			<result type="tiles">inputSingleSuccess</result>
 		</action>
+
+
+		<action name="FileSingleExamAttendance" class="de.hatoma.exman.action.SingleExamAttendance"
+			method="display">
+			<result name="showInputForm" type="tiles">inputSingleExamAttendance</result>
+		</action>
+
+
 	</package>
+
+
 </struts>

@@ -8,12 +8,20 @@
 	<!-- Main layout -->
 	<definition name="mainLayout" template="/layout/mainLayout.jsp">
 		<put-attribute name="title" value="txtTitle"/>
+		<put-attribute name="applicationName" value="txtApplicationName"></put-attribute>
 	</definition>
 	<!-- Screens -->
 	<definition name="home" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/home.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe"/>
 	</definition>
 	<definition name="inputSingle" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/inputSingle.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe"/>
+	</definition>
+	
+	<definition name="inputSingleExamAttendance" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/inputSingleExamAttendance.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNInputSingleExamAttendance"/>
 	</definition>
 </tiles-definitions>

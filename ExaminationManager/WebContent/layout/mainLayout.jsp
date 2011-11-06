@@ -1,28 +1,219 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<tiles:useAttribute name="title" id="title" />
-<title><s:text name="%{#attr.title}" /></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<tiles:useAttribute name="applicationName" id="title" />
+<tiles:useAttribute name="actionDisplayName" id="actionDisplayName" />
+
+<title><s:text name="%{#attr.actionDisplayName}" /> - <s:text
+		name="%{#attr.title}" /></title>
 <s:head />
+<!-- 
+<link type="text/css"
+	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom..css"
+	rel="stylesheet" /> !-->
+<script type="text/javascript"
+	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript"
+	src="resources/jquery/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#schroeter").accordion({
+			header : "h3",
+			active : 0,
+			collapsible : false,
+			fillSpace : true,
+			animated : true
+		});
+		
+		
+		$("#sessioninfo").html(
+				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
+	});
+</script>
+<style type="text/css">
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", tahoma, Verdana,
+		Geneva, Arial, Helvetica, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	background-image: url(resources/img/header_bg.gif);
+	background-repeat: repeat-x;
+}
+
+div#header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 54px;
+	background-image: url(resources/img/header_bg.gif);
+	background-repeat: repeat-x;
+	line-height: 54px;
+	padding: 0px 0px 0px 13px;
+	color: white;
+	z-index: 2;
+}
+
+div#navigation-wrapper {
+	background: #b9d9eb;
+	float: left;
+	width: 250px;
+	clear: both;
+	height: 100%;
+}
+
+div#navigation {
+	position: relative;
+	top: 54px;
+	height: 340px;
+}
+
+div#header h1 {
+	font-size: 120%;
+	padding: 0px;
+	margin: 0px;
+}
+
+div#container {
+	width: 1000px;
+	height: 100%;
+}
+
+div#main-wrapper {
+	height: 100%;
+	overflow: scroll;
+}
+
+div#main {
+	position: relative;
+	top: 54px;
+	padding: 10px;
+}
+
+div#main h1 {
+	margin: 0px;
+}
+
+/******/
+.ui-accordion {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	height: 0px;
+}
+
+.ui-accordion-header {
+	padding: 5px 0px 5px 10px;
+	background: lightgray;
+	margin: 0px;
+	font-size: 90%;
+}
+
+.ui-accordion-header a {
+	color: black;
+	text-decoration: none;
+}
+
+.ui-accordion * :focus {
+	outline: 0;
+}
+
+.ui-accordion-content {
+	background: #eeeeee;
+}
+
+.ui-accordion-content-active { /*padding: 5px 0px 5px 10px*/
+	margin: 0px;
+}
+
+span#sessioninfo {
+	float: right;
+	padding-right: 20px;
+}
+</style>
 </head>
 <body>
-	<!-- Header -->
-	<h1>
-		<s:text name="txtTitle" />
-	</h1>
-	<ul>
-		<li><s:url action="Home" id="homeUrl" /> <s:a href="%{homeUrl}">asd</s:a></li>
-		<li><s:url action="InputSingle" id="inputSingleUrl" /> <s:a
-				href="%{inputSingleUrl}">Pr�fungsergebnisse erfassen (einzelnd)</s:a></li>
-	</ul>
-	<hr />
-	<!-- Content -->
-	<tiles:insertAttribute name="content" />
+
+	<div id="header">
+		<span id="sessioninfo">&lt;sessioninfo&gt;</span>
+		<h1>HATOMA Examination Manager</h1>
+
+	</div>
+
+	<div id="container">
+		<div id="navigation-wrapper">
+			<div id="navigation">
+				<div id="schroeter">
+					<div>
+						<h3>
+							<a href="#">Reports</a>
+						</h3>
+						<div>
+							<p>Notenübersicht zu Person</p>
+							<p>Notenübersicht zu Manipel</p>
+						</div>
+					</div>
+
+					<div>
+						<h3>
+							<a href="#">Prüfungsergebnisse</a>
+						</h3>
+						<div>
+							<p>Batcherfassung</p>
+
+							<s:url action="FileSingleExamAttendance"
+									id="fileSingleExamAttendanceUrl" /> <s:a
+									href="%{fileSingleExamAttendanceUrl}">Einzelerfassung</s:a>
+							
+							<p></p>
+						</div>
+					</div>
+
+					<div>
+						<h3>
+							<a href="#">Prüfungsübersicht</a>
+						</h3>
+						<div>
+							<p>Neue Prüfung anlegen</p>
+							<p>Prüfungen verwalten</p>
+						</div>
+					</div>
+
+					<div>
+						<h3>
+							<a href="#">Sonstiges</a>
+						</h3>
+						<div>
+							<p>dsadsd</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div id="main-wrapper">
+			<div id="main">
+				<h1>
+					<s:text name="%{#attr.actionDisplayName}" />
+				</h1>
+
+				<tiles:insertAttribute name="content" />
+
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
