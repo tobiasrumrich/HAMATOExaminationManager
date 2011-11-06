@@ -44,6 +44,14 @@ public class Examiner implements Serializable {
 		this.id = id;
 	}
 	
+	public Examiner(String forename, String lastname) {
+		super();
+		this.forename = forename;
+		this.lastname = lastname;
+	}
+	
+	public Examiner() {
+	}
 	
 	
 

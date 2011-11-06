@@ -27,7 +27,6 @@ public class ExamAttendance implements Serializable {
 	private Student student;
 	
 	private int attempt;
-	private Date dateOfExam;
 	private ExamGrade examGrade;
 	
 	private Date supplementalOralExamDate; 
@@ -46,16 +45,6 @@ public class ExamAttendance implements Serializable {
 
 	public void setAttempt(int attempt) {
 		this.attempt = attempt;
-	}
-
-
-	public Date getDateOfExam() {
-		return dateOfExam;
-	}
-
-
-	public void setDateOfExam(Date dateOfExam) {
-		this.dateOfExam = dateOfExam;
 	}
 
 

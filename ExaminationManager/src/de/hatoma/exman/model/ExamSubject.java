@@ -6,12 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import de.hatoma.exman.model.Maniple;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -27,8 +28,8 @@ public class ExamSubject implements Serializable {
 	private String title;
 	private int year;
 	private String description;
-	private StudyBranch studyBranch;
 	private String moduleIdentifier;
+	private Maniple maniple;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,13 +58,6 @@ public class ExamSubject implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@ManyToOne(optional = false)
-	public StudyBranch getStudyBranch() {
-	    return studyBranch;
-	}
-	public void setStudyBranch(StudyBranch param) {
-	    this.studyBranch = param;
-	}
 	/**
 	 * @return the moduleIdentifier
 	 */
@@ -76,6 +70,13 @@ public class ExamSubject implements Serializable {
 	 */
 	public void setModuleIdentifier(String moduleIdentifier) {
 		this.moduleIdentifier = moduleIdentifier;
+	}
+	@ManyToOne
+	public Maniple getManiple() {
+	    return maniple;
+	}
+	public void setManiple(Maniple param) {
+	    this.maniple = param;
 	}
 	
 	

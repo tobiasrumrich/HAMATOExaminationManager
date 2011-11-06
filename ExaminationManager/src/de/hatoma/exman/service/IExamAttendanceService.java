@@ -7,6 +7,13 @@ import de.hatoma.exman.model.Student;
 
 public interface IExamAttendanceService {
 
-ExamAttendance createExamAttendanceForStudent(Student student, Exam exam, ExamGrade examGrade);
+	/**
+	 * Creates a new ExamAttendance
+	 * @param student
+	 * @param exam
+	 * @param examGrade
+	 * @return
+	 */
+public ExamAttendance createExamAttendanceForStudent(Student student, Exam exam, ExamGrade examGrade);
 
 }

@@ -11,10 +11,6 @@ import javax.persistence.Table;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-
-import java.util.Collection;
-import javax.persistence.OneToMany;
-
 @Entity
 @Audited
 @Table(name = "StudyBranches")
@@ -26,9 +22,6 @@ public class StudyBranch implements Serializable{
 	private String longTag;
 	private String branchName;
 	private long id;
-	private Collection<ExamSubject> examSubject;
-	
-	
 	public String getShortTag() {
 		return shortTag;
 	}
@@ -60,13 +53,6 @@ public class StudyBranch implements Serializable{
 	 */
 	public void setId(long id) {
 		this.id = id;
-	}
-	@OneToMany(mappedBy = "studyBranch")
-	public Collection<ExamSubject> getExamSubject() {
-	    return examSubject;
-	}
-	public void setExamSubject(Collection<ExamSubject> param) {
-	    this.examSubject = param;
 	}
 	
 	

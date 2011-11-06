@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import de.hatoma.exman.model.ExamSubject;
 
 @Entity
 @Audited
@@ -26,6 +27,7 @@ public class Maniple implements Serializable {
 	private int year;
 	private long id;
 	private Collection<Student> student;
+	private Collection<ExamSubject> examSubject;
 
 
 	@OneToOne(optional = false)
@@ -69,6 +71,15 @@ public class Maniple implements Serializable {
 
 	public void setStudent(Collection<Student> param) {
 	    this.student = param;
+	}
+
+	@OneToMany(mappedBy = "maniple")
+	public Collection<ExamSubject> getExamSubject() {
+	    return examSubject;
+	}
+
+	public void setExamSubject(Collection<ExamSubject> param) {
+	    this.examSubject = param;
 	}
 
 

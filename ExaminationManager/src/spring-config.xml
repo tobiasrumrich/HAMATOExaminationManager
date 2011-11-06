@@ -19,7 +19,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="de.hatoma.exman.model.*" />
+		<property name="packagesToScan" value="de.hatoma.exman.model" />
 		<property name="hibernateProperties">
 			<value>
 				hibernate.dialect=org.hibernate.dialect.H2Dialect
@@ -64,6 +64,20 @@
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
 	</aop:config>
+
+	<!-- DAOs by HATOMA -->
+	<bean name="examAttendanceDAO" class="de.hatoma.exman.dao.ExamAttendanceDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- SERVICES by HATOMA -->
+	<bean name="examAttendanceService" class="de.hatoma.exman.service.ExamAttendanceService">
+		<property name="examAttendanceDAO" ref="examAttendanceDAO" />
+	</bean>
+
+	<!-- ACTIONS by HATOMA -->
+	<!-- <bean name="singleExamAttendance" cla> <property name="examAttendanceService" 
+		ref="examAttendanceService" /> </bean> ! -->
 
 	<!-- Services -->
 	<!-- <bean name="roomService" class="de.hatoma.exman.service.room.RoomService"> 
