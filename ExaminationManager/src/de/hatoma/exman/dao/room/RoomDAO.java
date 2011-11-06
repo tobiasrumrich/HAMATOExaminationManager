@@ -3,18 +3,8 @@ package de.hatoma.exman.dao.room;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.envers.AuditReader;
-import org.hibernate.envers.AuditReaderFactory;
-import org.hibernate.envers.RevisionEntity;
-import org.hibernate.envers.query.AuditQuery;
-import org.hibernate.envers.query.AuditQueryCreator;
-import org.hibernate.envers.query.criteria.SimpleAuditExpression;
-import org.hibernate.envers.query.property.PropertyNameGetter;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import de.hatoma.exman.model.ExManRevisionEntity;
-import de.hatoma.exman.model.ExamAttendance;
-import de.hatoma.exman.model.ExamResult;
 import de.hatoma.exman.model.room.Room;
 
 public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {

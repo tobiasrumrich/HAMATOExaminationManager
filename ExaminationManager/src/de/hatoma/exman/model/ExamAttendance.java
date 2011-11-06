@@ -39,6 +39,56 @@ public class ExamAttendance implements Serializable {
 	}
 
 
+	public int getAttempt() {
+		return attempt;
+	}
+
+
+	public void setAttempt(int attempt) {
+		this.attempt = attempt;
+	}
+
+
+	public Date getDateOfExam() {
+		return dateOfExam;
+	}
+
+
+	public void setDateOfExam(Date dateOfExam) {
+		this.dateOfExam = dateOfExam;
+	}
+
+
+	public ExamGrade getExamGrade() {
+		return examGrade;
+	}
+
+
+	public void setExamGrade(ExamGrade examGrade) {
+		this.examGrade = examGrade;
+	}
+
+
+	public Date getSupplementalOralExamDate() {
+		return supplementalOralExamDate;
+	}
+
+
+	public void setSupplementalOralExamDate(Date supplementalOralExamDate) {
+		this.supplementalOralExamDate = supplementalOralExamDate;
+	}
+
+
+	public ExamGrade getSupplementOralExamGrade() {
+		return supplementOralExamGrade;
+	}
+
+
+	public void setSupplementOralExamGrade(ExamGrade supplementOralExamGrade) {
+		this.supplementOralExamGrade = supplementOralExamGrade;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
