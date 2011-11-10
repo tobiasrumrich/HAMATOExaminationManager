@@ -8,6 +8,8 @@
 	<package name="default" extends="struts-default, tiles-default">
 		<!-- es darf bei den results nur die Typen "tiles" und "chain" geben. Direktes 
 			verlinken auf JSP muss wegen der Templating Engine vermieden werden. -->
+
+		<!-- Dummy Anfang -->
 		<action name="">
 			<result type="chain">Home</result>
 		</action>
@@ -17,15 +19,27 @@
 		<action name="InputSingle">
 			<result type="tiles">inputSingle</result>
 		</action>
+		<!-- Dummy Ende -->
+
+<!-- ----------------- -->
 		<action name="SaveNewExam" class="de.hatoma.exman.action.HandleExamAction"
 			method="save">
-			<result name="success" type="chain">InputSingleSuccess</result>
 			<result name="input" type="tiles">inputSingle</result>
+			<result name="success" type="chain">InputSingleSuccess</result>
 		</action>
 		<action name="InputSingleSuccess">
 			<result type="tiles">inputSingleSuccess</result>
 		</action>
-
+<!-- ----------------- -->
+		<action name="FileSingleOralExamAttendance" class="de.hatoma.exman.action.HandleExamAction"
+			method="save">
+			<result name="input" type="tiles">fileSingleOralExamAttendance</result>
+			<result name="success" type="chain">FileSingleOralExamAttendanceSuccess</result>
+		</action>
+		<action name="FileSingleOralExamAttendanceSuccess">
+			<result type="tiles">fileSingleOralExamAttendanceSuccess</result>
+		</action>
+<!-- ----------------- -->
 
 		<action name="FileSingleExamAttendance" class="de.hatoma.exman.action.SingleExamAttendance"
 			method="display">

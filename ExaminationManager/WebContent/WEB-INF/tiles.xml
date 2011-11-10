@@ -24,4 +24,9 @@
 		<put-attribute name="content" value="/tiles/inputSingleExamAttendance.jsp"/>
 		<put-attribute name="actionDisplayName" value="txtADNInputSingleExamAttendance"/>
 	</definition>
+	<definition name="fileSingleOralExamAttendance" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/fileSingleOralExamAttendance.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNFileSingleOralExamAttendance"/>
+	</definition>
+
 </tiles-definitions>
