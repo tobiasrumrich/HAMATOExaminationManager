@@ -21,7 +21,7 @@
 		</action>
 		<!-- Dummy Ende -->
 
-<!-- ----------------- -->
+
 		<action name="SaveNewExam" class="de.hatoma.exman.action.HandleExamAction"
 			method="save">
 			<result name="input" type="tiles">inputSingle</result>
@@ -30,7 +30,7 @@
 		<action name="InputSingleSuccess">
 			<result type="tiles">inputSingleSuccess</result>
 		</action>
-<!-- ----------------- -->
+
 		<action name="FileSingleOralExamAttendance" class="de.hatoma.exman.action.HandleExamAction"
 			method="save">
 			<result name="input" type="tiles">fileSingleOralExamAttendance</result>
@@ -39,7 +39,7 @@
 		<action name="FileSingleOralExamAttendanceSuccess">
 			<result type="tiles">fileSingleOralExamAttendanceSuccess</result>
 		</action>
-<!-- ----------------- -->
+
 
 		<action name="FileSingleExamAttendance" class="de.hatoma.exman.action.SingleExamAttendance"
 			method="display">

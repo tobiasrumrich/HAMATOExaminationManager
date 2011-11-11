@@ -93,7 +93,7 @@ div#container {
 
 div#main-wrapper {
 	height: 100%;
-	overflow: scroll;
+	overflow: auto;
 }
 
 div#main {
@@ -173,11 +173,18 @@ span#sessioninfo {
 						<div>
 							<p>Batcherfassung</p>
 
+							<p>
 							<s:url action="FileSingleExamAttendance"
 									id="fileSingleExamAttendanceUrl" /> <s:a
 									href="%{fileSingleExamAttendanceUrl}">Einzelerfassung</s:a>
 							
-							<p></p>
+							</p>
+							<p>
+							<s:url action="FileSingleOralExamAttendance"
+									id="fileSingleOralExamAttendanceUrl" /> <s:a
+									href="%{fileSingleOralExamAttendanceUrl}">Erfassung mündlicher Noten</s:a>
+							
+							</p>
 						</div>
 					</div>
 
