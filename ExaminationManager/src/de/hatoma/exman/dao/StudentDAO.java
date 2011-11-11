@@ -2,9 +2,9 @@ package de.hatoma.exman.dao;
 
 import de.hatoma.exman.model.Student;
 
-public class StudentDao extends BaseDao<Student> implements IStudentDao {
+public class StudentDAO extends BaseDao<Student> implements IStudentDAO {
 
-	public StudentDao() {
+	public StudentDAO() {
 		super(Student.class);
 	}
 

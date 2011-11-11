@@ -70,9 +70,17 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+	<bean name="studentDAO" class="de.hatoma.exman.dao.StudentDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
 	<!-- SERVICES by HATOMA -->
 	<bean name="examAttendanceService" class="de.hatoma.exman.service.ExamAttendanceService">
 		<property name="examAttendanceDAO" ref="examAttendanceDAO" />
+	</bean>
+
+	<bean name="studentService" class="de.hatoma.exman.service.StudentService">
+		<property name="studentDAO" ref="studentDAO" />
 	</bean>
 
 	<!-- ACTIONS by HATOMA -->
