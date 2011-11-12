@@ -28,5 +28,9 @@
 		<put-attribute name="content" value="/tiles/fileSingleOralExamAttendance.jsp"/>
 		<put-attribute name="actionDisplayName" value="txtADNFileSingleOralExamAttendance"/>
 	</definition>
+	<definition name="showListForOralExamAttendance" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/showListForOralExamAttendance.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNShowListForOralExamAttendance"/>
+	</definition>
 
 </tiles-definitions>

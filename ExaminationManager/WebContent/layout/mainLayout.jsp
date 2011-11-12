@@ -19,20 +19,24 @@
 	rel="stylesheet" /> !-->
 <script type="text/javascript"
 	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
+
+<!--  KANN JEMAND ERMITTELN WARUM DAS FOLGENDE JS NICHT GEFUNDEN WIRD? (404)  -->
+
+<script type="text/javascript"
+	src="resources/jquery/js/datatables/media/js/jquery.dataTables.js"></script>	
 <script type="text/javascript"
 	src="resources/jquery/js/jquery-ui-1.8.16.custom.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
-		$("#schroeter").accordion({
+		$("#hatoma_accordeon").accordion({
 			header : "h3",
 			active : 0,
 			collapsible : false,
 			fillSpace : true,
 			animated : true
 		});
-		
-		
+
 		$("#sessioninfo").html(
 				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
 	});
@@ -155,7 +159,7 @@ span#sessioninfo {
 	<div id="container">
 		<div id="navigation-wrapper">
 			<div id="navigation">
-				<div id="schroeter">
+				<div id="hatoma_accordeon">
 					<div>
 						<h3>
 							<a href="#">Reports</a>
