@@ -1,6 +1,5 @@
 package de.hatoma.exman.action;
 
-import java.util.Collection;
 import java.util.Date;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -13,40 +12,57 @@ import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.model.StudyBranch;
 import de.hatoma.exman.service.IExamAttendanceService;
+import de.hatoma.exman.service.IManipleService;
 import de.hatoma.exman.service.IStudentService;
 import de.hatoma.exman.service.IStudyBranchService;
 
-public class SingleExamAttendance extends ActionSupport {
+public class SingleExamAttendanceAction extends ActionSupport {
 
-	private String formStudentId;
-	
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
 	private IExamAttendanceService examAttendanceService;
+	
+	private String formStudentId;
+	private IManipleService manipleService;
 	private IStudentService studentService;
-
-
 	private IStudyBranchService studyBranchService;
 	
+	public String display() throws Exception {
+		return "showInputForm";
+	}
+
 	public IExamAttendanceService getExamAttendanceService() {
 		return examAttendanceService;
 	}
 
-	public void setExamAttendanceService(
-			IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
+	/**
+	 * @return the manipleService
+	 */
+	public IManipleService getManipleService() {
+		return manipleService;
+	}
+	
+	
+	
+	/**
+	 * @return the student
+	 */
+	public String getStudent() {
+		return formStudentId;
 	}
 
-	public String display() throws Exception {
-		return "showInputForm";
+	public IStudentService getStudentService() {
+		return studentService;
 	}
-	
-	
-	
+
+	public IStudyBranchService getStudyBranchService() {
+		return studyBranchService;
+	}
+
 	@SuppressWarnings("deprecation")
 	public String save() throws Exception {
 		
@@ -54,9 +70,9 @@ public class SingleExamAttendance extends ActionSupport {
 		
 		
 
-		StudyBranch studyBranch = studyBranchService.createStudyBranch("AG","Agrarökonomie");
+		StudyBranch studyBranch = studyBranchService.createStudyBranch("A","Agra","Agrarökonomie");
 		
-		Maniple maniple = manipleService.createManiple(studyBranch, int year);
+		Maniple maniple = getManipleService().createManiple(studyBranch, 2012);
 		
 		Student student = studentService.createStudent("Horst", "Schlemmer", maniple);
 
@@ -72,11 +88,16 @@ public class SingleExamAttendance extends ActionSupport {
 		return "success";
 	}
 
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
+	}
+
 	/**
-	 * @return the student
+	 * @param manipleService the manipleService to set
 	 */
-	public String getStudent() {
-		return formStudentId;
+	public void setManipleService(IManipleService manipleService) {
+		this.manipleService = manipleService;
 	}
 
 	/**
@@ -86,16 +107,8 @@ public class SingleExamAttendance extends ActionSupport {
 		this.formStudentId = student;
 	}
 
-	public IStudentService getStudentService() {
-		return studentService;
-	}
-
 	public void setStudentService(IStudentService studentService) {
 		this.studentService = studentService;
-	}
-
-	public IStudyBranchService getStudyBranchService() {
-		return studyBranchService;
 	}
 
 	public void setStudyBranchService(IStudyBranchService studyBranchService) {
