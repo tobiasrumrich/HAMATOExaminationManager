@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-public abstract class BaseDao<T> extends HibernateDaoSupport implements IDao<T> {
+public abstract class BaseDao<T> extends HibernateDaoSupport implements IDAO<T> {
 	private Class<T> clazz;
 
 	public BaseDao(Class<T> clazz) {

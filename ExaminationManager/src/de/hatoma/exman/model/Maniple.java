@@ -23,7 +23,7 @@ import de.hatoma.exman.model.ExamSubject;
 public class Maniple implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private StudyBranch branchOfStudy;
+	private StudyBranch studyBranch;
 	private int year;
 	private long id;
 	private Collection<Student> student;
@@ -31,12 +31,12 @@ public class Maniple implements Serializable {
 
 
 	@OneToOne(optional = false)
-	public StudyBranch getBranchOfStudy() {
-		return branchOfStudy;
+	public StudyBranch getStudyBranch() {
+		return studyBranch;
 	}
 
-	public void setBranchOfStudy(StudyBranch branchOfStudy) {
-		this.branchOfStudy = branchOfStudy;
+	public void setStudyBranch(StudyBranch studyBranch) {
+		this.studyBranch = studyBranch;
 	}
 
 	@Basic(optional = false)

@@ -9,7 +9,7 @@ import de.hatoma.exman.model.ExamAttendance;
  * @author tobias
  *
  */
-public interface IExamAttendanceDAO extends IDao<ExamAttendance> {
+public interface IExamAttendanceDAO extends IDAO<ExamAttendance> {
 
 	
 }
