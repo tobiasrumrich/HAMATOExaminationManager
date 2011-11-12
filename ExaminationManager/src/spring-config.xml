@@ -73,12 +73,24 @@
 	<bean name="studentDAO" class="de.hatoma.exman.dao.StudentDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<bean name="studyBranchDAO" class="de.hatoma.exman.dao.StudyBranchDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<bean name="manipleDAO" class="de.hatoma.exman.dao.ManipleDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean name="examinerDAO" class="de.hatoma.exman.dao.ExaminerDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean name="examSubjectDAO" class="de.hatoma.exman.dao.ExamSubjectDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean name="examDAO" class="de.hatoma.exman.dao.ExamDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
@@ -90,22 +102,38 @@
 	<bean name="studentService" class="de.hatoma.exman.service.StudentService">
 		<property name="studentDAO" ref="studentDAO" />
 	</bean>
-	
+
 	<bean name="studyBranchService" class="de.hatoma.exman.service.StudyBranchService">
 		<property name="studyBranchDAO" ref="studyBranchDAO" />
 	</bean>
-	
+
 	<bean name="manipleService" class="de.hatoma.exman.service.ManipleService">
 		<property name="manipleDAO" ref="manipleDAO" />
 	</bean>
-	
+
+	<bean name="examinerService" class="de.hatoma.exman.service.ExaminerService">
+		<property name="examinerDAO" ref="examinerDAO" />
+	</bean>
+
+	<bean name="examSubjectService" class="de.hatoma.exman.service.ExamSubjectService">
+		<property name="examSubjectDAO" ref="examSubjectDAO" />
+	</bean>
+
+	<bean name="examService" class="de.hatoma.exman.service.ExamService">
+		<property name="examDAO" ref="examDAO" />
+	</bean>
+
 
 	<!-- ACTIONS by HATOMA -->
 	<bean name="SingleExamAttendanceAction" class="de.hatoma.exman.action.SingleExamAttendanceAction">
 		<property name="manipleService" ref="manipleService" />
 		<property name="studentService" ref="studentService" />
 		<property name="studyBranchService" ref="studyBranchService" />
+		<property name="examSubjectService" ref="examSubjectService" />
+		<property name="examService" ref="examService" />
 	</bean>
+	
+	
 	<!-- <bean name="singleExamAttendance" cla> <property name="examAttendanceService" 
 		ref="examAttendanceService" /> </bean> ! -->
 

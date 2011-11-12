@@ -26,7 +26,6 @@ public class ExamSubject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private String title;
-	private int year;
 	private String description;
 	private String moduleIdentifier;
 	private Maniple maniple;
@@ -46,12 +45,7 @@ public class ExamSubject implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
+	
 	public String getDescription() {
 		return description;
 	}

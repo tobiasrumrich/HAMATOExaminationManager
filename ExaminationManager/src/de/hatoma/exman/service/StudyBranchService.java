@@ -15,7 +15,7 @@ public class StudyBranchService implements IStudyBranchService {
 		studyBranch.setLongTag(longTag);
 		studyBranch.setBranchName(branchName);
 		getStudyBranchDAO().save(studyBranch);
-		return null;
+		return studyBranch;
 	}
 
 	/**
