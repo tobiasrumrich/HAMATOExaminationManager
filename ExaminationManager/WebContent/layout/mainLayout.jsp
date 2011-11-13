@@ -21,11 +21,6 @@
 	rel="stylesheet" /> !-->
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-=======
-	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom.css"
-	rel="stylesheet" />
-	-->
->>>>>>> Zwischenstand "Wir können FileUpload"
 <script type="text/javascript"
 	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript"
