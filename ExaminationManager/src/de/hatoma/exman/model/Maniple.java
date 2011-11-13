@@ -8,10 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
@@ -31,7 +29,7 @@ public class Maniple implements Serializable {
 	private Collection<ExamSubject> examSubjects;
 
 
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	public StudyBranch getStudyBranch() {
 		return studyBranch;
 	}
@@ -83,6 +81,11 @@ public class Maniple implements Serializable {
 
 	public void setExamSubject(Collection<ExamSubject> param) {
 	    this.examSubjects = param;
+	}
+
+	@Override
+	public String toString() {
+		return studyBranch.getShortTag()+String.valueOf(year).substring(2);
 	}
 
 
