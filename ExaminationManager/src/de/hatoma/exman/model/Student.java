@@ -27,7 +27,12 @@ public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Collection<ExamAttendance> examAttendance;
 	private String forename;
+<<<<<<< HEAD
 	private long id;
+=======
+	private String lastname;
+	private String matriculationNumber;
+>>>>>>> Zwischenstand "Wir können FileUpload"
 
 	private String lastname;
 
@@ -74,6 +79,20 @@ public class Student implements Serializable {
 
 	public void setManiple(Maniple param) {
 		this.maniple = param;
+	}
+
+	/**
+	 * @return the matriculationNumber
+	 */
+	public String getMatriculationNumber() {
+		return matriculationNumber;
+	}
+
+	/**
+	 * @param matriculationNumber the matriculationNumber to set
+	 */
+	public void setMatriculationNumber(String matriculationNumber) {
+		this.matriculationNumber = matriculationNumber;
 	}
 
 	

@@ -124,6 +124,9 @@
 		<property name="examDAO" ref="examDAO" />
 	</bean>
 
+	<bean name="trainmanService" class="de.hatoma.exman.service.TrainmanService">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<!-- ACTIONS by HATOMA -->
 	<bean name="SingleExamAttendanceAction" class="de.hatoma.exman.action.SingleExamAttendanceAction">
@@ -134,7 +137,12 @@
 		<property name="examService" ref="examService" />
 	</bean>
 	
-	
+	<bean name="TrainmanFileUplaodAction" class="de.hatoma.exman.action.TrainmanFileUploadAction">
+		<property name="trainmanService" ref="trainmanService" />
+	</bean>
+
+
+
 	<!-- <bean name="singleExamAttendance" cla> <property name="examAttendanceService" 
 		ref="examAttendanceService" /> </bean> ! -->
 
