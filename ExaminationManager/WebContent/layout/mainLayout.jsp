@@ -17,11 +17,10 @@
 <link type="text/css"
 	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom..css"
 	rel="stylesheet" /> !-->
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <script type="text/javascript"
 	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
-
-<!--  KANN JEMAND ERMITTELN WARUM DAS FOLGENDE JS NICHT GEFUNDEN WIRD? (404)  -->
-
 <script type="text/javascript"
 	src="resources/jquery/js/datatables/media/js/jquery.dataTables.js"></script>	
 <script type="text/javascript"
@@ -29,7 +28,7 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("#hatoma_accordeon").accordion({
+		$("#hatoma_accordion").accordion({
 			header : "h3",
 			active : 0,
 			collapsible : false,
@@ -41,6 +40,26 @@
 				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
 	});
 </script>
+<!-- CSS für DataTables -->
+<style type="text/css">
+	@import "resources/jquery/js/datatables/media/css/demo_table.css";
+	.dataTables_info {
+		font-size: 70%;
+		font-weight:bold;
+	} 
+	.sorting_asc, .sorting_desc, .sorting {
+		font-weight:bold;
+	}
+	.hatoma_dataTable {
+		clear:both;
+	}
+	.dataTables_wrapper {
+		background-color:#eef6fa;
+		padding: 10px;
+		min-height:none !important;
+	}
+	
+</style>
 <style type="text/css">
 html {
 	height: 100%;
@@ -159,7 +178,7 @@ span#sessioninfo {
 	<div id="container">
 		<div id="navigation-wrapper">
 			<div id="navigation">
-				<div id="hatoma_accordeon">
+				<div id="hatoma_accordion">
 					<div>
 						<h3>
 							<a href="#">Reports</a>
@@ -184,10 +203,9 @@ span#sessioninfo {
 							
 							</p>
 							<p>
-							<s:url action="FileSingleOralExamAttendance"
-									id="fileSingleOralExamAttendanceUrl" /> <s:a
-									href="%{fileSingleOralExamAttendanceUrl}">Erfassung mündlicher Noten</s:a>
-							
+							<s:url action="ShowListForOralExamAttendance"
+									id="showListForOralExamAttendanceUrl" /> <s:a
+									href="%{showListForOralExamAttendanceUrl}">Erfassung mündlicher Noten</s:a>							
 							</p>
 						</div>
 					</div>

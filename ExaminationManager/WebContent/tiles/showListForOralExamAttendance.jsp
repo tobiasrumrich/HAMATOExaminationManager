@@ -21,13 +21,34 @@
 	<s:token />
 	<s:select name="maniple" key="lblManiple" list="{'Bachelor of Arts, Test 2008','Bachelor of Arts, WTest 2009'}" required="true" />
 </s:form>
-<table id="student_list">
+<table id="student_list" class="hatoma_dataTable">
 <thead>
-<tr><td>Student</td></tr>
+<tr><td>Student</td><td>Testspalte #1</td><td>Testspalte #2</td></tr>
 </thead>
 <tbody>
-<s:iterator value="%{#attr.students}">
-  <tr><td><s:property /></td></tr>
+<s:iterator value="%{#attr.students}" status="iteratorStatus">
+<s:url action="FileSingleOralExamAttendance" id="fileSingleOralExamAttendanceUrl" />
+  <tr>
+  	<td>
+ 		<s:a href="%{fileSingleOralExamAttendanceUrl}">
+ 			<s:property />
+ 		</s:a>
+  	</td>
+  	<td>
+  		Testspalte beliebigen Inhalts <s:property value="#iteraturStatus.index" />
+  	</td>
+  	<td>Testspalte beliebigen Inhalts <s:property value="#iteraturStatus.count" />
+  	</td>
+  </tr>
 </s:iterator>
 </tbody>
 </table>
+
+				<s:iterator value="rooms">
+					<tr>
+						<td><s:radio name="selectedId" list="#{id:''}" theme="simple"/></td>
+						<td><s:property value="building"/></td>
+						<td><s:property value="roomNumber"/></td>
+					</tr>
+				</s:iterator>
+

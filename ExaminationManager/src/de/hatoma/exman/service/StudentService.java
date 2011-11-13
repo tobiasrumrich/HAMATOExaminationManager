@@ -1,5 +1,7 @@
 package de.hatoma.exman.service;
 
+import java.util.HashSet;
+
 import de.hatoma.exman.dao.IStudentDAO;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
