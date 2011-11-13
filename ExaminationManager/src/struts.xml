@@ -52,32 +52,10 @@
 			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
 		</action>
 		
-		<action name="Trainman" class="de.hatoma.exman.action.TrainmanFileUploadAction" method="display">
+		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
 			<result name="input" type="tiles">trainmanIntro</result>
+			<result name="success" type="tiles">trainmanSuccess</result>
 		</action>
-
-
-	<action name="TrainmanResultAction" class="de.hatoma.exman.action.TrainmanFileUploadAction">
-	    <interceptor-ref name="exception"/>
-            <interceptor-ref name="i18n"/>
-            <interceptor-ref name="fileUpload">
-       		<!--  <param name="allowedTypes">text/plain</param>  -->
-       		<param name="maximumSize">10240</param>
-  	    </interceptor-ref> 
-            <interceptor-ref name="params">
-                <param name="excludeParams">dojo\..*,^struts\..*</param>
-            </interceptor-ref>
-            <interceptor-ref name="validation">
-                <param name="excludeMethods">input,back,cancel,browse</param>
-            </interceptor-ref>
-            <interceptor-ref name="workflow">
-                <param name="excludeMethods">input,back,cancel,browse</param>
-            </interceptor-ref>
- 
-	    <result type="tiles" name="success">trainmanResult</result>
-	    <result type="tiles" name="input">trainmanIntro</result>
- 
-	</action>
 
 
 	</package>

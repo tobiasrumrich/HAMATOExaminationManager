@@ -41,12 +41,12 @@
 	</definition>
 	
 	<definition name="trainmanIntro" extends="modalLayout">
-		<put-attribute name="content" value="/tiles/trainman/dataImporter.jsp"/>
+		<put-attribute name="content" value="/tiles/trainman/intro.jsp"/>
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase"/>
 	</definition>
 	
-	<definition name="trainmanResult" extends="modalLayout">
-		<put-attribute name="content" value="/tiles/trainman/result.jsp"/>
+	<definition name="trainmanSuccess" extends="modalLayout">
+		<put-attribute name="content" value="/tiles/trainman/success.jsp"/>
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase"/>
 	</definition>
 

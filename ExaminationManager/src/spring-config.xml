@@ -125,7 +125,12 @@
 	</bean>
 
 	<bean name="trainmanService" class="de.hatoma.exman.service.TrainmanService">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="manipleService" ref="manipleService" />
+		<property name="studentService" ref="studentService" />
+		<property name="studyBranchService" ref="studyBranchService" />
+		<property name="examSubjectService" ref="examSubjectService" />
+		<property name="examService" ref="examService" />
+		<property name="examinerService" ref="examinerService" />
 	</bean>
 
 	<!-- ACTIONS by HATOMA -->
@@ -137,7 +142,7 @@
 		<property name="examService" ref="examService" />
 	</bean>
 	
-	<bean name="TrainmanFileUplaodAction" class="de.hatoma.exman.action.TrainmanFileUploadAction">
+	<bean name="TrainmanAction" class="de.hatoma.exman.action.TrainmanAction">
 		<property name="trainmanService" ref="trainmanService" />
 	</bean>
 
