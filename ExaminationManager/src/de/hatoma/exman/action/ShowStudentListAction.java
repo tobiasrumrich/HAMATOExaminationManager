@@ -1,39 +1,47 @@
 package de.hatoma.exman.action;
 
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import de.hatoma.exman.model.Student;
-import de.hatoma.exman.service.IStudentService;
-import de.hatoma.exman.service.room.IRoomService;
+import de.hatoma.exman.service.IManipleService;
 
 
 public class ShowStudentListAction extends ActionSupport {
-	private IStudentService studentService;
-	private Set<Student> students;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private IManipleService manipleService;
+	private List<Student> students;
+	
 	@Override
 	public String execute() throws Exception {
-		students = new HashSet<Student>(studentService.listStudents());
-		return SUCCESS;
+		return "success";
+	}
+	
+	public String display() throws Exception {
+		students = (List<Student>) getStudents();
+		return "showInputForm";
+	}
+	public Collection<Student> getStudents() {
+		// TODO Hier steht die 1 Just for dummy
+		return manipleService.getStudents(1);
 	}
 
-	public Set<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudentss(Set<Student> students) {
+	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
 
-	public IStudentService getStudentService() {
-		return studentService;
+	public IManipleService getManipleService() {
+		return manipleService;
 	}
 
-	public void setStudentService(IStudentService studentService) {
-		this.studentService = studentService;
+	public void setManipleService(IManipleService manipleService) {
+		this.manipleService = manipleService;
 	}
 
 }

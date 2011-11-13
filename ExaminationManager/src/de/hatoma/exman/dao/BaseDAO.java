@@ -1,5 +1,6 @@
 package de.hatoma.exman.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -14,10 +15,18 @@ public abstract class BaseDAO<T> extends HibernateDaoSupport implements IDAO<T> 
 	/** {@inheritDoc} */
 	@SuppressWarnings("unchecked")
 	@Override
-	public T save(T t) {
-		return (T) getHibernateTemplate().save(t);
+	public Serializable save(T t) {
+		return getHibernateTemplate().save(t);
 	}
 
+	/** {@inheritDoc} */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void update(T t) {
+		getHibernateTemplate().update(t);
+	}
+
+	
 	/** {@inheritDoc} */
 	@Override
 	public void delete(T t) {

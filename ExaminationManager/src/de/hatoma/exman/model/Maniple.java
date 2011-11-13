@@ -8,13 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import de.hatoma.exman.model.ExamSubject;
 
 @Entity
 @Audited
@@ -26,8 +27,8 @@ public class Maniple implements Serializable {
 	private StudyBranch studyBranch;
 	private int year;
 	private long id;
-	private Collection<Student> student;
-	private Collection<ExamSubject> examSubject;
+	private Collection<Student> students;
+	private Collection<ExamSubject> examSubjects;
 
 
 	@OneToOne(optional = false)
@@ -64,22 +65,24 @@ public class Maniple implements Serializable {
 		this.id = id;
 	}
 
-	@OneToMany(mappedBy = "maniple")
+    @OneToMany()
+//    @JoinColumn(name="id")
+    //@JoinTable(name="maniple2student")
 	public Collection<Student> getStudent() {
-	    return student;
+	    return students;
 	}
 
 	public void setStudent(Collection<Student> param) {
-	    this.student = param;
+	    this.students = param;
 	}
 
 	@OneToMany(mappedBy = "maniple")
 	public Collection<ExamSubject> getExamSubject() {
-	    return examSubject;
+	    return examSubjects;
 	}
 
 	public void setExamSubject(Collection<ExamSubject> param) {
-	    this.examSubject = param;
+	    this.examSubjects = param;
 	}
 
 

@@ -1,7 +1,11 @@
 package de.hatoma.exman.service;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import de.hatoma.exman.dao.IManipleDAO;
 import de.hatoma.exman.model.Maniple;
+import de.hatoma.exman.model.Student;
 import de.hatoma.exman.model.StudyBranch;
 
 public class ManipleService implements IManipleService {
@@ -17,6 +21,12 @@ public class ManipleService implements IManipleService {
 		
 		getManipleDAO().save(maniple);
 		return maniple;
+	}
+	
+	public Collection<Student> getStudents(long id) {
+		Collection<Student> students;
+		students = getManipleDAO().getStudents(id);
+		return students;
 	}
 
 	/**

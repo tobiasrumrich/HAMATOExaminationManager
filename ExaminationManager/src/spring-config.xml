@@ -72,6 +72,7 @@
 
 	<bean name="studentDAO" class="de.hatoma.exman.dao.StudentDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="manipleDAO" ref="manipleDAO" />
 	</bean>
 
 	<bean name="studyBranchDAO" class="de.hatoma.exman.dao.StudyBranchDAO">
