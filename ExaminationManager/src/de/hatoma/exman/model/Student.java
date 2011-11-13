@@ -27,10 +27,10 @@ public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Collection<ExamAttendance> examAttendance;
 	private String forename;
+
 	private long id;
-
+	private String matriculationNumber;
 	private String lastname;
-
 	private Maniple maniple;
 
 	@OneToMany(mappedBy = "student")
@@ -74,6 +74,20 @@ public class Student implements Serializable {
 
 	public void setManiple(Maniple param) {
 		this.maniple = param;
+	}
+
+	/**
+	 * @return the matriculationNumber
+	 */
+	public String getMatriculationNumber() {
+		return matriculationNumber;
+	}
+
+	/**
+	 * @param matriculationNumber the matriculationNumber to set
+	 */
+	public void setMatriculationNumber(String matriculationNumber) {
+		this.matriculationNumber = matriculationNumber;
 	}
 
 	

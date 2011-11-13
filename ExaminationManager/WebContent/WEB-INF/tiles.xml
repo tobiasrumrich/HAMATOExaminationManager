@@ -10,6 +10,13 @@
 		<put-attribute name="title" value="txtTitle"/>
 		<put-attribute name="applicationName" value="txtApplicationName"></put-attribute>
 	</definition>
+	
+	<!-- Modal Layout -->
+	<definition name="modalLayout" template="/layout/modalLayout.jsp">
+		<put-attribute name="title" value="txtTitle"/>
+		<put-attribute name="applicationName" value="txtApplicationName"></put-attribute>
+	</definition>
+	
 	<!-- Screens -->
 	<definition name="home" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/home.jsp"/>
@@ -31,6 +38,16 @@
 	<definition name="showListForOralExamAttendance" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/showListForOralExamAttendance.jsp"/>
 		<put-attribute name="actionDisplayName" value="txtADNShowListForOralExamAttendance"/>
+	</definition>
+	
+	<definition name="trainmanIntro" extends="modalLayout">
+		<put-attribute name="content" value="/tiles/trainman/intro.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase"/>
+	</definition>
+	
+	<definition name="trainmanSuccess" extends="modalLayout">
+		<put-attribute name="content" value="/tiles/trainman/success.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase"/>
 	</definition>
 
 </tiles-definitions>
