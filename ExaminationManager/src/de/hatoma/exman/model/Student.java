@@ -27,15 +27,10 @@ public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Collection<ExamAttendance> examAttendance;
 	private String forename;
-<<<<<<< HEAD
+
 	private long id;
-=======
-	private String lastname;
 	private String matriculationNumber;
->>>>>>> Zwischenstand "Wir können FileUpload"
-
 	private String lastname;
-
 	private Maniple maniple;
 
 	@OneToMany(mappedBy = "student")
