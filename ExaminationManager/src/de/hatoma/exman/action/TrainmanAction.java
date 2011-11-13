@@ -10,7 +10,7 @@ public class TrainmanAction extends ActionSupport {
 
 	public String insertData() throws Exception {
 
-		getTrainmanService().createPhaseOne();
+		getTrainmanService().createPhaseOne(90,120);
 
 		return "success";
 
