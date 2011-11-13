@@ -13,7 +13,34 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("#student_list").dataTable();
+	
+		 $('#student_list').dataTable( {
+			 	"bAutoWidth": false,
+			 	"bProcessing": true,
+			 	"aoColumnDefs": [ 
+			 	                { "sWidth": "30px", "aTargets": [ 0 ] },
+			 	                { "sWidth": "160px", "aTargets": [ "_all" ] }
+			 	            ],
+			 	"bStateSave": true,
+		        "oLanguage": {
+		            "oPaginate": {
+		                "sPrevious": "Vorherige Seite",
+		                "sNext": "Nächste Seite",
+		                "sFirst": "Erste Seite",
+		                "sLast": "Letzte Seite",
+		            },
+		            "sSearch": "Suche:",
+		            "sEmptyTable": "Keine Einträge gefunden.",
+					"sInfo": "Zeige Eintrag _START_ bis _END_ von _TOTAL_.",
+					"sInfoEmpty": "Zeige 0 von 0 Einträgen.",
+					"sInfoFiltered": " - gefiltert aus _MAX_ Einträgen.",
+					"sInfoThousands": ".", //Tausender-Trennzeichen
+					"sLengthMenu": "Zeige _MENU_ Einträge.",
+					"sProcessing": "Bitte warten",
+					"sZeroRecords": "Keine Daten vorhanden."
+					
+		        }
+		    } );
 	});
 </script>
 
@@ -35,7 +62,9 @@
 
   <tr>
   	<td>
-		<s:property value="id" /> 
+ 		<s:a href="%{fileSingleOralExamAttendanceUrl}">
+			<s:property value="id" />
+ 		</s:a> 
   	</td>
   	<td>
  		<s:a href="%{fileSingleOralExamAttendanceUrl}">

@@ -47,16 +47,53 @@
 		font-size: 70%;
 		font-weight:bold;
 	} 
+	/*Spaltenüberschriften*/
 	.sorting_asc, .sorting_desc, .sorting {
 		font-weight:bold;
 	}
+	.sorting_asc, .sorting_desc {
+		font-weight:bold;
+		background-color:#4fa0cd;
+	}
+	.sorting {
+		font-weight:bold;
+		background-color:#91c3e0;
+	}
 	.hatoma_dataTable {
 		clear:both;
+		border-collapse:collapse;
+		border:2px grey solid;
+		margin:05px;
 	}
 	.dataTables_wrapper {
-		background-color:#eef6fa;
+		background-color:#eeeeee;
 		padding: 10px;
 		min-height:none !important;
+	}
+	tr.odd{
+		background-color:#eef6fa;
+	}
+	tr.odd td.sorting_1{
+		background-color:#d3e7f3;
+	}	
+	tr.even{
+		background-color:white;
+	}
+	tr.even td.sorting_1{
+		background-color:#e1eff6;
+	}
+	td {
+		padding:0.4em;
+	}
+	.hatoma_dataTable a {
+		text-decoration:underline;
+		color:black;
+		font-weight:bold;
+	}
+	.hatoma_dataTable a:hover {
+		text-decoration:underline;
+		color:orange;
+		font-weight:bold;
 	}
 	
 </style>
