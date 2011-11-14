@@ -10,10 +10,6 @@ import de.hatoma.exman.model.room.Lecture;
 
 public class LectureDAO extends HibernateDaoSupport implements ILectureDAO {
 
-	public Serializable save(Lecture lecture) {
-		return getHibernateTemplate().save(lecture);
-	}
-
 	public void delete(Lecture lecture) {
 		getHibernateTemplate().delete(lecture);
 	}
@@ -23,10 +19,7 @@ public class LectureDAO extends HibernateDaoSupport implements ILectureDAO {
 		return getHibernateTemplate().loadAll(Lecture.class);
 	}
 
-	public Lecture load(long id) {
-		return (Lecture) getHibernateTemplate().get(Lecture.class, id);
-	}
-
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Lecture> findByRoom(long roomId) {
 		Query query = getHibernateTemplate()
@@ -36,6 +29,14 @@ public class LectureDAO extends HibernateDaoSupport implements ILectureDAO {
 						"from Lecture as lecture join fetch lecture.room as room where room.id = :roomId");
 		query.setLong("roomId", roomId);
 		return query.list();
+	}
+
+	public Lecture load(long id) {
+		return (Lecture) getHibernateTemplate().get(Lecture.class, id);
+	}
+
+	public Serializable save(Lecture lecture) {
+		return getHibernateTemplate().save(lecture);
 	}
 
 	public void update(Lecture entity) {

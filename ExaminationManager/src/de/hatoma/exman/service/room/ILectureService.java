@@ -23,8 +23,20 @@ public interface ILectureService {
 	 * @throws RoomNotFoundException
 	 *             if the given room is not found.
 	 */
-	Lecture createLecture(Timestamp beginDate,
-			Timestamp endDate, long roomId, long courseId);
+	Lecture createLecture(Timestamp beginDate, Timestamp endDate, long roomId,
+			long courseId);
+
+	/**
+	 * Deletes the lecture with the given id.
+	 * 
+	 * @param lectureId
+	 *            The identifier.
+	 * @throws LectureNotFoundException
+	 *             if no lecture could be fount for the given id.
+	 */
+	void deleteLecture(int lectureId);
+
+	List<Lecture> findLectures(long roomId);
 
 	/**
 	 * List all lectures currently stored in the database.
@@ -33,8 +45,6 @@ public interface ILectureService {
 	 *         is returned.
 	 */
 	List<Lecture> listLectures();
-
-	List<Lecture> findLectures(long roomId);
 
 	/**
 	 * Returns the lecture identified by the given id.
@@ -46,16 +56,6 @@ public interface ILectureService {
 	 *             if no lecture was found using the given identifier.
 	 */
 	Lecture loadLecture(long lectureId);
-
-	/**
-	 * Deletes the lecture with the given id.
-	 * 
-	 * @param lectureId
-	 *            The identifier.
-	 * @throws LectureNotFoundException
-	 *             if no lecture could be fount for the given id.
-	 */
-	void deleteLecture(int lectureId);
 
 	/**
 	 * Updates a lecture entity and stores the changes into the database.

@@ -20,8 +20,18 @@ public interface ICourseService {
 	 * @throws CourseAlreadyPresentException
 	 *             if the course already exists in the database.
 	 */
-	Course createCourse(String fieldOfStudy, int number,
-			String lecturer, String title);
+	Course createCourse(String fieldOfStudy, int number, String lecturer,
+			String title);
+
+	/**
+	 * Deletes the course with the given id.
+	 * 
+	 * @param courseId
+	 *            The identifier.
+	 * @throws CourseNotFoundException
+	 *             if no course could be fount for the given id.
+	 */
+	void deleteCourse(Long courseId);
 
 	/**
 	 * List all courses currently stored in the database.
@@ -54,17 +64,6 @@ public interface ICourseService {
 	 * @throws CourseNotFoundException
 	 *             if no course could be found for the given id.
 	 */
-	void updateCourse(Long courseId, String lecturer,
-			String title);
-
-	/**
-	 * Deletes the course with the given id.
-	 * 
-	 * @param courseId
-	 *            The identifier.
-	 * @throws CourseNotFoundException
-	 *             if no course could be fount for the given id.
-	 */
-	void deleteCourse(Long courseId);
+	void updateCourse(Long courseId, String lecturer, String title);
 
 }

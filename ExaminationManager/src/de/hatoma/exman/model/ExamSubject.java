@@ -6,14 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import de.hatoma.exman.model.Maniple;
-import javax.persistence.ManyToOne;
-
 
 @Entity
 @Audited
@@ -24,54 +21,70 @@ public class ExamSubject implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long id;
-	private String title;
 	private String description;
-	private String moduleIdentifier;
+	private long id;
 	private Maniple maniple;
-	
+	private String moduleIdentifier;
+	private String title;
+
+	public String getDescription() {
+		return description;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	@ManyToOne
+	public Maniple getManiple() {
+		return maniple;
 	}
-	
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+
 	/**
 	 * @return the moduleIdentifier
 	 */
-	//TODO: Es muss noch eine ID über ModulIdentifier und Manipel gebildet werden!!
+	// TODO: Es muss noch eine ID über ModulIdentifier und Manipel gebildet
+	// werden!!
 	public String getModuleIdentifier() {
 		return moduleIdentifier;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setManiple(Maniple param) {
+		this.maniple = param;
+	}
+
 	/**
-	 * @param moduleIdentifier the moduleIdentifier to set
+	 * @param moduleIdentifier
+	 *            the moduleIdentifier to set
 	 */
 	public void setModuleIdentifier(String moduleIdentifier) {
 		this.moduleIdentifier = moduleIdentifier;
 	}
-	@ManyToOne
-	public Maniple getManiple() {
-	    return maniple;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public void setManiple(Maniple param) {
-	    this.maniple = param;
+
+	@Override
+	public String toString() {
+		return "ExamSubject [maniple=" + maniple + ", moduleIdentifier="
+				+ moduleIdentifier + ", title=" + title + "]";
 	}
 	
 	
+
 }

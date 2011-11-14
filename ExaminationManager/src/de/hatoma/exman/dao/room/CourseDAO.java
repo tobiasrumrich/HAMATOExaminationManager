@@ -11,12 +11,6 @@ public class CourseDAO extends HibernateDaoSupport implements ICourseDAO {
 
 	/** {@inheritDoc} */
 	@Override
-	public Course save(Course course) {
-		return (Course) getHibernateTemplate().save(course);
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void delete(Course course) {
 		getHibernateTemplate().delete(course);
 	}
@@ -29,13 +23,19 @@ public class CourseDAO extends HibernateDaoSupport implements ICourseDAO {
 	}
 
 	@Override
-	public void update(Course entity) {
-		// dummy um compilefehler zu verhindern
-	}
-
-	@Override
 	public Course load(Serializable id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public Course save(Course course) {
+		return (Course) getHibernateTemplate().save(course);
+	}
+
+	@Override
+	public void update(Course entity) {
+		// dummy um compilefehler zu verhindern
 	}
 }

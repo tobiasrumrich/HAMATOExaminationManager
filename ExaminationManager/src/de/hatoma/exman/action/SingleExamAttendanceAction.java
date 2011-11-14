@@ -25,24 +25,20 @@ public class SingleExamAttendanceAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
-	private IExamAttendanceService examAttendanceService;
-	
-	private String formStudentId;
-	private IManipleService manipleService;
-	private IStudentService studentService;
-	private IStudyBranchService studyBranchService;
 
+	private IExamAttendanceService examAttendanceService;
 
 	private IExaminerService examinerService;
-
-
-	private IExamSubjectService examSubjectService;
-
-
 	private IExamService examService;
-	
+	private IExamSubjectService examSubjectService;
+	private String formStudentId;
+
+	private IManipleService manipleService;
+
+	private IStudentService studentService;
+
+	private IStudyBranchService studyBranchService;
+
 	public String display() throws Exception {
 		return "showInputForm";
 	}
@@ -52,14 +48,33 @@ public class SingleExamAttendanceAction extends ActionSupport {
 	}
 
 	/**
+	 * @return the examinerService
+	 */
+	public IExaminerService getExaminerService() {
+		return examinerService;
+	}
+
+	/**
+	 * @return the examService
+	 */
+	public IExamService getExamService() {
+		return examService;
+	}
+
+	/**
+	 * @return the examSubjectService
+	 */
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
+	}
+
+	/**
 	 * @return the manipleService
 	 */
 	public IManipleService getManipleService() {
 		return manipleService;
 	}
-	
-	
-	
+
 	/**
 	 * @return the student
 	 */
@@ -77,25 +92,26 @@ public class SingleExamAttendanceAction extends ActionSupport {
 
 	@SuppressWarnings("deprecation")
 	public String save() throws Exception {
-		
-	
-		
-		
 
-		StudyBranch studyBranch = studyBranchService.createStudyBranch("A","Agra","Agrarökonomie");
-		
+		StudyBranch studyBranch = studyBranchService.createStudyBranch("A",
+				"Agra", "Agrarökonomie");
+
 		Maniple maniple = getManipleService().createManiple(studyBranch, 2012);
-		
-		Student student = studentService.createStudent("Horst", "Schlemmer", maniple);
 
-		Examiner examiner = getExaminerService().createExaminer("Ralf", "Kesten");
-		ExamSubject examSubject = getExamSubjectService().createExamSubject("Ausdruckstanz","A Fancy Description","ADT",maniple);
-		
-		Exam exam = getExamService().createExam(examSubject, new Date(2011,11,1), examiner);
+		Student student = studentService.createStudent("Horst", "Schlemmer",
+				maniple);
 
-		
+		Examiner examiner = getExaminerService().createExaminer("Ralf",
+				"Kesten");
+		ExamSubject examSubject = getExamSubjectService().createExamSubject(
+				"Ausdruckstanz", "A Fancy Description", "ADT", maniple);
+
+		Exam exam = getExamService().createExam(examSubject,
+				new Date(2011, 11, 1), examiner);
+
 		ExamGrade examGrade = ExamGrade.G10;
-		examAttendanceService.createExamAttendanceForStudent(student, exam, examGrade);
+		examAttendanceService.createExamAttendanceForStudent(student, exam,
+				examGrade);
 		return "success";
 	}
 
@@ -105,14 +121,40 @@ public class SingleExamAttendanceAction extends ActionSupport {
 	}
 
 	/**
-	 * @param manipleService the manipleService to set
+	 * @param examinerService
+	 *            the examinerService to set
+	 */
+	public void setExaminerService(IExaminerService examinerService) {
+		this.examinerService = examinerService;
+	}
+
+	/**
+	 * @param examService
+	 *            the examService to set
+	 */
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
+	}
+
+	/**
+	 * @param examSubjectService
+	 *            the examSubjectService to set
+	 */
+	public void setExamSubjectService(IExamSubjectService examSubjectService) {
+		this.examSubjectService = examSubjectService;
+	}
+
+	/**
+	 * @param manipleService
+	 *            the manipleService to set
 	 */
 	public void setManipleService(IManipleService manipleService) {
 		this.manipleService = manipleService;
 	}
 
 	/**
-	 * @param student the student to set
+	 * @param student
+	 *            the student to set
 	 */
 	public void setStudent(String student) {
 		this.formStudentId = student;
@@ -124,48 +166,6 @@ public class SingleExamAttendanceAction extends ActionSupport {
 
 	public void setStudyBranchService(IStudyBranchService studyBranchService) {
 		this.studyBranchService = studyBranchService;
-	}
-
-	/**
-	 * @return the examService
-	 */
-	public IExamService getExamService() {
-		return examService;
-	}
-
-	/**
-	 * @param examService the examService to set
-	 */
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
-	}
-
-	/**
-	 * @return the examSubjectService
-	 */
-	public IExamSubjectService getExamSubjectService() {
-		return examSubjectService;
-	}
-
-	/**
-	 * @param examSubjectService the examSubjectService to set
-	 */
-	public void setExamSubjectService(IExamSubjectService examSubjectService) {
-		this.examSubjectService = examSubjectService;
-	}
-
-	/**
-	 * @return the examinerService
-	 */
-	public IExaminerService getExaminerService() {
-		return examinerService;
-	}
-
-	/**
-	 * @param examinerService the examinerService to set
-	 */
-	public void setExaminerService(IExaminerService examinerService) {
-		this.examinerService = examinerService;
 	}
 
 }

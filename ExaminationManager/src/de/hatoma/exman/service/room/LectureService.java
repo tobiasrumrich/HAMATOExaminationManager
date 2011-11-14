@@ -13,14 +13,14 @@ import de.hatoma.exman.model.room.Room;
  */
 public class LectureService implements ILectureService {
 
+	/** The {@link ICourseService} to use. */
+	private ICourseService courseService;
+
 	/** The {@link ILectureDAO} to use for db access. */
 	private ILectureDAO lectureDAO;
 
 	/** The {@link IRoomService} to use. */
 	private IRoomService roomService;
-
-	/** The {@link ICourseService} to use. */
-	private ICourseService courseService;
 
 	/** {@inheritDoc} */
 	@Override
@@ -46,28 +46,6 @@ public class LectureService implements ILectureService {
 
 	/** {@inheritDoc} */
 	@Override
-	public List<Lecture> listLectures() {
-		return null; // getLectureDAO().findAll();
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public List<Lecture> findLectures(long roomId) {
-		return getLectureDAO().findByRoom(roomId);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public Lecture loadLecture(long lectureId) {
-		// Lecture lecture = null; // getLectureDAO().load(lectureId);
-		// if (lecture == null) {
-		// throw new LectureNotFoundException();
-		// }
-		return null;
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void deleteLecture(int lectureId) {
 		Lecture lecture = loadLecture(lectureId);
 		if (lecture.getRoom() != null) {
@@ -81,34 +59,56 @@ public class LectureService implements ILectureService {
 
 	/** {@inheritDoc} */
 	@Override
-	public void updateLecture(int lectureId, int roomId) {
-		Lecture lecture = loadLecture(lectureId);
-		Room room = getRoomService().loadRoom(roomId);
-		room.associateLecture(lecture);
-	}
-
-	public IRoomService getRoomService() {
-		return roomService;
-	}
-
-	public void setRoomService(IRoomService roomService) {
-		this.roomService = roomService;
+	public List<Lecture> findLectures(long roomId) {
+		return getLectureDAO().findByRoom(roomId);
 	}
 
 	public ICourseService getCourseService() {
 		return courseService;
 	}
 
-	public void setCourseService(ICourseService courseService) {
-		this.courseService = courseService;
-	}
-
 	public ILectureDAO getLectureDAO() {
 		return lectureDAO;
 	}
 
+	public IRoomService getRoomService() {
+		return roomService;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public List<Lecture> listLectures() {
+		return null; // getLectureDAO().findAll();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public Lecture loadLecture(long lectureId) {
+		// Lecture lecture = null; // getLectureDAO().load(lectureId);
+		// if (lecture == null) {
+		// throw new LectureNotFoundException();
+		// }
+		return null;
+	}
+
+	public void setCourseService(ICourseService courseService) {
+		this.courseService = courseService;
+	}
+
 	public void setLectureDAO(ILectureDAO lectureDAO) {
 		this.lectureDAO = lectureDAO;
+	}
+
+	public void setRoomService(IRoomService roomService) {
+		this.roomService = roomService;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void updateLecture(int lectureId, int roomId) {
+		Lecture lecture = loadLecture(lectureId);
+		Room room = getRoomService().loadRoom(roomId);
+		room.associateLecture(lecture);
 	}
 
 }

@@ -6,7 +6,7 @@
 <validators>
 	<field name="room">
 		<field-validator type="visitor">
-			<message key="txtRoomError"/>
+			<message key="txtRoomError" />
 		</field-validator>
 	</field>
 </validators>

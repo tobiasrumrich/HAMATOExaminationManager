@@ -17,12 +17,6 @@ public class RoomService implements IRoomService {
 
 	/** {@inheritDoc} */
 	@Override
-	public List<Room> listRooms() {
-		return getRoomDAO().findAll();
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public Room createRoom(int roomNumber, String building, int seats,
 			boolean beamer) {
 		Room room = new Room();
@@ -40,22 +34,6 @@ public class RoomService implements IRoomService {
 
 	/** {@inheritDoc} */
 	@Override
-	public Room loadRoom(long roomId) {
-		Room room = getRoomDAO().load(roomId);
-		if (room == null) {
-			throw new RoomNotFoundException();
-		}
-		return room;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public long findIdByBuildingAndRoomNumber(String building, int roomNumber) {
-		return getRoomDAO().findIdByBuildingAndRoomNumber(building, roomNumber);
-	}
-
-	/** {@inheritDoc} */
-	@Override
 	public void deleteRoom(long roomId) {
 		Room room = loadRoom(roomId);
 		if (!room.getLectures().isEmpty()) {
@@ -66,18 +44,40 @@ public class RoomService implements IRoomService {
 
 	/** {@inheritDoc} */
 	@Override
-	public void updateRoom(long roomId, int seats, boolean beamer) {
-		Room room = loadRoom(roomId);
-		room.setSeats(seats);
-		room.setBeamer(beamer);
-		getRoomDAO().update(room);
+	public long findIdByBuildingAndRoomNumber(String building, int roomNumber) {
+		return getRoomDAO().findIdByBuildingAndRoomNumber(building, roomNumber);
 	}
 
 	public IRoomDAO getRoomDAO() {
 		return roomDAO;
 	}
 
+	/** {@inheritDoc} */
+	@Override
+	public List<Room> listRooms() {
+		return getRoomDAO().findAll();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public Room loadRoom(long roomId) {
+		Room room = getRoomDAO().load(roomId);
+		if (room == null) {
+			throw new RoomNotFoundException();
+		}
+		return room;
+	}
+
 	public void setRoomDAO(IRoomDAO roomDAO) {
 		this.roomDAO = roomDAO;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void updateRoom(long roomId, int seats, boolean beamer) {
+		Room room = loadRoom(roomId);
+		room.setSeats(seats);
+		room.setBeamer(beamer);
+		getRoomDAO().update(room);
 	}
 }

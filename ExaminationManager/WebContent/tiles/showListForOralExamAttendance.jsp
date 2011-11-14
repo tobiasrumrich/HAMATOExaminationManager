@@ -53,15 +53,11 @@
 	<s:token />
 
 
-	<s:select key="lblManiple" name="maniple" list="maniples" />
-
-
-
-
-
+	<s:select key="lblManiple" name="selectedManiple" list="maniples"
+		listKey="Id" />
 
 	<s:submit name="submit" key="lblShowOtherManipleSubmit"
-		action="FileSingleOrgalExamAttendance" />
+		action="ShowStudentListForOralExamination" method="execute" />
 </s:form>
 
 

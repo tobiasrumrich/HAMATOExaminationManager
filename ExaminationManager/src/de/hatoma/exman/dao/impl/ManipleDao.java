@@ -1,19 +1,19 @@
-package de.hatoma.exman.dao;
+package de.hatoma.exman.dao.impl;
 
-import org.springframework.stereotype.Component;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Component;
 
+import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
 @Component
-public class ManipleDAO extends BaseDAO<Maniple> implements IManipleDAO {
+public class ManipleDao extends BaseDao<Maniple> implements IManipleDao {
 
-	public ManipleDAO() {
+	public ManipleDao() {
 		super(Maniple.class);
 		// TODO Auto-generated constructor stub
 	}
