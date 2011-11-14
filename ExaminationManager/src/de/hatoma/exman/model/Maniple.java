@@ -26,9 +26,8 @@ public class Maniple implements Serializable {
 	private StudyBranch studyBranch;
 	private int year;
 	private long id;
-	private Collection<Student> student;
+	private Collection<Student> students;
 	private Collection<ExamSubject> examSubject;
-
 
 	@OneToOne(optional = false)
 	public StudyBranch getStudyBranch() {
@@ -58,29 +57,29 @@ public class Maniple implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
 	@OneToMany(mappedBy = "maniple")
-	public Collection<Student> getStudent() {
-	    return student;
+	public Collection<Student> getStudents() {
+		return students;
 	}
 
-	public void setStudent(Collection<Student> param) {
-	    this.student = param;
+	public void setStudents(Collection<Student> students) {
+		this.students = students;
 	}
 
 	@OneToMany(mappedBy = "maniple")
 	public Collection<ExamSubject> getExamSubject() {
-	    return examSubject;
+		return examSubject;
 	}
 
-	public void setExamSubject(Collection<ExamSubject> param) {
-	    this.examSubject = param;
+	public void setExamSubject(Collection<ExamSubject> examSubject) {
+		this.examSubject = examSubject;
 	}
-
 
 }
