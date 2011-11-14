@@ -1,11 +1,14 @@
 package de.hatoma.exman.action;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import de.hatoma.exman.service.ITrainmanService;
 
 public class TrainmanAction extends ActionSupport {
 
+	@Autowired
 	private ITrainmanService trainmanService;
 
 	public String insertData() throws Exception {
