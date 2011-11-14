@@ -1,6 +1,5 @@
 package de.hatoma.exman.service.room;
 
-import java.io.Serializable;
 import java.util.List;
 
 import de.hatoma.exman.model.room.Room;

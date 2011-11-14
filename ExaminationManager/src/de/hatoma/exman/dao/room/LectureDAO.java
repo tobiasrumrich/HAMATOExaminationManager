@@ -9,33 +9,24 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import de.hatoma.exman.model.room.Lecture;
 
 public class LectureDAO extends HibernateDaoSupport implements ILectureDAO {
-	/** {@inheritDoc} */
-	@Override
+
 	public Serializable save(Lecture lecture) {
 		return getHibernateTemplate().save(lecture);
 	}
 
-	/** {@inheritDoc} */
-	@Override
 	public void delete(Lecture lecture) {
 		getHibernateTemplate().delete(lecture);
 	}
 
-	/** {@inheritDoc} */
-	@Override
 	@SuppressWarnings("unchecked")
 	public List<Lecture> findAll() {
 		return getHibernateTemplate().loadAll(Lecture.class);
 	}
 
-	/** {@inheritDoc} */
-	@Override
 	public Lecture load(long id) {
 		return (Lecture) getHibernateTemplate().get(Lecture.class, id);
 	}
 
-	/** {@inheritDoc} */
-	@Override
 	@SuppressWarnings("unchecked")
 	public List<Lecture> findByRoom(long roomId) {
 		Query query = getHibernateTemplate()
@@ -47,7 +38,6 @@ public class LectureDAO extends HibernateDaoSupport implements ILectureDAO {
 		return query.list();
 	}
 
-	@Override
 	public void update(Lecture entity) {
 		return; // nothing
 	}

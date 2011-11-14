@@ -7,36 +7,36 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import de.hatoma.exman.model.room.Room;
 
-public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
+public class RoomDAO extends HibernateDaoSupport {
 
 	/** {@inheritDoc} */
-	@Override
+
 	public Room save(Room room) {
 		getHibernateTemplate().save(room);
 		return room;
 	}
 
 	/** {@inheritDoc} */
-	@Override
+
 	public void delete(Room room) {
 		getHibernateTemplate().delete(room);
 	}
 
 	/** {@inheritDoc} */
-	@Override
+
 	@SuppressWarnings("unchecked")
 	public List<Room> findAll() {
 		return getHibernateTemplate().loadAll(Room.class);
 	}
 
 	/** {@inheritDoc} */
-	@Override
+
 	public Room load(long id) {
 		return (Room) getHibernateTemplate().get(Room.class, id);
 	}
 
 	/** {@inheritDoc} */
-	@Override
+
 	public long findIdByBuildingAndRoomNumber(String building, int roomNumber) {
 		Query query = getHibernateTemplate()
 				.getSessionFactory()
@@ -52,7 +52,6 @@ public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
 		return 0;
 	}
 
-	@Override
 	public void update(Room entity) {
 		// nothing
 	}

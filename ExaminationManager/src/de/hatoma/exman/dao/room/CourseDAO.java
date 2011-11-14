@@ -1,5 +1,6 @@
 package de.hatoma.exman.dao.room;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -27,14 +28,14 @@ public class CourseDAO extends HibernateDaoSupport implements ICourseDAO {
 		return getHibernateTemplate().loadAll(Course.class);
 	}
 
-	/** {@inheritDoc} */
-	@Override
-	public Course load(long id) {
-		return (Course) getHibernateTemplate().get(Course.class, id);
-	}
-
 	@Override
 	public void update(Course entity) {
 		// dummy um compilefehler zu verhindern
+	}
+
+	@Override
+	public Course load(Serializable id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

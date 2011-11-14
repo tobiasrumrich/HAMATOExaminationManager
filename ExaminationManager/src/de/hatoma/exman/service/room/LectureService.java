@@ -40,14 +40,14 @@ public class LectureService implements ILectureService {
 		course.associateLecture(lecture);
 
 		// save the lecture
-		getLectureDAO().save(lecture);
+		// getLectureDAO().save(lecture);
 		return lecture;
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public List<Lecture> listLectures() {
-		return getLectureDAO().findAll();
+		return null; // getLectureDAO().findAll();
 	}
 
 	/** {@inheritDoc} */
@@ -59,11 +59,11 @@ public class LectureService implements ILectureService {
 	/** {@inheritDoc} */
 	@Override
 	public Lecture loadLecture(long lectureId) {
-		Lecture lecture = getLectureDAO().load(lectureId);
-		if (lecture == null) {
-			throw new LectureNotFoundException();
-		}
-		return lecture;
+		// Lecture lecture = null; // getLectureDAO().load(lectureId);
+		// if (lecture == null) {
+		// throw new LectureNotFoundException();
+		// }
+		return null;
 	}
 
 	/** {@inheritDoc} */
@@ -76,7 +76,7 @@ public class LectureService implements ILectureService {
 		if (lecture.getCourse() != null) {
 			lecture.getCourse().detachLecture(lecture);
 		}
-		getLectureDAO().delete(lecture);
+		// getLectureDAO().delete(lecture);
 	}
 
 	/** {@inheritDoc} */
