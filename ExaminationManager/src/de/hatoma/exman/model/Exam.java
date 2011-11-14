@@ -22,28 +22,32 @@ public class Exam implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private long id;
+	private Date date;
 
 	private Examiner examiner;
-	private Date date;
 	private ExamSubject examSubject;
 	private ExamType examType;
+	private long id;
+
+	public Date getDate() {
+		return date;
+	}
 
 	@ManyToOne(optional = false)
 	public Examiner getExaminer() {
 		return examiner;
 	}
 
-	public void setExaminer(Examiner examiner) {
-		this.examiner = examiner;
+	/**
+	 * @return the examSubject
+	 */
+	@OneToOne(optional = false)
+	public ExamSubject getExamSubject() {
+		return examSubject;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
+	public ExamType getExamType() {
+		return examType;
 	}
 
 	/**
@@ -55,20 +59,12 @@ public class Exam implements Serializable {
 		return id;
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	/**
-	 * @return the examSubject
-	 */
-	@OneToOne(optional = false)
-	public ExamSubject getExamSubject() {
-		return examSubject;
+	public void setExaminer(Examiner examiner) {
+		this.examiner = examiner;
 	}
 
 	/**
@@ -79,12 +75,16 @@ public class Exam implements Serializable {
 		this.examSubject = examSubject;
 	}
 
-	public ExamType getExamType() {
-		return examType;
-	}
-
 	public void setExamType(ExamType examType) {
 		this.examType = examType;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

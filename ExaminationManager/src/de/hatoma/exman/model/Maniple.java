@@ -22,28 +22,15 @@ import org.hibernate.envers.Audited;
 public class Maniple implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private StudyBranch studyBranch;
-	private int year;
+	private Collection<ExamSubject> examSubjects;
 	private long id;
 	private Collection<Student> students;
-	private Collection<ExamSubject> examSubjects;
+	private StudyBranch studyBranch;
+	private int year;
 
-	@ManyToOne(optional = false)
-	public StudyBranch getStudyBranch() {
-		return studyBranch;
-	}
-
-	public void setStudyBranch(StudyBranch studyBranch) {
-		this.studyBranch = studyBranch;
-	}
-
-	@Basic(optional = false)
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
+	@OneToMany(mappedBy = "maniple")
+	public Collection<ExamSubject> getExamSubject() {
+		return examSubjects;
 	}
 
 	/**
@@ -55,6 +42,25 @@ public class Maniple implements Serializable {
 		return id;
 	}
 
+	@OneToMany()
+	public Collection<Student> getStudents() {
+		return students;
+	}
+
+	@ManyToOne(optional = false)
+	public StudyBranch getStudyBranch() {
+		return studyBranch;
+	}
+
+	@Basic(optional = false)
+	public int getYear() {
+		return year;
+	}
+
+	public void setExamSubject(Collection<ExamSubject> param) {
+		this.examSubjects = param;
+	}
+
 	/**
 	 * @param id
 	 *            the id to set
@@ -63,22 +69,16 @@ public class Maniple implements Serializable {
 		this.id = id;
 	}
 
-	@OneToMany()
-	public Collection<Student> getStudents() {
-		return students;
-	}
-
 	public void setStudents(Collection<Student> students) {
 		this.students = students;
 	}
 
-	@OneToMany(mappedBy = "maniple")
-	public Collection<ExamSubject> getExamSubject() {
-		return examSubjects;
+	public void setStudyBranch(StudyBranch studyBranch) {
+		this.studyBranch = studyBranch;
 	}
 
-	public void setExamSubject(Collection<ExamSubject> param) {
-		this.examSubjects = param;
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	@Override

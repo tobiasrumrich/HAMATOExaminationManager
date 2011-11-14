@@ -23,19 +23,20 @@ import de.hatoma.exman.model.StudyBranch;
 @ContextConfiguration(locations = { "/spring-test-config.xml" })
 @Transactional
 @TransactionConfiguration
-public abstract class BaseDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
+public abstract class BaseDaoTest extends
+		AbstractTransactionalJUnit4SpringContextTests {
+	private Maniple defaultManiple;
+	private Student defaultStudent;
+	private StudyBranch defaultStudyBranch;
+	@Autowired
+	private IManipleDao manipleDao;
+
+	@Autowired
+	private SessionFactory sessionFactory;
 	@Autowired
 	private IStudentDao studentDao;
 	@Autowired
-	private IManipleDao manipleDao;
-	@Autowired
 	private IStudyBranchDao studyBranchDao;
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	private Maniple defaultManiple;
-	private StudyBranch defaultStudyBranch;
-	private Student defaultStudent;
 
 	@Before
 	public void beforeMethod() {
@@ -92,6 +93,10 @@ public abstract class BaseDaoTest extends AbstractTransactionalJUnit4SpringConte
 		return manipleDao;
 	}
 
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
 	public IStudentDao getStudentDao() {
 		return studentDao;
 	}
@@ -104,20 +109,16 @@ public abstract class BaseDaoTest extends AbstractTransactionalJUnit4SpringConte
 		this.manipleDao = manipleDao;
 	}
 
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	public void setStudentDao(IStudentDao studentDao) {
 		this.studentDao = studentDao;
 	}
 
 	public void setStudyBranchDAO(IStudyBranchDao studyBranchDao) {
 		this.studyBranchDao = studyBranchDao;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
 	}
 
 }

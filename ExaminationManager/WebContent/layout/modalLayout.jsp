@@ -62,7 +62,7 @@ div#headerbar {
 	top: 0;
 	left: 0;
 	height: 54px;
-	width:100%;
+	width: 100%;
 	line-height: 54px;
 	padding: 0px 0px 0px 13px;
 	color: white;
@@ -86,8 +86,8 @@ div#header span#sessioninfo {
 }
 
 div#container {
-	margin:60px 0px 0px 13px;
-	padding-top:5px;
+	margin: 60px 0px 0px 13px;
+	padding-top: 5px;
 	width: 1000px;
 	z-index: 1;
 }

@@ -9,11 +9,13 @@ public interface IExamAttendanceService {
 
 	/**
 	 * Creates a new ExamAttendance
+	 * 
 	 * @param student
 	 * @param exam
 	 * @param examGrade
 	 * @return
 	 */
-public ExamAttendance createExamAttendanceForStudent(Student student, Exam exam, ExamGrade examGrade);
+	public ExamAttendance createExamAttendanceForStudent(Student student,
+			Exam exam, ExamGrade examGrade);
 
 }

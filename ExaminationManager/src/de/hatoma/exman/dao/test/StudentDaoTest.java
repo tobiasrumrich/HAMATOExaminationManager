@@ -13,6 +13,38 @@ import de.hatoma.exman.model.Student;
  */
 public class StudentDaoTest extends BaseDaoTest {
 	@Test
+	public void testDelete() {
+		long oldID = getDefaultStudent().getId();
+		Student s = getStudentDao().load(oldID);
+		Assert.assertNotNull(s);
+		Assert.assertNotNull(s.getId());
+		Assert.assertTrue(s.getId() > 0);
+
+		getStudentDao().delete(s);
+
+		Student s2 = getStudentDao().load(oldID);
+		Assert.assertNull(s2);
+	}
+
+	@Test
+	public void testFindAll() {
+		Assert.assertEquals(1, getStudentDao().findAll().size());
+
+		final Student s = new Student();
+		s.setForename("A");
+		s.setLastname("B");
+		s.setManiple(getDefaultManiple());
+		s.setMatriculationNumber("XXX");
+		getStudentDao().save(s);
+
+		Assert.assertEquals(2, getStudentDao().findAll().size());
+
+		getStudentDao().delete(s);
+
+		Assert.assertEquals(1, getStudentDao().findAll().size());
+	}
+
+	@Test
 	public void testInitial() {
 		List<Student> findAll = getStudentDao().findAll();
 		Student s = findAll.get(0);
@@ -60,37 +92,5 @@ public class StudentDaoTest extends BaseDaoTest {
 		Assert.assertEquals("A2", s2.getLastname());
 		Assert.assertEquals(getDefaultManiple(), s2.getManiple());
 		Assert.assertEquals("YYY", s2.getMatriculationNumber());
-	}
-
-	@Test
-	public void testDelete() {
-		long oldID = getDefaultStudent().getId();
-		Student s = getStudentDao().load(oldID);
-		Assert.assertNotNull(s);
-		Assert.assertNotNull(s.getId());
-		Assert.assertTrue(s.getId() > 0);
-
-		getStudentDao().delete(s);
-
-		Student s2 = getStudentDao().load(oldID);
-		Assert.assertNull(s2);
-	}
-
-	@Test
-	public void testFindAll() {
-		Assert.assertEquals(1, getStudentDao().findAll().size());
-
-		final Student s = new Student();
-		s.setForename("A");
-		s.setLastname("B");
-		s.setManiple(getDefaultManiple());
-		s.setMatriculationNumber("XXX");
-		getStudentDao().save(s);
-
-		Assert.assertEquals(2, getStudentDao().findAll().size());
-
-		getStudentDao().delete(s);
-
-		Assert.assertEquals(1, getStudentDao().findAll().size());
 	}
 }

@@ -6,7 +6,8 @@ import de.hatoma.exman.dao.IExamSubjectDao;
 import de.hatoma.exman.model.ExamSubject;
 
 @Component
-public class ExamSubjectDao extends BaseDao<ExamSubject> implements IExamSubjectDao {
+public class ExamSubjectDao extends BaseDao<ExamSubject> implements
+		IExamSubjectDao {
 
 	public ExamSubjectDao() {
 		super(ExamSubject.class);

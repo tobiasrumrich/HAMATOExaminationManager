@@ -13,27 +13,21 @@ import de.hatoma.exman.service.IManipleService;
 
 @Component
 public class ManipleService implements IManipleService {
-	
+
 	@Autowired
 	private IManipleDao manipleDao;
 
 	@Override
 	public Maniple createManiple(StudyBranch studyBranch, int year) {
 		Maniple maniple = new Maniple();
-		
+
 		maniple.setStudyBranch(studyBranch);
 		maniple.setYear(year);
-		
+
 		getManipleDAO().save(maniple);
 		return maniple;
 	}
-	
-	public Collection<Student> getStudents(long id) {
-		Collection<Student> students;
-		students = getManipleDAO().getStudents(id);
-		return students;
-	}
-	
+
 	@Override
 	public Collection<Maniple> getAll() {
 		return manipleDao.findAll();
@@ -46,13 +40,19 @@ public class ManipleService implements IManipleService {
 		return manipleDao;
 	}
 
+	@Override
+	public Collection<Student> getStudents(long id) {
+		Collection<Student> students;
+		students = getManipleDAO().getStudents(id);
+		return students;
+	}
+
 	/**
-	 * @param manipleDao the manipleDao to set
+	 * @param manipleDao
+	 *            the manipleDao to set
 	 */
 	public void setManipleDAO(IManipleDao manipleDao) {
 		this.manipleDao = manipleDao;
 	}
-
-
 
 }

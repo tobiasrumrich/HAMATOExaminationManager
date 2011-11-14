@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface IDao<T> {
 
-	Serializable save(T entity);
-
 	void delete(T entity);
 
 	List<T> findAll();
 
 	T load(Serializable id);
+
+	Serializable save(T entity);
 
 	void update(T entity);
 

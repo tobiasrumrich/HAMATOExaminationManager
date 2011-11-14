@@ -28,17 +28,229 @@ public class TrainmanService implements ITrainmanService {
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
 	@Autowired
+	private IExaminerService examinerService;
+	@Autowired
+	private IExamService examService;
+	@Autowired
+	private IExamSubjectService examSubjectService;
+	@Autowired
 	private IManipleService manipleService;
 	@Autowired
 	private IStudentService studentService;
 	@Autowired
 	private IStudyBranchService studyBranchService;
-	@Autowired
-	private IExaminerService examinerService;
-	@Autowired
-	private IExamSubjectService examSubjectService;
-	@Autowired
-	private IExamService examService;
+
+	@Override
+	public void createPhaseOne(int minStudentsPerCentury,
+			int maxStudentsPerCentury) {
+		// Studengänge anlegen
+		StudyBranch winfBranch = studyBranchService.createStudyBranch("I",
+				"WINF", "BSc. Wirtschaftsinformatik");
+		StudyBranch wingBranch = studyBranchService.createStudyBranch("W",
+				"WING", "BSc. Wirtschaftsingenieurwesen");
+		StudyBranch bwlBranch = studyBranchService.createStudyBranch("B",
+				"BWL", "BSc. Betriebswirtschaftslehre");
+
+		// Manipel anlegen 08
+		Maniple i08 = getManipleService().createManiple(winfBranch, 2008);
+		Maniple w08 = getManipleService().createManiple(wingBranch, 2008);
+		Maniple b08 = getManipleService().createManiple(bwlBranch, 2008);
+
+		// Manipel anlegen 09
+		Maniple i09 = getManipleService().createManiple(winfBranch, 2009);
+		Maniple w09 = getManipleService().createManiple(wingBranch, 2009);
+		Maniple b09 = getManipleService().createManiple(bwlBranch, 2009);
+
+		// Manipel anlegen 10
+		Maniple i10 = getManipleService().createManiple(winfBranch, 2010);
+		Maniple w10 = getManipleService().createManiple(wingBranch, 2010);
+		Maniple b10 = getManipleService().createManiple(bwlBranch, 2010);
+
+		// Alle Manipel
+		List<Maniple> allManiples = new ArrayList<Maniple>();
+		allManiples.add(i08);
+		allManiples.add(w08);
+		allManiples.add(b08);
+		allManiples.add(i09);
+		allManiples.add(w09);
+		allManiples.add(b09);
+		allManiples.add(i10);
+		allManiples.add(w10);
+		allManiples.add(b10);
+
+		// Alle Winfs
+		List<Maniple> allWinfManiples = new ArrayList<Maniple>();
+		allWinfManiples.add(i08);
+		allWinfManiples.add(i09);
+		allWinfManiples.add(i10);
+
+		// Alle Wings
+		List<Maniple> allWingManiples = new ArrayList<Maniple>();
+		allWingManiples.add(w08);
+		allWingManiples.add(w09);
+		allWingManiples.add(w10);
+
+		// Alle BWLer
+		List<Maniple> allBwlManiples = new ArrayList<Maniple>();
+		allBwlManiples.add(b08);
+		allBwlManiples.add(b09);
+		allBwlManiples.add(b10);
+
+		// Studenten anlegen
+		List<String> forenameRepository = forenameRepository();
+		List<String> lastnameRepository = lastnameRepository();
+
+		List<Student> listOfStudents = new ArrayList<Student>();
+
+		for (Maniple currentManiple : allManiples) {
+			for (int i = 0; i < ((int) (Math.random()
+					* (maxStudentsPerCentury - minStudentsPerCentury) + minStudentsPerCentury)); i++) {
+				int keyVorname = (int) (Math.random() * (forenameRepository
+						.size()));
+				int keyNachname = (int) (Math.random() * (lastnameRepository
+						.size()));
+
+				listOfStudents.add(studentService.createStudent(
+						forenameRepository.get(keyVorname),
+						lastnameRepository.get(keyNachname), currentManiple));
+
+			}
+		}
+
+		// Prüfer anlegen
+		List<Examiner> winfExaminer = new ArrayList<Examiner>();
+		winfExaminer.add(getExaminerService().createExaminer("Ralf", "Kesten"));
+		winfExaminer.add(getExaminerService().createExaminer("Oliver",
+				"Brahmstädt"));
+		winfExaminer.add(getExaminerService().createExaminer("Stefan",
+				"Reichert"));
+		winfExaminer.add(getExaminerService().createExaminer("Hans",
+				"Rensmeyer"));
+		winfExaminer
+				.add(getExaminerService().createExaminer("Fred", "Ludolph"));
+
+		List<Examiner> wingExaminer = new ArrayList<Examiner>();
+		wingExaminer.add(getExaminerService().createExaminer("Arno", "Müller"));
+		wingExaminer.add(getExaminerService()
+				.createExaminer("Volker", "Ahrens"));
+		wingExaminer.add(getExaminerService().createExaminer("Bernd",
+				"Nörtemann"));
+		wingExaminer.add(getExaminerService()
+				.createExaminer("Willy", "Netzler"));
+
+		List<Examiner> bwlExaminer = new ArrayList<Examiner>();
+		bwlExaminer.add(getExaminerService().createExaminer("Hinrich",
+				"Schröder"));
+		bwlExaminer
+				.add(getExaminerService().createExaminer("Jan", "Bartelsen"));
+		bwlExaminer.add(getExaminerService().createExaminer("Lars",
+				"Binckebank"));
+		bwlExaminer.add(getExaminerService().createExaminer("Michael", "Lühn"));
+
+		// Prüfungsfächer anlegen
+
+		List<ExamSubject> winfExamSubjects = new ArrayList<ExamSubject>();
+		for (Maniple iManiple : allWinfManiples) {
+			winfExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Internet Anwendungsarchitekturen [" + iManiple + "]",
+					"Der Grund weshalb es diese Anwendung gibt", "I01",
+					iManiple));
+			winfExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Theoretische Grundlagen der Informatik 2 [" + iManiple
+							+ "]", "Grundlagen der Netzwerktechnik", "I02",
+					iManiple));
+			winfExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Allgemeine Betriebswirtschaftslehre [" + iManiple + "]",
+					"BWL, i.d.R. mit Fred Ludolph und Börsenspiel", "I03",
+					iManiple));
+			winfExamSubjects
+					.add(getExamSubjectService().createExamSubject(
+							"Allgemeine Volkswirtschaftslehre [" + iManiple
+									+ "]",
+							"Einführung in die Volkswirtschaftslehre", "I04",
+							iManiple));
+		}
+
+		List<ExamSubject> wingExamSubjects = new ArrayList<ExamSubject>();
+		for (Maniple iManiple : allWingManiples) {
+			wingExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Werkstofftechnik [" + iManiple + "]",
+					"Klebstoffe, Metalle und Kunststoffe", "W01", iManiple));
+			wingExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Messen, Steuern, Regeln [" + iManiple + "]",
+					"Laborübungen mit Willy", "W02", iManiple));
+			wingExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Technische Mathematik 2 [" + iManiple + "]",
+					"Berechnung von Brücken", "W03", iManiple));
+			wingExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Wirtschaftsrecht [" + iManiple + "]", "Recht langweilig",
+					"W04", iManiple));
+		}
+
+		List<ExamSubject> bwlExamSubjects = new ArrayList<ExamSubject>();
+		for (Maniple iManiple : allWingManiples) {
+			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Kosten- und Leistungsrechnung [" + iManiple + "]",
+					"Links an Rechts und umgekehrt", "B01", iManiple));
+			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Betriebswirtschaftslehre [" + iManiple + "]",
+					"ohne Börsenspiel und ohne Ludolph", "B02", iManiple));
+			bwlExamSubjects.add(getExamSubjectService()
+					.createExamSubject("Marketing [" + iManiple + "]",
+							"4p vs 3R", "B03", iManiple));
+			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
+					"Kommunikationsmanagement [" + iManiple + "]",
+					"Redetechniken", "B04", iManiple));
+
+		}
+
+		// Prüfungen anlegen
+		List<Exam> winfExams = new ArrayList<Exam>();
+		for (ExamSubject exSubject : winfExamSubjects) {
+			winfExams.add(getExamService().createExam(
+					exSubject,
+					new Date(2011, 11, 1),
+					winfExaminer.get((int) (Math.random() * (winfExaminer
+							.size() - 1)))));
+		}
+
+		List<Exam> wingExams = new ArrayList<Exam>();
+		for (ExamSubject exSubject : wingExamSubjects) {
+			wingExams.add(getExamService().createExam(
+					exSubject,
+					new Date(2011, 10, 9),
+					wingExaminer.get((int) (Math.random() * (winfExaminer
+							.size() - 1)))));
+		}
+
+		List<Exam> bwlExams = new ArrayList<Exam>();
+		for (ExamSubject exSubject : bwlExamSubjects) {
+			bwlExams.add(getExamService()
+					.createExam(
+							exSubject,
+							new Date(2011, 3, 2),
+							bwlExaminer.get((int) (Math.random() * (winfExaminer
+									.size() - 1)))));
+		}
+
+		// Prüfer anlegen -- NEBENAMTLER
+
+		/*
+		 * examiner = getExaminerService().createExaminer("Ralf", "Kesten");
+		 * ExamSubject examSubject =
+		 * getExamSubjectService().createExamSubject("Ausdruckstanz"
+		 * ,"A Fancy Description","ADT",maniple);
+		 * 
+		 * Exam exam = getExamService().createExam(examSubject, new
+		 * Date(2011,11,1), examiner);
+		 * 
+		 * 
+		 * ExamGrade examGrade = ExamGrade.G10;
+		 * examAttendanceService.createExamAttendanceForStudent(student, exam,
+		 * examGrade);
+		 */
+
+	}
 
 	private List<String> forenameRepository() {
 		ArrayList<String> r = new ArrayList<String>();
@@ -249,6 +461,34 @@ public class TrainmanService implements ITrainmanService {
 		return r;
 	}
 
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	public IExaminerService getExaminerService() {
+		return examinerService;
+	}
+
+	public IExamService getExamService() {
+		return examService;
+	}
+
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
+	}
+
+	public IManipleService getManipleService() {
+		return manipleService;
+	}
+
+	public IStudentService getStudentService() {
+		return studentService;
+	}
+
+	public IStudyBranchService getStudyBranchService() {
+		return studyBranchService;
+	}
+
 	private List<String> lastnameRepository() {
 		ArrayList<String> r = new ArrayList<String>();
 		r.add("Neudorf");
@@ -457,272 +697,33 @@ public class TrainmanService implements ITrainmanService {
 		return r;
 	}
 
-	@Override
-	public void createPhaseOne(int minStudentsPerCentury, int maxStudentsPerCentury) {
-		// Studengänge anlegen
-		StudyBranch winfBranch = studyBranchService.createStudyBranch("I",
-				"WINF", "BSc. Wirtschaftsinformatik");
-		StudyBranch wingBranch = studyBranchService.createStudyBranch("W",
-				"WING", "BSc. Wirtschaftsingenieurwesen");
-		StudyBranch bwlBranch = studyBranchService.createStudyBranch("B",
-				"BWL", "BSc. Betriebswirtschaftslehre");
-
-		// Manipel anlegen 08
-		Maniple i08 = getManipleService().createManiple(winfBranch, 2008);
-		Maniple w08 = getManipleService().createManiple(wingBranch, 2008);
-		Maniple b08 = getManipleService().createManiple(bwlBranch, 2008);
-
-		// Manipel anlegen 09
-		Maniple i09 = getManipleService().createManiple(winfBranch, 2009);
-		Maniple w09 = getManipleService().createManiple(wingBranch, 2009);
-		Maniple b09 = getManipleService().createManiple(bwlBranch, 2009);
-
-		// Manipel anlegen 10
-		Maniple i10 = getManipleService().createManiple(winfBranch, 2010);
-		Maniple w10 = getManipleService().createManiple(wingBranch, 2010);
-		Maniple b10 = getManipleService().createManiple(bwlBranch, 2010);
-
-		// Alle Manipel
-		List<Maniple> allManiples = new ArrayList<Maniple>();
-		allManiples.add(i08);
-		allManiples.add(w08);
-		allManiples.add(b08);
-		allManiples.add(i09);
-		allManiples.add(w09);
-		allManiples.add(b09);
-		allManiples.add(i10);
-		allManiples.add(w10);
-		allManiples.add(b10);
-
-		// Alle Winfs
-		List<Maniple> allWinfManiples = new ArrayList<Maniple>();
-		allWinfManiples.add(i08);
-		allWinfManiples.add(i09);
-		allWinfManiples.add(i10);
-
-		// Alle Wings
-		List<Maniple> allWingManiples = new ArrayList<Maniple>();
-		allWingManiples.add(w08);
-		allWingManiples.add(w09);
-		allWingManiples.add(w10);
-
-		// Alle BWLer
-		List<Maniple> allBwlManiples = new ArrayList<Maniple>();
-		allBwlManiples.add(b08);
-		allBwlManiples.add(b09);
-		allBwlManiples.add(b10);
-
-		
-		//Studenten anlegen
-		List<String> forenameRepository = forenameRepository();
-		List<String> lastnameRepository = lastnameRepository();
-
-		List<Student> listOfStudents = new ArrayList<Student>();
-
-		for (Maniple currentManiple : allManiples) {
-			for (int i = 0; i < ((int)(Math.random()*(maxStudentsPerCentury-minStudentsPerCentury)+minStudentsPerCentury)); i++) {
-				int keyVorname = (int) (Math.random() * (forenameRepository
-						.size()));
-				int keyNachname = (int) (Math.random() * (lastnameRepository
-						.size()));
-
-				listOfStudents.add(studentService.createStudent(
-						forenameRepository.get(keyVorname),
-						lastnameRepository.get(keyNachname), currentManiple));
-	
-			}
-		}
-
-		// Prüfer anlegen
-		List<Examiner> winfExaminer = new ArrayList<Examiner>();
-		winfExaminer.add(getExaminerService().createExaminer("Ralf", "Kesten"));
-		winfExaminer.add(getExaminerService().createExaminer("Oliver",
-				"Brahmstädt"));
-		winfExaminer.add(getExaminerService().createExaminer("Stefan",
-				"Reichert"));
-		winfExaminer.add(getExaminerService().createExaminer("Hans",
-				"Rensmeyer"));
-		winfExaminer
-				.add(getExaminerService().createExaminer("Fred", "Ludolph"));
-
-		List<Examiner> wingExaminer = new ArrayList<Examiner>();
-		wingExaminer.add(getExaminerService().createExaminer("Arno", "Müller"));
-		wingExaminer.add(getExaminerService()
-				.createExaminer("Volker", "Ahrens"));
-		wingExaminer.add(getExaminerService().createExaminer("Bernd",
-				"Nörtemann"));
-		wingExaminer.add(getExaminerService()
-				.createExaminer("Willy", "Netzler"));
-
-		List<Examiner> bwlExaminer = new ArrayList<Examiner>();
-		bwlExaminer.add(getExaminerService().createExaminer("Hinrich",
-				"Schröder"));
-		bwlExaminer
-				.add(getExaminerService().createExaminer("Jan", "Bartelsen"));
-		bwlExaminer.add(getExaminerService().createExaminer("Lars",
-				"Binckebank"));
-		bwlExaminer.add(getExaminerService().createExaminer("Michael", "Lühn"));
-
-		// Prüfungsfächer anlegen
-
-		List<ExamSubject> winfExamSubjects = new ArrayList<ExamSubject>();
-		for (Maniple iManiple : allWinfManiples) {
-			winfExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Internet Anwendungsarchitekturen [" + iManiple + "]",
-					"Der Grund weshalb es diese Anwendung gibt", "I01",
-					iManiple));
-			winfExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Theoretische Grundlagen der Informatik 2 [" + iManiple
-							+ "]", "Grundlagen der Netzwerktechnik", "I02",
-					iManiple));
-			winfExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Allgemeine Betriebswirtschaftslehre [" + iManiple + "]",
-					"BWL, i.d.R. mit Fred Ludolph und Börsenspiel", "I03",
-					iManiple));
-			winfExamSubjects
-					.add(getExamSubjectService().createExamSubject(
-							"Allgemeine Volkswirtschaftslehre [" + iManiple
-									+ "]",
-							"Einführung in die Volkswirtschaftslehre", "I04",
-							iManiple));
-		}
-
-		List<ExamSubject> wingExamSubjects = new ArrayList<ExamSubject>();
-		for (Maniple iManiple : allWingManiples) {
-			wingExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Werkstofftechnik [" + iManiple + "]",
-					"Klebstoffe, Metalle und Kunststoffe", "W01", iManiple));
-			wingExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Messen, Steuern, Regeln [" + iManiple + "]",
-					"Laborübungen mit Willy", "W02", iManiple));
-			wingExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Technische Mathematik 2 [" + iManiple + "]",
-					"Berechnung von Brücken", "W03", iManiple));
-			wingExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Wirtschaftsrecht [" + iManiple + "]", "Recht langweilig",
-					"W04", iManiple));
-		}
-
-		List<ExamSubject> bwlExamSubjects = new ArrayList<ExamSubject>();
-		for (Maniple iManiple : allWingManiples) {
-			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Kosten- und Leistungsrechnung [" + iManiple + "]",
-					"Links an Rechts und umgekehrt", "B01", iManiple));
-			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Betriebswirtschaftslehre [" + iManiple + "]",
-					"ohne Börsenspiel und ohne Ludolph", "B02", iManiple));
-			bwlExamSubjects.add(getExamSubjectService()
-					.createExamSubject("Marketing [" + iManiple + "]",
-							"4p vs 3R", "B03", iManiple));
-			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
-					"Kommunikationsmanagement [" + iManiple + "]",
-					"Redetechniken", "B04", iManiple));
-
-		}
-
-		// Prüfungen anlegen
-		List<Exam> winfExams = new ArrayList<Exam>();
-		for (ExamSubject exSubject : winfExamSubjects) {
-			winfExams.add(getExamService().createExam(
-					exSubject,
-					new Date(2011, 11, 1),
-					winfExaminer.get((int) (Math.random() * (winfExaminer
-							.size() - 1)))));
-		}
-
-		List<Exam> wingExams = new ArrayList<Exam>();
-		for (ExamSubject exSubject : wingExamSubjects) {
-			wingExams.add(getExamService().createExam(
-					exSubject,
-					new Date(2011, 10, 9),
-					wingExaminer.get((int) (Math.random() * (winfExaminer
-							.size() - 1)))));
-		}
-
-		List<Exam> bwlExams = new ArrayList<Exam>();
-		for (ExamSubject exSubject : bwlExamSubjects) {
-			bwlExams.add(getExamService()
-					.createExam(
-							exSubject,
-							new Date(2011, 3, 2),
-							bwlExaminer.get((int) (Math.random() * (winfExaminer
-									.size() - 1)))));
-		}
-
-		// Prüfer anlegen -- NEBENAMTLER
-
-		/*
-		 * examiner = getExaminerService().createExaminer("Ralf", "Kesten");
-		 * ExamSubject examSubject =
-		 * getExamSubjectService().createExamSubject("Ausdruckstanz"
-		 * ,"A Fancy Description","ADT",maniple);
-		 * 
-		 * Exam exam = getExamService().createExam(examSubject, new
-		 * Date(2011,11,1), examiner);
-		 * 
-		 * 
-		 * ExamGrade examGrade = ExamGrade.G10;
-		 * examAttendanceService.createExamAttendanceForStudent(student, exam,
-		 * examGrade);
-		 */
-
-	}
-
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
-	}
-
 	public void setExamAttendanceService(
 			IExamAttendanceService examAttendanceService) {
 		this.examAttendanceService = examAttendanceService;
-	}
-
-	public IManipleService getManipleService() {
-		return manipleService;
-	}
-
-	public void setManipleService(IManipleService manipleService) {
-		this.manipleService = manipleService;
-	}
-
-	public IStudentService getStudentService() {
-		return studentService;
-	}
-
-	public void setStudentService(IStudentService studentService) {
-		this.studentService = studentService;
-	}
-
-	public IStudyBranchService getStudyBranchService() {
-		return studyBranchService;
-	}
-
-	public void setStudyBranchService(IStudyBranchService studyBranchService) {
-		this.studyBranchService = studyBranchService;
-	}
-
-	public IExaminerService getExaminerService() {
-		return examinerService;
 	}
 
 	public void setExaminerService(IExaminerService examinerService) {
 		this.examinerService = examinerService;
 	}
 
-	public IExamSubjectService getExamSubjectService() {
-		return examSubjectService;
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
 	}
 
 	public void setExamSubjectService(IExamSubjectService examSubjectService) {
 		this.examSubjectService = examSubjectService;
 	}
 
-	public IExamService getExamService() {
-		return examService;
+	public void setManipleService(IManipleService manipleService) {
+		this.manipleService = manipleService;
 	}
 
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
+	public void setStudentService(IStudentService studentService) {
+		this.studentService = studentService;
+	}
+
+	public void setStudyBranchService(IStudyBranchService studyBranchService) {
+		this.studyBranchService = studyBranchService;
 	}
 
 }

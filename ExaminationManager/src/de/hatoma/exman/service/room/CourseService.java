@@ -35,6 +35,17 @@ public class CourseService implements ICourseService {
 
 	/** {@inheritDoc} */
 	@Override
+	public void deleteCourse(Long courseId) {
+		Course course = loadCourse(courseId);
+		getCourseDAO().delete(course);
+	}
+
+	public ICourseDAO getCourseDAO() {
+		return courseDAO;
+	}
+
+	/** {@inheritDoc} */
+	@Override
 	public List<Course> listCourses() {
 		return getCourseDAO().findAll();
 	}
@@ -49,27 +60,16 @@ public class CourseService implements ICourseService {
 		return course;
 	}
 
+	public void setCourseDAO(ICourseDAO courseDAO) {
+		this.courseDAO = courseDAO;
+	}
+
 	/** {@inheritDoc} */
 	@Override
 	public void updateCourse(Long courseId, String lecturer, String title) {
 		Course course = loadCourse(courseId);
 		course.setLecturer(lecturer);
 		course.setTitle(title);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void deleteCourse(Long courseId) {
-		Course course = loadCourse(courseId);
-		getCourseDAO().delete(course);
-	}
-
-	public ICourseDAO getCourseDAO() {
-		return courseDAO;
-	}
-
-	public void setCourseDAO(ICourseDAO courseDAO) {
-		this.courseDAO = courseDAO;
 	}
 
 }

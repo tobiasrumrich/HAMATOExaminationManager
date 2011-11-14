@@ -12,7 +12,7 @@ public class ExaminerService implements IExaminerService {
 
 	@Autowired
 	private IExaminerDao examinerDao;
-	
+
 	@Override
 	public Examiner createExaminer(String forename, String lastname) {
 		Examiner examiner = new Examiner();
@@ -30,7 +30,8 @@ public class ExaminerService implements IExaminerService {
 	}
 
 	/**
-	 * @param examinerDao the examinerDao to set
+	 * @param examinerDao
+	 *            the examinerDao to set
 	 */
 	public void setExaminerDAO(IExaminerDao examinerDao) {
 		this.examinerDao = examinerDao;

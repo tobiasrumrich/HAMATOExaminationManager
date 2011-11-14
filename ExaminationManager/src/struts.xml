@@ -53,6 +53,7 @@
 			class="de.hatoma.exman.action.ShowStudentListForOralExaminationAction">
 			<result name="showInputForm" type="tiles">showListForOralExamAttendance
 			</result>
+			<result name="input" type="tiles">showListForOralExamAttendance</result>
 			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
 		</action>
 

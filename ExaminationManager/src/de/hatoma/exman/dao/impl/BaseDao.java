@@ -10,32 +10,36 @@ import de.hatoma.exman.dao.IDao;
 
 public abstract class BaseDao<T> implements IDao<T> {
 
-	private SessionFactory sessionFactory;
-
-	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	protected Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
 	private Class<T> clazz;
+
+	private SessionFactory sessionFactory;
 
 	public BaseDao(Class<T> clazz) {
 		this.clazz = clazz;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void delete(T t) {
+		getCurrentSession().delete(t);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public java.util.List<T> findAll() {
 		return getCurrentSession().createCriteria(clazz).list();
+	}
+
+	protected Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
 	};
 
+	/** {@inheritDoc} */
+	@SuppressWarnings("unchecked")
 	@Override
-	public void update(T entity) {
-		getCurrentSession().update(entity);
+	public T load(Serializable id) {
+
+		return (T) getCurrentSession().get(clazz, id);
 	};
 
 	/** {@inheritDoc} */
@@ -45,17 +49,13 @@ public abstract class BaseDao<T> implements IDao<T> {
 		return getCurrentSession().save(t);
 	}
 
-	/** {@inheritDoc} */
-	@Override
-	public void delete(T t) {
-		getCurrentSession().delete(t);
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
-	/** {@inheritDoc} */
-	@SuppressWarnings("unchecked")
 	@Override
-	public T load(Serializable id) {
-
-		return (T) getCurrentSession().get(clazz, id);
+	public void update(T entity) {
+		getCurrentSession().update(entity);
 	}
 }

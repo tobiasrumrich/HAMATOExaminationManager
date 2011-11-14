@@ -9,11 +9,11 @@ import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.service.IExamSubjectService;
 
 @Component
-public class ExamSubjectService implements IExamSubjectService{
+public class ExamSubjectService implements IExamSubjectService {
 
 	@Autowired
 	private IExamSubjectDao examSubjectDao;
-	
+
 	@Override
 	public ExamSubject createExamSubject(String title, String description,
 			String moduleIdentifier, Maniple maniple) {
@@ -34,7 +34,8 @@ public class ExamSubjectService implements IExamSubjectService{
 	}
 
 	/**
-	 * @param examSubjectDao the examSubjectDao to set
+	 * @param examSubjectDao
+	 *            the examSubjectDao to set
 	 */
 	public void setExamSubjectDAO(IExamSubjectDao examSubjectDao) {
 		this.examSubjectDao = examSubjectDao;

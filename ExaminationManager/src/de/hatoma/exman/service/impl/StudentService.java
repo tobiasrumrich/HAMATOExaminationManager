@@ -13,6 +13,7 @@ public class StudentService implements IStudentService {
 
 	@Autowired
 	private IStudentDao studentDao;
+
 	@Override
 	public Student createStudent(String forename, String lastname,
 			Maniple maniple) {
@@ -23,14 +24,17 @@ public class StudentService implements IStudentService {
 		studentDao.save(student);
 		return student;
 	}
+
 	/**
 	 * @return the studentDao
 	 */
 	public IStudentDao getStudentDAO() {
 		return studentDao;
 	}
+
 	/**
-	 * @param studentDao the studentDao to set
+	 * @param studentDao
+	 *            the studentDao to set
 	 */
 	public void setStudentDAO(IStudentDao studentDao) {
 		this.studentDao = studentDao;

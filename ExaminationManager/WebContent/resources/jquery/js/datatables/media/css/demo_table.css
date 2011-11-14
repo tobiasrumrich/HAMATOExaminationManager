@@ -29,7 +29,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables features
  */
-
 .dataTables_wrapper {
 	position: relative;
 	min-height: 302px;
@@ -71,14 +70,15 @@
 }
 
 .dataTables_paginate {
-	width: 44px;
-	* width: 50px;
+	width: 44px; *
+	width: 50px;
 	float: right;
 	text-align: right;
 }
 
 /* Pagination nested */
-.paginate_disabled_previous, .paginate_enabled_previous, .paginate_disabled_next, .paginate_enabled_next {
+.paginate_disabled_previous,.paginate_enabled_previous,.paginate_disabled_next,.paginate_enabled_next
+	{
 	height: 19px;
 	width: 19px;
 	margin-left: 3px;
@@ -101,8 +101,6 @@
 	background-image: url('../images/forward_enabled.jpg');
 }
 
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables display
  */
@@ -110,7 +108,7 @@ table.display {
 	margin: 0 auto;
 	clear: both;
 	width: 100%;
-	
+
 	/* Note Firefox 3.5 and before have a bug with border-collapse
 	 * ( https://bugzilla.mozilla.org/show%5Fbug.cgi?id=155955 ) 
 	 * border-spacing: 0; is one possible option. Conditional-css.com is
@@ -129,8 +127,8 @@ table.display thead th {
 	padding: 3px 18px 3px 10px;
 	border-bottom: 1px solid black;
 	font-weight: bold;
-	cursor: pointer;
-	* cursor: hand;
+	cursor: pointer; *
+	cursor: hand;
 }
 
 table.display tfoot th {
@@ -151,12 +149,9 @@ table.display td.center {
 	text-align: center;
 }
 
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
  */
-
 .sorting_asc {
 	background: url('../images/sort_asc.png') no-repeat center right;
 }
@@ -170,16 +165,14 @@ table.display td.center {
 }
 
 .sorting_asc_disabled {
-	background: url('../images/sort_asc_disabled.png') no-repeat center right;
+	background: url('../images/sort_asc_disabled.png') no-repeat center
+		right;
 }
 
 .sorting_desc_disabled {
-	background: url('../images/sort_desc_disabled.png') no-repeat center right;
+	background: url('../images/sort_desc_disabled.png') no-repeat center
+		right;
 }
-
-
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables row classes
@@ -216,7 +209,6 @@ table.display tr.even.gradeU {
 	background-color: #eee;
 }
 
-
 tr.odd {
 	background-color: #E2E4FF;
 }
@@ -224,10 +216,6 @@ tr.odd {
 tr.even {
 	background-color: white;
 }
-
-
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Misc
@@ -240,7 +228,7 @@ tr.even {
 	*margin-top: -1px;
 }
 
-.top, .bottom {
+.top,.bottom {
 	padding: 15px;
 	background-color: #F5F5F5;
 	border: 1px solid #CCCCCC;
@@ -279,7 +267,6 @@ td.details {
 	border: 2px solid #A19B9E;
 }
 
-
 .example_alt_pagination div.dataTables_info {
 	width: 40%;
 }
@@ -290,8 +277,8 @@ td.details {
 	line-height: 22px;
 }
 
-.paging_full_numbers span.paginate_button,
- 	.paging_full_numbers span.paginate_active {
+.paging_full_numbers span.paginate_button,.paging_full_numbers span.paginate_active
+	{
 	border: 1px solid #aaa;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -321,7 +308,6 @@ table.display tr.odd.row_selected td {
 	background-color: #9FAFD1;
 }
 
-
 /*
  * Sorting classes for columns
  */
@@ -349,7 +335,6 @@ tr.even td.sorting_2 {
 tr.even td.sorting_3 {
 	background-color: #F9F9FF;
 }
-
 
 /* For the Conditional-CSS grading rows */
 /*
@@ -457,15 +442,16 @@ tr.even.gradeU td.sorting_3 {
 	background-color: #e2e2e2;
 }
 
-
 /*
  * Row highlighting example
  */
-.ex_highlight #example tbody tr.even:hover, #example tbody tr.even td.highlighted {
+.ex_highlight #example tbody tr.even:hover,#example tbody tr.even td.highlighted
+	{
 	background-color: #ECFFB3;
 }
 
-.ex_highlight #example tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
+.ex_highlight #example tbody tr.odd:hover,#example tbody tr.odd td.highlighted
+	{
 	background-color: #E6FF99;
 }
 
@@ -500,7 +486,6 @@ tr.even.gradeU td.sorting_3 {
 .ex_highlight_row #example tr.odd:hover td.sorting_3 {
 	background-color: #DBFF70;
 }
-
 
 /*
  * KeyTable

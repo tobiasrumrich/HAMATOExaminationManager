@@ -2,7 +2,8 @@ package de.hatoma.exman.action;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -10,35 +11,53 @@ import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IManipleService;
 
-
 public class ShowStudentListForOralExaminationAction extends ActionSupport {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private IManipleService manipleService;
-	private int selectedManiple;
-	private List<Student> students;
 	private List<Maniple> maniples;
+	@Autowired
+	private IManipleService manipleService;
+	private long manipleToFetch;
+	private String selectedManiple;
+	private List<Student> students;
 	
-	
-	public String display() throws Exception {
-		return null;
 
-	}
-	
 	@Override
 	public String execute() throws Exception {
+		if (selectedManiple == null || selectedManiple.isEmpty()) {
+			manipleToFetch = 1;
+		}
+		else {
+			manipleToFetch = Integer.valueOf(selectedManiple);
+		}
 		maniples = getManiples();
-		students = (List<Student>) getStudents();
+		students = (List<Student>) manipleService.getStudents(manipleToFetch);
 		return "showInputForm";
 	}
+
+	/**
+	 * @return the allManiples
+	 */
+	public List<Maniple> getManiples() {
+		return (List<Maniple>) manipleService.getAll();
+	}
+
 	public IManipleService getManipleService() {
 		return manipleService;
 	}
 
 	public Collection<Student> getStudents() {
-		return manipleService.getStudents(selectedManiple);
+		return students;
+	}
+
+	/**
+	 * @param maniples
+	 *            the allManiples to set
+	 */
+	public void setManiples(List<Maniple> maniples) {
+		this.maniples = maniples;
 	}
 
 	public void setManipleService(IManipleService manipleService) {
@@ -50,17 +69,17 @@ public class ShowStudentListForOralExaminationAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the allManiples
+	 * @return the selectedManiple
 	 */
-	public List<Maniple> getManiples() {
-		return (List<Maniple>) manipleService.getAll();
+	public String getSelectedManiple() {
+		return selectedManiple;
 	}
 
 	/**
-	 * @param maniples the allManiples to set
+	 * @param selectedManiple the selectedManiple to set
 	 */
-	public void setManiples(List<Maniple> maniples) {
-		this.maniples = maniples;
+	public void setSelectedManiple(String selectedManiple) {
+		this.selectedManiple = selectedManiple;
 	}
 
 }

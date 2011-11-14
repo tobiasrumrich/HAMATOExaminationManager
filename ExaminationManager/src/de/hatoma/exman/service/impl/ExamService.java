@@ -1,6 +1,8 @@
 package de.hatoma.exman.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,7 @@ public class ExamService implements IExamService {
 
 	@Autowired
 	private IExamDao examDao;
-	
+
 	@Override
 	public Exam createExam(ExamSubject examSubject, Date date, Examiner examiner) {
 		Exam exam = new Exam();
@@ -27,6 +29,11 @@ public class ExamService implements IExamService {
 		return exam;
 	}
 
+	@Override
+	public List<Exam> getExamList() {
+		return examDao.findAll();
+	}
+	
 	/**
 	 * @return the examDao
 	 */
@@ -35,10 +42,13 @@ public class ExamService implements IExamService {
 	}
 
 	/**
-	 * @param examDao the examDao to set
+	 * @param examDao
+	 *            the examDao to set
 	 */
 	public void setExamDAO(IExamDao examDao) {
 		this.examDao = examDao;
 	}
+
+
 
 }

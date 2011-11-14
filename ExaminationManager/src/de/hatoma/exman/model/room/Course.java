@@ -22,110 +22,22 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
-@Table(name="COURSE")
+@Table(name = "COURSE")
 public class Course implements Serializable {
 	/** The serial version UID. */
 	private static final long serialVersionUID = 1L;
-	/** The identifier. */
-	private long id;
 	/** The field of study. */
 	private String fieldOfStudy;
-	/** The course number. */
-	private int number;
+	/** The identifier. */
+	private long id;
 	/** The lecturer's name. */
 	private String lecturer;
-	/** The course title. */
-	private String title;
 	/** The list of lectures. */
 	private Set<Lecture> lectures;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	@NaturalId
-	@Column(name = "FIELD_OF_STUDY", nullable = false)
-	public String getFieldOfStudy() {
-		return fieldOfStudy;
-	}
-
-	public void setFieldOfStudy(String fieldOfStudy) {
-		this.fieldOfStudy = fieldOfStudy;
-	}
-
-	@NaturalId
-	@Column(nullable = false)
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	@Column(nullable = false)
-	public String getLecturer() {
-		return lecturer;
-	}
-
-	public void setLecturer(String lecturer) {
-		this.lecturer = lecturer;
-	}
-
-	@Column(nullable = false)
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	@OneToMany(mappedBy = "course")
-	public Set<Lecture> getLectures() {
-		return lectures;
-	}
-
-	public void setLectures(Set<Lecture> lectures) {
-		this.lectures = lectures;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((fieldOfStudy == null) ? 0 : fieldOfStudy.hashCode());
-		result = prime * result + number;
-		return result;
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final Course other = (Course) obj;
-		if (fieldOfStudy == null) {
-			if (other.fieldOfStudy != null)
-				return false;
-		} else if (!fieldOfStudy.equals(other.fieldOfStudy))
-			return false;
-		if (number != other.number)
-			return false;
-		return true;
-	}
+	/** The course number. */
+	private int number;
+	/** The course title. */
+	private String title;
 
 	/**
 	 * Associates the given lecture to this course.
@@ -160,6 +72,94 @@ public class Course implements Serializable {
 			lecture.setCourse(null);
 		}
 		getLectures().remove(lecture);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final Course other = (Course) obj;
+		if (fieldOfStudy == null) {
+			if (other.fieldOfStudy != null)
+				return false;
+		} else if (!fieldOfStudy.equals(other.fieldOfStudy))
+			return false;
+		if (number != other.number)
+			return false;
+		return true;
+	}
+
+	@NaturalId
+	@Column(name = "FIELD_OF_STUDY", nullable = false)
+	public String getFieldOfStudy() {
+		return fieldOfStudy;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+
+	@Column(nullable = false)
+	public String getLecturer() {
+		return lecturer;
+	}
+
+	@OneToMany(mappedBy = "course")
+	public Set<Lecture> getLectures() {
+		return lectures;
+	}
+
+	@NaturalId
+	@Column(nullable = false)
+	public int getNumber() {
+		return number;
+	}
+
+	@Column(nullable = false)
+	public String getTitle() {
+		return title;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((fieldOfStudy == null) ? 0 : fieldOfStudy.hashCode());
+		result = prime * result + number;
+		return result;
+	}
+
+	public void setFieldOfStudy(String fieldOfStudy) {
+		this.fieldOfStudy = fieldOfStudy;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setLecturer(String lecturer) {
+		this.lecturer = lecturer;
+	}
+
+	public void setLectures(Set<Lecture> lectures) {
+		this.lectures = lectures;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

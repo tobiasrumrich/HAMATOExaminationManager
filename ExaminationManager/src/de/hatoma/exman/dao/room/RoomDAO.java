@@ -11,13 +11,6 @@ public class RoomDAO extends HibernateDaoSupport {
 
 	/** {@inheritDoc} */
 
-	public Room save(Room room) {
-		getHibernateTemplate().save(room);
-		return room;
-	}
-
-	/** {@inheritDoc} */
-
 	public void delete(Room room) {
 		getHibernateTemplate().delete(room);
 	}
@@ -27,12 +20,6 @@ public class RoomDAO extends HibernateDaoSupport {
 	@SuppressWarnings("unchecked")
 	public List<Room> findAll() {
 		return getHibernateTemplate().loadAll(Room.class);
-	}
-
-	/** {@inheritDoc} */
-
-	public Room load(long id) {
-		return (Room) getHibernateTemplate().get(Room.class, id);
 	}
 
 	/** {@inheritDoc} */
@@ -50,6 +37,19 @@ public class RoomDAO extends HibernateDaoSupport {
 			return roomId.longValue();
 		}
 		return 0;
+	}
+
+	/** {@inheritDoc} */
+
+	public Room load(long id) {
+		return (Room) getHibernateTemplate().get(Room.class, id);
+	}
+
+	/** {@inheritDoc} */
+
+	public Room save(Room room) {
+		getHibernateTemplate().save(room);
+		return room;
 	}
 
 	public void update(Room entity) {

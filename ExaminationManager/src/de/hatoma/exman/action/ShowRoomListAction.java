@@ -9,8 +9,8 @@ import de.hatoma.exman.model.room.Room;
 import de.hatoma.exman.service.room.IRoomService;
 
 public class ShowRoomListAction implements Action {
-	private IRoomService roomService;
 	private Set<Room> rooms;
+	private IRoomService roomService;
 
 	@Override
 	public String execute() throws Exception {
@@ -22,12 +22,12 @@ public class ShowRoomListAction implements Action {
 		return rooms;
 	}
 
-	public void setRooms(Set<Room> rooms) {
-		this.rooms = rooms;
-	}
-
 	public IRoomService getRoomService() {
 		return roomService;
+	}
+
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
 	}
 
 	public void setRoomService(IRoomService roomService) {

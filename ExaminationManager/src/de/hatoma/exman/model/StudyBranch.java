@@ -15,31 +15,18 @@ import org.hibernate.envers.Audited;
 @Audited
 @Table(name = "StudyBranches")
 @AuditTable(value = "StudyBranches_Revisions")
-public class StudyBranch implements Serializable{
+public class StudyBranch implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String shortTag;
-	private String longTag;
 	private String branchName;
 	private long id;
-	public String getShortTag() {
-		return shortTag;
-	}
-	public void setShortTag(String shortTag) {
-		this.shortTag = shortTag;
-	}
-	public String getLongTag() {
-		return longTag;
-	}
-	public void setLongTag(String longTag) {
-		this.longTag = longTag;
-	}
+	private String longTag;
+	private String shortTag;
+
 	public String getBranchName() {
 		return branchName;
 	}
-	public void setBranchName(String branchName) {
-		this.branchName = branchName;
-	}
+
 	/**
 	 * @return the id
 	 */
@@ -48,12 +35,33 @@ public class StudyBranch implements Serializable{
 	public long getId() {
 		return id;
 	}
+
+	public String getLongTag() {
+		return longTag;
+	}
+
+	public String getShortTag() {
+		return shortTag;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	
+
+	public void setLongTag(String longTag) {
+		this.longTag = longTag;
+	}
+
+	public void setShortTag(String shortTag) {
+		this.shortTag = shortTag;
+	}
+
 }

@@ -15,22 +15,20 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
 	private IExamAttendanceDao examAttendanceDao;
-	
-	
+
 	@Override
 	public ExamAttendance createExamAttendanceForStudent(Student student,
 			Exam exam, ExamGrade examGrade) {
-		
+
 		ExamAttendance examAttendance = new ExamAttendance();
 		examAttendance.setExam(exam);
 		examAttendance.setStudent(student);
 		examAttendance.setExamGrade(examGrade);
-		
-		examAttendanceDao.save(examAttendance);
-		
-		return examAttendance;	
-	}
 
+		examAttendanceDao.save(examAttendance);
+
+		return examAttendance;
+	}
 
 	/**
 	 * @return the examAttendanceDao
@@ -39,9 +37,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		return examAttendanceDao;
 	}
 
-
 	/**
-	 * @param examAttendanceDao the examAttendanceDao to set
+	 * @param examAttendanceDao
+	 *            the examAttendanceDao to set
 	 */
 	public void setExamAttendanceDAO(IExamAttendanceDao examAttendanceDao) {
 		this.examAttendanceDao = examAttendanceDao;

@@ -12,7 +12,7 @@ public class StudyBranchService implements IStudyBranchService {
 
 	@Autowired
 	private IStudyBranchDao studyBranchDao;
-	
+
 	@Override
 	public StudyBranch createStudyBranch(String shortTag, String longTag,
 			String branchName) {
@@ -32,7 +32,8 @@ public class StudyBranchService implements IStudyBranchService {
 	}
 
 	/**
-	 * @param studyBranchDao the studyBranchDao to set
+	 * @param studyBranchDao
+	 *            the studyBranchDao to set
 	 */
 	public void setStudyBranchDAO(IStudyBranchDao studyBranchDao) {
 		this.studyBranchDao = studyBranchDao;

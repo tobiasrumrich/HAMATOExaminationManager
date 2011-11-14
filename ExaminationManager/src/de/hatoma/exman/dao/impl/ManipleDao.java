@@ -1,11 +1,10 @@
 package de.hatoma.exman.dao.impl;
 
-import org.springframework.stereotype.Component;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.model.Maniple;
