@@ -75,9 +75,9 @@
 		<s:iterator value="students" status="iteratorStatus">
 
 			<tr>
-				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
-						<s:property value="id" />
-					</s:a></td>
+				<td>
+					<s:property value="id" />
+				</td>
 				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
 						<s:property value="lastname" />
 					</s:a></td>
