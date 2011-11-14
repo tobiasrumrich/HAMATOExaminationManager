@@ -78,13 +78,20 @@
 				<td>
 					<s:property value="id" />
 				</td>
-				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
+				<td>
+						<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction" method="showInputForm">
+    						<s:param name="id" value="%{id}" />
+						</s:url>
+						<s:a href="%{currentUrl}">
 						<s:property value="lastname" />
-					</s:a></td>
-				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
-						<s:property value="forename" />
-					</s:a></td>
-
+						</s:a>
+				</td>
+				<td>
+						<s:url  action="SingleOralExaminationAttendanceAction" method="showInputForm">
+    						<s:property value="forename" />
+    						<s:param name="id" value="%{id}" />
+						</s:url>
+				</td>
 			</tr>
 		</s:iterator>
 	</tbody>

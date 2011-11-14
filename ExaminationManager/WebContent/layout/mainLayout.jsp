@@ -18,10 +18,13 @@
 <link type="text/css"
 	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom..css"
 	rel="stylesheet" /> !-->
+<link type="text/css"
+	href="resources/jquery/css/smoothness/jquery.ui.datepicker.css"
+	rel="stylesheet" />
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <script type="text/javascript"
-	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
+	src="resources/jquery/js/jquery-1.6.2.min.js"></script>	
 <script type="text/javascript"
 	src="resources/jquery/js/datatables/media/js/jquery.dataTables.js"></script>
 <script type="text/javascript"

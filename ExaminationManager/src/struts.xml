@@ -57,6 +57,14 @@
 			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
 		</action>
 
+		<action name="SingleOralExaminationAttendanceAction"
+			class="de.hatoma.exman.action.SingleOralExaminationAttendanceAction">
+			<result name="showInputForm" type="tiles">fileSingleOralExamAttendance
+			</result>
+			<!-- <result name="input" type="tiles">showListForOralExamAttendance</result> -->
+			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
+		</action>		
+
 		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
 			<result name="input" type="tiles">trainmanIntro</result>
 			<result name="success" type="tiles">trainmanSuccess</result>

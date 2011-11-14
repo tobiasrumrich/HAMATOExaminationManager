@@ -40,4 +40,9 @@ public class StudentService implements IStudentService {
 		this.studentDao = studentDao;
 	}
 
+	@Override
+	public Student getStudent(long id) {
+		return studentDao.load(id);
+	}
+
 }
