@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-
 @Entity
 @Audited
 @Table(name = "Exams")
@@ -24,10 +23,10 @@ public class Exam implements Serializable {
 
 	private long id;
 
-	
 	private Examiner examiner;
 	private Date date;
 	private ExamSubject examSubject;
+	private ExamType examType;
 
 	@OneToOne(optional = false)
 	public Examiner getExaminer() {
@@ -72,10 +71,19 @@ public class Exam implements Serializable {
 	}
 
 	/**
-	 * @param examSubject the examSubject to set
+	 * @param examSubject
+	 *            the examSubject to set
 	 */
 	public void setExamSubject(ExamSubject examSubject) {
 		this.examSubject = examSubject;
+	}
+
+	public ExamType getExamType() {
+		return examType;
+	}
+
+	public void setExamType(ExamType examType) {
+		this.examType = examType;
 	}
 
 }
