@@ -1,5 +1,6 @@
 package de.hatoma.exman.service.room;
 
+import java.io.Serializable;
 import java.util.List;
 
 import de.hatoma.exman.model.room.Room;
@@ -62,11 +63,10 @@ public interface IRoomService {
 	 *            The seat count.
 	 * @param beamer
 	 *            The beamer information.
-	 * @return
 	 * @throws RoomNotFoundException
 	 *             if no room could be found for the given id.
 	 */
-	Room updateRoom(long roomId, int seats, boolean beamer);
+	void updateRoom(long roomId, int seats, boolean beamer);
 
 	/**
 	 * Finds a room id by room number and building.

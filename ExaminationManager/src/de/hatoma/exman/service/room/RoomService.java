@@ -1,5 +1,6 @@
 package de.hatoma.exman.service.room;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -47,10 +48,10 @@ public class RoomService implements IRoomService {
 		}
 		return room;
 	}
-	
+
 	/** {@inheritDoc} */
 	@Override
-	public long findIdByBuildingAndRoomNumber(String building, int roomNumber){
+	public long findIdByBuildingAndRoomNumber(String building, int roomNumber) {
 		return getRoomDAO().findIdByBuildingAndRoomNumber(building, roomNumber);
 	}
 
@@ -66,11 +67,11 @@ public class RoomService implements IRoomService {
 
 	/** {@inheritDoc} */
 	@Override
-	public Room updateRoom(long roomId, int seats, boolean beamer) {
+	public void updateRoom(long roomId, int seats, boolean beamer) {
 		Room room = loadRoom(roomId);
 		room.setSeats(seats);
 		room.setBeamer(beamer);
-		return getRoomDAO().save(room);
+		getRoomDAO().update(room);
 	}
 
 	public IRoomDAO getRoomDAO() {
