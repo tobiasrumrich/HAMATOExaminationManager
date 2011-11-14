@@ -65,6 +65,10 @@
 			method="create">
 			<result name="input" type="tiles">inputCreateExam</result>
 		</action>
+		
+		<action name="ExamOverview" class="de.hatoma.exman.action.ExamOverviewAction">
+			<result name="showTable" type="tiles">examOverviewTable</result>
+		</action>
 	</package>
 
 

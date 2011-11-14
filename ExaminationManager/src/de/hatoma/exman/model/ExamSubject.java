@@ -79,4 +79,12 @@ public class ExamSubject implements Serializable {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+		return "ExamSubject [maniple=" + maniple + ", moduleIdentifier="
+				+ moduleIdentifier + ", title=" + title + "]";
+	}
+	
+	
+
 }

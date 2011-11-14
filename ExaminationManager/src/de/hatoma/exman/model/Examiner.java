@@ -57,4 +57,11 @@ public class Examiner implements Serializable {
 		this.lastname = lastname;
 	}
 
+	@Override
+	public String toString() {
+		return forename + " " + lastname;
+	}
+	
+	
+
 }

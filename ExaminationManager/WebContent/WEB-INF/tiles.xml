@@ -55,4 +55,10 @@
 		<put-attribute name="content" value="/tiles/trainman/success.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
 	</definition>
+	
+		<definition name="examOverviewTable" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/exam/overviewTable.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
+	</definition>
+	
 </tiles-definitions>

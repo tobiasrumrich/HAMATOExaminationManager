@@ -1,11 +1,13 @@
 package de.hatoma.exman.action;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.room.Room;
 import de.hatoma.exman.service.IExamService;
 
@@ -17,25 +19,19 @@ import de.hatoma.exman.service.IExamService;
  */
 public class ExamOverviewAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	private Set<Room> exams;
 
 	@Autowired
 	private IExamService examService;
+	private List<Exam> examList;
 
 	@Override
 	public String execute() {
-		examService.getExamList();
-		return "SHOWLIST";
+		setExamList(examService.getExamList());
+		return "showTable";
 
 	}
 
-	/**
-	 * @return the exams
-	 */
-	public Set<Room> getExams() {
-		return exams;
-	}
-
+	
 	/**
 	 * @return the examService
 	 */
@@ -43,13 +39,6 @@ public class ExamOverviewAction extends ActionSupport {
 		return examService;
 	}
 
-	/**
-	 * @param exams
-	 *            the exams to set
-	 */
-	public void setExams(Set<Room> exams) {
-		this.exams = exams;
-	}
 
 	/**
 	 * @param examService
@@ -57,6 +46,22 @@ public class ExamOverviewAction extends ActionSupport {
 	 */
 	public void setExamService(IExamService examService) {
 		this.examService = examService;
+	}
+
+
+	/**
+	 * @return the examList
+	 */
+	public List<Exam> getExamList() {
+		return examList;
+	}
+
+
+	/**
+	 * @param examList the examList to set
+	 */
+	public void setExamList(List<Exam> examList) {
+		this.examList = examList;
 	}
 
 }
