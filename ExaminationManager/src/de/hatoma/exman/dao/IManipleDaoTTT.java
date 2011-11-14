@@ -5,7 +5,7 @@ import java.util.Collection;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
-public interface IManipleDao extends IDao<Maniple> {
+public interface IManipleDaoTTT extends IDaoTTT<Maniple> {
 
 	Collection<Student> getStudents(long id);
 }

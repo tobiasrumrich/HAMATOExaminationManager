@@ -7,12 +7,12 @@ import java.util.Collection;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
-import de.hatoma.exman.dao.IManipleDao;
+import de.hatoma.exman.dao.IManipleDaoTTT;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
 @Component
-public class ManipleDao extends BaseDao<Maniple> implements IManipleDao {
+public class ManipleDao extends BaseDao<Maniple> implements IManipleDaoTTT {
 
 	public ManipleDao() {
 		super(Maniple.class);

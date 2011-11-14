@@ -3,7 +3,7 @@ package de.hatoma.exman.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IExamAttendanceDao;
+import de.hatoma.exman.dao.IExamAttendanceDaoTTT;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -14,7 +14,7 @@ import de.hatoma.exman.service.IExamAttendanceService;
 public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
-	private IExamAttendanceDao examAttendanceDao;
+	private IExamAttendanceDaoTTT examAttendanceDaoTTT;
 	
 	
 	@Override
@@ -26,25 +26,25 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendance.setStudent(student);
 		examAttendance.setExamGrade(examGrade);
 		
-		examAttendanceDao.save(examAttendance);
+		examAttendanceDaoTTT.save(examAttendance);
 		
 		return examAttendance;	
 	}
 
 
 	/**
-	 * @return the examAttendanceDao
+	 * @return the examAttendanceDaoTTT
 	 */
-	public IExamAttendanceDao getExamAttendanceDAO() {
-		return examAttendanceDao;
+	public IExamAttendanceDaoTTT getExamAttendanceDAO() {
+		return examAttendanceDaoTTT;
 	}
 
 
 	/**
-	 * @param examAttendanceDao the examAttendanceDao to set
+	 * @param examAttendanceDaoTTT the examAttendanceDaoTTT to set
 	 */
-	public void setExamAttendanceDAO(IExamAttendanceDao examAttendanceDao) {
-		this.examAttendanceDao = examAttendanceDao;
+	public void setExamAttendanceDAO(IExamAttendanceDaoTTT examAttendanceDaoTTT) {
+		this.examAttendanceDaoTTT = examAttendanceDaoTTT;
 	}
 
 }

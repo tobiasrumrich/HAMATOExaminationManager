@@ -3,7 +3,7 @@ package de.hatoma.exman.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IExaminerDao;
+import de.hatoma.exman.dao.IExaminerDaoTTT;
 import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.service.IExaminerService;
 
@@ -11,7 +11,7 @@ import de.hatoma.exman.service.IExaminerService;
 public class ExaminerService implements IExaminerService {
 
 	@Autowired
-	private IExaminerDao examinerDao;
+	private IExaminerDaoTTT examinerDaoTTT;
 	
 	@Override
 	public Examiner createExaminer(String forename, String lastname) {
@@ -23,17 +23,17 @@ public class ExaminerService implements IExaminerService {
 	}
 
 	/**
-	 * @return the examinerDao
+	 * @return the examinerDaoTTT
 	 */
-	public IExaminerDao getExaminerDAO() {
-		return examinerDao;
+	public IExaminerDaoTTT getExaminerDAO() {
+		return examinerDaoTTT;
 	}
 
 	/**
-	 * @param examinerDao the examinerDao to set
+	 * @param examinerDaoTTT the examinerDaoTTT to set
 	 */
-	public void setExaminerDAO(IExaminerDao examinerDao) {
-		this.examinerDao = examinerDao;
+	public void setExaminerDAO(IExaminerDaoTTT examinerDaoTTT) {
+		this.examinerDaoTTT = examinerDaoTTT;
 	}
 
 }

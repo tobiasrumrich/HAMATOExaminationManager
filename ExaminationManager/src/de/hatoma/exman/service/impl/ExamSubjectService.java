@@ -3,7 +3,7 @@ package de.hatoma.exman.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IExamSubjectDao;
+import de.hatoma.exman.dao.IExamSubjectDaoTTT;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.service.IExamSubjectService;
@@ -12,7 +12,7 @@ import de.hatoma.exman.service.IExamSubjectService;
 public class ExamSubjectService implements IExamSubjectService{
 
 	@Autowired
-	private IExamSubjectDao examSubjectDao;
+	private IExamSubjectDaoTTT examSubjectDaoTTT;
 	
 	@Override
 	public ExamSubject createExamSubject(String title, String description,
@@ -22,22 +22,22 @@ public class ExamSubjectService implements IExamSubjectService{
 		examSubject.setDescription(description);
 		examSubject.setModuleIdentifier(moduleIdentifier);
 		examSubject.setManiple(maniple);
-		examSubjectDao.save(examSubject);
+		examSubjectDaoTTT.save(examSubject);
 		return examSubject;
 	}
 
 	/**
-	 * @return the examSubjectDao
+	 * @return the examSubjectDaoTTT
 	 */
-	public IExamSubjectDao getExamSubjectDAO() {
-		return examSubjectDao;
+	public IExamSubjectDaoTTT getExamSubjectDAO() {
+		return examSubjectDaoTTT;
 	}
 
 	/**
-	 * @param examSubjectDao the examSubjectDao to set
+	 * @param examSubjectDaoTTT the examSubjectDaoTTT to set
 	 */
-	public void setExamSubjectDAO(IExamSubjectDao examSubjectDao) {
-		this.examSubjectDao = examSubjectDao;
+	public void setExamSubjectDAO(IExamSubjectDaoTTT examSubjectDaoTTT) {
+		this.examSubjectDaoTTT = examSubjectDaoTTT;
 	}
 
 }

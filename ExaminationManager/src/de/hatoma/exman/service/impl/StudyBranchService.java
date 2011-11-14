@@ -3,7 +3,7 @@ package de.hatoma.exman.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IStudyBranchDao;
+import de.hatoma.exman.dao.IStudyBranchDaoTTT;
 import de.hatoma.exman.model.StudyBranch;
 import de.hatoma.exman.service.IStudyBranchService;
 
@@ -11,7 +11,7 @@ import de.hatoma.exman.service.IStudyBranchService;
 public class StudyBranchService implements IStudyBranchService {
 
 	@Autowired
-	private IStudyBranchDao studyBranchDao;
+	private IStudyBranchDaoTTT studyBranchDaoTTT;
 	
 	@Override
 	public StudyBranch createStudyBranch(String shortTag, String longTag,
@@ -25,17 +25,17 @@ public class StudyBranchService implements IStudyBranchService {
 	}
 
 	/**
-	 * @return the studyBranchDao
+	 * @return the studyBranchDaoTTT
 	 */
-	public IStudyBranchDao getStudyBranchDAO() {
-		return studyBranchDao;
+	public IStudyBranchDaoTTT getStudyBranchDAO() {
+		return studyBranchDaoTTT;
 	}
 
 	/**
-	 * @param studyBranchDao the studyBranchDao to set
+	 * @param studyBranchDaoTTT the studyBranchDaoTTT to set
 	 */
-	public void setStudyBranchDAO(IStudyBranchDao studyBranchDao) {
-		this.studyBranchDao = studyBranchDao;
+	public void setStudyBranchDAO(IStudyBranchDaoTTT studyBranchDaoTTT) {
+		this.studyBranchDaoTTT = studyBranchDaoTTT;
 	}
 
 }

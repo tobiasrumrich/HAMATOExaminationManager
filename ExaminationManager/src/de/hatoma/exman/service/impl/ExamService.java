@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IExamDao;
+import de.hatoma.exman.dao.IExamDaoTTT;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Examiner;
@@ -15,7 +15,7 @@ import de.hatoma.exman.service.IExamService;
 public class ExamService implements IExamService {
 
 	@Autowired
-	private IExamDao examDao;
+	private IExamDaoTTT examDaoTTT;
 	
 	@Override
 	public Exam createExam(ExamSubject examSubject, Date date, Examiner examiner) {
@@ -23,22 +23,22 @@ public class ExamService implements IExamService {
 		exam.setExamSubject(examSubject);
 		exam.setDate(date);
 		exam.setExaminer(examiner);
-		examDao.save(exam);
+		examDaoTTT.save(exam);
 		return exam;
 	}
 
 	/**
-	 * @return the examDao
+	 * @return the examDaoTTT
 	 */
-	public IExamDao getExamDAO() {
-		return examDao;
+	public IExamDaoTTT getExamDAO() {
+		return examDaoTTT;
 	}
 
 	/**
-	 * @param examDao the examDao to set
+	 * @param examDaoTTT the examDaoTTT to set
 	 */
-	public void setExamDAO(IExamDao examDao) {
-		this.examDao = examDao;
+	public void setExamDAO(IExamDaoTTT examDaoTTT) {
+		this.examDaoTTT = examDaoTTT;
 	}
 
 }
