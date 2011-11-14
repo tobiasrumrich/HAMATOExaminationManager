@@ -1,13 +1,14 @@
-package de.hatoma.exman.dao;
+package de.hatoma.exman.dao.impl;
 
 import org.springframework.stereotype.Component;
 
+import de.hatoma.exman.dao.IExamDao;
 import de.hatoma.exman.model.Exam;
 
 @Component
-public class ExamDAO extends BaseDAO<Exam> implements IExamDAO {
+public class ExamDao extends BaseDao<Exam> implements IExamDao {
 
-	public ExamDAO() {
+	public ExamDao() {
 		super(Exam.class);
 		// TODO Auto-generated constructor stub
 	}

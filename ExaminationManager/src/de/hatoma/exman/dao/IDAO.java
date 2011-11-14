@@ -3,7 +3,7 @@ package de.hatoma.exman.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IDAO<T> {
+public interface IDao<T> {
 
 	Serializable save(T entity);
 

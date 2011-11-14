@@ -1,8 +1,11 @@
-package de.hatoma.exman.service;
+package de.hatoma.exman.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamSubject;
@@ -10,15 +13,31 @@ import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.model.StudyBranch;
+import de.hatoma.exman.service.IExamAttendanceService;
+import de.hatoma.exman.service.IExamService;
+import de.hatoma.exman.service.IExamSubjectService;
+import de.hatoma.exman.service.IExaminerService;
+import de.hatoma.exman.service.IManipleService;
+import de.hatoma.exman.service.IStudentService;
+import de.hatoma.exman.service.IStudyBranchService;
+import de.hatoma.exman.service.ITrainmanService;
 
+@Component
 public class TrainmanService implements ITrainmanService {
 
+	@Autowired
 	private IExamAttendanceService examAttendanceService;
+	@Autowired
 	private IManipleService manipleService;
+	@Autowired
 	private IStudentService studentService;
+	@Autowired
 	private IStudyBranchService studyBranchService;
+	@Autowired
 	private IExaminerService examinerService;
+	@Autowired
 	private IExamSubjectService examSubjectService;
+	@Autowired
 	private IExamService examService;
 
 	private List<String> forenameRepository() {

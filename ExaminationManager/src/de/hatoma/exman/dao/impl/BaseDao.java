@@ -1,4 +1,4 @@
-package de.hatoma.exman.dao;
+package de.hatoma.exman.dao.impl;
 
 import java.io.Serializable;
 
@@ -6,7 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class BaseDAO<T> implements IDAO<T> {
+import de.hatoma.exman.dao.IDao;
+
+public abstract class BaseDao<T> implements IDao<T> {
 
 	private SessionFactory sessionFactory;
 
@@ -21,7 +23,7 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 
 	private Class<T> clazz;
 
-	public BaseDAO(Class<T> clazz) {
+	public BaseDao(Class<T> clazz) {
 		this.clazz = clazz;
 	}
 
