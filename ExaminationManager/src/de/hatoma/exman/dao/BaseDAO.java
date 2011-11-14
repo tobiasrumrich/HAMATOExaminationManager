@@ -1,34 +1,51 @@
 package de.hatoma.exman.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class BaseDAO<T> extends HibernateDaoSupport implements IDAO<T> {
+public abstract class BaseDAO<T> implements IDAO<T> {
+
+	private SessionFactory sessionFactory;
+
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	private Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
+	}
+
 	private Class<T> clazz;
 
 	public BaseDAO(Class<T> clazz) {
 		this.clazz = clazz;
 	}
 
-	/** {@inheritDoc} */
 	@SuppressWarnings("unchecked")
 	@Override
-	public T save(T t) {
-		return (T) getHibernateTemplate().save(t);
+	public java.util.List<T> findAll() {
+		return getCurrentSession().createCriteria(clazz).list();
+	};
+
+	public void update(T entity) {
+		getCurrentSession().update(entity);
+	};
+	/** {@inheritDoc} */
+	@Override
+	public Serializable save(T t) {
+
+		return getCurrentSession().save(t);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public void delete(T t) {
-		getHibernateTemplate().delete(t);
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<T> findAll() {
-		return getHibernateTemplate().loadAll(clazz.getClass());
+		getCurrentSession().delete(t);
 	}
 
 	/** {@inheritDoc} */
@@ -36,6 +53,6 @@ public abstract class BaseDAO<T> extends HibernateDaoSupport implements IDAO<T> 
 	@Override
 	public T load(long id) {
 
-		return (T) getHibernateTemplate().get(clazz.getClass(), id);
+		return (T) getCurrentSession().get(clazz.getClass(), id);
 	}
 }
