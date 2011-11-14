@@ -9,7 +9,6 @@ import de.hatoma.exman.model.room.Room;
 
 public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
 
-	
 	/** {@inheritDoc} */
 	@Override
 	public Room save(Room room) {
@@ -51,6 +50,11 @@ public class RoomDAO extends HibernateDaoSupport implements IRoomDAO {
 			return roomId.longValue();
 		}
 		return 0;
+	}
+
+	@Override
+	public void update(Room entity) {
+		// nothing
 	}
 
 }
