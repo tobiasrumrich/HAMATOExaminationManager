@@ -9,4 +9,5 @@ import de.hatoma.exman.model.StudyBranch;
 public interface IManipleService {
 	public Maniple createManiple(StudyBranch studyBranch, int year);
 	public Collection<Student> getStudents(long id);
+	public Collection<Maniple> getAll();
 }

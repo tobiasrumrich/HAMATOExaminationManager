@@ -28,6 +28,11 @@ public class ManipleService implements IManipleService {
 		students = getManipleDAO().getStudents(id);
 		return students;
 	}
+	
+	@Override
+	public Collection<Maniple> getAll() {
+		return manipleDAO.findAll();
+	}
 
 	/**
 	 * @return the manipleDAO
@@ -42,5 +47,7 @@ public class ManipleService implements IManipleService {
 	public void setManipleDAO(IManipleDAO manipleDAO) {
 		this.manipleDAO = manipleDAO;
 	}
+
+
 
 }

@@ -242,9 +242,9 @@ span#sessioninfo {
 							
 							</p>
 							<p>
-							<s:url action="ShowListForOralExamAttendance"
-									id="showListForOralExamAttendanceUrl" /> <s:a
-									href="%{showListForOralExamAttendanceUrl}">Erfassung mündlicher Noten</s:a>							
+							<s:url action="ShowStudentListForOralExamination"
+									id="showStudentListForOralExaminationUrl" /> <s:a
+									href="%{showStudentListForOralExaminationUrl}">Erfassung mündlicher Noten</s:a>							
 							</p>
 						</div>
 					</div>
