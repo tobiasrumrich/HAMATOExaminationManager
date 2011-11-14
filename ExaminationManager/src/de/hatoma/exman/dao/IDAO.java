@@ -11,7 +11,7 @@ public interface IDAO<T> {
 
 	List<T> findAll();
 
-	T load(long id);
+	T load(Serializable id);
 
 	void update(T entity);
 

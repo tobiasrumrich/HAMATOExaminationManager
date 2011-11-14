@@ -1,100 +1,96 @@
 package de.hatoma.exman.dao.test;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
-import de.hatoma.exman.dao.IManipleDAO;
-import de.hatoma.exman.dao.IStudentDAO;
-import de.hatoma.exman.dao.IStudyBranchDAO;
-import de.hatoma.exman.model.Maniple;
+import junit.framework.Assert;
+
+import org.junit.Test;
+
 import de.hatoma.exman.model.Student;
-import de.hatoma.exman.model.StudyBranch;
 
 /**
  * @author Hannes Lemberg
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/spring-test-config.xml" })
-@Transactional
-@TransactionConfiguration
-public class StudentDaoTest {
-
-	@Autowired
-	private IStudentDAO studentDao;
-	@Autowired
-	private IManipleDAO manipleDAO;
-	@Autowired
-	private IStudyBranchDAO studyBranchDAO;
-
-	@Before
-	public void beforeMethod() {
-		// Annahmen vor den Tests, es existiert nix für niemandend
-		Assume.assumeThat(studyBranchDAO.findAll().size(),
-				CoreMatchers.equalTo(0));
-		Assume.assumeThat(manipleDAO.findAll().size(), CoreMatchers.equalTo(0));
-		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(0));
-
-		// Vorbereitungen
-		StudyBranch studyBranch = new StudyBranch();
-		studyBranch.setBranchName("studyBranchBranchName");
-		studyBranch.setLongTag("studyBranchLongTag");
-		studyBranch.setShortTag("studyBranchShortTag");
-		studyBranchDAO.save(studyBranch);
-
-		Maniple maniple = new Maniple();
-		maniple.setYear(2011);
-		maniple.setStudyBranch(studyBranch);
-		manipleDAO.save(maniple);
-
-		Student student = new Student();
-		student.setForename("studentForename");
-		student.setLastname("studentLastname");
-		student.setManiple(maniple);
-		studentDao.save(student);
-
-		// Annahmen nach den Vorbereitungen: es existiert eine Instanz für
-		// jeweils alle
-		Assume.assumeThat(studyBranchDAO.findAll().size(),
-				CoreMatchers.equalTo(1));
-		Assume.assumeThat(manipleDAO.findAll().size(), CoreMatchers.equalTo(1));
-		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(1));
+public class StudentDaoTest extends BaseDaoTest {
+	@Test
+	public void testInitial() {
+		List<Student> findAll = getStudentDao().findAll();
+		Student s = findAll.get(0);
+		Assert.assertEquals(getDefaultStudent(), s);
 	}
 
 	@Test
 	public void testSave() {
+		final Student s = new Student();
+		s.setForename("A");
+		s.setLastname("B");
+		s.setManiple(getDefaultManiple());
+		s.setMatriculationNumber("XXX");
+		getStudentDao().save(s);
 
+		// Persistieren erfolgriech
+		Assert.assertNotNull(s.getId());
+		Assert.assertTrue(s.getId() > 0);
+
+		// Werte vergleichen
+		Student s2 = getStudentDao().load(s.getId());
+		Assert.assertEquals("A", s2.getForename());
+		Assert.assertEquals("B", s2.getLastname());
+		Assert.assertEquals(getDefaultManiple(), s2.getManiple());
+		Assert.assertEquals("XXX", s2.getMatriculationNumber());
 	}
 
-	public IStudentDAO getStudentDao() {
-		return studentDao;
+	@Test
+	public void testUpdate() {
+		Student s1 = getDefaultStudent();
+
+		s1.setForename("A1");
+		s1.setLastname("A2");
+		s1.setMatriculationNumber("YYY");
+
+		getStudentDao().update(s1);
+
+		// Persistieren erfolgriech
+		Assert.assertNotNull(s1.getId());
+		Assert.assertTrue(s1.getId() > 0);
+
+		// Werte vergleichen
+		Student s2 = getStudentDao().load(s1.getId());
+		Assert.assertEquals("A1", s2.getForename());
+		Assert.assertEquals("A2", s2.getLastname());
+		Assert.assertEquals(getDefaultManiple(), s2.getManiple());
+		Assert.assertEquals("YYY", s2.getMatriculationNumber());
 	}
 
-	public void setStudentDao(IStudentDAO studentDao) {
-		this.studentDao = studentDao;
+	@Test
+	public void testDelete() {
+		long oldID = getDefaultStudent().getId();
+		Student s = getStudentDao().load(oldID);
+		Assert.assertNotNull(s);
+		Assert.assertNotNull(s.getId());
+		Assert.assertTrue(s.getId() > 0);
+
+		getStudentDao().delete(s);
+
+		Student s2 = getStudentDao().load(oldID);
+		Assert.assertNull(s2);
 	}
 
-	public IManipleDAO getManipleDAO() {
-		return manipleDAO;
-	}
+	@Test
+	public void testFindAll() {
+		Assert.assertEquals(1, getStudentDao().findAll().size());
 
-	public void setManipleDAO(IManipleDAO manipleDAO) {
-		this.manipleDAO = manipleDAO;
-	}
+		final Student s = new Student();
+		s.setForename("A");
+		s.setLastname("B");
+		s.setManiple(getDefaultManiple());
+		s.setMatriculationNumber("XXX");
+		getStudentDao().save(s);
 
-	public IStudyBranchDAO getStudyBranchDAO() {
-		return studyBranchDAO;
-	}
+		Assert.assertEquals(2, getStudentDao().findAll().size());
 
-	public void setStudyBranchDAO(IStudyBranchDAO studyBranchDAO) {
-		this.studyBranchDAO = studyBranchDAO;
-	}
+		getStudentDao().delete(s);
 
+		Assert.assertEquals(1, getStudentDao().findAll().size());
+	}
 }
