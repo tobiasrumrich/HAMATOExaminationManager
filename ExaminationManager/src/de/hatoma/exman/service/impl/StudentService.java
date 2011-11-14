@@ -3,7 +3,7 @@ package de.hatoma.exman.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IStudentDaoTTT;
+import de.hatoma.exman.dao.IStudentDao;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IStudentService;
@@ -12,7 +12,7 @@ import de.hatoma.exman.service.IStudentService;
 public class StudentService implements IStudentService {
 
 	@Autowired
-	private IStudentDaoTTT studentDaoTTT;
+	private IStudentDao studentDao;
 	@Override
 	public Student createStudent(String forename, String lastname,
 			Maniple maniple) {
@@ -20,20 +20,20 @@ public class StudentService implements IStudentService {
 		student.setForename(forename);
 		student.setLastname(lastname);
 		student.setManiple(maniple);
-		studentDaoTTT.save(student);
+		studentDao.save(student);
 		return student;
 	}
 	/**
-	 * @return the studentDaoTTT
+	 * @return the studentDao
 	 */
-	public IStudentDaoTTT getStudentDAO() {
-		return studentDaoTTT;
+	public IStudentDao getStudentDAO() {
+		return studentDao;
 	}
 	/**
-	 * @param studentDaoTTT the studentDaoTTT to set
+	 * @param studentDao the studentDao to set
 	 */
-	public void setStudentDAO(IStudentDaoTTT studentDaoTTT) {
-		this.studentDaoTTT = studentDaoTTT;
+	public void setStudentDAO(IStudentDao studentDao) {
+		this.studentDao = studentDao;
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IManipleDaoTTT;
+import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.model.StudyBranch;
@@ -15,7 +15,7 @@ import de.hatoma.exman.service.IManipleService;
 public class ManipleService implements IManipleService {
 	
 	@Autowired
-	private IManipleDaoTTT manipleDaoTTT;
+	private IManipleDao manipleDao;
 
 	@Override
 	public Maniple createManiple(StudyBranch studyBranch, int year) {
@@ -36,21 +36,21 @@ public class ManipleService implements IManipleService {
 	
 	@Override
 	public Collection<Maniple> getAll() {
-		return manipleDaoTTT.findAll();
+		return manipleDao.findAll();
 	}
 
 	/**
-	 * @return the manipleDaoTTT
+	 * @return the manipleDao
 	 */
-	public IManipleDaoTTT getManipleDAO() {
-		return manipleDaoTTT;
+	public IManipleDao getManipleDAO() {
+		return manipleDao;
 	}
 
 	/**
-	 * @param manipleDaoTTT the manipleDaoTTT to set
+	 * @param manipleDao the manipleDao to set
 	 */
-	public void setManipleDAO(IManipleDaoTTT manipleDaoTTT) {
-		this.manipleDaoTTT = manipleDaoTTT;
+	public void setManipleDAO(IManipleDao manipleDao) {
+		this.manipleDao = manipleDao;
 	}
 
 

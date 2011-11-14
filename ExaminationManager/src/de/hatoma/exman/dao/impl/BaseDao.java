@@ -6,9 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.hatoma.exman.dao.IDaoTTT;
+import de.hatoma.exman.dao.IDao;
 
-public abstract class BaseDao<T> implements IDaoTTT<T> {
+public abstract class BaseDao<T> implements IDao<T> {
 
 	private SessionFactory sessionFactory;
 

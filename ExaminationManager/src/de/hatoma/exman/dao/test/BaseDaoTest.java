@@ -12,9 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.hatoma.exman.dao.IManipleDaoTTT;
-import de.hatoma.exman.dao.IStudentDaoTTT;
-import de.hatoma.exman.dao.IStudyBranchDaoTTT;
+import de.hatoma.exman.dao.IManipleDao;
+import de.hatoma.exman.dao.IStudentDao;
+import de.hatoma.exman.dao.IStudyBranchDao;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.model.StudyBranch;
@@ -25,11 +25,11 @@ import de.hatoma.exman.model.StudyBranch;
 @TransactionConfiguration
 public abstract class BaseDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Autowired
-	private IStudentDaoTTT studentDaoTTT;
+	private IStudentDao studentDao;
 	@Autowired
-	private IManipleDaoTTT manipleDaoTTT;
+	private IManipleDao manipleDao;
 	@Autowired
-	private IStudyBranchDaoTTT studyBranchDaoTTT;
+	private IStudyBranchDao studyBranchDao;
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -40,35 +40,35 @@ public abstract class BaseDaoTest extends AbstractTransactionalJUnit4SpringConte
 	@Before
 	public void beforeMethod() {
 		// Annahmen vor den Tests, es existiert nix für niemandend
-		Assume.assumeThat(studyBranchDaoTTT.findAll().size(),
+		Assume.assumeThat(studyBranchDao.findAll().size(),
 				CoreMatchers.equalTo(0));
-		Assume.assumeThat(manipleDaoTTT.findAll().size(), CoreMatchers.equalTo(0));
-		Assume.assumeThat(studentDaoTTT.findAll().size(), CoreMatchers.equalTo(0));
+		Assume.assumeThat(manipleDao.findAll().size(), CoreMatchers.equalTo(0));
+		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(0));
 
 		// Vorbereitungen
 		StudyBranch studyBranch = new StudyBranch();
 		studyBranch.setBranchName("studyBranchBranchName");
 		studyBranch.setLongTag("studyBranchLongTag");
 		studyBranch.setShortTag("studyBranchShortTag");
-		studyBranchDaoTTT.save(studyBranch);
+		studyBranchDao.save(studyBranch);
 
 		Maniple maniple = new Maniple();
 		maniple.setYear(2011);
 		maniple.setStudyBranch(studyBranch);
-		manipleDaoTTT.save(maniple);
+		manipleDao.save(maniple);
 
 		Student student = new Student();
 		student.setForename("studentForename");
 		student.setLastname("studentLastname");
 		student.setManiple(maniple);
-		studentDaoTTT.save(student);
+		studentDao.save(student);
 
 		// Annahmen nach den Vorbereitungen: es existiert eine Instanz für
 		// jeweils alle
-		Assume.assumeThat(studyBranchDaoTTT.findAll().size(),
+		Assume.assumeThat(studyBranchDao.findAll().size(),
 				CoreMatchers.equalTo(1));
-		Assume.assumeThat(manipleDaoTTT.findAll().size(), CoreMatchers.equalTo(1));
-		Assume.assumeThat(studentDaoTTT.findAll().size(), CoreMatchers.equalTo(1));
+		Assume.assumeThat(manipleDao.findAll().size(), CoreMatchers.equalTo(1));
+		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(1));
 
 		// Alle lokal setzen
 		this.defaultManiple = maniple;
@@ -88,28 +88,28 @@ public abstract class BaseDaoTest extends AbstractTransactionalJUnit4SpringConte
 		return defaultStudyBranch;
 	}
 
-	public IManipleDaoTTT getManipleDAO() {
-		return manipleDaoTTT;
+	public IManipleDao getManipleDAO() {
+		return manipleDao;
 	}
 
-	public IStudentDaoTTT getStudentDao() {
-		return studentDaoTTT;
+	public IStudentDao getStudentDao() {
+		return studentDao;
 	}
 
-	public IStudyBranchDaoTTT getStudyBranchDAO() {
-		return studyBranchDaoTTT;
+	public IStudyBranchDao getStudyBranchDAO() {
+		return studyBranchDao;
 	}
 
-	public void setManipleDAO(IManipleDaoTTT manipleDaoTTT) {
-		this.manipleDaoTTT = manipleDaoTTT;
+	public void setManipleDAO(IManipleDao manipleDao) {
+		this.manipleDao = manipleDao;
 	}
 
-	public void setStudentDao(IStudentDaoTTT studentDaoTTT) {
-		this.studentDaoTTT = studentDaoTTT;
+	public void setStudentDao(IStudentDao studentDao) {
+		this.studentDao = studentDao;
 	}
 
-	public void setStudyBranchDAO(IStudyBranchDaoTTT studyBranchDaoTTT) {
-		this.studyBranchDaoTTT = studyBranchDaoTTT;
+	public void setStudyBranchDAO(IStudyBranchDao studyBranchDao) {
+		this.studyBranchDao = studyBranchDao;
 	}
 
 	public SessionFactory getSessionFactory() {

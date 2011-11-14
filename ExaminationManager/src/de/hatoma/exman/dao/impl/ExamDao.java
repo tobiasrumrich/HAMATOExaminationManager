@@ -2,11 +2,11 @@ package de.hatoma.exman.dao.impl;
 
 import org.springframework.stereotype.Component;
 
-import de.hatoma.exman.dao.IExamDaoTTT;
+import de.hatoma.exman.dao.IExamDao;
 import de.hatoma.exman.model.Exam;
 
 @Component
-public class ExamDao extends BaseDao<Exam> implements IExamDaoTTT {
+public class ExamDao extends BaseDao<Exam> implements IExamDao {
 
 	public ExamDao() {
 		super(Exam.class);
