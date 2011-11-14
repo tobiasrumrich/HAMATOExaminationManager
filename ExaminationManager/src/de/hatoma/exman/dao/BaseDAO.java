@@ -52,8 +52,8 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 	/** {@inheritDoc} */
 	@SuppressWarnings("unchecked")
 	@Override
-	public T load(long id) {
+	public T load(Serializable id) {
 
-		return (T) getCurrentSession().get(clazz.getClass(), id);
+		return (T) getCurrentSession().get(clazz, id);
 	}
 }
