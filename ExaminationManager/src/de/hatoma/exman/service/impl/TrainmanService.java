@@ -188,7 +188,7 @@ public class TrainmanService implements ITrainmanService {
 		}
 
 		List<ExamSubject> bwlExamSubjects = new ArrayList<ExamSubject>();
-		for (Maniple iManiple : allWingManiples) {
+		for (Maniple iManiple : allBwlManiples) {
 			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
 					"Kosten- und Leistungsrechnung [" + iManiple + "]",
 					"Links an Rechts und umgekehrt", "B01", iManiple));
@@ -219,7 +219,7 @@ public class TrainmanService implements ITrainmanService {
 			wingExams.add(getExamService().createExam(
 					exSubject,
 					new Date(2011, 10, 9),
-					wingExaminer.get((int) (Math.random() * (winfExaminer
+					wingExaminer.get((int) (Math.random() * (wingExaminer
 							.size() - 1)))));
 		}
 
@@ -229,7 +229,7 @@ public class TrainmanService implements ITrainmanService {
 					.createExam(
 							exSubject,
 							new Date(2011, 3, 2),
-							bwlExaminer.get((int) (Math.random() * (winfExaminer
+							bwlExaminer.get((int) (Math.random() * (bwlExaminer
 									.size() - 1)))));
 		}
 
