@@ -7,34 +7,52 @@
 <tiles-definitions>
 	<!-- Main layout -->
 	<definition name="mainLayout" template="/layout/mainLayout.jsp">
-		<put-attribute name="title" value="txtTitle"/>
+		<put-attribute name="title" value="txtTitle" />
 		<put-attribute name="applicationName" value="txtApplicationName"></put-attribute>
 	</definition>
-	<!-- Screens -->
-	<definition name="home" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/home.jsp"/>
-		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe"/>
-	</definition>
-	<definition name="inputSingle" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/inputSingle.jsp"/>
-		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe"/>
-	</definition>
-	
-	<definition name="inputSingleExamAttendance" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/inputSingleExamAttendance.jsp"/>
-		<put-attribute name="actionDisplayName" value="txtADNInputSingleExamAttendance"/>
-	</definition>
-	<definition name="fileSingleOralExamAttendance" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/fileSingleOralExamAttendance.jsp"/>
-		<put-attribute name="actionDisplayName" value="txtADNFileSingleOralExamAttendance"/>
-	</definition>
-	<definition name="showListForOralExamAttendance" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/showListForOralExamAttendance.jsp"/>
-		<put-attribute name="actionDisplayName" value="txtADNShowListForOralExamAttendance"/>
-	</definition>
-	<definition name="inputCreateExam" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/inputCreateExam.jsp"/>
-		<put-attribute name="actionDisplayName" value="txtADNInputCreateExam"/>
+
+	<!-- Modal Layout -->
+	<definition name="modalLayout" template="/layout/modalLayout.jsp">
+		<put-attribute name="title" value="txtTitle" />
+		<put-attribute name="applicationName" value="txtApplicationName"></put-attribute>
 	</definition>
 
+	<!-- Screens -->
+	<definition name="home" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/home.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe" />
+	</definition>
+	<definition name="inputSingle" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/inputSingle.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe" />
+	</definition>
+
+	<definition name="inputSingleExamAttendance" extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/inputSingleExamAttendance.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNInputSingleExamAttendance" />
+	</definition>
+	<definition name="fileSingleOralExamAttendance" extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/fileSingleOralExamAttendance.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNFileSingleOralExamAttendance" />
+	</definition>
+	<definition name="showListForOralExamAttendance" extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/showListForOralExamAttendance.jsp" />
+		<put-attribute name="actionDisplayName"
+			value="txtADNShowListForOralExamAttendance" />
+	</definition>
+	<definition name="inputCreateExam" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/inputCreateExam.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNInputCreateExam" />
+	</definition>
+	<definition name="trainmanIntro" extends="modalLayout">
+		<put-attribute name="content" value="/tiles/trainman/intro.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
+	</definition>
+	<definition name="trainmanSuccess" extends="modalLayout">
+		<put-attribute name="content" value="/tiles/trainman/success.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
+	</definition>
 </tiles-definitions>

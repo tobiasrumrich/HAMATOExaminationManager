@@ -32,4 +32,9 @@ public class CourseDAO extends HibernateDaoSupport implements ICourseDAO {
 	public Course load(long id) {
 		return (Course) getHibernateTemplate().get(Course.class, id);
 	}
+
+	@Override
+	public void update(Course entity) {
+		// dummy um compilefehler zu verhindern
+	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,7 +29,7 @@ public class Exam implements Serializable {
 	private ExamSubject examSubject;
 	private ExamType examType;
 
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	public Examiner getExaminer() {
 		return examiner;
 	}

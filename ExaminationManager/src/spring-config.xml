@@ -113,6 +113,27 @@
 	<!-- <property name="examService" ref="examService" /> -->
 	<!-- </bean> -->
 
+	<!-- <bean name="trainmanService" class="de.hatoma.exman.service.TrainmanService"> -->
+	<!-- <property name="manipleService" ref="manipleService" /> -->
+	<!-- <property name="studentService" ref="studentService" /> -->
+	<!-- <property name="studyBranchService" ref="studyBranchService" /> -->
+	<!-- <property name="examSubjectService" ref="examSubjectService" /> -->
+	<!-- <property name="examService" ref="examService" /> -->
+	<!-- <property name="examinerService" ref="examinerService" /> -->
+	<!-- </bean> -->
+
+	<!-- ACTIONS by HATOMA -->
+	<!-- <bean name="SingleExamAttendanceAction" class="de.hatoma.exman.action.SingleExamAttendanceAction"> -->
+	<!-- <property name="manipleService" ref="manipleService" /> -->
+	<!-- <property name="studentService" ref="studentService" /> -->
+	<!-- <property name="studyBranchService" ref="studyBranchService" /> -->
+	<!-- <property name="examSubjectService" ref="examSubjectService" /> -->
+	<!-- <property name="examService" ref="examService" /> -->
+	<!-- </bean> -->
+
+	<!-- <bean name="TrainmanAction" class="de.hatoma.exman.action.TrainmanAction"> -->
+	<!-- <property name="trainmanService" ref="trainmanService" /> -->
+	<!-- </bean> -->
 
 	<!-- <bean name="singleExamAttendance" cla> <property name="examAttendanceService" 
 		ref="examAttendanceService" /> </bean> ! -->

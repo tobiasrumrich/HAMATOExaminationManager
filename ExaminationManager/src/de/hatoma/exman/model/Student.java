@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,24 +25,21 @@ import javax.persistence.OneToMany;
 public class Student implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private long id;
+	private Collection<ExamAttendance> examAttendance;
 	private String forename;
+
+	private long id;
+	private String matriculationNumber;
 	private String lastname;
+	private Maniple maniple;
+
+	@OneToMany(mappedBy = "student")
+	public Collection<ExamAttendance> getExamAttendance() {
+	    return examAttendance;
+	}
 
 	public String getForename() {
 		return forename;
-	}
-
-	public void setForename(String forename) {
-		this.forename = forename;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
 	}
 	
 
@@ -50,28 +49,45 @@ public class Student implements Serializable {
 		return id;
 	}
 
+	public String getLastname() {
+		return lastname;
+	}
+
+	@ManyToOne(optional = false)
+	public Maniple getManiple() {
+		return maniple;
+	}
+	public void setExamAttendance(Collection<ExamAttendance> param) {
+	    this.examAttendance = param;
+	}
+	public void setForename(String forename) {
+		this.forename = forename;
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	private Maniple maniple;
-	private Collection<ExamAttendance> examAttendance;
-	@ManyToOne(optional = false)
-	public Maniple getManiple() {
-		return maniple;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public void setManiple(Maniple param) {
 		this.maniple = param;
 	}
 
-	@OneToMany(mappedBy = "student")
-	public Collection<ExamAttendance> getExamAttendance() {
-	    return examAttendance;
+	/**
+	 * @return the matriculationNumber
+	 */
+	public String getMatriculationNumber() {
+		return matriculationNumber;
 	}
 
-	public void setExamAttendance(Collection<ExamAttendance> param) {
-	    this.examAttendance = param;
+	/**
+	 * @param matriculationNumber the matriculationNumber to set
+	 */
+	public void setMatriculationNumber(String matriculationNumber) {
+		this.matriculationNumber = matriculationNumber;
 	}
 
 	

@@ -1,7 +1,6 @@
 package de.hatoma.exman.dao;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,7 +15,7 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 		this.sessionFactory = sessionFactory;
 	}
 
-	private Session getCurrentSession() {
+	protected Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
@@ -32,9 +31,11 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 		return getCurrentSession().createCriteria(clazz).list();
 	};
 
+	@Override
 	public void update(T entity) {
 		getCurrentSession().update(entity);
 	};
+
 	/** {@inheritDoc} */
 	@Override
 	public Serializable save(T t) {

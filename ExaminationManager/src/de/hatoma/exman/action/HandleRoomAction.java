@@ -16,8 +16,8 @@ public class HandleRoomAction extends ActionSupport {
 		long roomId = roomService.findIdByBuildingAndRoomNumber(
 				room.getBuilding(), room.getRoomNumber());
 		if (roomId != 0) {
-			room = roomService.updateRoom(roomId, room.getSeats(),
-					room.isBeamer());
+			// room = roomService.updateRoom(roomId, room.getSeats(),
+			// room.isBeamer());
 		} else {
 			room = roomService.createRoom(room.getRoomNumber(),
 					room.getBuilding(), room.getSeats(), room.isBeamer());
@@ -45,7 +45,7 @@ public class HandleRoomAction extends ActionSupport {
 
 	private long parseSelectedId() {
 		if (selectedId == null || selectedId.length() == 0) {
-			addActionError("Kein Raum ausgewählt.");
+			addActionError("Kein Raum ausgewï¿½hlt.");
 			return -1;
 		}
 		try {

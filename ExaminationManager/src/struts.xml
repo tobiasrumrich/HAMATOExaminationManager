@@ -33,30 +33,37 @@
 
 		<action name="FileSingleOralExamAttendance" class="de.hatoma.exman.action.HandleExamAction"
 			method="save">
-			<result name="input" type="tiles">fileSingleOralExamAttendance</result>
-			<result name="success" type="chain">FileSingleOralExamAttendanceSuccess</result>
+			<result name="input" type="tiles">fileSingleOralExamAttendance
+			</result>
+			<result name="success" type="chain">FileSingleOralExamAttendanceSuccess
+			</result>
 		</action>
 		<action name="FileSingleOralExamAttendanceSuccess">
 			<result type="tiles">fileSingleOralExamAttendanceSuccess</result>
 		</action>
 
 
-		<action name="FileSingleExamAttendance" class="de.hatoma.exman.action.SingleExamAttendanceAction"
-			method="display">
-			<result name="showInputForm" type="tiles">inputSingleExamAttendance</result>
+		<action name="FileSingleExamAttendance"
+			class="de.hatoma.exman.action.SingleExamAttendanceAction" method="display">
+			<result name="showInputForm" type="tiles">inputSingleExamAttendance
+			</result>
 		</action>
 
-		<action name="ShowListForOralExamAttendance" class="de.hatoma.exman.action.HandleExamAction"
-			method="save">
-			<result name="input" type="tiles">showListForOralExamAttendance</result>
-			<result name="success" type="chain">FileSingleOralExamAttendance</result>
+		<action name="ShowStudentListForOralExamination"
+			class="de.hatoma.exman.action.ShowStudentListForOralExaminationAction">
+			<result name="showInputForm" type="tiles">showListForOralExamAttendance
+			</result>
+			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
 		</action>
 
-		<action name="CreateExam" class="de.hatoma.exman.action.CreateExamAction" method="create">
+		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
+			<result name="input" type="tiles">trainmanIntro</result>
+			<result name="success" type="tiles">trainmanSuccess</result>
+		</action>
+		<action name="CreateExam" class="de.hatoma.exman.action.CreateExamAction"
+			method="create">
 			<result name="input" type="tiles">inputCreateExam</result>
 		</action>
-
-
 	</package>
 
 
