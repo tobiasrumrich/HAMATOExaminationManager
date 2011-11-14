@@ -52,6 +52,9 @@
 			<result name="success" type="chain">FileSingleOralExamAttendance</result>
 		</action>
 
+		<action name="CreateExam" class="de.hatoma.exman.action.CreateExamAction" method="create">
+			<result name="input" type="tiles">inputCreateExam</result>
+		</action>
 
 
 	</package>
