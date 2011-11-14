@@ -1,21 +1,18 @@
 package de.hatoma.exman.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import de.hatoma.exman.model.ExamAttendance;
-import java.util.Collection;
-import javax.persistence.OneToMany;
 
 
 @Entity
@@ -90,6 +87,50 @@ public class Student implements Serializable {
 		this.matriculationNumber = matriculationNumber;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((forename == null) ? 0 : forename.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime
+				* result
+				+ ((matriculationNumber == null) ? 0 : matriculationNumber
+						.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (forename == null) {
+			if (other.forename != null)
+				return false;
+		} else if (!forename.equals(other.forename))
+			return false;
+		if (id != other.id)
+			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
+			return false;
+		if (matriculationNumber == null) {
+			if (other.matriculationNumber != null)
+				return false;
+		} else if (!matriculationNumber.equals(other.matriculationNumber))
+			return false;
+		return true;
+	}
+
+	
 }
