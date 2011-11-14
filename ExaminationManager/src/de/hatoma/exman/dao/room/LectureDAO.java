@@ -1,5 +1,6 @@
 package de.hatoma.exman.dao.room;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -10,8 +11,8 @@ import de.hatoma.exman.model.room.Lecture;
 public class LectureDAO extends HibernateDaoSupport implements ILectureDAO {
 	/** {@inheritDoc} */
 	@Override
-	public Lecture save(Lecture lecture) {
-		return (Lecture) getHibernateTemplate().save(lecture);
+	public Serializable save(Lecture lecture) {
+		return getHibernateTemplate().save(lecture);
 	}
 
 	/** {@inheritDoc} */
@@ -37,9 +38,17 @@ public class LectureDAO extends HibernateDaoSupport implements ILectureDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Lecture> findByRoom(long roomId) {
-		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession()
-				.createQuery("from Lecture as lecture join fetch lecture.room as room where room.id = :roomId");
+		Query query = getHibernateTemplate()
+				.getSessionFactory()
+				.getCurrentSession()
+				.createQuery(
+						"from Lecture as lecture join fetch lecture.room as room where room.id = :roomId");
 		query.setLong("roomId", roomId);
 		return query.list();
+	}
+
+	@Override
+	public void update(Lecture entity) {
+		return; // nothing
 	}
 }
