@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	   	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
-
-
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- Common Spring Base Configuration -->
+	<import resource="spring-base-config.xml" />
 	<!-- Data source definition -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -42,98 +43,77 @@
 				</entry>
 			</map>
 		</property>
-
 	</bean>
-
-	<!-- Pointcut configuration -->
-	<aop:config>
-		<aop:pointcut id="serviceMethods"
-			expression="execution(* de.hatoma.exman.service..*.*(..))" />
-	</aop:config>
-
-	<!-- Transaction configuration -->
-	<bean id="txManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="*" propagation="REQUIRED" />
-		</tx:attributes>
-	</tx:advice>
-	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
-	</aop:config>
 
 	<!-- DAOs by HATOMA -->
-	<bean name="examAttendanceDAO" class="de.hatoma.exman.dao.ExamAttendanceDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="examAttendanceDAO" class="de.hatoma.exman.dao.ExamAttendanceDAO"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
 
-	<bean name="studentDAO" class="de.hatoma.exman.dao.StudentDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="studentDAO" class="de.hatoma.exman.dao.StudentDAO"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
 
-	<bean name="studyBranchDAO" class="de.hatoma.exman.dao.StudyBranchDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="studyBranchDAO" class="de.hatoma.exman.dao.StudyBranchDAO"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
 
-	<bean name="manipleDAO" class="de.hatoma.exman.dao.ManipleDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="manipleDAO" class="de.hatoma.exman.dao.ManipleDAO"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
 
-	<bean name="examinerDAO" class="de.hatoma.exman.dao.ExaminerDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="examinerDAO" class="de.hatoma.exman.dao.ExaminerDAO"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
 
-	<bean name="examSubjectDAO" class="de.hatoma.exman.dao.ExamSubjectDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="examSubjectDAO" class="de.hatoma.exman.dao.ExamSubjectDAO"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
 
-	<bean name="examDAO" class="de.hatoma.exman.dao.ExamDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- <bean name="examDAO" class="de.hatoma.exman.dao.ExamDAO"> -->
+	<!-- <property name="sessionFactory" ref="sessionFactory" /> -->
+	<!-- </bean> -->
 
-	<!-- SERVICES by HATOMA -->
-	<bean name="examAttendanceService" class="de.hatoma.exman.service.ExamAttendanceService">
-		<property name="examAttendanceDAO" ref="examAttendanceDAO" />
-	</bean>
+	<!-- <!- - SERVICES by HATOMA - -> -->
+	<!-- <bean name="examAttendanceService" class="de.hatoma.exman.service.ExamAttendanceService"> -->
+	<!-- <property name="examAttendanceDAO" ref="examAttendanceDAO" /> -->
+	<!-- </bean> -->
 
-	<bean name="studentService" class="de.hatoma.exman.service.StudentService">
-		<property name="studentDAO" ref="studentDAO" />
-	</bean>
+	<!-- <bean name="studentService" class="de.hatoma.exman.service.StudentService"> -->
+	<!-- <property name="studentDAO" ref="studentDAO" /> -->
+	<!-- </bean> -->
 
-	<bean name="studyBranchService" class="de.hatoma.exman.service.StudyBranchService">
-		<property name="studyBranchDAO" ref="studyBranchDAO" />
-	</bean>
+	<!-- <bean name="studyBranchService" class="de.hatoma.exman.service.StudyBranchService"> -->
+	<!-- <property name="studyBranchDAO" ref="studyBranchDAO" /> -->
+	<!-- </bean> -->
 
-	<bean name="manipleService" class="de.hatoma.exman.service.ManipleService">
-		<property name="manipleDAO" ref="manipleDAO" />
-	</bean>
+	<!-- <bean name="manipleService" class="de.hatoma.exman.service.ManipleService"> -->
+	<!-- <property name="manipleDAO" ref="manipleDAO" /> -->
+	<!-- </bean> -->
 
-	<bean name="examinerService" class="de.hatoma.exman.service.ExaminerService">
-		<property name="examinerDAO" ref="examinerDAO" />
-	</bean>
+	<!-- <bean name="examinerService" class="de.hatoma.exman.service.ExaminerService"> -->
+	<!-- <property name="examinerDAO" ref="examinerDAO" /> -->
+	<!-- </bean> -->
 
-	<bean name="examSubjectService" class="de.hatoma.exman.service.ExamSubjectService">
-		<property name="examSubjectDAO" ref="examSubjectDAO" />
-	</bean>
+	<!-- <bean name="examSubjectService" class="de.hatoma.exman.service.ExamSubjectService"> -->
+	<!-- <property name="examSubjectDAO" ref="examSubjectDAO" /> -->
+	<!-- </bean> -->
 
-	<bean name="examService" class="de.hatoma.exman.service.ExamService">
-		<property name="examDAO" ref="examDAO" />
-	</bean>
+	<!-- <bean name="examService" class="de.hatoma.exman.service.ExamService"> -->
+	<!-- <property name="examDAO" ref="examDAO" /> -->
+	<!-- </bean> -->
 
 
-	<!-- ACTIONS by HATOMA -->
-	<bean name="SingleExamAttendanceAction" class="de.hatoma.exman.action.SingleExamAttendanceAction">
-		<property name="manipleService" ref="manipleService" />
-		<property name="studentService" ref="studentService" />
-		<property name="studyBranchService" ref="studyBranchService" />
-		<property name="examSubjectService" ref="examSubjectService" />
-		<property name="examService" ref="examService" />
-	</bean>
-	
-	
+	<!-- <!- - ACTIONS by HATOMA - -> -->
+	<!-- <bean name="SingleExamAttendanceAction" class="de.hatoma.exman.action.SingleExamAttendanceAction"> -->
+	<!-- <property name="manipleService" ref="manipleService" /> -->
+	<!-- <property name="studentService" ref="studentService" /> -->
+	<!-- <property name="studyBranchService" ref="studyBranchService" /> -->
+	<!-- <property name="examSubjectService" ref="examSubjectService" /> -->
+	<!-- <property name="examService" ref="examService" /> -->
+	<!-- </bean> -->
+
+
 	<!-- <bean name="singleExamAttendance" cla> <property name="examAttendanceService" 
 		ref="examAttendanceService" /> </bean> ! -->
 
