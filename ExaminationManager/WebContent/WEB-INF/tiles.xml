@@ -32,5 +32,9 @@
 		<put-attribute name="content" value="/tiles/showListForOralExamAttendance.jsp"/>
 		<put-attribute name="actionDisplayName" value="txtADNShowListForOralExamAttendance"/>
 	</definition>
+	<definition name="inputCreateExam" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/inputCreateExam.jsp"/>
+		<put-attribute name="actionDisplayName" value="txtADNInputCreateExam"/>
+	</definition>
 
 </tiles-definitions>

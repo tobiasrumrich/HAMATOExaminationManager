@@ -215,7 +215,10 @@ span#sessioninfo {
 							<a href="#">Prüfungsübersicht</a>
 						</h3>
 						<div>
-							<p>Neue Prüfung anlegen</p>
+							<p>
+							<s:url action="CreateExam"
+									id="createExamUrl" /> <s:a
+									href="%{createExamUrl}">Neue Prüfung anlegen</s:a></p>
 							<p>Prüfungen verwalten</p>
 						</div>
 					</div>
