@@ -55,4 +55,15 @@ public class ManipleService implements IManipleService {
 		this.manipleDao = manipleDao;
 	}
 
+	@Override
+	public Collection<Student> getStudentsWithPossibleOralExams(long id) {
+		Collection<Student> students;
+		Collection<Student> oralStudents;
+		students = getManipleDAO().getStudents(id);
+		
+		// letzter Versuch ist 5.0
+		// keine zwei Orals
+		return students;
+		}
+
 }

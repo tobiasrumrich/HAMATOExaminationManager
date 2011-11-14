@@ -14,10 +14,10 @@
 		name="%{#attr.title}" /></title>
 <s:head />
 
-<!-- 
+
 <link type="text/css"
-	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom..css"
-	rel="stylesheet" /> !-->
+	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
 <link type="text/css"
 	href="resources/jquery/css/smoothness/jquery.ui.datepicker.css"
 	rel="stylesheet" />
@@ -44,6 +44,13 @@
 				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
 	});
 </script>
+<!-- CSS für DatPicker -->
+<style type="text/css">
+#ui-datepicker-div {
+	background-color:white;
+	border:1px solid grey;
+}
+</style>
 <!-- CSS für DataTables -->
 <style type="text/css">
 @import "resources/jquery/js/datatables/media/css/demo_table.css";

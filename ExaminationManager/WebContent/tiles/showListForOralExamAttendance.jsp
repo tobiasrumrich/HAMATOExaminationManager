@@ -87,11 +87,12 @@
 						</s:a>
 				</td>
 				<td>
-						<s:url  action="SingleOralExaminationAttendanceAction" method="showInputForm">
-    						<s:property value="forename" />
+						<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction" method="showInputForm">
     						<s:param name="id" value="%{id}" />
 						</s:url>
-				</td>
+						<s:a href="%{currentUrl}">
+						<s:property value="forename" />
+						</s:a>				</td>
 			</tr>
 		</s:iterator>
 	</tbody>
