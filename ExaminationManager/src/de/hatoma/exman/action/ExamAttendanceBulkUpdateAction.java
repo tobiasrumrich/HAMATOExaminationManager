@@ -1,6 +1,8 @@
 package de.hatoma.exman.action;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,8 +47,8 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	private IManipleService manipleService;
 	
 	// Model Beans
-	private List<ExamAttendanceBulkUpdateHelperBean> myEntities;
-	private Map<String,ExamAttendanceBulkUpdateHelperBean> myEntitiesMap;
+	private List<ExamAttendanceBulkUpdateHelperBean> myEntities = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
+	private Map<String,ExamAttendanceBulkUpdateHelperBean> myEntitiesMap = new HashMap<String,ExamAttendanceBulkUpdateHelperBean>();
 	
 	private long selectedExamId;
 	private long selectedManipleId;
@@ -55,7 +57,7 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 
 	public void prepare () {
 		// TODO Convert HTTP id(String) to long
-		selectedExamId = 3L;
+		selectedExamId = 1L;
 		selectedManipleId = 1L;
 		//Get the target exam from the service
 		Exam exam = examService.getExamById(selectedExamId);

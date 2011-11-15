@@ -43,7 +43,9 @@
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
-			<td>Student</td>
+			<td>Vorname</td>
+			<td>Nachname</td>
+			<td>Matrikelnr.</td>
 			<td>Bisherige Note</td>
 			<td>Note</td>
 			<td>Versuch</td>
@@ -54,10 +56,12 @@
 
 		<s:iterator value="myEntities">
 			<tr>
-				<td><s:property value="student" /></td>
-				<td><s:property value="previousExamAttendance.grade" /></td>
-				<td><s:textfield key="student"
-						name="myEntitiesMap['%{id}'].examGrade" value="%{examGrade}"
+				<td><s:property value="student.forename" /></td>
+				<td><s:property value="student.lastname" /></td>
+				<td><s:property value="student.matriculationNumber" /></td>
+				<td><s:property value="previousExamAttendance.examGrade.value" /></td>
+				<td><s:textfield
+						name="myEntitiesMap['%{id}'].previousExamAttendance.examGrade" value="%{previousExamAttendance.examGrade}"
 						theme="simple" />
 						</td>
 				<td>1. Versuch</td>

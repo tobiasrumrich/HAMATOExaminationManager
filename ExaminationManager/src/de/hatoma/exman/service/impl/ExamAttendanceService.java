@@ -27,7 +27,8 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendance.setExam(exam);
 		examAttendance.setStudent(student);
 		examAttendance.setExamGrade(examGrade);
-
+		// TODO Hier muss ermittelt werden, ob das wirklich der erste ist !!!
+		examAttendance.setAttempt(1);
 		examAttendanceDao.save(examAttendance);
 
 		return examAttendance;

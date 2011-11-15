@@ -10,4 +10,7 @@ public enum ExamGrade implements Serializable {
 	ExamGrade(int value) {
 		this.value = value;
 	}
+	int getValue() {
+		return this.value;
+	}
 }
