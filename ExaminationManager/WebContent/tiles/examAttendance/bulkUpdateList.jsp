@@ -55,7 +55,7 @@
 		<s:iterator value="myEntities">
 			<tr>
 				<td><s:property value="student" /></td>
-				<td><s:property value="previousGrade" /></td>
+				<td><s:property value="previousExamAttendance.grade" /></td>
 				<td><s:textfield key="student"
 						name="myEntitiesMap['%{id}'].examGrade" value="%{examGrade}"
 						theme="simple" />

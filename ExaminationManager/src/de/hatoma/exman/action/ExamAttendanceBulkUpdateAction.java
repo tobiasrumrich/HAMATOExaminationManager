@@ -1,7 +1,6 @@
 package de.hatoma.exman.action;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +45,7 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	private IManipleService manipleService;
 	
 	// Model Beans
-	private List<ExamAttendance> myEntities;
+	private List<ExamAttendanceBulkUpdateHelperBean> myEntities;
 	private Map<String,ExamAttendanceBulkUpdateHelperBean> myEntitiesMap;
 	
 	private long selectedExamId;
@@ -57,15 +56,14 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	public void prepare () {
 		// TODO Convert HTTP id(String) to long
 		selectedExamId = 3L;
-		
+		selectedManipleId = 1L;
 		//Get the target exam from the service
 		Exam exam = examService.getExamById(selectedExamId);
 		
 		//The ExamSubject
 		examSubject = exam.getExamSubject();
 		
-		//examAttendanceService.getExamAttendancesForExam(exam);
-		List<ExamAttendance> previousExamAttendances = examAttendanceService.getExamAttendancesByExamSubject(examSubject);
+	
 		
 		//Get Students for the selected Maniple
 		Collection<Student> students = manipleService.getStudents(selectedManipleId);
@@ -73,30 +71,25 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 		for (Student student : students) {
 		List<ExamAttendance> attendancesOfStudent = examAttendanceService.getExamAttendancesForStudentByExamSubject(examSubject, student);
 			int numAttempts = attendancesOfStudent.size();
-			numAttendances = attendancesOfStudent.size();
-			if (attendancesOfStudent.size() == 0) {
-				numAttempts=0;
-			}
-			e
-			ExamAttendanceBulkUpdateHelperBean(student,numAttempts,);
+			ExamAttendance latestAttempt = examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+			ExamAttendanceBulkUpdateHelperBean helperBean = new ExamAttendanceBulkUpdateHelperBean(student,numAttempts, latestAttempt);
+			myEntities.add(helperBean);
+			myEntitiesMap.put(String.valueOf(student.getId()), helperBean);
 			
 		}
-		
-		
-		//studentService.getStudent(id);
-		setMyEntities(getExamAttendanceService().getExamAttendancesForExam(exam));
-
+		/*
 		// Create a Map using this.myEntities as the basis for it keyed on myEntity.id.
 		Map<String,ExamAttendance> myEntitiesMap = new HashMap<String,ExamAttendance> ();
 		for (ExamAttendance myEntity : getMyEntities() ) {
 			myEntitiesMap.put(String.valueOf(myEntity.getId ()), myEntity);
-		}		
+		}		*/
 	}
 
 	public String execute () throws Exception {
 		// Iterate over the List of MyEntity objects and persist them using our DAO
-		for (ExamAttendance myEntity : getMyEntities()  ) {
-			getExamAttendanceService().update(myEntity);
+		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities())   {
+			//getExamAttendanceService().update(myEntity);
+			System.out.println(myEntity);
 		}
 		return "showBulkList";
 	}
@@ -129,33 +122,6 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 		this.examService = examService;
 	}
 
-	/**
-	 * @return the myEntities
-	 */
-	public List<ExamAttendance> getMyEntities() {
-		return myEntities;
-	}
-
-	/**
-	 * @param myEntities the myEntities to set
-	 */
-	public void setMyEntities(List<ExamAttendance> myEntities) {
-		this.myEntities = myEntities;
-	}
-
-	/**
-	 * @return the myEntitiesMap
-	 */
-	public Map<String,ExamAttendance> getMyEntitiesMap() {
-		return myEntitiesMap;
-	}
-
-	/**
-	 * @param myEntitiesMap the myEntitiesMap to set
-	 */
-	public void setMyEntitiesMap(Map<String,ExamAttendance> myEntitiesMap) {
-		this.myEntitiesMap = myEntitiesMap;
-	}
 
 	/**
 	 * @return the examSubject
@@ -211,6 +177,34 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	 */
 	public void setStudentService(IStudentService studentService) {
 		this.studentService = studentService;
+	}
+
+	/**
+	 * @return the myEntitiesMap
+	 */
+	public Map<String,ExamAttendanceBulkUpdateHelperBean> getMyEntitiesMap() {
+		return myEntitiesMap;
+	}
+
+	/**
+	 * @param myEntitiesMap the myEntitiesMap to set
+	 */
+	public void setMyEntitiesMap(Map<String,ExamAttendanceBulkUpdateHelperBean> myEntitiesMap) {
+		this.myEntitiesMap = myEntitiesMap;
+	}
+
+	/**
+	 * @return the myEntities
+	 */
+	public List<ExamAttendanceBulkUpdateHelperBean> getMyEntities() {
+		return myEntities;
+	}
+
+	/**
+	 * @param myEntities the myEntities to set
+	 */
+	public void setMyEntities(List<ExamAttendanceBulkUpdateHelperBean> myEntities) {
+		this.myEntities = myEntities;
 	}
 
 
