@@ -9,10 +9,8 @@
 			"bAutoWidth" : true,
 			"bProcessing" : true,
 			"aoColumnDefs" : [ {
-				"sWidth" : "70px",
-				"aTargets" : [ 0 ]
-			}, {
 				"sType" : "string",
+				"sWidth":"300px",
 				"aTargets" : [ 0 ]
 			}, {
 				"sWidth" : "60px",
@@ -45,9 +43,12 @@
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
-			<td>Student</td>
+			<td>Vorname</td>
+			<td>Nachname</td>
+			<td>Matrikelnr.</td>
+			<td>Bisherige Note</td>
 			<td>Note</td>
-
+			<td>Versuch</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -55,10 +56,15 @@
 
 		<s:iterator value="myEntities">
 			<tr>
-				<td><s:property value="student" /> ** <s:property value="student.id" /></td>
-				
-				<td><s:textfield name="myEntitiesMap['%{id}'].examGrade"
-						value="%{examGrade}" /></td>
+				<td><s:property value="student.forename" /></td>
+				<td><s:property value="student.lastname" /></td>
+				<td><s:property value="student.matriculationNumber" /></td>
+				<td><s:property value="previousExamAttendance.examGrade.value" /></td>
+				<td><s:textfield
+						name="myEntitiesMap['%{id}'].previousExamAttendance.examGrade" value="%{previousExamAttendance.examGrade}"
+						theme="simple" />
+						</td>
+				<td>1. Versuch</td>
 			</tr>
 		</s:iterator>
 

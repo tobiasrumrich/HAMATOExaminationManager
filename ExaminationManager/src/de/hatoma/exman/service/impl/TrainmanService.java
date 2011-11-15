@@ -104,7 +104,7 @@ public class TrainmanService implements ITrainmanService {
 		List<String> lastnameRepository = lastnameRepository();
 
 		List<Student> listOfStudents = new ArrayList<Student>();
-		long matriculationNumer = 1000L;
+		long matriculationNumber = 1000L;
 		
 		for (Maniple currentManiple : allManiples) {
 			for (int i = 0; i < ((int) (Math.random()
@@ -114,7 +114,7 @@ public class TrainmanService implements ITrainmanService {
 				int keyNachname = (int) (Math.random() * (lastnameRepository
 						.size()));
 
-				listOfStudents.add(studentService.createStudent(String.valueOf(matriculationNumer++),
+				listOfStudents.add(studentService.createStudent(String.valueOf(matriculationNumber++),
 						forenameRepository.get(keyVorname),
 						lastnameRepository.get(keyNachname), currentManiple));
 

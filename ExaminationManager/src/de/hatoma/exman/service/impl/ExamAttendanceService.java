@@ -31,18 +31,28 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendance.setExam(exam);
 		examAttendance.setStudent(student);
 		examAttendance.setExamGrade(examGrade);
-
+		// TODO Hier muss ermittelt werden, ob das wirklich der erste ist !!!
+		examAttendance.setAttempt(1);
 		examAttendanceDao.save(examAttendance);
 
 		return examAttendance;
 	}
+	
+	public List<ExamAttendance> getExamAttendancesForExam(Exam exam) {
+		return examAttendanceDao.findByExam(exam);
+	}
 
-
+	/**
+	 * @return the examAttendanceDao
+	 */
 	public IExamAttendanceDao getExamAttendanceDao() {
 		return examAttendanceDao;
 	}
 
-
+	/**
+	 * @param examAttendanceDao
+	 *            the examAttendanceDao to set
+	 */
 	public void setExamAttendanceDao(IExamAttendanceDao examAttendanceDao) {
 		this.examAttendanceDao = examAttendanceDao;
 	}
@@ -57,11 +67,6 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		this.manipleDao = manipleDao;
 	}
 
-
-	public List<ExamAttendance> getExamAttendancesForExam(Exam exam) {
-		return examAttendanceDao.findByExam(exam);
-	}
-
 	@Override
 	public List<ExamAttendance> getOralCandidates(long manipleId) {
 		Maniple maniple = manipleDao.load(manipleId);
@@ -71,8 +76,8 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		for (ExamAttendance attendance : allAttendances) {
 
 			currentSubject = attendance.getExam().getExamSubject();
-			// TODO Hannes, ich steh grad aufm Schlauch, ich weiÃŸ dass es gegen
-			// den Nachbarschaftskodex (oder wie dat heiÃŸt^^) verstÃ¶ÃŸt aber ich
+			// TODO Hannes, ich steh grad aufm Schlauch, ich weiß dass es gegen
+			// den Nachbarschaftskodex (oder wie dat heißt^^) verstößt aber ich
 			// hab grad ne Blockade, wie ichs besser mach
 
 			int numberOfOralExams;
@@ -85,7 +90,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			// for every modul in modulliste
 			// List list = hole gesamte historie where supplemental oral != 0
 			// if list.size >= 2
-			// lÃ¶sche modul from modulliste
+			// lösche modul from modulliste
 			// endif
 			// endfor
 		}
@@ -97,4 +102,22 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendanceDao.update(examAttendance);
 
 	}
+	@Override
+	public List<ExamAttendance> getExamAttendancesByExamSubject(
+			ExamSubject examSubject) {
+		return examAttendanceDao.findByExamSubject(examSubject);
+	}
+
+	@Override
+	public List<ExamAttendance> getExamAttendancesForStudentByExamSubject(
+			ExamSubject examSubject, Student student) {
+		return examAttendanceDao.findByExamSubjectAndStudent(examSubject, student);
+	}
+
+	@Override
+	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(
+			ExamSubject examSubject, Student student) {
+		return examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+	}
+
 }

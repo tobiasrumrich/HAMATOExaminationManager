@@ -19,6 +19,12 @@ import de.hatoma.exman.model.Student;
 public interface IExamAttendanceDao extends IDao<ExamAttendance> {
 	public List<ExamAttendance> findByExam(Exam exam);
 
+	public List<ExamAttendance> findByExamSubject(ExamSubject examSubject);
+	public List<ExamAttendance> findByExamSubjectAndStudent(ExamSubject examSubject, Student student);
+
+	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
+			ExamSubject examSubject, Student student);
+
 	public List<ExamAttendance> findbyManipleAndGrade(Maniple maniple, ExamGrade examGrade,
 			ExamGrade oralExamGrade);
 
