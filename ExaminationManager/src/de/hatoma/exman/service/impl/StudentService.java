@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import de.hatoma.exman.dao.IStudentDao;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
+import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IStudentService;
 
 @Component
@@ -13,6 +14,9 @@ public class StudentService implements IStudentService {
 
 	@Autowired
 	private IStudentDao studentDao;
+
+	@Autowired
+	private IExamAttendanceService examAttendanceService;
 
 	@Override
 	public Student createStudent(String forename, String lastname,
@@ -43,6 +47,14 @@ public class StudentService implements IStudentService {
 	@Override
 	public Student getStudent(long id) {
 		return studentDao.load(id);
+	}
+
+	@Override
+	public Student getValidOralStudent(long id) {
+
+		Student student = studentDao.load(id);
+
+		return student;
 	}
 
 }

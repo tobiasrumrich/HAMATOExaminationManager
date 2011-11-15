@@ -17,6 +17,18 @@
 				"sWidth" : "30px",
 				"aTargets" : [ 0 ]
 			}, {
+				"sWidth" : "100px",
+				"aTargets" : [ 1 ]
+			}, {
+				"sWidth" : "180px",
+				"aTargets" : [ 2 ]
+			}, {
+				"sWidth" : "180px",
+				"aTargets" : [ 3 ]
+			}, {
+				"sWidth" : "160px",
+				"aTargets" : [ 4 ]
+			}, {
 				"sType" : "numeric",
 				"aTargets" : [ 0 ]
 			}, {
@@ -65,8 +77,10 @@
 	<thead>
 		<tr>
 			<td>ID</td>
+			<td>Mat.-Nr.</td>
 			<td>Nachname</td>
 			<td>Vorname</td>
+			<td>Modul</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -77,6 +91,9 @@
 			<tr>
 				<td>
 					<s:property value="id" />
+				</td>
+				<td>
+					<s:property value="matriculationNumber" />
 				</td>
 				<td>
 						<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction" method="showInputForm">
@@ -92,7 +109,9 @@
 						</s:url>
 						<s:a href="%{currentUrl}">
 						<s:property value="forename" />
-						</s:a>				</td>
+						</s:a>
+				</td>
+				<td>Banana Phone</td>
 			</tr>
 		</s:iterator>
 	</tbody>

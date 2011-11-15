@@ -42,6 +42,8 @@ public class SingleOralExaminationAttendanceAction extends ActionSupport {
 
 	public String showInputForm() throws Exception {
 			//TODO: was is wenn ohne id?
+			//TODO: was is wenn nich erlaubte id?
+			
 			selectedStudent = studentService.getStudent(this.id);
 		return "showInputForm";
 	}

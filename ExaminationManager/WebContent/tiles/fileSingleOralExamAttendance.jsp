@@ -12,7 +12,7 @@
 	<s:token />
 	<s:textfield name="selectedStudent.forename" key="lblStudentName" value="%{selectedStudent.forename} %{selectedStudent.lastname}" disabled="true" />
 	<s:textfield name="examSubject" key="lblExamSubject" disabled="true" />
-	<s:textfield id="date" name="date" list="{}" required="true" />
+	<s:textfield key="lblDate" id="date" name="date" required="true" />
 	<s:select key="lblExamGrade" list="{1.0,2.0,'a','sample','list'}"
 		required="true" />
 
