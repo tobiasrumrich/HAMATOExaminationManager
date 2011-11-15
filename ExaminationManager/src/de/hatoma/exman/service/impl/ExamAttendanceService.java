@@ -1,5 +1,7 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,10 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendanceDao.save(examAttendance);
 
 		return examAttendance;
+	}
+	
+	public List<ExamAttendance> getExamAttendancesForExam(Exam exam) {
+		return examAttendanceDao.findByExam(exam);
 	}
 
 	/**

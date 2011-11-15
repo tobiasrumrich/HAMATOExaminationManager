@@ -9,17 +9,17 @@
 	$(function() {
 
 		$('#examList').dataTable({
-			"bAutoWidth" : false,
+			"bAutoWidth" : true,
 			"bProcessing" : true,
 			"aoColumnDefs" : [ {
-				"sWidth" : "30px",
+				"sWidth" : "70px",
 				"aTargets" : [ 0 ]
 			}, {
-				"sType" : "numeric",
+				"sType" : "string",
 				"aTargets" : [ 0 ]
 			}, {
-				"sWidth" : "160px",
-				"aTargets" : [ "_all" ]
+				"sWidth" : "60px",
+				"aTargets" : [ 1 ]
 			} ],
 			"bStateSave" : true,
 			"oLanguage" : {
@@ -44,13 +44,17 @@
 	});
 </script>
 
+
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
 			<td>Manipel</td>
-			<td>Modulnummer</td>
 			<td>Modul</td>
+			<td>Modulbezeichnung</td>
+			<td>Datum</td>
 			<td>Prüfer</td>
+			<td>Prüfungsform</td>
+			<td></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -65,10 +69,30 @@
 
 				<td><s:property value="examSubject.title" /></td>
 
+				<td><s:date name="date" format="%{getText('examDateFormat')}" />
+				</td>
+
 				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
 						<s:property value="examiner" />
 					</s:a></td>
 
+				<td><s:property value="examType.key" /></td>
+				<td>
+				
+				
+				
+				<s:if test="%{isExamEditable(id)}">
+				
+
+
+
+
+						<s:url action="EditExamination" id="editExamaninationUrl">
+							<s:param name="examId"></s:param>
+						</s:url>
+						<s:a href="%{editExamaninationUrl}">[EDIT]</s:a>
+
+					</s:if></td>
 			</tr>
 		</s:iterator>
 	</tbody>

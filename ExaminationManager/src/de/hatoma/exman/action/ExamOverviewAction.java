@@ -1,14 +1,14 @@
 package de.hatoma.exman.action;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import de.hatoma.exman.model.Exam;
-import de.hatoma.exman.model.room.Room;
+import de.hatoma.exman.model.ExamAttendance;
+import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamService;
 
 /**
@@ -22,13 +22,24 @@ public class ExamOverviewAction extends ActionSupport {
 
 	@Autowired
 	private IExamService examService;
+	
+	@Autowired
+	private IExamAttendanceService examAttendanceService;
+	
 	private List<Exam> examList;
 
 	@Override
 	public String execute() {
-		setExamList(examService.getExamList());
+		examList = examService.getExamList();
+		
 		return "showTable";
-
+	}
+	
+	public Boolean isExamEditable(long id) {
+		Exam exam = examService.getExamById(id);
+		List<ExamAttendance> examAttendancesForExam = examAttendanceService.getExamAttendancesForExam(exam);
+		
+		return (examAttendancesForExam.size() == 0);
 	}
 
 	
