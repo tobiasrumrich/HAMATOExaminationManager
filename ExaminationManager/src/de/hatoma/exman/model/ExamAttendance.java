@@ -35,7 +35,7 @@ public class ExamAttendance implements Serializable {
 		return attempt;
 	}
 
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	public Exam getExam() {
 		return exam;
 	}

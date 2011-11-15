@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.ExamType;
+import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
@@ -44,7 +45,7 @@ public class TrainmanService implements ITrainmanService {
 
 	@Override
 	public void createPhaseOne(int minStudentsPerCentury,
-			int maxStudentsPerCentury) {
+			int maxStudentsPerCentury, Boolean createExamAttendances) {
 		// Studengänge anlegen
 		StudyBranch winfBranch = studyBranchService.createStudyBranch("I",
 				"WINF", "BSc. Wirtschaftsinformatik");
@@ -214,17 +215,16 @@ public class TrainmanService implements ITrainmanService {
 		List<Exam> winfExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : winfExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
-			int hour = hoursRepository.get((int) (Math.random() * hoursRepository
-					.size()));
-			int minute =minutesRepository.get((int) (Math
-					.random() * minutesRepository.size()));
-			
+			int hour = hoursRepository
+					.get((int) (Math.random() * hoursRepository.size()));
+			int minute = minutesRepository
+					.get((int) (Math.random() * minutesRepository.size()));
+
 			int year = exSubject.getManiple().getYear();
-			
-			int month = (int) (Math.random()*12);
-			int day = (int) (Math.random()*28);
-			calendar.set(year, month, day,
-					hour, minute);
+
+			int month = (int) (Math.random() * 12);
+			int day = (int) (Math.random() * 28);
+			calendar.set(year, month, day, hour, minute);
 
 			winfExams.add(getExamService().createExam(
 					ExamType.WrittenExam,
@@ -237,17 +237,16 @@ public class TrainmanService implements ITrainmanService {
 		List<Exam> wingExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : wingExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
-			int hour = hoursRepository.get((int) (Math.random() * hoursRepository
-					.size()));
-			int minute =minutesRepository.get((int) (Math
-					.random() * minutesRepository.size()));
-			
+			int hour = hoursRepository
+					.get((int) (Math.random() * hoursRepository.size()));
+			int minute = minutesRepository
+					.get((int) (Math.random() * minutesRepository.size()));
+
 			int year = exSubject.getManiple().getYear();
-			
-			int month = (int) (Math.random()*12);
-			int day = (int) (Math.random()*28);
-			calendar.set(year, month, day,
-					hour, minute);
+
+			int month = (int) (Math.random() * 12);
+			int day = (int) (Math.random() * 28);
+			calendar.set(year, month, day, hour, minute);
 
 			wingExams.add(getExamService().createExam(
 					ExamType.WrittenExam,
@@ -260,17 +259,16 @@ public class TrainmanService implements ITrainmanService {
 		List<Exam> bwlExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : bwlExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
-			int hour = hoursRepository.get((int) (Math.random() * hoursRepository
-					.size()));
-			int minute =minutesRepository.get((int) (Math
-					.random() * minutesRepository.size()));
-			
+			int hour = hoursRepository
+					.get((int) (Math.random() * hoursRepository.size()));
+			int minute = minutesRepository
+					.get((int) (Math.random() * minutesRepository.size()));
+
 			int year = exSubject.getManiple().getYear();
-			
-			int month = (int) (Math.random()*12);
-			int day = (int) (Math.random()*28);
-			calendar.set(year, month, day,
-					hour, minute);
+
+			int month = (int) (Math.random() * 12);
+			int day = (int) (Math.random() * 28);
+			calendar.set(year, month, day, hour, minute);
 
 			bwlExams.add(getExamService()
 					.createExam(
@@ -281,22 +279,80 @@ public class TrainmanService implements ITrainmanService {
 									.size() - 1)))));
 		}
 
-		// Prüfer anlegen -- NEBENAMTLER
+		if (createExamAttendances) {
 
-		/*
-		 * examiner = getExaminerService().createExaminer("Ralf", "Kesten");
-		 * ExamSubject examSubject =
-		 * getExamSubjectService().createExamSubject("Ausdruckstanz"
-		 * ,"A Fancy Description","ADT",maniple);
-		 * 
-		 * Exam exam = getExamService().createExam(examSubject, new
-		 * Date(2011,11,1), examiner);
-		 * 
-		 * 
-		 * ExamGrade examGrade = ExamGrade.G10;
-		 * examAttendanceService.createExamAttendanceForStudent(student, exam,
-		 * examGrade);
-		 */
+			List<ExamGrade> grades = Arrays.asList(ExamGrade.G10,
+					ExamGrade.G13, ExamGrade.G17, ExamGrade.G20, ExamGrade.G30,
+					ExamGrade.G33, ExamGrade.G37, ExamGrade.G40, ExamGrade.G50,
+					ExamGrade.G60);
+
+			for (Maniple maniple : allWinfManiples) {
+
+				for (Student student : manipleService.getStudents(maniple
+						.getId())) {
+
+					// Alle haben eine Klausur komplett mitgeschrieben
+					ExamGrade grade = grades.get((int) (Math.random() * grades
+							.size()));
+					examAttendanceService.createExamAttendanceForStudent(
+							student, winfExams.get(0), grade);
+
+					// Die zweite Klausur haben gaaaaanz viele geschoben
+					if ((int) (Math.random() * 2) == 1) {
+						grade = grades
+								.get((int) (Math.random() * grades.size()));
+						examAttendanceService.createExamAttendanceForStudent(
+								student, winfExams.get(1), grade);
+					}
+
+				}
+			}
+
+			for (Maniple maniple : allWingManiples) {
+
+				for (Student student : manipleService.getStudents(maniple
+						.getId())) {
+
+					// Alle haben eine Klausur komplett mitgeschrieben
+					ExamGrade grade = grades.get((int) (Math.random() * grades
+							.size()));
+					examAttendanceService.createExamAttendanceForStudent(
+							student, wingExams.get(0), grade);
+
+					// Die zweite Klausur haben gaaaaanz viele geschoben
+					if ((int) (Math.random() * 2) == 1) {
+						grade = grades
+								.get((int) (Math.random() * grades.size()));
+						examAttendanceService.createExamAttendanceForStudent(
+								student, wingExams.get(1), grade);
+					}
+
+				}
+			}
+			
+			for (Maniple maniple : allBwlManiples) {
+
+				for (Student student : manipleService.getStudents(maniple
+						.getId())) {
+
+					// Alle haben eine Klausur komplett mitgeschrieben
+					ExamGrade grade = grades.get((int) (Math.random() * grades
+							.size()));
+					examAttendanceService.createExamAttendanceForStudent(
+							student, bwlExams.get(0), grade);
+
+					// Die zweite Klausur haben gaaaaanz viele geschoben
+					if ((int) (Math.random() * 2) == 1) {
+						grade = grades
+								.get((int) (Math.random() * grades.size()));
+						examAttendanceService.createExamAttendanceForStudent(
+								student, bwlExams.get(1), grade);
+					}
+
+				}
+			}
+
+		}
 
 	}
 
@@ -307,31 +363,30 @@ public class TrainmanService implements ITrainmanService {
 	 */
 	private List<String> forenameRepository() {
 		ArrayList<String> r = new ArrayList<String>();
-		r.addAll(
-				Arrays.asList("Dieter",
-				"Felix", "Marcel", "Martina", "Jessica", "Karin", "Vanessa",
-				"Philipp", "René", "Sven", "Ralph", "Daniel", "Ralph",
-				"Leonie", "Andrea", "Thomas", "Leon", "Tanja", "Alexander",
-				"Maximilian", "Jürgen", "Gabriele", "Uta", "Ute", "Annett",
-				"Dennis", "Gabriele", "Sarah", "Kevin", "Stephan", "Alexander",
-				"Tanja", "Birgit", "Julia", "Silke", "Simone", "Martina",
-				"Thorsten", "Janina", "Barbara", "Anne", "Dirk", "Jens",
-				"Kerstin", "Tanja", "Simone", "Florian", "Angelika", "Antje",
-				"Johanna", "Marco", "Jessica", "Vanessa", "Jonas", "Patrick",
-				"Susanne", "Benjamin", "Anja", "Stefanie", "Patrick", "Jana",
-				"Birgit", "Maik", "Susanne", "Torsten", "Swen", "Anja", "Jan",
-				"Erik", "Bernd", "Barbara", "Max", "Daniela", "Angelika",
-				"Luca", "Maximilian", "Claudia", "Sarah", "Tobias", "Anna",
-				"Jens", "Angelika", "Jessica", "Dominik", "Anne", "Dirk",
-				"Eric", "Maria", "Christina", "Kerstin", "Petra", "Karin",
-				"Alexander", "Luca", "Nicole", "Birgit", "Mandy", "Anne",
-				"Daniela", "Marko", "Vanessa", "Paul", "Johanna", "Sophie",
-				"Sabrina", "Katrin", "Michael", "Luca", "Kathrin", "René",
-				"Uta", "Brigitte", "Frank", "Jessica", "Phillipp",
-				"Maximilian", "Leonie", "Kevin", "Angelika", "Ralph", "Anne",
-				"Steffen", "Christin", "Robert", "Janina", "Lucas", "Ursula",
-				"Nadine", "Ulrich", "Stefanie", "Ulrich", "Markus", "Paul",
-				"Marcel", "Heike", "Sebastian", "Katharina", "Sven", "Jessika",
+		r.addAll(Arrays.asList("Dieter", "Felix", "Marcel", "Martina",
+				"Jessica", "Karin", "Vanessa", "Philipp", "René", "Sven",
+				"Ralph", "Daniel", "Ralph", "Leonie", "Andrea", "Thomas",
+				"Leon", "Tanja", "Alexander", "Maximilian", "Jürgen",
+				"Gabriele", "Uta", "Ute", "Annett", "Dennis", "Gabriele",
+				"Sarah", "Kevin", "Stephan", "Alexander", "Tanja", "Birgit",
+				"Julia", "Silke", "Simone", "Martina", "Thorsten", "Janina",
+				"Barbara", "Anne", "Dirk", "Jens", "Kerstin", "Tanja",
+				"Simone", "Florian", "Angelika", "Antje", "Johanna", "Marco",
+				"Jessica", "Vanessa", "Jonas", "Patrick", "Susanne",
+				"Benjamin", "Anja", "Stefanie", "Patrick", "Jana", "Birgit",
+				"Maik", "Susanne", "Torsten", "Swen", "Anja", "Jan", "Erik",
+				"Bernd", "Barbara", "Max", "Daniela", "Angelika", "Luca",
+				"Maximilian", "Claudia", "Sarah", "Tobias", "Anna", "Jens",
+				"Angelika", "Jessica", "Dominik", "Anne", "Dirk", "Eric",
+				"Maria", "Christina", "Kerstin", "Petra", "Karin", "Alexander",
+				"Luca", "Nicole", "Birgit", "Mandy", "Anne", "Daniela",
+				"Marko", "Vanessa", "Paul", "Johanna", "Sophie", "Sabrina",
+				"Katrin", "Michael", "Luca", "Kathrin", "René", "Uta",
+				"Brigitte", "Frank", "Jessica", "Phillipp", "Maximilian",
+				"Leonie", "Kevin", "Angelika", "Ralph", "Anne", "Steffen",
+				"Christin", "Robert", "Janina", "Lucas", "Ursula", "Nadine",
+				"Ulrich", "Stefanie", "Ulrich", "Markus", "Paul", "Marcel",
+				"Heike", "Sebastian", "Katharina", "Sven", "Jessika",
 				"Brigitte", "Anne", "Sandra", "Max", "Lena", "Ralph", "Annett",
 				"Dominik", "Manuela", "Katja", "Jessika", "Sabine", "Silke",
 				"Markus", "Johanna", "Leah", "Peter", "Kristin", "Sven", "Uwe",
@@ -376,23 +431,21 @@ public class TrainmanService implements ITrainmanService {
 
 	private List<String> lastnameRepository() {
 		ArrayList<String> r = new ArrayList<String>();
-		r.addAll(
-		Arrays.asList("Neudorf",
-				"Junker", "Friedman", "Weissmuller", "Eggers", "Eichel",
-				"Peters", "Hofmann", "Eichelberger", "Hirsch", "Freud",
-				"Waechter", "Freitag", "Brauer", "Eichmann", "Bader",
-				"Eisenhower", "Neustadt", "Kaufmann", "Fried", "Goldschmidt",
-				"Wurfel", "Faust", "Ehrlichmann", "Reinhardt", "Kuster",
-				"Schreiber", "Freytag", "Traugott", "Schweitzer", "Metzger",
-				"Kuster", "Feierabend", "Fruehauf", "Fuhrmann", "Mahler",
-				"Ackerman", "Amsel", "Ackerman", "Bachmeier", "Schulze",
-				"Schuster", "Wirtz", "Nussbaum", "Baumgaertner", "Luft",
-				"Kappel", "Kuefer", "Werner", "Fisher", "Wexler", "Meier",
-				"Vogt", "Krause", "Shuster", "Barth", "Fuchs", "Lange",
-				"Boehm", "Eisenhauer", "Gärtner", "Moench", "Foerster",
-				"Beyer", "Meister", "Lange", "Kuhn", "Herrmann", "Zimmerman",
-				"Krause", "Wulf", "Wurfel", "Bieber", "Kaufmann", "Meyer",
-				"Jager", "Hoch", "Kuester", "Holzman", "Trommler",
+		r.addAll(Arrays.asList("Neudorf", "Junker", "Friedman", "Weissmuller",
+				"Eggers", "Eichel", "Peters", "Hofmann", "Eichelberger",
+				"Hirsch", "Freud", "Waechter", "Freitag", "Brauer", "Eichmann",
+				"Bader", "Eisenhower", "Neustadt", "Kaufmann", "Fried",
+				"Goldschmidt", "Wurfel", "Faust", "Ehrlichmann", "Reinhardt",
+				"Kuster", "Schreiber", "Freytag", "Traugott", "Schweitzer",
+				"Metzger", "Kuster", "Feierabend", "Fruehauf", "Fuhrmann",
+				"Mahler", "Ackerman", "Amsel", "Ackerman", "Bachmeier",
+				"Schulze", "Schuster", "Wirtz", "Nussbaum", "Baumgaertner",
+				"Luft", "Kappel", "Kuefer", "Werner", "Fisher", "Wexler",
+				"Meier", "Vogt", "Krause", "Shuster", "Barth", "Fuchs",
+				"Lange", "Boehm", "Eisenhauer", "Gärtner", "Moench",
+				"Foerster", "Beyer", "Meister", "Lange", "Kuhn", "Herrmann",
+				"Zimmerman", "Krause", "Wulf", "Wurfel", "Bieber", "Kaufmann",
+				"Meyer", "Jager", "Hoch", "Kuester", "Holzman", "Trommler",
 				"Schultheiss", "Köhler", "Beyer", "Pabst", "Vogler",
 				"Gottschalk", "Hahn", "Weiss", "Bach", "Decker", "Grunwald",
 				"Kuhn", "Moeller", "Grunwald", "Koch", "Faust", "Ebersbach",
