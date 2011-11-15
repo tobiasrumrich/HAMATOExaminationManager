@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import de.hatoma.exman.dao.IStudentDao;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
+import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IStudentService;
 
 @Component
@@ -13,11 +14,15 @@ public class StudentService implements IStudentService {
 
 	@Autowired
 	private IStudentDao studentDao;
+	
+	@Autowired
+	private IExamAttendanceService examAttendanceService;
 
 	@Override
-	public Student createStudent(String forename, String lastname,
+	public Student createStudent(String matriculationNumber, String forename, String lastname,
 			Maniple maniple) {
 		Student student = new Student();
+		student.setMatriculationNumber(matriculationNumber);
 		student.setForename(forename);
 		student.setLastname(lastname);
 		student.setManiple(maniple);
@@ -43,6 +48,20 @@ public class StudentService implements IStudentService {
 	@Override
 	public Student getStudent(long id) {
 		return studentDao.load(id);
+	}
+
+	/**
+	 * @return the examAttendanceService
+	 */
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	/**
+	 * @param examAttendanceService the examAttendanceService to set
+	 */
+	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
 	}
 
 }
