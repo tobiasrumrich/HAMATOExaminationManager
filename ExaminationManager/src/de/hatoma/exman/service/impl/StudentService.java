@@ -1,9 +1,13 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IStudentDao;
+import de.hatoma.exman.model.Exam;
+import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
@@ -62,6 +66,25 @@ public class StudentService implements IStudentService {
 	 */
 	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
 		this.examAttendanceService = examAttendanceService;
+	}
+
+	@Override
+	public Student getValidOralStudent(long id) {
+		//lade alle prüfungsergebnisse mit 5. und supplemental oral = 0
+		//füge alle module in liste ein
+		//for every modul in modulliste
+		//	List list = hole gesamte historie where supplemental oral != 0
+		//	if list.size <2
+		//		module is ok
+		//  endif
+		//endfor
+		//
+//			Exam exam = examService.getExamById(id);
+//			List<ExamAttendance> examAttendancesForExam = examAttendanceService.getExamAttendancesForExam(exam);
+//			
+//			return (examAttendancesForExam.size() == 0);
+
+		return studentDao.load(id);
 	}
 
 }

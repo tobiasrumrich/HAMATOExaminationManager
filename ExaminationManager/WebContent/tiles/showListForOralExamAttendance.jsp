@@ -10,32 +10,38 @@
 <script type="text/javascript">
 	$(function() {
 
-		$('#student_list').dataTable({
+		$('#attendance_list').dataTable({
 			"bAutoWidth" : false,
 			"bProcessing" : true,
+			"bStateSave" : true,
 			"aoColumnDefs" : [ {
-				"sWidth" : "30px",
+				"sWidth" : "50px",
 				"aTargets" : [ 0 ]
 			}, {
-				"sWidth" : "100px",
+				"sWidth" : "230px",
 				"aTargets" : [ 1 ]
 			}, {
-				"sWidth" : "180px",
+				"sWidth" : "40px",
 				"aTargets" : [ 2 ]
 			}, {
-				"sWidth" : "180px",
+				"sWidth" : "140px",
 				"aTargets" : [ 3 ]
 			}, {
-				"sWidth" : "160px",
+				"sWidth" : "140px",
 				"aTargets" : [ 4 ]
+			}, {
+				"sWidth" : "60px",
+				"aTargets" : [ 5 ]
 			}, {
 				"sType" : "numeric",
 				"aTargets" : [ 0 ]
 			}, {
-				"sWidth" : "160px",
-				"aTargets" : [ "_all" ]
+				"sType" : "numeric",
+				"aTargets" : [ 2 ]
+			}, {
+				"sType" : "numeric",
+				"aTargets" : [ 5 ]
 			} ],
-			"bStateSave" : true,
 			"oLanguage" : {
 				"oPaginate" : {
 					// TODO Hier keys aus message.properties verwenden!
@@ -73,45 +79,32 @@
 </s:form>
 
 
-<table id="student_list" class="hatoma_dataTable">
+<table id="attendance_list" class="hatoma_dataTable">
 	<thead>
 		<tr>
-			<td>ID</td>
-			<td>Mat.-Nr.</td>
-			<td>Nachname</td>
+			<td>Versuch</td>
+			<td>Prüfung</td>
+			<td>Note</td>
 			<td>Vorname</td>
-			<td>Modul</td>
+			<td>Nachname</td>
+			<td>Mat.-Nr.</td>
 		</tr>
 	</thead>
 	<tbody>
 
 
-		<s:iterator value="students" status="iteratorStatus">
-
+		<s:iterator value="examAttendances" status="iteratorStatus">
+			<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction"
+				method="showInputForm">
+				<s:param name="id" value="%{student.getId()}" />
+			</s:url>
 			<tr>
-				<td>
-					<s:property value="id" />
-				</td>
-				<td>
-					<s:property value="matriculationNumber" />
-				</td>
-				<td>
-						<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction" method="showInputForm">
-    						<s:param name="id" value="%{id}" />
-						</s:url>
-						<s:a href="%{currentUrl}">
-						<s:property value="lastname" />
-						</s:a>
-				</td>
-				<td>
-						<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction" method="showInputForm">
-    						<s:param name="id" value="%{id}" />
-						</s:url>
-						<s:a href="%{currentUrl}">
-						<s:property value="forename" />
-						</s:a>
-				</td>
-				<td>Banana Phone</td>
+				<td><s:property value="attempt" /></td>
+				<td><s:a href="%{currentUrl}"><s:property value="exam.getExamSubject().getTitle()" /></s:a></td>
+				<td><s:property value="examGrade" /></td>
+				<td><s:a href="%{currentUrl}"><s:property value="student.getForename()" /></s:a></td>
+				<td><s:a href="%{currentUrl}"><s:property value="student.getLastname()" /></s:a></td>
+				<td><s:property value="student.getMatriculationNumber()" /></td>
 			</tr>
 		</s:iterator>
 	</tbody>

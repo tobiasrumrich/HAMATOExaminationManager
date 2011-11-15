@@ -12,5 +12,5 @@ public interface IManipleService {
 	public Collection<Maniple> getAll();
 
 	public Collection<Student> getStudents(long id);
-	public Collection<Student> getStudentsWithPossibleOralExams(long id);
+
 }

@@ -20,9 +20,6 @@ public class ExamService implements IExamService {
 	@Autowired
 	private IExamDao examDao;
 	
-	@Autowired
-	private IExamAttendanceDao examAttendaceDao;
-
 	@Override
 	public Exam createExam(ExamType examType, ExamSubject examSubject, Date date, Examiner examiner){
 		Exam exam = new Exam();
@@ -51,7 +48,7 @@ public class ExamService implements IExamService {
 	/**
 	 * @return the examDao
 	 */
-	public IExamDao getExamDAO() {
+	public IExamDao getExamDao() {
 		return examDao;
 	}
 
@@ -59,7 +56,7 @@ public class ExamService implements IExamService {
 	 * @param examDao
 	 *            the examDao to set
 	 */
-	public void setExamDAO(IExamDao examDao) {
+	public void setExamDao(IExamDao examDao) {
 		this.examDao = examDao;
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
+import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
 public interface IExamAttendanceService {
@@ -28,5 +29,6 @@ public interface IExamAttendanceService {
 	public List<ExamAttendance> getExamAttendancesForExam(Exam exam);
 
 	public void update(ExamAttendance examAttendance) throws Exception;
+	public List<ExamAttendance> getOralCandidates(long manipleId);
 
 }
