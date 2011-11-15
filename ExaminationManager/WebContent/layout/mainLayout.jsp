@@ -118,6 +118,10 @@ td {
 	color: orange;
 	font-weight: bold;
 }
+
+.hatoma_dataTable {
+font-size: 80%;
+}
 </style>
 <style type="text/css">
 html {
