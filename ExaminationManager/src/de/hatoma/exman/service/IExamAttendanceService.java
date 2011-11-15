@@ -27,4 +27,6 @@ public interface IExamAttendanceService {
 	 */
 	public List<ExamAttendance> getExamAttendancesForExam(Exam exam);
 
+	public void update(ExamAttendance examAttendance) throws Exception;
+
 }

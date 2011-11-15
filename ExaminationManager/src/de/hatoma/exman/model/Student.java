@@ -133,4 +133,10 @@ public class Student implements Serializable {
 		this.matriculationNumber = matriculationNumber;
 	}
 
+	@Override
+	public String toString() {
+		return forename + " " + lastname + " [" + matriculationNumber + "]";
+	}
+
+	
 }

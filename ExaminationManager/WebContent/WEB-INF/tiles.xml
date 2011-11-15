@@ -60,5 +60,11 @@
 		<put-attribute name="content" value="/tiles/exam/overviewTable.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNAdministerExams" />
 	</definition>
+	
+		<definition name="examAttendanceBulkUpdateList" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/examAttendance/bulkUpdateList.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe" />
+	</definition>
+	
 
 </tiles-definitions>

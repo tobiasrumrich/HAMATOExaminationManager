@@ -51,4 +51,10 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		this.examAttendanceDao = examAttendanceDao;
 	}
 
+	@Override
+	public void update(ExamAttendance examAttendance) throws Exception {
+		examAttendanceDao.update(examAttendance);
+		
+	}
+
 }
