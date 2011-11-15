@@ -9,10 +9,8 @@
 			"bAutoWidth" : true,
 			"bProcessing" : true,
 			"aoColumnDefs" : [ {
-				"sWidth" : "70px",
-				"aTargets" : [ 0 ]
-			}, {
 				"sType" : "string",
+				"sWidth":"300px",
 				"aTargets" : [ 0 ]
 			}, {
 				"sWidth" : "60px",
@@ -46,8 +44,9 @@
 	<thead>
 		<tr>
 			<td>Student</td>
+			<td>Bisherige Note</td>
 			<td>Note</td>
-
+			<td>Versuch</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -55,10 +54,13 @@
 
 		<s:iterator value="myEntities">
 			<tr>
-				<td><s:property value="student" /> ** <s:property value="student.id" /></td>
-				
-				<td><s:textfield name="myEntitiesMap['%{id}'].examGrade"
-						value="%{examGrade}" /></td>
+				<td><s:property value="student" /></td>
+				<td><s:property value="previousGrade" /></td>
+				<td><s:textfield key="student"
+						name="myEntitiesMap['%{id}'].examGrade" value="%{examGrade}"
+						theme="simple" />
+						</td>
+				<td>1. Versuch</td>
 			</tr>
 		</s:iterator>
 

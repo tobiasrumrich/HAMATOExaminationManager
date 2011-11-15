@@ -9,6 +9,7 @@ import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
+import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
 
@@ -39,7 +40,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	/**
 	 * @return the examAttendanceDao
 	 */
-	public IExamAttendanceDao getExamAttendanceDAO() {
+	public IExamAttendanceDao getExamAttendanceDao() {
 		return examAttendanceDao;
 	}
 
@@ -47,7 +48,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	 * @param examAttendanceDao
 	 *            the examAttendanceDao to set
 	 */
-	public void setExamAttendanceDAO(IExamAttendanceDao examAttendanceDao) {
+	public void setExamAttendanceDao(IExamAttendanceDao examAttendanceDao) {
 		this.examAttendanceDao = examAttendanceDao;
 	}
 
@@ -55,6 +56,24 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	public void update(ExamAttendance examAttendance) throws Exception {
 		examAttendanceDao.update(examAttendance);
 		
+	}
+
+	@Override
+	public List<ExamAttendance> getExamAttendancesByExamSubject(
+			ExamSubject examSubject) {
+		return examAttendanceDao.findByExamSubject(examSubject);
+	}
+
+	@Override
+	public List<ExamAttendance> getExamAttendancesForStudentByExamSubject(
+			ExamSubject examSubject, Student student) {
+		return examAttendanceDao.findByExamSubjectAndStudent(examSubject, student);
+	}
+
+	@Override
+	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(
+			ExamSubject examSubject, Student student) {
+		return examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
 	}
 
 }
