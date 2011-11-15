@@ -14,14 +14,15 @@ public class StudentService implements IStudentService {
 
 	@Autowired
 	private IStudentDao studentDao;
-
+	
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
 
 	@Override
-	public Student createStudent(String forename, String lastname,
+	public Student createStudent(String matriculationNumber, String forename, String lastname,
 			Maniple maniple) {
 		Student student = new Student();
+		student.setMatriculationNumber(matriculationNumber);
 		student.setForename(forename);
 		student.setLastname(lastname);
 		student.setManiple(maniple);
@@ -49,12 +50,18 @@ public class StudentService implements IStudentService {
 		return studentDao.load(id);
 	}
 
-	@Override
-	public Student getValidOralStudent(long id) {
+	/**
+	 * @return the examAttendanceService
+	 */
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
 
-		Student student = studentDao.load(id);
-
-		return student;
+	/**
+	 * @param examAttendanceService the examAttendanceService to set
+	 */
+	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
 	}
 
 }
