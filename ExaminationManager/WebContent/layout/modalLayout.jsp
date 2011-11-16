@@ -14,15 +14,12 @@
 		name="%{#attr.title}" /></title>
 <s:head />
 
-<!-- 
+
 <link type="text/css"
 	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom.css"
 	rel="stylesheet" />
-	-->
 <script type="text/javascript"
 	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
-
-<!--  KANN JEMAND ERMITTELN WARUM DAS FOLGENDE JS NICHT GEFUNDEN WIRD? (404)  -->
 
 <script type="text/javascript"
 	src="resources/jquery/js/datatables/media/js/jquery.dataTables.js"></script>
