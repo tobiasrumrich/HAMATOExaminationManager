@@ -283,7 +283,7 @@ public class TrainmanService implements ITrainmanService {
 		if (createExamAttendances) {
 
 			List<ExamGrade> grades = Arrays.asList(ExamGrade.G10,
-					ExamGrade.G13, ExamGrade.G17, ExamGrade.G20, ExamGrade.G30,
+					ExamGrade.G13, ExamGrade.G17, ExamGrade.G20, ExamGrade.G23, ExamGrade.G27, ExamGrade.G30,
 					ExamGrade.G33, ExamGrade.G37, ExamGrade.G40, ExamGrade.G50,
 					ExamGrade.G60);
 

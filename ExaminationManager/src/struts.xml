@@ -83,6 +83,8 @@
 			class="de.hatoma.exman.action.ExamAttendanceBulkUpdateAction">
 			<result name="showBulkList" type="tiles">examAttendanceBulkUpdateList
 			</result>
+			<result name="input" type="tiles">examAttendanceBulkUpdateList
+			</result>
 			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation</result>
 		</action>
 	</package>

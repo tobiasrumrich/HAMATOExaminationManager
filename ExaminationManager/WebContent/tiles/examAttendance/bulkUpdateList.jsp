@@ -15,6 +15,10 @@
 			}, {
 				"sWidth" : "120px",
 				"aTargets" : [ 1 ]
+			} , {
+				"sWidth" : "20px",
+				"bSortable": false,
+				"aTargets" : [ 4 ]
 			} ],
 			"bStateSave" : true,
 			"oLanguage" : {
@@ -39,52 +43,75 @@
 	});
 </script>
 
+<style type="text/css">
+
+.examGradeError {
+border: solid 2px red;
+background: #eee;
+color:red;
+}
+
+ul.errorMessage {
+padding:0px;
+margin:0px;
+list-style-type:none;
+}
+
+</style>
+
 <div style="background: #d3e7f3">
 	<table>
 		<tr>
 			<td>Prüfungsfach:</td>
-		<td><s:property value="examSubject.title" /> </td>
+			<td><s:property value="examSubject.title" /></td>
 		</tr>
-		
+
 		<tr>
 			<td>Prüfung:</td>
-		<td><s:date name="exam.date" format="%{getText('examDateFormat')}" /> *** <s:property value="exam.examiner" /> </td>
+			<td><s:date name="exam.date"
+					format="%{getText('examDateFormat')}" /> *** <s:property
+					value="exam.examiner" /></td>
 		</tr>
-		
+
 	</table>
 </div>
 
-<s:form method="post">
-<table id="examList" class="hatoma_dataTable">
-	<thead>
-		<tr>
-			<td>Vorname</td>
-			<td>Nachname</td>
-			<td>Matrikelnr.</td>
-			<td>Bisherige Note</td>
-			<td>Note</td>
-			<td>Versuch</td>
-		</tr>
-	</thead>
-	<tbody>
+<s:actionerror />
 
-
-		<s:iterator value="myEntities">
+<s:form method="post" action="ExamAttendanceBulkUpdate">
+	<table id="examList" class="hatoma_dataTable">
+		<thead>
 			<tr>
-				<td><s:property value="student.forename" /></td>
-				<td><s:property value="student.lastname" /></td>
-				<td><s:property value="student.matriculationNumber" /></td>
-				<td><s:property
-						value="previousExamAttendance.examGrade.asExpression" /></td>
-				<td><s:textfield
-						name="myEntitiesMap['%{student.id}'].newGrade"
-						value="%{newGrade}" theme="simple" /></td>
-				<td><s:property value="numAttempt" />. Versuch</td>
+				<td>Vorname</td>
+				<td>Nachname</td>
+				<td>Matrikelnr.</td>
+				<td>Bisherige Note</td>
+				<td>Note</td>
+				<td>Versuch</td>
 			</tr>
-		</s:iterator>
-		
+		</thead>
+		<tbody>
 
-	</tbody>
-</table>
-<s:submit action="ExamAttendanceBulkUpdate" value="Speichern" method="insertNewExamAttendances"/>
+			<s:iterator value="myEntities">
+				<tr>
+					<td><s:property value="student.forename" /></td>
+					<td><s:property value="student.lastname" /></td>
+					<td><s:property value="student.matriculationNumber" /></td>
+					<td><s:property
+							value="previousExamAttendance.examGrade.asExpression" /></td>
+					<td><s:textfield
+							name="myEntitiesMap['%{student.id}'].newGrade"
+							value="%{newGrade}" theme="simple" cssErrorClass="examGradeError" />
+							<s:fielderror >
+							<s:param value="%{'myEntitiesMap['+student.id+'].newGrade'}" />
+						</s:fielderror></td>
+					<td><s:property value="numAttempt" />. Versuch</td>
+				</tr>
+			</s:iterator>
+
+
+		</tbody>
+	</table>
+	<s:submit action="ExamAttendanceBulkUpdate" value="Speichern"
+		method="insertNewExamAttendances" />
 </s:form>
