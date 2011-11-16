@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <s:form validate="true">
 	<s:token />
 	<s:select name="lecturer" key="lblLecturer"
@@ -8,10 +9,25 @@
 	<s:textfield name="lecturer" key="lblLecturer" required="true"
 		readonly="true" />
 
-	<s:component template="/my/custom/component.vm">
-		<s:param name="key1" value="value1" />
-		<s:param name="key2" value="value2" />
-	</s:component>
+	<table id="examList" class="hatoma_dataTable">
+		<thead>
+			<tr>
+				<td>ID</td>
+				<td>Name</td>
+			</tr>
+		</thead>
+		<tbody>
+			<s:iterator value="allExaminers" status="status">
+				<tr>
+					<td><s:property value="id" /></td>
+
+					<td><s:property value="forename" /> <s:property
+							value="surename" /></td>
+				</tr>
+			</s:iterator>
+		</tbody>
+	</table>
+
 
 	<s:select name="examSubject" key="lblExamSubject" required="true"
 		list="{'B000', 'I123'}" />

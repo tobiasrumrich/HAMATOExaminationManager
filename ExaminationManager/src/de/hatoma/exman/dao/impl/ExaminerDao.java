@@ -10,7 +10,6 @@ public class ExaminerDao extends BaseDao<Examiner> implements IExaminerDao {
 
 	public ExaminerDao() {
 		super(Examiner.class);
-		// TODO Auto-generated constructor stub
 	}
 
 }
