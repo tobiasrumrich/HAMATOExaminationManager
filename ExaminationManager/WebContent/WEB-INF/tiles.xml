@@ -61,10 +61,14 @@
 		<put-attribute name="actionDisplayName" value="txtADNAdministerExams" />
 	</definition>
 	
-		<definition name="examAttendanceBulkUpdateList" extends="mainLayout">
+	<definition name="examAttendanceBulkUpdateList" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/examAttendance/bulkUpdateList.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
 	</definition>
 	
+	<definition name="examAttendanceBulkUpdateConfirmation" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/examAttendance/confirmation.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
+	</definition>
 
 </tiles-definitions>

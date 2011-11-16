@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 
@@ -16,6 +15,7 @@ import de.hatoma.exman.action.helpers.ExamAttendanceBulkUpdateHelperBean;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
+import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
@@ -52,12 +52,12 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	private List<ExamAttendanceBulkUpdateHelperBean> myEntities = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
 	private Map<String,ExamAttendanceBulkUpdateHelperBean> myEntitiesMap = new HashMap<String,ExamAttendanceBulkUpdateHelperBean>();
 	
+	private List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
+	
 	private long selectedExamId;
 	private long selectedManipleId;
 	private ExamSubject examSubject;
 	private Exam exam;
-
-	private Map<String, Object> parameters;
 	
 	public void prepare () {
 		// TODO Convert HTTP id(String) to long
@@ -99,20 +99,33 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 
 	public String execute () throws Exception {
 		// Iterate over the List of MyEntity objects and persist them using our DAO
-		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities())   {
+		//for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities())   {
 			//getExamAttendanceService().update(myEntity);
-		}
+		//}
 		return "showBulkList";
 	}
 	
 	public String insertNewExamAttendances() throws Exception {
 		System.out.println("**** CALLED ****");
 		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities())   {
-			if (!myEntity.getNewGrade().equals("new")) {
-				System.out.println(myEntity.getStudent() + " : " + myEntity.getNewGrade());
+			if (!myEntity.getNewGrade().equals("")) {
+				ExamGrade grade = null;
+				if (myEntity.getNewGrade().equals("1.0") || myEntity.getNewGrade().equals("1,0")) grade=ExamGrade.G10;
+				if (myEntity.getNewGrade().equals("1.3") || myEntity.getNewGrade().equals("1,3")) grade=ExamGrade.G13;
+				if (myEntity.getNewGrade().equals("1.7") || myEntity.getNewGrade().equals("1,7")) grade=ExamGrade.G17;
+				if (myEntity.getNewGrade().equals("2.0") || myEntity.getNewGrade().equals("2,0")) grade=ExamGrade.G20;
+				if (myEntity.getNewGrade().equals("2.3") || myEntity.getNewGrade().equals("2,3")) grade=ExamGrade.G23;
+				if (myEntity.getNewGrade().equals("2.7") || myEntity.getNewGrade().equals("2,7")) grade=ExamGrade.G27;
+				if (myEntity.getNewGrade().equals("3.0") || myEntity.getNewGrade().equals("3.0")) grade=ExamGrade.G30;
+				if (myEntity.getNewGrade().equals("3.3") || myEntity.getNewGrade().equals("3.3")) grade=ExamGrade.G33;
+				if (myEntity.getNewGrade().equals("3.7") || myEntity.getNewGrade().equals("3.7")) grade=ExamGrade.G37;
+				if (myEntity.getNewGrade().equals("4.0") || myEntity.getNewGrade().equals("4.0")) grade=ExamGrade.G40;
+				if (myEntity.getNewGrade().equals("5.0") || myEntity.getNewGrade().equals("5.0")) grade=ExamGrade.G50;
+				if (myEntity.getNewGrade().equals("6.0") || myEntity.getNewGrade().equals("6.0")) grade=ExamGrade.G60;
+				myEntitiesConfirmations.add(myEntity);
 			}
 		}
-		return"showBulkList";
+		return "confirmation";
 	}
 
 	/**
@@ -240,6 +253,20 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	 */
 	public void setExam(Exam exam) {
 		this.exam = exam;
+	}
+
+	/**
+	 * @return the myEntitiesConfirmations
+	 */
+	public List<ExamAttendanceBulkUpdateHelperBean> getMyEntitiesConfirmations() {
+		return myEntitiesConfirmations;
+	}
+
+	/**
+	 * @param myEntitiesConfirmations the myEntitiesConfirmations to set
+	 */
+	public void setMyEntitiesConfirmations(List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations) {
+		this.myEntitiesConfirmations = myEntitiesConfirmations;
 	}
 
 

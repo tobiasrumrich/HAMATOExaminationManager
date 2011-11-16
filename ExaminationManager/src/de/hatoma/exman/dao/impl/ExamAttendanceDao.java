@@ -59,7 +59,7 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject)).addOrder( Order.desc("date"));
 		criteria.add(Restrictions.eq("student", student));
 		if (criteria.list().size() == 0) throw new NoPreviousAttemptException();
-		return (ExamAttendance) criteria.list().get(0);
+		return (ExamAttendance) criteria.list().get(criteria.list().size()-1);
 	}
 
 	@SuppressWarnings("unchecked")

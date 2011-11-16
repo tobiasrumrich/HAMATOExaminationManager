@@ -7,7 +7,7 @@ public class ExamAttendanceBulkUpdateHelperBean {
 	private ExamAttendance previousExamAttendance;
 	private Student student;
 	private int numAttempt;
-	private String newGrade = "new";
+	private String newGrade = "";
 	
 	public ExamAttendanceBulkUpdateHelperBean(
 			Student student,
