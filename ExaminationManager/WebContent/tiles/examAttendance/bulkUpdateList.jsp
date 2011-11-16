@@ -79,7 +79,7 @@
 				<td><s:textfield
 						name="myEntitiesMap['%{student.id}'].newGrade"
 						value="%{newGrade}" theme="simple" /></td>
-				<td>1. Versuch</td>
+				<td><s:property value="numAttempt" />. Versuch</td>
 			</tr>
 		</s:iterator>
 		

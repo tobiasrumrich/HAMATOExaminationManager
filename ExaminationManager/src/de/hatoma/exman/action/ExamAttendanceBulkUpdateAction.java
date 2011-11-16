@@ -81,9 +81,11 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 			//latestAttempt=null;
 				try {
 					latestAttempt = examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+					if (latestAttempt.getExamGrade() != ExamGrade.G60 && latestAttempt.getExamGrade() != ExamGrade.G50) continue;
 				} catch (NoPreviousAttemptException e) {
 					latestAttempt = null;
 				}
+			
 			ExamAttendanceBulkUpdateHelperBean helperBean = new ExamAttendanceBulkUpdateHelperBean(student,numAttempts, latestAttempt);
 			myEntities.add(helperBean);
 			myEntitiesMap.put(String.valueOf(student.getId()), helperBean);
@@ -122,6 +124,7 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 				if (myEntity.getNewGrade().equals("4.0") || myEntity.getNewGrade().equals("4.0")) grade=ExamGrade.G40;
 				if (myEntity.getNewGrade().equals("5.0") || myEntity.getNewGrade().equals("5.0")) grade=ExamGrade.G50;
 				if (myEntity.getNewGrade().equals("6.0") || myEntity.getNewGrade().equals("6.0")) grade=ExamGrade.G60;
+				examAttendanceService.createExamAttendanceForStudent(myEntity.getStudent(), exam, grade);
 				myEntitiesConfirmations.add(myEntity);
 			}
 		}
