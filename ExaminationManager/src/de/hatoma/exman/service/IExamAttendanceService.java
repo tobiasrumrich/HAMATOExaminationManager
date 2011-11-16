@@ -69,4 +69,12 @@ public interface IExamAttendanceService {
 	 * @return
 	 */
 	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(ExamSubject examSubject, Student student) throws NoPreviousAttemptException;
+	
+	
+	/**
+	 * Returns a list of all Students that eligible to attend to an exam
+	 * @param exam
+	 * @return
+	 */
+	public List<Student> getAllStudentsEligibleForExamAttendance(Exam exam);
 }

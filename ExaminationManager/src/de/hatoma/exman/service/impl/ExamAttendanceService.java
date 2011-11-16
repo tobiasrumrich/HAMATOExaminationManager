@@ -1,5 +1,7 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
+import de.hatoma.exman.service.IManipleService;
 
 @Component
 public class ExamAttendanceService implements IExamAttendanceService {
@@ -23,6 +26,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	private IExamAttendanceDao examAttendanceDao;
 	@Autowired
 	private IManipleDao manipleDao;
+
+	@Autowired
+	private IManipleService manipleService;
 
 	@Override
 	public ExamAttendance createExamAttendanceForStudent(Student student,
@@ -38,7 +44,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 		return examAttendance;
 	}
-	
+
 	public List<ExamAttendance> getExamAttendancesForExam(Exam exam) {
 		return examAttendanceDao.findByExam(exam);
 	}
@@ -58,11 +64,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		this.examAttendanceDao = examAttendanceDao;
 	}
 
-
 	public IManipleDao getManipleDao() {
 		return manipleDao;
 	}
-
 
 	public void setManipleDao(IManipleDao manipleDao) {
 		this.manipleDao = manipleDao;
@@ -103,6 +107,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendanceDao.update(examAttendance);
 
 	}
+
 	@Override
 	public List<ExamAttendance> getExamAttendancesByExamSubject(
 			ExamSubject examSubject) {
@@ -112,14 +117,59 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	@Override
 	public List<ExamAttendance> getExamAttendancesForStudentByExamSubject(
 			ExamSubject examSubject, Student student) {
-		return examAttendanceDao.findByExamSubjectAndStudent(examSubject, student);
+		return examAttendanceDao.findByExamSubjectAndStudent(examSubject,
+				student);
 	}
 
 	@Override
-	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject (
-			ExamSubject examSubject, Student student) throws NoPreviousAttemptException {
-		ExamAttendance latestExamAttendance = examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(
+			ExamSubject examSubject, Student student)
+			throws NoPreviousAttemptException {
+		ExamAttendance latestExamAttendance = examAttendanceDao
+				.findLatestExamAttendanceOfStudentByExamSubject(examSubject,
+						student);
 		return latestExamAttendance;
+	}
+
+	@Override
+	public List<Student> getAllStudentsEligibleForExamAttendance(Exam exam) {
+		Collection<Student> students = manipleService.getStudents(exam
+				.getExamSubject().getManiple().getId());
+		List<Student> eligibleStudents = new ArrayList<Student>();
+		for (Student student : students) {
+			ExamAttendance latestAttendance;
+			try {
+				latestAttendance = getLatestExamAttendanceOfStudentByExamSubject(
+						exam.getExamSubject(), student);
+
+			} catch (NoPreviousAttemptException e) {
+				eligibleStudents.add(student);
+				continue;
+			}
+			if ((latestAttendance.getExamGrade().equals(ExamGrade.G50) || latestAttendance
+					.getExamGrade().equals(ExamGrade.G60))
+					&& latestAttendance.getAttempt() < 3
+					&& !latestAttendance.getExam().equals(exam)) {
+
+				eligibleStudents.add(student);
+			}
+		}
+		return eligibleStudents;
+	}
+
+	/**
+	 * @return the manipleService
+	 */
+	public IManipleService getManipleService() {
+		return manipleService;
+	}
+
+	/**
+	 * @param manipleService
+	 *            the manipleService to set
+	 */
+	public void setManipleService(IManipleService manipleService) {
+		this.manipleService = manipleService;
 	}
 
 }

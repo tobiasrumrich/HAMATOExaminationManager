@@ -99,7 +99,8 @@ list-style-type:none;
 					<td><s:property value="student.matriculationNumber" /></td>
 					<td><s:property
 							value="previousExamAttendance.examGrade.asExpression" /></td>
-					<td><s:textfield
+					<td>
+					<s:textfield
 							name="myEntitiesMap['%{student.id}'].newGrade"
 							value="%{newGrade}" theme="simple" cssErrorClass="examGradeError" />
 							<s:fielderror >
