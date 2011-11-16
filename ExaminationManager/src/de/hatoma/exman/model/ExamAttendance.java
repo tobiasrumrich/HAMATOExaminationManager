@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.envers.AuditTable;
@@ -35,7 +34,7 @@ public class ExamAttendance implements Serializable {
 		return attempt;
 	}
 
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	public Exam getExam() {
 		return exam;
 	}

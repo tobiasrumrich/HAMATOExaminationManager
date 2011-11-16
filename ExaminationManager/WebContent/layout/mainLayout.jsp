@@ -14,14 +14,17 @@
 		name="%{#attr.title}" /></title>
 <s:head />
 
-<!-- 
+
 <link type="text/css"
-	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom..css"
-	rel="stylesheet" /> !-->
+	href="resources/jquery/css/smoothness/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<link type="text/css"
+	href="resources/jquery/css/smoothness/jquery.ui.datepicker.css"
+	rel="stylesheet" />
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <script type="text/javascript"
-	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
+	src="resources/jquery/js/jquery-1.6.2.min.js"></script>	
 <script type="text/javascript"
 	src="resources/jquery/js/datatables/media/js/jquery.dataTables.js"></script>
 <script type="text/javascript"
@@ -41,6 +44,13 @@
 				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
 	});
 </script>
+<!-- CSS für DatPicker -->
+<style type="text/css">
+#ui-datepicker-div {
+	background-color:white;
+	border:1px solid grey;
+}
+</style>
 <!-- CSS für DataTables -->
 <style type="text/css">
 @import "resources/jquery/js/datatables/media/css/demo_table.css";
@@ -108,6 +118,10 @@ td {
 	color: orange;
 	font-weight: bold;
 }
+
+.hatoma_dataTable {
+font-size: 80%;
+}
 </style>
 <style type="text/css">
 html {
@@ -124,22 +138,26 @@ body {
 	background-repeat: repeat-x;
 }
 
-div#header {
+div#headerbar {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
 	height: 54px;
-	background-image: url(resources/img/header_bg.gif);
-	background-repeat: repeat-x;
+	width: 100%;
 	line-height: 54px;
 	padding: 0px 0px 0px 13px;
 	color: white;
 	z-index: 2;
+	background-image: url(resources/img/header_bg.gif);
+	background-repeat: repeat-x;
+}
+
+div#header {
+	width: 1000px;
 }
 
 div#navigation-wrapper {
-	background: #b9d9eb;
+	background: #e1eff6;
 	float: left;
 	width: 250px;
 	clear: both;
@@ -190,7 +208,7 @@ div#main h1 {
 	padding: 5px 0px 5px 10px;
 	background: lightgray;
 	margin: 0px;
-	font-size: 90%;
+	font-size: 70%;
 }
 
 .ui-accordion-header a {
@@ -204,6 +222,7 @@ div#main h1 {
 
 .ui-accordion-content {
 	background: #eeeeee;
+	font-size: 70%;
 }
 
 .ui-accordion-content-active { /*padding: 5px 0px 5px 10px*/
@@ -218,10 +237,11 @@ span#sessioninfo {
 </head>
 <body>
 
-	<div id="header">
-		<span id="sessioninfo">&lt;sessioninfo&gt;</span>
-		<h1>HATOMA Examination Manager</h1>
-
+<div id="headerbar">
+		<div id="header">
+			<span id="sessioninfo">&lt;sessioninfo&gt;</span>
+			<h1>HATOMA Examination Manager</h1>
+		</div>
 	</div>
 
 	<div id="container">
@@ -243,7 +263,9 @@ span#sessioninfo {
 							<a href="#">Prüfungsergebnisse</a>
 						</h3>
 						<div>
-							<p>Batcherfassung</p>
+							<p>
+							<s:url action="ExamAttendanceBulkUpdate" id="examAttendanceBulkUpdateUrl" />
+							<s:a href="%{examAttendanceBulkUpdateUrl}">Batcherfassung</s:a></p>
 
 							<p>
 								<s:url action="FileSingleExamAttendance"
@@ -268,7 +290,11 @@ span#sessioninfo {
 								<s:url action="CreateExam" id="createExamUrl" />
 								<s:a href="%{createExamUrl}">Neue Prüfung anlegen</s:a>
 							</p>
-							<p>Prüfungen verwalten</p>
+							
+							<p>
+							<s:url action="ExamOverview" id="examOverviewUrl" />
+							<s:a href="%{examOverviewUrl}">Prüfungen verwalten</s:a>
+							</p>
 						</div>
 					</div>
 

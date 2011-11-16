@@ -13,6 +13,6 @@ public interface IDao<T> {
 
 	Serializable save(T entity);
 
-	void update(T entity);
+	void update(T entity) throws Exception;
 
 }

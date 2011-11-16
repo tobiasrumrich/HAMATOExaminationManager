@@ -24,7 +24,7 @@ public class ManipleService implements IManipleService {
 		maniple.setStudyBranch(studyBranch);
 		maniple.setYear(year);
 
-		getManipleDAO().save(maniple);
+		getManipleDao().save(maniple);
 		return maniple;
 	}
 
@@ -33,25 +33,19 @@ public class ManipleService implements IManipleService {
 		return manipleDao.findAll();
 	}
 
-	/**
-	 * @return the manipleDao
-	 */
-	public IManipleDao getManipleDAO() {
+	public IManipleDao getManipleDao() {
 		return manipleDao;
 	}
 
 	@Override
 	public Collection<Student> getStudents(long id) {
 		Collection<Student> students;
-		students = getManipleDAO().getStudents(id);
+		students = getManipleDao().getStudentsForManiple(id);
 		return students;
 	}
 
-	/**
-	 * @param manipleDao
-	 *            the manipleDao to set
-	 */
-	public void setManipleDAO(IManipleDao manipleDao) {
+
+	public void setManipleDao(IManipleDao manipleDao) {
 		this.manipleDao = manipleDao;
 	}
 

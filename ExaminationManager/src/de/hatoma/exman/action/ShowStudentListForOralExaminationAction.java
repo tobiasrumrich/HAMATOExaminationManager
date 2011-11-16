@@ -1,14 +1,14 @@
 package de.hatoma.exman.action;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.Maniple;
-import de.hatoma.exman.model.Student;
+import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IManipleService;
 
 public class ShowStudentListForOralExaminationAction extends ActionSupport {
@@ -16,40 +16,55 @@ public class ShowStudentListForOralExaminationAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private List<ExamAttendance> examAttendances;
+
+	@Autowired
+	private IExamAttendanceService examAttendanceService;
+
 	private List<Maniple> maniples;
 	@Autowired
 	private IManipleService manipleService;
 	private long manipleToFetch;
+
 	private String selectedManiple;
-	private List<Student> students;
-	
 
 	@Override
 	public String execute() throws Exception {
 		if (selectedManiple == null || selectedManiple.isEmpty()) {
 			manipleToFetch = 1;
-		}
-		else {
+		} else {
 			manipleToFetch = Integer.valueOf(selectedManiple);
 		}
 		maniples = getManiples();
-		students = (List<Student>) manipleService.getStudents(manipleToFetch);
+		examAttendances = (List<ExamAttendance>) getExamAttendanceService().getOralCandidates(manipleToFetch);
 		return "showInputForm";
 	}
-
+	public List<ExamAttendance> getExamAttendances() {
+		return examAttendances;
+	}
 	/**
 	 * @return the allManiples
 	 */
 	public List<Maniple> getManiples() {
 		return (List<Maniple>) manipleService.getAll();
 	}
-
 	public IManipleService getManipleService() {
 		return manipleService;
 	}
 
-	public Collection<Student> getStudents() {
-		return students;
+	public long getManipleToFetch() {
+		return manipleToFetch;
+	}
+
+	/**
+	 * @return the selectedManiple
+	 */
+	public String getSelectedManiple() {
+		return selectedManiple;
+	}
+
+	public void setExamAttendances(List<ExamAttendance> examAttendances) {
+		this.examAttendances = examAttendances;
 	}
 
 	/**
@@ -64,22 +79,22 @@ public class ShowStudentListForOralExaminationAction extends ActionSupport {
 		this.manipleService = manipleService;
 	}
 
-	public void setStudents(List<Student> students) {
-		this.students = students;
+	public void setManipleToFetch(long manipleToFetch) {
+		this.manipleToFetch = manipleToFetch;
 	}
 
 	/**
-	 * @return the selectedManiple
-	 */
-	public String getSelectedManiple() {
-		return selectedManiple;
-	}
-
-	/**
-	 * @param selectedManiple the selectedManiple to set
+	 * @param selectedManiple
+	 *            the selectedManiple to set
 	 */
 	public void setSelectedManiple(String selectedManiple) {
 		this.selectedManiple = selectedManiple;
+	}
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
 	}
 
 }

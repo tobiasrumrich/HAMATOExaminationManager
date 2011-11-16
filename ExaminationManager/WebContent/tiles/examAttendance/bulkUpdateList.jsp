@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<s:url action="FileSingleOralExamAttendance"
-	id="fileSingleOralExamAttendanceUrl" />
-
 <script type="text/javascript">
 	$(function() {
 
@@ -12,13 +9,11 @@
 			"bAutoWidth" : true,
 			"bProcessing" : true,
 			"aoColumnDefs" : [ {
-				"sWidth" : "70px",
-				"aTargets" : [ 0 ]
-			}, {
 				"sType" : "string",
+				"sWidth" : "120px",
 				"aTargets" : [ 0 ]
 			}, {
-				"sWidth" : "60px",
+				"sWidth" : "120px",
 				"aTargets" : [ 1 ]
 			} ],
 			"bStateSave" : true,
@@ -44,56 +39,52 @@
 	});
 </script>
 
+<div style="background: #d3e7f3">
+	<table>
+		<tr>
+			<td>Prüfungsfach:</td>
+		<td><s:property value="examSubject.title" /> </td>
+		</tr>
+		
+		<tr>
+			<td>Prüfung:</td>
+		<td><s:date name="exam.date" format="%{getText('examDateFormat')}" /> *** <s:property value="exam.examiner" /> </td>
+		</tr>
+		
+	</table>
+</div>
 
+<s:form method="post">
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
-			<td>Manipel</td>
-			<td>Modul</td>
-			<td>Modulbezeichnung</td>
-			<td>Datum</td>
-			<td>Prüfer</td>
-			<td>Prüfungsform</td>
-			<td></td>
+			<td>Vorname</td>
+			<td>Nachname</td>
+			<td>Matrikelnr.</td>
+			<td>Bisherige Note</td>
+			<td>Note</td>
+			<td>Versuch</td>
 		</tr>
 	</thead>
 	<tbody>
 
 
-		<s:iterator value="examList" status="iteratorStatus">
-
+		<s:iterator value="myEntities">
 			<tr>
-				<td><s:property value="examSubject.maniple" /></td>
-
-				<td><s:property value="examSubject.moduleIdentifier" /></td>
-
-				<td><s:property value="examSubject.title" /></td>
-
-				<td><s:date name="date" format="%{getText('examDateFormat')}" />
-				</td>
-
-				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
-						<s:property value="examiner" />
-					</s:a></td>
-
-				<td><s:property value="examType.key" /></td>
-				<td>
-				
-				
-				
-				<s:if test="%{isExamEditable(id)}">
-				
-
-
-
-
-						<s:url action="EditExamination" id="editExamaninationUrl">
-							<s:param name="examId"></s:param>
-						</s:url>
-						<s:a href="%{editExamaninationUrl}">[EDIT]</s:a>
-
-					</s:if></td>
+				<td><s:property value="student.forename" /></td>
+				<td><s:property value="student.lastname" /></td>
+				<td><s:property value="student.matriculationNumber" /></td>
+				<td><s:property
+						value="previousExamAttendance.examGrade.asExpression" /></td>
+				<td><s:textfield
+						name="myEntitiesMap['%{student.id}'].newGrade"
+						value="%{newGrade}" theme="simple" /></td>
+				<td>1. Versuch</td>
 			</tr>
 		</s:iterator>
+		
+
 	</tbody>
 </table>
+<s:submit action="ExamAttendanceBulkUpdate" value="Speichern" method="insertNewExamAttendances"/>
+</s:form>

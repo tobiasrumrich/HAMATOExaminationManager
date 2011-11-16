@@ -15,6 +15,8 @@ public class TrainmanAction extends ActionSupport {
 	@Autowired
 	private ITrainmanService trainmanService;
 
+	private String createExamAttendances;
+	
 	@Override
 	public String execute() throws Exception {
 
@@ -30,8 +32,11 @@ public class TrainmanAction extends ActionSupport {
 	}
 
 	public String insertData() throws Exception {
-
-		getTrainmanService().createPhaseOne(90, 120);
+		Boolean doCreateExamAttendances = false;
+		if (createExamAttendances.equals("true")) {
+			doCreateExamAttendances = true;
+		}
+		getTrainmanService().createPhaseOne(90, 120,doCreateExamAttendances);
 
 		return "success";
 
@@ -43,6 +48,20 @@ public class TrainmanAction extends ActionSupport {
 	 */
 	public void setTrainmanService(ITrainmanService trainmanService) {
 		this.trainmanService = trainmanService;
+	}
+
+	/**
+	 * @return the createExamAttendances
+	 */
+	public String getCreateExamAttendances() {
+		return createExamAttendances;
+	}
+
+	/**
+	 * @param createExamAttendances the createExamAttendances to set
+	 */
+	public void setCreateExamAttendances(String createExamAttendances) {
+		this.createExamAttendances = createExamAttendances;
 	}
 
 }

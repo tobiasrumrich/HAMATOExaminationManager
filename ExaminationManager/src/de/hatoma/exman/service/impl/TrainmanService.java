@@ -1,7 +1,8 @@
 package de.hatoma.exman.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamSubject;
+import de.hatoma.exman.model.ExamType;
+import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
@@ -42,7 +45,7 @@ public class TrainmanService implements ITrainmanService {
 
 	@Override
 	public void createPhaseOne(int minStudentsPerCentury,
-			int maxStudentsPerCentury) {
+			int maxStudentsPerCentury, Boolean createExamAttendances) {
 		// Studengänge anlegen
 		StudyBranch winfBranch = studyBranchService.createStudyBranch("I",
 				"WINF", "BSc. Wirtschaftsinformatik");
@@ -101,7 +104,8 @@ public class TrainmanService implements ITrainmanService {
 		List<String> lastnameRepository = lastnameRepository();
 
 		List<Student> listOfStudents = new ArrayList<Student>();
-
+		long matriculationNumber = 1000L;
+		
 		for (Maniple currentManiple : allManiples) {
 			for (int i = 0; i < ((int) (Math.random()
 					* (maxStudentsPerCentury - minStudentsPerCentury) + minStudentsPerCentury)); i++) {
@@ -110,7 +114,7 @@ public class TrainmanService implements ITrainmanService {
 				int keyNachname = (int) (Math.random() * (lastnameRepository
 						.size()));
 
-				listOfStudents.add(studentService.createStudent(
+				listOfStudents.add(studentService.createStudent(String.valueOf(matriculationNumber++),
 						forenameRepository.get(keyVorname),
 						lastnameRepository.get(keyNachname), currentManiple));
 
@@ -205,259 +209,196 @@ public class TrainmanService implements ITrainmanService {
 		}
 
 		// Prüfungen anlegen
+		List<Integer> hoursRepository = Arrays.asList(9, 10, 11, 12, 13, 14,
+				15, 16, 17, 18);
+		List<Integer> minutesRepository = Arrays.asList(0, 15, 30, 45);
+
 		List<Exam> winfExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : winfExamSubjects) {
+			Calendar calendar = Calendar.getInstance();
+			int hour = hoursRepository
+					.get((int) (Math.random() * hoursRepository.size()));
+			int minute = minutesRepository
+					.get((int) (Math.random() * minutesRepository.size()));
+
+			int year = exSubject.getManiple().getYear();
+
+			int month = (int) (Math.random() * 12);
+			int day = (int) (Math.random() * 28);
+			calendar.set(year, month, day, hour, minute);
+
 			winfExams.add(getExamService().createExam(
+					ExamType.WrittenExam,
 					exSubject,
-					new Date(2011, 11, 1),
+					calendar.getTime(),
 					winfExaminer.get((int) (Math.random() * (winfExaminer
 							.size() - 1)))));
 		}
 
 		List<Exam> wingExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : wingExamSubjects) {
+			Calendar calendar = Calendar.getInstance();
+			int hour = hoursRepository
+					.get((int) (Math.random() * hoursRepository.size()));
+			int minute = minutesRepository
+					.get((int) (Math.random() * minutesRepository.size()));
+
+			int year = exSubject.getManiple().getYear();
+
+			int month = (int) (Math.random() * 12);
+			int day = (int) (Math.random() * 28);
+			calendar.set(year, month, day, hour, minute);
+
 			wingExams.add(getExamService().createExam(
+					ExamType.WrittenExam,
 					exSubject,
-					new Date(2011, 10, 9),
+					calendar.getTime(),
 					wingExaminer.get((int) (Math.random() * (wingExaminer
 							.size() - 1)))));
 		}
 
 		List<Exam> bwlExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : bwlExamSubjects) {
+			Calendar calendar = Calendar.getInstance();
+			int hour = hoursRepository
+					.get((int) (Math.random() * hoursRepository.size()));
+			int minute = minutesRepository
+					.get((int) (Math.random() * minutesRepository.size()));
+
+			int year = exSubject.getManiple().getYear();
+
+			int month = (int) (Math.random() * 12);
+			int day = (int) (Math.random() * 28);
+			calendar.set(year, month, day, hour, minute);
+
 			bwlExams.add(getExamService()
 					.createExam(
+							ExamType.WrittenExam,
 							exSubject,
-							new Date(2011, 3, 2),
+							calendar.getTime(),
 							bwlExaminer.get((int) (Math.random() * (bwlExaminer
 									.size() - 1)))));
 		}
 
-		// Prüfer anlegen -- NEBENAMTLER
+		if (createExamAttendances) {
 
-		/*
-		 * examiner = getExaminerService().createExaminer("Ralf", "Kesten");
-		 * ExamSubject examSubject =
-		 * getExamSubjectService().createExamSubject("Ausdruckstanz"
-		 * ,"A Fancy Description","ADT",maniple);
-		 * 
-		 * Exam exam = getExamService().createExam(examSubject, new
-		 * Date(2011,11,1), examiner);
-		 * 
-		 * 
-		 * ExamGrade examGrade = ExamGrade.G10;
-		 * examAttendanceService.createExamAttendanceForStudent(student, exam,
-		 * examGrade);
-		 */
+			List<ExamGrade> grades = Arrays.asList(ExamGrade.G10,
+					ExamGrade.G13, ExamGrade.G17, ExamGrade.G20, ExamGrade.G30,
+					ExamGrade.G33, ExamGrade.G37, ExamGrade.G40, ExamGrade.G50,
+					ExamGrade.G60);
+
+			for (Maniple maniple : allWinfManiples) {
+
+				for (Student student : manipleService.getStudents(maniple
+						.getId())) {
+
+					// Alle haben eine Klausur komplett mitgeschrieben
+					ExamGrade grade = grades.get((int) (Math.random() * grades
+							.size()));
+					examAttendanceService.createExamAttendanceForStudent(
+							student, winfExams.get(0), grade);
+
+					// Die zweite Klausur haben gaaaaanz viele geschoben
+					if ((int) (Math.random() * 2) == 1) {
+						grade = grades
+								.get((int) (Math.random() * grades.size()));
+						examAttendanceService.createExamAttendanceForStudent(
+								student, winfExams.get(1), grade);
+					}
+
+				}
+			}
+
+			for (Maniple maniple : allWingManiples) {
+
+				for (Student student : manipleService.getStudents(maniple
+						.getId())) {
+
+					// Alle haben eine Klausur komplett mitgeschrieben
+					ExamGrade grade = grades.get((int) (Math.random() * grades
+							.size()));
+					examAttendanceService.createExamAttendanceForStudent(
+							student, wingExams.get(0), grade);
+
+					// Die zweite Klausur haben gaaaaanz viele geschoben
+					if ((int) (Math.random() * 2) == 1) {
+						grade = grades
+								.get((int) (Math.random() * grades.size()));
+						examAttendanceService.createExamAttendanceForStudent(
+								student, wingExams.get(1), grade);
+					}
+
+				}
+			}
+			
+			for (Maniple maniple : allBwlManiples) {
+
+				for (Student student : manipleService.getStudents(maniple
+						.getId())) {
+
+					// Alle haben eine Klausur komplett mitgeschrieben
+					ExamGrade grade = grades.get((int) (Math.random() * grades
+							.size()));
+					examAttendanceService.createExamAttendanceForStudent(
+							student, bwlExams.get(0), grade);
+
+					// Die zweite Klausur haben gaaaaanz viele geschoben
+					if ((int) (Math.random() * 2) == 1) {
+						grade = grades
+								.get((int) (Math.random() * grades.size()));
+						examAttendanceService.createExamAttendanceForStudent(
+								student, bwlExams.get(1), grade);
+					}
+
+				}
+			}
+
+		}
 
 	}
 
+	/**
+	 * Thanks to fakenamegenerator.com
+	 * 
+	 * @return
+	 */
 	private List<String> forenameRepository() {
 		ArrayList<String> r = new ArrayList<String>();
-
-		r.add("Dieter");
-		r.add("Felix");
-		r.add("Marcel");
-		r.add("Martina");
-		r.add("Jessica");
-		r.add("Karin");
-		r.add("Vanessa");
-		r.add("Philipp");
-		r.add("René");
-		r.add("Sven");
-		r.add("Ralph");
-		r.add("Daniel");
-		r.add("Ralph");
-		r.add("Leonie");
-		r.add("Andrea");
-		r.add("Thomas");
-		r.add("Leon");
-		r.add("Tanja");
-		r.add("Alexander");
-		r.add("Maximilian");
-		r.add("Jürgen");
-		r.add("Gabriele");
-		r.add("Uta");
-		r.add("Ute");
-		r.add("Annett");
-		r.add("Dennis");
-		r.add("Gabriele");
-		r.add("Sarah");
-		r.add("Kevin");
-		r.add("Stephan");
-		r.add("Alexander");
-		r.add("Tanja");
-		r.add("Birgit");
-		r.add("Julia");
-		r.add("Silke");
-		r.add("Simone");
-		r.add("Martina");
-		r.add("Thorsten");
-		r.add("Janina");
-		r.add("Barbara");
-		r.add("Anne");
-		r.add("Dirk");
-		r.add("Jens");
-		r.add("Kerstin");
-		r.add("Tanja");
-		r.add("Simone");
-		r.add("Florian");
-		r.add("Angelika");
-		r.add("Antje");
-		r.add("Johanna");
-		r.add("Marco");
-		r.add("Jessica");
-		r.add("Vanessa");
-		r.add("Jonas");
-		r.add("Patrick");
-		r.add("Susanne");
-		r.add("Benjamin");
-		r.add("Anja");
-		r.add("Stefanie");
-		r.add("Patrick");
-		r.add("Jana");
-		r.add("Birgit");
-		r.add("Maik");
-		r.add("Susanne");
-		r.add("Torsten");
-		r.add("Swen");
-		r.add("Anja");
-		r.add("Jan");
-		r.add("Erik");
-		r.add("Bernd");
-		r.add("Barbara");
-		r.add("Max");
-		r.add("Daniela");
-		r.add("Angelika");
-		r.add("Luca");
-		r.add("Maximilian");
-		r.add("Claudia");
-		r.add("Sarah");
-		r.add("Tobias");
-		r.add("Anna");
-		r.add("Jens");
-		r.add("Angelika");
-		r.add("Jessica");
-		r.add("Dominik");
-		r.add("Anne");
-		r.add("Dirk");
-		r.add("Eric");
-		r.add("Maria");
-		r.add("Christina");
-		r.add("Kerstin");
-		r.add("Petra");
-		r.add("Karin");
-		r.add("Alexander");
-		r.add("Luca");
-		r.add("Nicole");
-		r.add("Birgit");
-		r.add("Mandy");
-		r.add("Anne");
-		r.add("Daniela");
-		r.add("Marko");
-		r.add("Vanessa");
-		r.add("Paul");
-		r.add("Johanna");
-		r.add("Sophie");
-		r.add("Sabrina");
-		r.add("Katrin");
-		r.add("Michael");
-		r.add("Luca");
-		r.add("Kathrin");
-		r.add("René");
-		r.add("Uta");
-		r.add("Brigitte");
-		r.add("Frank");
-		r.add("Jessica");
-		r.add("Phillipp");
-		r.add("Maximilian");
-		r.add("Leonie");
-		r.add("Kevin");
-		r.add("Angelika");
-		r.add("Ralph");
-		r.add("Anne");
-		r.add("Steffen");
-		r.add("Christin");
-		r.add("Robert");
-		r.add("Janina");
-		r.add("Lucas");
-		r.add("Ursula");
-		r.add("Nadine");
-		r.add("Ulrich");
-		r.add("Stefanie");
-		r.add("Ulrich");
-		r.add("Markus");
-		r.add("Paul");
-		r.add("Marcel");
-		r.add("Heike");
-		r.add("Sebastian");
-		r.add("Katharina");
-		r.add("Sven");
-		r.add("Jessika");
-		r.add("Brigitte");
-		r.add("Anne");
-		r.add("Sandra");
-		r.add("Max");
-		r.add("Lena");
-		r.add("Ralph");
-		r.add("Annett");
-		r.add("Dominik");
-		r.add("Manuela");
-		r.add("Katja");
-		r.add("Jessika");
-		r.add("Sabine");
-		r.add("Silke");
-		r.add("Markus");
-		r.add("Johanna");
-		r.add("Leah");
-		r.add("Peter");
-		r.add("Kristin");
-		r.add("Sven");
-		r.add("Uwe");
-		r.add("Franziska");
-		r.add("Barbara");
-		r.add("Laura");
-		r.add("Maria");
-		r.add("Max");
-		r.add("Jennifer");
-		r.add("Marie");
-		r.add("Matthias");
-		r.add("Katja");
-		r.add("Annett");
-		r.add("Jana");
-		r.add("Gabriele");
-		r.add("Max");
-		r.add("Daniel");
-		r.add("Jürgen");
-		r.add("Swen");
-		r.add("Swen");
-		r.add("Simone");
-		r.add("Tanja");
-		r.add("René");
-		r.add("Antje");
-		r.add("Christian");
-		r.add("Mandy");
-		r.add("Nicole");
-		r.add("Sven");
-		r.add("Christin");
-		r.add("Anke");
-		r.add("Erik");
-		r.add("Ursula");
-		r.add("Swen");
-		r.add("Lisa");
-		r.add("Jennifer");
-		r.add("Luca");
-		r.add("Lukas");
-		r.add("Christina");
-		r.add("Maik");
-		r.add("Antje");
-		r.add("Andreas");
-		r.add("Martina");
-		r.add("Alexander");
-		r.add("Stefanie");
-		r.add("Marcel");
-		r.add("Tobias");
-		r.add("Hannes");
+		r.addAll(Arrays.asList("Dieter", "Felix", "Marcel", "Martina",
+				"Jessica", "Karin", "Vanessa", "Philipp", "René", "Sven",
+				"Ralph", "Daniel", "Ralph", "Leonie", "Andrea", "Thomas",
+				"Leon", "Tanja", "Alexander", "Maximilian", "Jürgen",
+				"Gabriele", "Uta", "Ute", "Annett", "Dennis", "Gabriele",
+				"Sarah", "Kevin", "Stephan", "Alexander", "Tanja", "Birgit",
+				"Julia", "Silke", "Simone", "Martina", "Thorsten", "Janina",
+				"Barbara", "Anne", "Dirk", "Jens", "Kerstin", "Tanja",
+				"Simone", "Florian", "Angelika", "Antje", "Johanna", "Marco",
+				"Jessica", "Vanessa", "Jonas", "Patrick", "Susanne",
+				"Benjamin", "Anja", "Stefanie", "Patrick", "Jana", "Birgit",
+				"Maik", "Susanne", "Torsten", "Swen", "Anja", "Jan", "Erik",
+				"Bernd", "Barbara", "Max", "Daniela", "Angelika", "Luca",
+				"Maximilian", "Claudia", "Sarah", "Tobias", "Anna", "Jens",
+				"Angelika", "Jessica", "Dominik", "Anne", "Dirk", "Eric",
+				"Maria", "Christina", "Kerstin", "Petra", "Karin", "Alexander",
+				"Luca", "Nicole", "Birgit", "Mandy", "Anne", "Daniela",
+				"Marko", "Vanessa", "Paul", "Johanna", "Sophie", "Sabrina",
+				"Katrin", "Michael", "Luca", "Kathrin", "René", "Uta",
+				"Brigitte", "Frank", "Jessica", "Phillipp", "Maximilian",
+				"Leonie", "Kevin", "Angelika", "Ralph", "Anne", "Steffen",
+				"Christin", "Robert", "Janina", "Lucas", "Ursula", "Nadine",
+				"Ulrich", "Stefanie", "Ulrich", "Markus", "Paul", "Marcel",
+				"Heike", "Sebastian", "Katharina", "Sven", "Jessika",
+				"Brigitte", "Anne", "Sandra", "Max", "Lena", "Ralph", "Annett",
+				"Dominik", "Manuela", "Katja", "Jessika", "Sabine", "Silke",
+				"Markus", "Johanna", "Leah", "Peter", "Kristin", "Sven", "Uwe",
+				"Franziska", "Barbara", "Laura", "Maria", "Max", "Jennifer",
+				"Marie", "Matthias", "Katja", "Annett", "Jana", "Gabriele",
+				"Max", "Daniel", "Jürgen", "Swen", "Swen", "Simone", "Tanja",
+				"René", "Antje", "Christian", "Mandy", "Nicole", "Sven",
+				"Christin", "Anke", "Erik", "Ursula", "Swen", "Lisa",
+				"Jennifer", "Luca", "Lukas", "Christina", "Maik", "Antje",
+				"Andreas", "Martina", "Alexander", "Stefanie", "Marcel",
+				"Tobias", "Hannes"));
 		return r;
 	}
 
@@ -491,209 +432,44 @@ public class TrainmanService implements ITrainmanService {
 
 	private List<String> lastnameRepository() {
 		ArrayList<String> r = new ArrayList<String>();
-		r.add("Neudorf");
-		r.add("Junker");
-		r.add("Friedman");
-		r.add("Weissmuller");
-		r.add("Eggers");
-		r.add("Eichel");
-		r.add("Peters");
-		r.add("Hofmann");
-		r.add("Eichelberger");
-		r.add("Hirsch");
-		r.add("Freud");
-		r.add("Waechter");
-		r.add("Freitag");
-		r.add("Brauer");
-		r.add("Eichmann");
-		r.add("Bader");
-		r.add("Eisenhower");
-		r.add("Neustadt");
-		r.add("Kaufmann");
-		r.add("Fried");
-		r.add("Goldschmidt");
-		r.add("Wurfel");
-		r.add("Faust");
-		r.add("Ehrlichmann");
-		r.add("Reinhardt");
-		r.add("Kuster");
-		r.add("Schreiber");
-		r.add("Freytag");
-		r.add("Traugott");
-		r.add("Schweitzer");
-		r.add("Metzger");
-		r.add("Kuster");
-		r.add("Feierabend");
-		r.add("Fruehauf");
-		r.add("Fuhrmann");
-		r.add("Mahler");
-		r.add("Ackerman");
-		r.add("Amsel");
-		r.add("Ackerman");
-		r.add("Bachmeier");
-		r.add("Schulze");
-		r.add("Schuster");
-		r.add("Wirtz");
-		r.add("Nussbaum");
-		r.add("Baumgaertner");
-		r.add("Luft");
-		r.add("Kappel");
-		r.add("Kuefer");
-		r.add("Werner");
-		r.add("Fisher");
-		r.add("Wexler");
-		r.add("Meier");
-		r.add("Vogt");
-		r.add("Krause");
-		r.add("Shuster");
-		r.add("Barth");
-		r.add("Fuchs");
-		r.add("Lange");
-		r.add("Boehm");
-		r.add("Eisenhauer");
-		r.add("Gärtner");
-		r.add("Moench");
-		r.add("Foerster");
-		r.add("Beyer");
-		r.add("Meister");
-		r.add("Lange");
-		r.add("Kuhn");
-		r.add("Herrmann");
-		r.add("Zimmerman");
-		r.add("Krause");
-		r.add("Wulf");
-		r.add("Wurfel");
-		r.add("Bieber");
-		r.add("Kaufmann");
-		r.add("Meyer");
-		r.add("Jager");
-		r.add("Hoch");
-		r.add("Kuester");
-		r.add("Holzman");
-		r.add("Trommler");
-		r.add("Schultheiss");
-		r.add("Köhler");
-		r.add("Beyer");
-		r.add("Pabst");
-		r.add("Vogler");
-		r.add("Gottschalk");
-		r.add("Hahn");
-		r.add("Weiss");
-		r.add("Bach");
-		r.add("Decker");
-		r.add("Grunwald");
-		r.add("Kuhn");
-		r.add("Moeller");
-		r.add("Grunwald");
-		r.add("Koch");
-		r.add("Faust");
-		r.add("Ebersbach");
-		r.add("Ziegler");
-		r.add("Schmid");
-		r.add("Koertig");
-		r.add("Krüger");
-		r.add("Eichel");
-		r.add("Mayer");
-		r.add("Bader");
-		r.add("Ostermann");
-		r.add("Egger");
-		r.add("Becker");
-		r.add("Mauer");
-		r.add("Holzman");
-		r.add("Baecker");
-		r.add("Meier");
-		r.add("Müller");
-		r.add("Freud");
-		r.add("Neudorf");
-		r.add("Schmitz");
-		r.add("Krueger");
-		r.add("Gottlieb");
-		r.add("Propst");
-		r.add("Freud");
-		r.add("Wagner");
-		r.add("Shuster");
-		r.add("Hofmann");
-		r.add("Frankfurter");
-		r.add("Finkel");
-		r.add("Grunwald");
-		r.add("Rothschild");
-		r.add("Pfeifer");
-		r.add("Neumann");
-		r.add("Lemann");
-		r.add("Ehrlichmann");
-		r.add("Eggers");
-		r.add("Dreher");
-		r.add("Wulf");
-		r.add("Meister");
-		r.add("Lang");
-		r.add("Fischer");
-		r.add("Gerber");
-		r.add("Engel");
-		r.add("Ebersbach");
-		r.add("Kalb");
-		r.add("Urner");
-		r.add("Faust");
-		r.add("Bosch");
-		r.add("Koertig");
-		r.add("Dresdner");
-		r.add("Richter");
-		r.add("Schmidt");
-		r.add("Weiß");
-		r.add("Schiffer");
-		r.add("Schreiber");
-		r.add("Austerlitz");
-		r.add("Eichelberger");
-		r.add("Jung");
-		r.add("Meier");
-		r.add("Eichelberger");
-		r.add("Muller");
-		r.add("Papst");
-		r.add("Feierabend");
-		r.add("Theiss");
-		r.add("Schwartz");
-		r.add("Dietrich");
-		r.add("Muench");
-		r.add("Reinhardt");
-		r.add("Schroder");
-		r.add("Schulze");
-		r.add("Weber");
-		r.add("Baader");
-		r.add("Waechter");
-		r.add("Fisher");
-		r.add("Bürger");
-		r.add("Fischer");
-		r.add("Schreiner");
-		r.add("Achen");
-		r.add("Koertig");
-		r.add("Mueller");
-		r.add("Wolf");
-		r.add("Feierabend");
-		r.add("Himmel");
-		r.add("Freeh");
-		r.add("Junker");
-		r.add("Schuster");
-		r.add("Kirsch");
-		r.add("Keller");
-		r.add("Walter");
-		r.add("Junker");
-		r.add("Becker");
-		r.add("Faerber");
-		r.add("Reinhardt");
-		r.add("Freud");
-		r.add("Farber");
-		r.add("Schmidt");
-		r.add("Metzger");
-		r.add("Braun");
-		r.add("Schmitt");
-		r.add("Bachmeier");
-		r.add("Fischer");
-		r.add("Weiss");
-		r.add("Wexler");
-		r.add("Ebersbach");
-		r.add("Hueber");
-		r.add("Schroeter");
-		r.add("Rumrich");
-		r.add("Lemberg");
+		r.addAll(Arrays.asList("Neudorf", "Junker", "Friedman", "Weissmuller",
+				"Eggers", "Eichel", "Peters", "Hofmann", "Eichelberger",
+				"Hirsch", "Freud", "Waechter", "Freitag", "Brauer", "Eichmann",
+				"Bader", "Eisenhower", "Neustadt", "Kaufmann", "Fried",
+				"Goldschmidt", "Wurfel", "Faust", "Ehrlichmann", "Reinhardt",
+				"Kuster", "Schreiber", "Freytag", "Traugott", "Schweitzer",
+				"Metzger", "Kuster", "Feierabend", "Fruehauf", "Fuhrmann",
+				"Mahler", "Ackerman", "Amsel", "Ackerman", "Bachmeier",
+				"Schulze", "Schuster", "Wirtz", "Nussbaum", "Baumgaertner",
+				"Luft", "Kappel", "Kuefer", "Werner", "Fisher", "Wexler",
+				"Meier", "Vogt", "Krause", "Shuster", "Barth", "Fuchs",
+				"Lange", "Boehm", "Eisenhauer", "Gärtner", "Moench",
+				"Foerster", "Beyer", "Meister", "Lange", "Kuhn", "Herrmann",
+				"Zimmerman", "Krause", "Wulf", "Wurfel", "Bieber", "Kaufmann",
+				"Meyer", "Jager", "Hoch", "Kuester", "Holzman", "Trommler",
+				"Schultheiss", "Köhler", "Beyer", "Pabst", "Vogler",
+				"Gottschalk", "Hahn", "Weiss", "Bach", "Decker", "Grunwald",
+				"Kuhn", "Moeller", "Grunwald", "Koch", "Faust", "Ebersbach",
+				"Ziegler", "Schmid", "Koertig", "Krüger", "Eichel", "Mayer",
+				"Bader", "Ostermann", "Egger", "Becker", "Mauer", "Holzman",
+				"Baecker", "Meier", "Müller", "Freud", "Neudorf", "Schmitz",
+				"Krueger", "Gottlieb", "Propst", "Freud", "Wagner", "Shuster",
+				"Hofmann", "Frankfurter", "Finkel", "Grunwald", "Rothschild",
+				"Pfeifer", "Neumann", "Lemann", "Ehrlichmann", "Eggers",
+				"Dreher", "Wulf", "Meister", "Lang", "Fischer", "Gerber",
+				"Engel", "Ebersbach", "Kalb", "Urner", "Faust", "Bosch",
+				"Koertig", "Dresdner", "Richter", "Schmidt", "Weiß",
+				"Schiffer", "Schreiber", "Austerlitz", "Eichelberger", "Jung",
+				"Meier", "Eichelberger", "Muller", "Papst", "Feierabend",
+				"Theiss", "Schwartz", "Dietrich", "Muench", "Reinhardt",
+				"Schroder", "Schulze", "Weber", "Baader", "Waechter", "Fisher",
+				"Bürger", "Fischer", "Schreiner", "Achen", "Koertig",
+				"Mueller", "Wolf", "Feierabend", "Himmel", "Freeh", "Junker",
+				"Schuster", "Kirsch", "Keller", "Walter", "Junker", "Becker",
+				"Faerber", "Reinhardt", "Freud", "Farber", "Schmidt",
+				"Metzger", "Braun", "Schmitt", "Bachmeier", "Fischer", "Weiss",
+				"Wexler", "Ebersbach", "Hueber", "Schroeter", "Rumrich",
+				"Lemberg"));
 		return r;
 	}
 

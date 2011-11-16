@@ -19,6 +19,7 @@
 
 	<s:checkbox name="createExamAttendances" value="false"
 		key="lblTrainmanCheckCreateExamAttendances" />
+		
 	<s:submit name="submit" action="Trainman" method="insertData"
 		value="%{getText('lblTrainmanSubmitDataCreation')}" />
 

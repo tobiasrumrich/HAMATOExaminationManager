@@ -55,10 +55,20 @@
 		<put-attribute name="content" value="/tiles/trainman/success.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
 	</definition>
-	
-		<definition name="examOverviewTable" extends="mainLayout">
+
+	<definition name="examOverviewTable" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/exam/overviewTable.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
+		<put-attribute name="actionDisplayName" value="txtADNAdministerExams" />
 	</definition>
 	
+	<definition name="examAttendanceBulkUpdateList" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/examAttendance/bulkUpdateList.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
+	</definition>
+	
+	<definition name="examAttendanceBulkUpdateConfirmation" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/examAttendance/confirmation.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
+	</definition>
+
 </tiles-definitions>
