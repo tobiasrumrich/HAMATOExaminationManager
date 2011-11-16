@@ -54,7 +54,7 @@
 	</table>
 </div>
 
-
+<s:form method="post">
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
@@ -77,11 +77,14 @@
 				<td><s:property
 						value="previousExamAttendance.examGrade.asExpression" /></td>
 				<td><s:textfield
-						name="myEntitiesMap['%{id}'].student.matriculationNumber"
+						name="myEntitiesMap['%{student.id}'].newGrade"
 						value="%{newGrade}" theme="simple" /></td>
 				<td>1. Versuch</td>
 			</tr>
 		</s:iterator>
+		
 
 	</tbody>
 </table>
+<s:submit action="ExamAttendanceBulkUpdate" value="Speichern" method="insertNewExamAttendances"/>
+</s:form>

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 
@@ -53,13 +54,14 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	
 	private long selectedExamId;
 	private long selectedManipleId;
-
 	private ExamSubject examSubject;
 	private Exam exam;
 
+	private Map<String, Object> parameters;
+	
 	public void prepare () {
 		// TODO Convert HTTP id(String) to long
-		selectedExamId = 8L;
+		selectedExamId = 1L;
 		selectedManipleId = 1L;
 		//Get the target exam from the service
 		exam = examService.getExamById(selectedExamId);
@@ -101,6 +103,16 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 			//getExamAttendanceService().update(myEntity);
 		}
 		return "showBulkList";
+	}
+	
+	public String insertNewExamAttendances() throws Exception {
+		System.out.println("**** CALLED ****");
+		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities())   {
+			if (!myEntity.getNewGrade().equals("new")) {
+				System.out.println(myEntity.getStudent() + " : " + myEntity.getNewGrade());
+			}
+		}
+		return"showBulkList";
 	}
 
 	/**
