@@ -2,14 +2,13 @@ package de.hatoma.exman.dao.impl;
 
 import java.util.List;
 
-
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IExamAttendanceDao;
+import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -55,10 +54,11 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 
 	@Override
 	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
-			ExamSubject examSubject, Student student) {
+			ExamSubject examSubject, Student student) throws NoPreviousAttemptException {
 		Criteria criteria = getCurrentSession().createCriteria(ExamAttendance.class);
 		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject)).addOrder( Order.desc("date"));
 		criteria.add(Restrictions.eq("student", student));
+		if (criteria.list().size() == 0) throw new NoPreviousAttemptException();
 		return (ExamAttendance) criteria.list().get(0);
 	}
 

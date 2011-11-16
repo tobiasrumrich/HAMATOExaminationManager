@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 
 import de.hatoma.exman.action.helpers.ExamAttendanceBulkUpdateHelperBean;
+import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamSubject;
@@ -54,13 +55,14 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	private long selectedManipleId;
 
 	private ExamSubject examSubject;
+	private Exam exam;
 
 	public void prepare () {
 		// TODO Convert HTTP id(String) to long
-		selectedExamId = 1L;
+		selectedExamId = 8L;
 		selectedManipleId = 1L;
 		//Get the target exam from the service
-		Exam exam = examService.getExamById(selectedExamId);
+		exam = examService.getExamById(selectedExamId);
 		
 		//The ExamSubject
 		examSubject = exam.getExamSubject();
@@ -73,7 +75,13 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 		for (Student student : students) {
 		List<ExamAttendance> attendancesOfStudent = examAttendanceService.getExamAttendancesForStudentByExamSubject(examSubject, student);
 			int numAttempts = attendancesOfStudent.size();
-			ExamAttendance latestAttempt = examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+			ExamAttendance latestAttempt;
+			//latestAttempt=null;
+				try {
+					latestAttempt = examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+				} catch (NoPreviousAttemptException e) {
+					latestAttempt = null;
+				}
 			ExamAttendanceBulkUpdateHelperBean helperBean = new ExamAttendanceBulkUpdateHelperBean(student,numAttempts, latestAttempt);
 			myEntities.add(helperBean);
 			myEntitiesMap.put(String.valueOf(student.getId()), helperBean);
@@ -91,7 +99,6 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 		// Iterate over the List of MyEntity objects and persist them using our DAO
 		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities())   {
 			//getExamAttendanceService().update(myEntity);
-			System.out.println(myEntity);
 		}
 		return "showBulkList";
 	}
@@ -207,6 +214,20 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements Pre
 	 */
 	public void setMyEntities(List<ExamAttendanceBulkUpdateHelperBean> myEntities) {
 		this.myEntities = myEntities;
+	}
+
+	/**
+	 * @return the exam
+	 */
+	public Exam getExam() {
+		return exam;
+	}
+
+	/**
+	 * @param exam the exam to set
+	 */
+	public void setExam(Exam exam) {
+		this.exam = exam;
 	}
 
 

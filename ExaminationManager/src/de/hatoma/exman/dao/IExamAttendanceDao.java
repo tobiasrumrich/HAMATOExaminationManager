@@ -5,6 +5,7 @@ package de.hatoma.exman.dao;
 
 import java.util.List;
 
+import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -23,7 +24,7 @@ public interface IExamAttendanceDao extends IDao<ExamAttendance> {
 	public List<ExamAttendance> findByExamSubjectAndStudent(ExamSubject examSubject, Student student);
 
 	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
-			ExamSubject examSubject, Student student);
+			ExamSubject examSubject, Student student) throws NoPreviousAttemptException;
 
 	public List<ExamAttendance> findbyManipleAndGrade(Maniple maniple, ExamGrade examGrade,
 			ExamGrade oralExamGrade);

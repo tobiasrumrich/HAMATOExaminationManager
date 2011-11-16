@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
+import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -76,8 +77,8 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		for (ExamAttendance attendance : allAttendances) {
 
 			currentSubject = attendance.getExam().getExamSubject();
-			// TODO Hannes, ich steh grad aufm Schlauch, ich weiß dass es gegen
-			// den Nachbarschaftskodex (oder wie dat heißt^^) verstößt aber ich
+			// TODO Hannes, ich steh grad aufm Schlauch, ich weiï¿½ dass es gegen
+			// den Nachbarschaftskodex (oder wie dat heiï¿½t^^) verstï¿½ï¿½t aber ich
 			// hab grad ne Blockade, wie ichs besser mach
 
 			int numberOfOralExams;
@@ -90,7 +91,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			// for every modul in modulliste
 			// List list = hole gesamte historie where supplemental oral != 0
 			// if list.size >= 2
-			// lösche modul from modulliste
+			// lï¿½sche modul from modulliste
 			// endif
 			// endfor
 		}
@@ -115,9 +116,10 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	}
 
 	@Override
-	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(
-			ExamSubject examSubject, Student student) {
-		return examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject (
+			ExamSubject examSubject, Student student) throws NoPreviousAttemptException {
+		ExamAttendance latestExamAttendance = examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+		return latestExamAttendance;
 	}
 
 }

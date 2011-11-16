@@ -2,11 +2,11 @@ package de.hatoma.exman.service;
 
 import java.util.List;
 
+import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
-import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
 /**
@@ -68,5 +68,5 @@ public interface IExamAttendanceService {
 	 * @param student
 	 * @return
 	 */
-	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(ExamSubject examSubject, Student student);
+	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(ExamSubject examSubject, Student student) throws NoPreviousAttemptException;
 }

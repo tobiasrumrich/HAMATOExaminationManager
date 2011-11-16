@@ -63,7 +63,7 @@
 	
 		<definition name="examAttendanceBulkUpdateList" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/examAttendance/bulkUpdateList.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe" />
+		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
 	</definition>
 	
 

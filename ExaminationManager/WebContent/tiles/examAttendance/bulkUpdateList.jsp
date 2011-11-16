@@ -10,10 +10,10 @@
 			"bProcessing" : true,
 			"aoColumnDefs" : [ {
 				"sType" : "string",
-				"sWidth":"300px",
+				"sWidth" : "120px",
 				"aTargets" : [ 0 ]
 			}, {
-				"sWidth" : "60px",
+				"sWidth" : "120px",
 				"aTargets" : [ 1 ]
 			} ],
 			"bStateSave" : true,
@@ -39,6 +39,21 @@
 	});
 </script>
 
+<div style="background: #d3e7f3">
+	<table>
+		<tr>
+			<td>Prüfungsfach:</td>
+		<td><s:property value="examSubject.title" /> </td>
+		</tr>
+		
+		<tr>
+			<td>Prüfung:</td>
+		<td><s:date name="exam.date" format="%{getText('examDateFormat')}" /> *** <s:property value="exam.examiner" /> </td>
+		</tr>
+		
+	</table>
+</div>
+
 
 <table id="examList" class="hatoma_dataTable">
 	<thead>
@@ -59,11 +74,11 @@
 				<td><s:property value="student.forename" /></td>
 				<td><s:property value="student.lastname" /></td>
 				<td><s:property value="student.matriculationNumber" /></td>
-				<td><s:property value="previousExamAttendance.examGrade.gradeString" /></td>
+				<td><s:property
+						value="previousExamAttendance.examGrade.asExpression" /></td>
 				<td><s:textfield
-						name="myEntitiesMap['%{id}'].previousExamAttendance.examGrade" value="%{previousExamAttendance.examGrade}"
-						theme="simple" />
-						</td>
+						name="myEntitiesMap['%{id}'].student.matriculationNumber"
+						value="%{newGrade}" theme="simple" /></td>
 				<td>1. Versuch</td>
 			</tr>
 		</s:iterator>
