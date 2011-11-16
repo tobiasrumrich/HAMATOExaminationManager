@@ -1,7 +1,6 @@
 package de.hatoma.exman.action;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,8 +69,8 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 		examSubject = exam.getExamSubject();
 
 		// Get Students for the selected Maniple
-		Collection<Student> students = manipleService
-				.getStudents(selectedManipleId);
+		//Collection<Student> students = manipleService.getStudents(selectedManipleId);
+		List<Student> students = examAttendanceService.getAllStudentsEligibleForExamAttendance(exam);
 
 		for (Student student : students) {
 			List<ExamAttendance> attendancesOfStudent = examAttendanceService
@@ -111,7 +110,7 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 		super.validate();
 		Boolean foundError = false;
 		for (ExamAttendanceBulkUpdateHelperBean bean : myEntities) {
-			if (!bean.getNewGrade().equals("") && (!bean.getNewGrade().matches("([123].[037])|([456].0)"))) {
+			if (!bean.getNewGrade().equals("") && (!bean.getNewGrade().matches("([123][.,][037])|([456][.,]0)"))) {
 					// Feld
 					addFieldError("myEntitiesMap['" + bean.getStudent().getId()
 							+ "'].newGrade", getText("txtGradeValidationError"));

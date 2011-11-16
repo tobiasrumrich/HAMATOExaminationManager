@@ -56,7 +56,7 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
 			ExamSubject examSubject, Student student) throws NoPreviousAttemptException {
 		Criteria criteria = getCurrentSession().createCriteria(ExamAttendance.class);
-		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject)).addOrder( Order.desc("date"));
+		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject)).addOrder( Order.asc("date"));
 		criteria.add(Restrictions.eq("student", student));
 		if (criteria.list().size() == 0) throw new NoPreviousAttemptException();
 		return (ExamAttendance) criteria.list().get(criteria.list().size()-1);
