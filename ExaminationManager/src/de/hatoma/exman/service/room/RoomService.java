@@ -78,6 +78,6 @@ public class RoomService implements IRoomService {
 		Room room = loadRoom(roomId);
 		room.setSeats(seats);
 		room.setBeamer(beamer);
-		getRoomDAO().update(room);
+		//getRoomDAO().update(room);
 	}
 }
