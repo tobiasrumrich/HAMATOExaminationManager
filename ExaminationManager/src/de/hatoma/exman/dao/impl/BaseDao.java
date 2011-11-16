@@ -55,7 +55,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public void update(T entity) throws Exception{
+	public void update(T entity){
 		getCurrentSession().update(entity);
 	}
 }

@@ -14,21 +14,19 @@ public class ExamDao extends BaseDao<Exam> implements IExamDao {
 
 	public ExamDao() {
 		super(Exam.class);
-		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
-	public void update(Exam exam) throws Exception {
-		
-		Criteria criteria = getCurrentSession().createCriteria(ExamAttendance.class).add(Restrictions.eq("exam", exam));
-		
+	public void update(Exam exam) {
+
+		Criteria criteria = getCurrentSession().createCriteria(
+				ExamAttendance.class).add(Restrictions.eq("exam", exam));
 
 		if (criteria.list().size() != 0) {
 			throw new EntityIsFrozenException();
 		}
 		getCurrentSession().update(exam);
-		
-	}
 
+	}
 
 }
