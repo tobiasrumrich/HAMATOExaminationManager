@@ -16,7 +16,9 @@ public class ExamAttendanceBulkUpdateHelperBean {
 		this.previousExamAttendance = previousExamAttendance;
 		this.student = student;
 		this.numAttempt = numAttempt;
+
 	}
+	
 
 	/**
 	 * @return the previousExamAttendance
@@ -73,6 +75,5 @@ public class ExamAttendanceBulkUpdateHelperBean {
 	public void setNewGrade(String newGrade) {
 		this.newGrade = newGrade;
 	}
-	
 	
 }

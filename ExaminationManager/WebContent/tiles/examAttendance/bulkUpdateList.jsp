@@ -59,7 +59,7 @@
 				<td><s:property value="student.forename" /></td>
 				<td><s:property value="student.lastname" /></td>
 				<td><s:property value="student.matriculationNumber" /></td>
-				<td><s:property value="previousExamAttendance.examGrade.value" /></td>
+				<td><s:property value="previousExamAttendance.examGrade.gradeString" /></td>
 				<td><s:textfield
 						name="myEntitiesMap['%{id}'].previousExamAttendance.examGrade" value="%{previousExamAttendance.examGrade}"
 						theme="simple" />
