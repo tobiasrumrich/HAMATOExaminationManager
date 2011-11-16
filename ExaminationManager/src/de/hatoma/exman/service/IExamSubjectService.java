@@ -7,5 +7,5 @@ public interface IExamSubjectService {
 
 	ExamSubject createExamSubject(String title, String description,
 			String moduleIdentifier, Maniple maniple);
-
+	ExamSubject getExamSubject(long id);
 }

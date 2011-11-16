@@ -41,4 +41,9 @@ public class ExamSubjectService implements IExamSubjectService {
 		this.examSubjectDao = examSubjectDao;
 	}
 
+	@Override
+	public ExamSubject getExamSubject(long id) {
+		return this.examSubjectDao.load(id);
+	}
+
 }

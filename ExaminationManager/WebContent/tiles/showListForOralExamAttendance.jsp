@@ -96,12 +96,13 @@
 		<s:iterator value="examAttendances" status="iteratorStatus">
 			<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction"
 				method="showInputForm">
-				<s:param name="id" value="%{student.getId()}" />
+				<s:param name="studentId" value="%{student.getId()}" />
+				<s:param name="examSubjectId" value="%{exam.getId()}" />
 			</s:url>
 			<tr>
 				<td><s:property value="attempt" /></td>
 				<td><s:a href="%{currentUrl}"><s:property value="exam.getExamSubject().getTitle()" /></s:a></td>
-				<td><s:property value="examGrade" /></td>
+				<td><s:property value="examGrade.getAsExpression()" /></td>
 				<td><s:a href="%{currentUrl}"><s:property value="student.getForename()" /></s:a></td>
 				<td><s:a href="%{currentUrl}"><s:property value="student.getLastname()" /></s:a></td>
 				<td><s:property value="student.getMatriculationNumber()" /></td>

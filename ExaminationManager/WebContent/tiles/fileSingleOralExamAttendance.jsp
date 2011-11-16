@@ -11,11 +11,11 @@
 <s:form validate="true">
 	<s:token />
 	<s:textfield name="selectedStudent.forename" key="lblStudentName" value="%{selectedStudent.forename} %{selectedStudent.lastname}" disabled="true" />
-	<s:textfield name="examSubject" key="lblExamSubject" disabled="true" />
+	<s:textfield name="examSubject" key="lblExamSubject" value="%{selectedExamSubject.title}" disabled="true" />
 	<s:textfield key="lblDate" id="date" name="date" required="true" />
-	<s:select key="lblExamGrade" list="{1.0,2.0,'a','sample','list'}"
+	<s:select key="lblExamGrade" list="examGrades" 
 		required="true" />
 
-	<s:submit key="btnSave" action="FileSingleOralExamAttendance" />
-	<s:submit key="btnCancel" action="" name="btnCancel" />
+	<s:submit key="btnSave" action="FileSingleOralExamAttendance" method="save" />
+	<s:submit key="btnCancel" action="ShowStudentListForOralExamination" method="execute" />
 </s:form>

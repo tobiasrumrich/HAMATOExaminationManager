@@ -22,6 +22,7 @@ public class ShowStudentListForOralExaminationAction extends ActionSupport {
 	private IExamAttendanceService examAttendanceService;
 
 	private List<Maniple> maniples;
+	
 	@Autowired
 	private IManipleService manipleService;
 	private long manipleToFetch;
