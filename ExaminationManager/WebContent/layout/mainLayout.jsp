@@ -256,62 +256,76 @@ span#sessioninfo {
 							<a href="#"><s:text name="lblNavReports" /></a>
 						</h3>
 						<div>
-							<p><s:text name="lblNavExamGradeOverviewByPerson" /></p>
-							<p><s:text name="lblNavExamGradeOverviewByManiple" /></p>
+							<p>
+								<s:text name="lblNavExamGradeOverviewByPerson" />
+							</p>
+							<p>
+								<s:text name="lblNavExamGradeOverviewByManiple" />
+							</p>
 						</div>
 					</div>
 
 					<div>
 						<h3>
-							<a href="#">Prüfungsergebnisse</a>
+							<a href="#"><s:text name="lblNavExamResults" /></a>
 						</h3>
 						<div>
 							<p>
 								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl">
 									<s:param name="target" value="bulkUpdate" />
 								</s:url>
-								<s:a href="%{examAttendanceBulkUpdateUrl}">Batcherfassung</s:a>
+								<s:a href="%{examAttendanceBulkUpdateUrl}">
+									<s:text name="lblNavExamAttendanceBulkInsert" />
+								</s:a>
 							</p>
 
 							<p>
 								<s:url action="FileSingleExamAttendance"
 									id="fileSingleExamAttendanceUrl" />
-								<s:a href="%{fileSingleExamAttendanceUrl}">Einzelerfassung</s:a>
+								<s:a href="%{fileSingleExamAttendanceUrl}">
+									<s:text name="lblNavExamAttendanceSingleInsert" />
+								</s:a>
 
 							</p>
 							<p>
-								<s:url action="OralExamination"
-									id="oralExaminationUrl" />
-								<s:a href="%{oralExaminationUrl}">Erfassung mündlicher Noten</s:a>
+								<s:url action="OralExamination" id="oralExaminationUrl" />
+								<s:a href="%{oralExaminationUrl}">
+									<s:text name="lblNavExamAttendanceOralExamination" />
+								</s:a>
 							</p>
 						</div>
 					</div>
 
 					<div>
 						<h3>
-							<a href="#">Prüfungsübersicht</a>
+							<a href="#"><s:text name="lblNaVExamOverviewHeader" /></a>
 						</h3>
 						<div>
 							<p>
 								<s:url action="CreateExam" id="createExamUrl" />
-								<s:a href="%{createExamUrl}">Neue Prüfung anlegen</s:a>
+								<s:a href="%{createExamUrl}">
+									<s:text name="lblNavCreateNewExam" />
+								</s:a>
 							</p>
 
 							<p>
 								<s:url action="ExamOverview" id="examOverviewUrl" />
-								<s:a href="%{examOverviewUrl}">Prüfungen verwalten</s:a>
+								<s:a href="%{examOverviewUrl}">
+									<s:text name="lblNavAdministerExams" />
+								</s:a>
 							</p>
 						</div>
 					</div>
 
 					<div>
 						<h3>
-							<a href="#">Sonstiges</a>
+							<a href="#"><s:text name="lblNavOthers" /></a>
 						</h3>
 						<div>
 							<p>
-							<s:url action="Trainman" id="trainManUrl" />
-							<s:a href="%{trainManUrl}">Datenbank initialisieren</s:a></p>
+								<s:url action="Trainman" id="trainManUrl" />
+								<s:a href="%{trainManUrl}"><s:text name="lblNavTrainman" /></s:a>
+							</p>
 						</div>
 					</div>
 				</div>

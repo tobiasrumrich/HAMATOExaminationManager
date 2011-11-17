@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<s:url action="FileSingleOralExamAttendance"
-	id="fileSingleOralExamAttendanceUrl" />
+
 
 <script type="text/javascript">
 	$(function() {
@@ -72,9 +71,9 @@
 				<td><s:date name="date" format="%{getText('examDateFormat')}" />
 				</td>
 
-				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
+				<td>
 						<s:property value="examiner" />
-					</s:a></td>
+					</td>
 
 				<td><s:property value="examType.key" /></td>
 
@@ -85,7 +84,9 @@
 							<s:url action="EditExamination" id="editExamaninationUrl">
 								<s:param name="examId"></s:param>
 							</s:url>
-							<s:a href="%{editExamaninationUrl}"><s:text name="txtEditExam" /></s:a>
+							<s:a href="%{editExamaninationUrl}">
+							<span class="ui-icon ui-icon-pencil"></span>
+							<s:text name="txtEditExam" /></s:a>
 
 						</s:if>
 					</s:if> <s:if test="targetActionName=='ExamAttendanceBulkUpdate'">
