@@ -274,9 +274,9 @@ span#sessioninfo {
 
 							</p>
 							<p>
-								<s:url action="ShowStudentListForOralExamination"
-									id="showStudentListForOralExaminationUrl" />
-								<s:a href="%{showStudentListForOralExaminationUrl}">Erfassung mündlicher Noten</s:a>
+								<s:url action="OralExamination"
+									id="oralExaminationUrl" />
+								<s:a href="%{oralExaminationUrl}">Erfassung mündlicher Noten</s:a>
 							</p>
 						</div>
 					</div>
@@ -303,7 +303,9 @@ span#sessioninfo {
 							<a href="#">Sonstiges</a>
 						</h3>
 						<div>
-							<p>dsadsd</p>
+							<p>
+							<s:url action="Trainman" id="trainManUrl" />
+							<s:a href="%{trainManUrl}">Datenbank initialisieren</s:a></p>
 						</div>
 					</div>
 				</div>

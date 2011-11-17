@@ -31,39 +31,19 @@
 			<result type="tiles">inputSingleSuccess</result>
 		</action>
 
-		<action name="FileSingleOralExamAttendance" class="de.hatoma.exman.action.HandleExamAction"
-			method="save">
-			<result name="input" type="tiles">fileSingleOralExamAttendance
-			</result>
-			<result name="success" type="chain">FileSingleOralExamAttendanceSuccess
-			</result>
-		</action>
-		<action name="FileSingleOralExamAttendanceSuccess">
-			<result type="tiles">fileSingleOralExamAttendanceSuccess</result>
-		</action>
-
-
 		<action name="FileSingleExamAttendance"
 			class="de.hatoma.exman.action.SingleExamAttendanceAction" method="display">
 			<result name="showInputForm" type="tiles">inputSingleExamAttendance
 			</result>
 		</action>
 
-		<action name="ShowStudentListForOralExamination"
-			class="de.hatoma.exman.action.ShowStudentListForOralExaminationAction">
-			<result name="showInputForm" type="tiles">showListForOralExamAttendance
+		<action name="OralExamination"
+			class="de.hatoma.exman.action.OralExaminationAction">
+			<result name="showList" type="tiles">showListForOralExamAttendance
 			</result>
-			<result name="input" type="tiles">showListForOralExamAttendance
+			<result name="input" type="tiles">fileSingleOralExamAttendance
 			</result>
-			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
-		</action>
-
-		<action name="SingleOralExaminationAttendanceAction"
-			class="de.hatoma.exman.action.SingleOralExaminationAttendanceAction">
-			<result name="showInputForm" type="tiles">fileSingleOralExamAttendance
-			</result>
-			<!-- <result name="input" type="tiles">showListForOralExamAttendance</result> -->
-			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
+			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirnation</result>
 		</action>
 
 		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
