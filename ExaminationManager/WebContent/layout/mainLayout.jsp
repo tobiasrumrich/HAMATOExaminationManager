@@ -24,7 +24,7 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <script type="text/javascript"
-	src="resources/jquery/js/jquery-1.6.2.min.js"></script>	
+	src="resources/jquery/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript"
 	src="resources/jquery/js/datatables/media/js/jquery.dataTables.js"></script>
 <script type="text/javascript"
@@ -47,8 +47,8 @@
 <!-- CSS für DatPicker -->
 <style type="text/css">
 #ui-datepicker-div {
-	background-color:white;
-	border:1px solid grey;
+	background-color: white;
+	border: 1px solid grey;
 }
 </style>
 <!-- CSS für DataTables -->
@@ -120,7 +120,7 @@ td {
 }
 
 .hatoma_dataTable {
-font-size: 80%;
+	font-size: 80%;
 }
 </style>
 <style type="text/css">
@@ -194,6 +194,7 @@ div#main {
 
 div#main h1 {
 	margin: 0px;
+	padding-bottom: 12px;
 }
 
 /******/
@@ -237,10 +238,12 @@ span#sessioninfo {
 </head>
 <body>
 
-<div id="headerbar">
+	<div id="headerbar">
 		<div id="header">
 			<span id="sessioninfo">&lt;sessioninfo&gt;</span>
-			<h1>HATOMA Examination Manager</h1>
+			<h1>
+				<s:text name="%{#attr.title}" />
+			</h1>
 		</div>
 	</div>
 
@@ -250,11 +253,11 @@ span#sessioninfo {
 				<div id="hatoma_accordion">
 					<div>
 						<h3>
-							<a href="#">Reports</a>
+							<a href="#"><s:text name="lblNavReports" /></a>
 						</h3>
 						<div>
-							<p>Notenübersicht zu Person</p>
-							<p>Notenübersicht zu Manipel</p>
+							<p><s:text name="lblNavExamGradeOverviewByPerson" /></p>
+							<p><s:text name="lblNavExamGradeOverviewByManiple" /></p>
 						</div>
 					</div>
 
@@ -264,8 +267,11 @@ span#sessioninfo {
 						</h3>
 						<div>
 							<p>
-							<s:url action="ExamAttendanceBulkUpdate" id="examAttendanceBulkUpdateUrl" />
-							<s:a href="%{examAttendanceBulkUpdateUrl}">Batcherfassung</s:a></p>
+								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl">
+									<s:param name="target" value="bulkUpdate" />
+								</s:url>
+								<s:a href="%{examAttendanceBulkUpdateUrl}">Batcherfassung</s:a>
+							</p>
 
 							<p>
 								<s:url action="FileSingleExamAttendance"
@@ -290,10 +296,10 @@ span#sessioninfo {
 								<s:url action="CreateExam" id="createExamUrl" />
 								<s:a href="%{createExamUrl}">Neue Prüfung anlegen</s:a>
 							</p>
-							
+
 							<p>
-							<s:url action="ExamOverview" id="examOverviewUrl" />
-							<s:a href="%{examOverviewUrl}">Prüfungen verwalten</s:a>
+								<s:url action="ExamOverview" id="examOverviewUrl" />
+								<s:a href="%{examOverviewUrl}">Prüfungen verwalten</s:a>
 							</p>
 						</div>
 					</div>

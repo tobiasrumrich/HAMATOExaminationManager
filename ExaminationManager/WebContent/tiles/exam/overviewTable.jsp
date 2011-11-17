@@ -77,21 +77,25 @@
 					</s:a></td>
 
 				<td><s:property value="examType.key" /></td>
+
 				<td>
-				
-				
-				
-				<s:if test="%{isExamEditable(id)}">
-				
+				<s:if test="targetActionName=='EditExam'">
+						<s:if test="%{isExamEditable(id)}">
 
+							<s:url action="EditExamination" id="editExamaninationUrl">
+								<s:param name="examId"></s:param>
+							</s:url>
+							<s:a href="%{editExamaninationUrl}"><s:text name="txtEditExam" /></s:a>
 
-
-
-						<s:url action="EditExamination" id="editExamaninationUrl">
-							<s:param name="examId"></s:param>
+						</s:if>
+					</s:if> <s:if test="targetActionName=='ExamAttendanceBulkUpdate'">
+						<s:url action="ExamAttendanceBulkUpdate"
+							id="examAttendanceBulkUpdateUrl">
+							<s:param name="examId" value="id" />
 						</s:url>
-						<s:a href="%{editExamaninationUrl}">[EDIT]</s:a>
-
+						<s:a href="%{examAttendanceBulkUpdateUrl}">
+							<s:text name="txtLinkToExamAttendanceBulkUpdate" />
+						</s:a>
 					</s:if></td>
 			</tr>
 		</s:iterator>

@@ -22,34 +22,41 @@ public class ExamOverviewAction extends ActionSupport {
 
 	@Autowired
 	private IExamService examService;
-	
+
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
-	
+
 	private List<Exam> examList;
+	private String target;
+	private String targetActionName;
 
 	@Override
 	public String execute() {
 		examList = examService.getExamList();
-		
+		System.out.println(target);
+		if (target != null && target.equals("bulkUpdate")) {
+			targetActionName = "ExamAttendanceBulkUpdate";
+		} else {
+			targetActionName = "EditExam";
+		}
+
 		return "showTable";
 	}
-	
+
 	public Boolean isExamEditable(long id) {
 		Exam exam = examService.getExamById(id);
-		List<ExamAttendance> examAttendancesForExam = examAttendanceService.getExamAttendancesForExam(exam);
-		
+		List<ExamAttendance> examAttendancesForExam = examAttendanceService
+				.getExamAttendancesForExam(exam);
+
 		return (examAttendancesForExam.size() == 0);
 	}
 
-	
 	/**
 	 * @return the examService
 	 */
 	public IExamService getExamService() {
 		return examService;
 	}
-
 
 	/**
 	 * @param examService
@@ -59,7 +66,6 @@ public class ExamOverviewAction extends ActionSupport {
 		this.examService = examService;
 	}
 
-
 	/**
 	 * @return the examList
 	 */
@@ -67,12 +73,40 @@ public class ExamOverviewAction extends ActionSupport {
 		return examList;
 	}
 
-
 	/**
-	 * @param examList the examList to set
+	 * @param examList
+	 *            the examList to set
 	 */
 	public void setExamList(List<Exam> examList) {
 		this.examList = examList;
+	}
+
+	/**
+	 * @return the targetActionName
+	 */
+	public String getTargetActionName() {
+		return targetActionName;
+	}
+
+	/**
+	 * @param targetActionName the targetActionName to set
+	 */
+	public void setTargetActionName(String targetActionName) {
+		this.targetActionName = targetActionName;
+	}
+
+	/**
+	 * @return the target
+	 */
+	public String getTarget() {
+		return target;
+	}
+
+	/**
+	 * @param target the target to set
+	 */
+	public void setTarget(String target) {
+		this.target = target;
 	}
 
 }

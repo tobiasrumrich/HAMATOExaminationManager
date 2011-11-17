@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.ParameterAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -19,7 +20,6 @@ import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamService;
-import de.hatoma.exman.service.IManipleService;
 import de.hatoma.exman.service.IStudentService;
 
 /**
@@ -28,7 +28,7 @@ import de.hatoma.exman.service.IStudentService;
  * 
  */
 public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
-		Preparable {
+		Preparable, ParameterAware {
 
 	/**
 	 * 
@@ -44,9 +44,6 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	@Autowired
 	private IStudentService studentService;
 
-	@Autowired
-	private IManipleService manipleService;
-
 	// Model Beans
 	private List<ExamAttendanceBulkUpdateHelperBean> myEntities = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
 	private Map<String, ExamAttendanceBulkUpdateHelperBean> myEntitiesMap = new HashMap<String, ExamAttendanceBulkUpdateHelperBean>();
@@ -54,23 +51,59 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	private List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
 
 	private long selectedExamId;
-	private long selectedManipleId;
+	//private long selectedManipleId;
 	private ExamSubject examSubject;
 	private Exam exam;
 
+	private String examId;
+
+	private Map<String, String[]> parameters;
+
+	/**
+	 * This function is called to prepare the action. This happens, because we
+	 * have implemented the <Preparable> interface
+	 */
 	public void prepare() {
-		// TODO Convert HTTP id(String) to long
-		selectedExamId = 1L;
-		selectedManipleId = 1L;
+
+		/*
+		 * At this point the request parameters have not been injected into the
+		 * Actions fields yet. Therefore me have to ask the ActionContext for
+		 * the request parameters.
+		 * We could use: Map<String, Object> parameters = ActionContext.getContext().getParameters();
+		 * but it is better to use the <ParameterAware> interface, since by that
+		 * the servlet-config Interceptor delivers this info.
+		 * see: http://struts.apache.org/2.0.14/docs/how-can-we-access-request-parameters-passed-into-an-action.html
+		 */
+
+		if (!(selectedExamId > 0) && (parameters.containsKey("examId") && parameters.get("examId") != null)) {
+			
+			String[] examIdStrings = this.parameters.get("examId");
+
+			if (examIdStrings[0] != null) {
+				selectedExamId = Long.valueOf(examIdStrings[0]);
+			} else {
+				addActionError(getText("txtErrorParamsNoExamId"));
+			}
+		}
+		else {
+			addActionError(getText("txtErrorParamsNoExamId"));
+			return;
+		}
+		
 		// Get the target exam from the service
 		exam = examService.getExamById(selectedExamId);
+		
+		if (exam == null) {
+			addActionError(getText("txtErrorInvalidExamId"));
+			return;
+		}
 
 		// The ExamSubject
 		examSubject = exam.getExamSubject();
 
 		// Get Students for the selected Maniple
-		//Collection<Student> students = manipleService.getStudents(selectedManipleId);
-		List<Student> students = examAttendanceService.getAllStudentsEligibleForExamAttendance(exam);
+		List<Student> students = examAttendanceService
+				.getAllStudentsEligibleForExamAttendance(exam);
 
 		for (Student student : students) {
 			List<ExamAttendance> attendancesOfStudent = examAttendanceService
@@ -96,13 +129,7 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 			myEntitiesMap.put(String.valueOf(student.getId()), helperBean);
 
 		}
-		/*
-		 * // Create a Map using this.myEntities as the basis for it keyed on
-		 * myEntity.id. Map<String,ExamAttendance> myEntitiesMap = new
-		 * HashMap<String,ExamAttendance> (); for (ExamAttendance myEntity :
-		 * getMyEntities() ) { myEntitiesMap.put(String.valueOf(myEntity.getId
-		 * ()), myEntity); }
-		 */
+
 	}
 
 	@Override
@@ -110,30 +137,28 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 		super.validate();
 		Boolean foundError = false;
 		for (ExamAttendanceBulkUpdateHelperBean bean : myEntities) {
-			if (!bean.getNewGrade().equals("") && (!bean.getNewGrade().matches("([123][.,][037])|([456][.,]0)"))) {
-					// Feld
-					addFieldError("myEntitiesMap['" + bean.getStudent().getId()
-							+ "'].newGrade", getText("txtGradeValidationError"));
-					// Textausgabe (notwendig, da ' nicht escaped werden kann
-					addFieldError("myEntitiesMap[" + bean.getStudent().getId()
-							+ "].newGrade", getText("txtGradeValidationError"));
-					foundError = true;
+			if (!bean.getNewGrade().equals("")
+					&& (!bean.getNewGrade().matches(
+							"([123][.,][037])|([456][.,]0)"))) {
+				// Feld
+				addFieldError("myEntitiesMap['" + bean.getStudent().getId()
+						+ "'].newGrade", getText("txtGradeValidationError"));
+				// Textausgabe (notwendig, da ' nicht escaped werden kann
+				addFieldError("myEntitiesMap[" + bean.getStudent().getId()
+						+ "].newGrade", getText("txtGradeValidationError"));
+				foundError = true;
 
-				
 			}
 		}
 		if (foundError) {
-			addActionError(getText("txtActionInfoGradeValidationError"));
+			addActionMessage(getText("txtActionInfoGradeValidationError"));
 		}
-		
+
 	}
 
 	public String execute() throws Exception {
-		// Iterate over the List of MyEntity objects and persist them using our
-		// DAO
-		// for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities()) {
-		// getExamAttendanceService().update(myEntity);
-		// }
+		if (getActionErrors().size() > 0) return "criticalError";
+		System.out.println("THIS");
 		return "showBulkList";
 	}
 
@@ -145,7 +170,6 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	}
 
 	public String insertNewExamAttendances() throws Exception {
-		System.out.println("**** CALLED ****");
 		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities()) {
 			if (!myEntity.getNewGrade().equals("")) {
 				ExamGrade grade = null;
@@ -168,22 +192,22 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 						|| myEntity.getNewGrade().equals("2,7"))
 					grade = ExamGrade.G27;
 				if (myEntity.getNewGrade().equals("3.0")
-						|| myEntity.getNewGrade().equals("3.0"))
+						|| myEntity.getNewGrade().equals("3,0"))
 					grade = ExamGrade.G30;
 				if (myEntity.getNewGrade().equals("3.3")
-						|| myEntity.getNewGrade().equals("3.3"))
+						|| myEntity.getNewGrade().equals("3,3"))
 					grade = ExamGrade.G33;
 				if (myEntity.getNewGrade().equals("3.7")
-						|| myEntity.getNewGrade().equals("3.7"))
+						|| myEntity.getNewGrade().equals("3,7"))
 					grade = ExamGrade.G37;
 				if (myEntity.getNewGrade().equals("4.0")
-						|| myEntity.getNewGrade().equals("4.0"))
+						|| myEntity.getNewGrade().equals("4,0"))
 					grade = ExamGrade.G40;
 				if (myEntity.getNewGrade().equals("5.0")
-						|| myEntity.getNewGrade().equals("5.0"))
+						|| myEntity.getNewGrade().equals("5,0"))
 					grade = ExamGrade.G50;
 				if (myEntity.getNewGrade().equals("6.0")
-						|| myEntity.getNewGrade().equals("6.0"))
+						|| myEntity.getNewGrade().equals("6,0"))
 					grade = ExamGrade.G60;
 				examAttendanceService.createExamAttendanceForStudent(
 						myEntity.getStudent(), exam, grade);
@@ -252,21 +276,6 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	 */
 	public void setSelectedExamId(long selectedExamId) {
 		this.selectedExamId = selectedExamId;
-	}
-
-	/**
-	 * @return the selectedManipleId
-	 */
-	public long getSelectedManipleId() {
-		return selectedManipleId;
-	}
-
-	/**
-	 * @param selectedManipleId
-	 *            the selectedManipleId to set
-	 */
-	public void setSelectedManipleId(long selectedManipleId) {
-		this.selectedManipleId = selectedManipleId;
 	}
 
 	/**
@@ -345,6 +354,27 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	public void setMyEntitiesConfirmations(
 			List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations) {
 		this.myEntitiesConfirmations = myEntitiesConfirmations;
+	}
+
+	/**
+	 * @return the examId
+	 */
+	public String getExamId() {
+		return examId;
+	}
+
+	/**
+	 * @param examId
+	 *            the examId to set
+	 */
+	public void setExamId(String examId) {
+		this.examId = examId;
+	}
+
+	@Override
+	public void setParameters(Map<String, String[]> arg0) {
+		this.parameters = arg0;
+		
 	}
 
 }
