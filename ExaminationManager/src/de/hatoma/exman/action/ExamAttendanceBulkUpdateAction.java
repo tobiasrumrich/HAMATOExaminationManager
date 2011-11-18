@@ -23,7 +23,7 @@ import de.hatoma.exman.service.IExamService;
 import de.hatoma.exman.service.IStudentService;
 
 /**
- * 
+ * This action allows the bulk insertion of ExamAttendances for a specified exam.
  * @author tobias
  * 
  */
@@ -93,32 +93,36 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 		// Get the target exam from the service
 		exam = examService.getExamById(selectedExamId);
 		
+		// Let us check if the examId served to us by the request is really existing
 		if (exam == null) {
 			addActionError(getText("txtErrorInvalidExamId"));
 			return;
 		}
 
-		// The ExamSubject
+		// If the exam exists (otherwise we would not be at this point) than
+		// there must also be an ExamSubject:
 		examSubject = exam.getExamSubject();
 
-		// Get Students for the selected Maniple
+		// Get the students that are eligible to attend to
+		// this exam
 		List<Student> students = examAttendanceService
 				.getAllStudentsEligibleForExamAttendance(exam);
 
+		// Let's iterate through the list of all eligible students to create
+		// the needed helper beans to produce the list form
 		for (Student student : students) {
 			List<ExamAttendance> attendancesOfStudent = examAttendanceService
 					.getExamAttendancesForStudentByExamSubject(examSubject,
 							student);
+
 			int numAttempts = attendancesOfStudent.size();
 			ExamAttendance latestAttempt;
-			// latestAttempt=null;
+			
+			//For the display part, we need the grade from the latest exam attempt
 			try {
 				latestAttempt = examAttendanceService
 						.getLatestExamAttendanceOfStudentByExamSubject(
 								examSubject, student);
-				if (latestAttempt.getExamGrade() != ExamGrade.G60
-						&& latestAttempt.getExamGrade() != ExamGrade.G50)
-					continue;
 			} catch (NoPreviousAttemptException e) {
 				latestAttempt = null;
 			}
@@ -214,6 +218,7 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 				myEntitiesConfirmations.add(myEntity);
 			}
 		}
+		addActionMessage("Die folgenden Daten wurden in die Datenbank geschrieben:");
 		return "confirmation";
 	}
 

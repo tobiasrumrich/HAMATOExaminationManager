@@ -33,7 +33,7 @@ public class ExamOverviewAction extends ActionSupport {
 	@Override
 	public String execute() {
 		examList = examService.getExamList();
-		if (target != null && target.equals("bulkUpdate")) {
+		if (target != null && target.equals("bulkInsert")) {
 			targetActionName = "ExamAttendanceBulkUpdate";
 		} else {
 			targetActionName = "EditExam";

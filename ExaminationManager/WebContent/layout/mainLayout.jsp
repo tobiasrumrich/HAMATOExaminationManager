@@ -39,201 +39,17 @@
 			fillSpace : true,
 			animated : true
 		});
-
-		$("#sessioninfo").html(
-				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
 	});
 </script>
-<!-- CSS für DatPicker -->
+
 <style type="text/css">
-#ui-datepicker-div {
-	background-color: white;
-	border: 1px solid grey;
-}
-</style>
-<!-- CSS für DataTables -->
-<style type="text/css">
+@import url(resources/css/hatoma_screen.css);
 @import "resources/jquery/js/datatables/media/css/demo_table.css";
 
-.dataTables_info {
-	font-size: 70%;
-	font-weight: bold;
-}
-/*Spaltenüberschriften*/
-.sorting_asc,.sorting_desc,.sorting {
-	font-weight: bold;
+
+
 }
 
-.sorting_asc,.sorting_desc {
-	font-weight: bold;
-	background-color: #4fa0cd;
-}
-
-.sorting {
-	font-weight: bold;
-	background-color: #91c3e0;
-}
-
-.hatoma_dataTable {
-	clear: both;
-	border-collapse: collapse;
-	border: 2px grey solid;
-	margin: 05px;
-}
-
-.dataTables_wrapper {
-	background-color: #eeeeee;
-	padding: 10px;
-	min-height: none !important;
-}
-
-tr.odd {
-	background-color: #eef6fa;
-}
-
-tr.odd td.sorting_1 {
-	background-color: #d3e7f3;
-}
-
-tr.even {
-	background-color: white;
-}
-
-tr.even td.sorting_1 {
-	background-color: #e1eff6;
-}
-
-td {
-	padding: 0.4em;
-}
-
-.hatoma_dataTable a {
-	text-decoration: underline;
-	color: black;
-	font-weight: bold;
-}
-
-.hatoma_dataTable a:hover {
-	text-decoration: underline;
-	color: orange;
-	font-weight: bold;
-}
-
-.hatoma_dataTable {
-	font-size: 80%;
-}
-</style>
-<style type="text/css">
-html {
-	height: 100%;
-}
-
-body {
-	height: 100%;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", tahoma, Verdana,
-		Geneva, Arial, Helvetica, sans-serif;
-	margin: 0px;
-	padding: 0px;
-	background-image: url(resources/img/header_bg.gif);
-	background-repeat: repeat-x;
-}
-
-div#headerbar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 54px;
-	width: 100%;
-	line-height: 54px;
-	padding: 0px 0px 0px 13px;
-	color: white;
-	z-index: 2;
-	background-image: url(resources/img/header_bg.gif);
-	background-repeat: repeat-x;
-}
-
-div#header {
-	width: 1000px;
-}
-
-div#navigation-wrapper {
-	background: #e1eff6;
-	float: left;
-	width: 250px;
-	clear: both;
-	height: 100%;
-}
-
-div#navigation {
-	position: relative;
-	top: 54px;
-	height: 340px;
-}
-
-div#header h1 {
-	font-size: 120%;
-	padding: 0px;
-	margin: 0px;
-}
-
-div#container {
-	width: 1000px;
-	height: 100%;
-}
-
-div#main-wrapper {
-	height: 100%;
-	overflow: auto;
-}
-
-div#main {
-	position: relative;
-	top: 54px;
-	padding: 10px;
-}
-
-div#main h1 {
-	margin: 0px;
-	padding-bottom: 12px;
-}
-
-/******/
-.ui-accordion {
-	margin: 0px;
-	padding: 0px;
-	border: 0px;
-	height: 0px;
-}
-
-.ui-accordion-header {
-	padding: 5px 0px 5px 10px;
-	background: lightgray;
-	margin: 0px;
-	font-size: 70%;
-}
-
-.ui-accordion-header a {
-	color: black;
-	text-decoration: none;
-}
-
-.ui-accordion * :focus {
-	outline: 0;
-}
-
-.ui-accordion-content {
-	background: #eeeeee;
-	font-size: 70%;
-}
-
-.ui-accordion-content-active { /*padding: 5px 0px 5px 10px*/
-	margin: 0px;
-}
-
-span#sessioninfo {
-	float: right;
-	padding-right: 20px;
-}
 </style>
 </head>
 <body>
@@ -272,7 +88,7 @@ span#sessioninfo {
 						<div>
 							<p>
 								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl">
-									<s:param name="target" value="bulkUpdate" />
+									<s:param name="target">bulkInsert</s:param>
 								</s:url>
 								<s:a href="%{examAttendanceBulkUpdateUrl}">
 									<s:text name="lblNavExamAttendanceBulkInsert" />
@@ -324,7 +140,9 @@ span#sessioninfo {
 						<div>
 							<p>
 								<s:url action="Trainman" id="trainManUrl" />
-								<s:a href="%{trainManUrl}"><s:text name="lblNavTrainman" /></s:a>
+								<s:a href="%{trainManUrl}">
+									<s:text name="lblNavTrainman" />
+								</s:a>
 							</p>
 						</div>
 					</div>
