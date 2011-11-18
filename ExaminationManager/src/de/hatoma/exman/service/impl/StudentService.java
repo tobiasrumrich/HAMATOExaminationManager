@@ -1,13 +1,9 @@
 package de.hatoma.exman.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IStudentDao;
-import de.hatoma.exman.model.Exam;
-import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;

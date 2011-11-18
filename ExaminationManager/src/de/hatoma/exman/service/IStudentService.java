@@ -1,7 +1,5 @@
 package de.hatoma.exman.service;
 
-import java.util.List;
-
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
