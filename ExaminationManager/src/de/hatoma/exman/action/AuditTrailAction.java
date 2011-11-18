@@ -8,7 +8,6 @@ import de.hatoma.exman.model.room.Room;
 
 public class AuditTrailAction implements Action {
 
-	private HashSet<Room> rooms;
 
 	@Override
 	public String execute() {
