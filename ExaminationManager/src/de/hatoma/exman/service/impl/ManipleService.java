@@ -49,4 +49,9 @@ public class ManipleService implements IManipleService {
 		this.manipleDao = manipleDao;
 	}
 
+	@Override
+	public long getManipleCount() {
+		return manipleDao.findAll().size();
+	}
+
 }

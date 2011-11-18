@@ -13,4 +13,5 @@ public interface IManipleService {
 
 	public Collection<Student> getStudents(long id);
 
+	public long getManipleCount();
 }

@@ -46,4 +46,9 @@ public class ExamSubjectService implements IExamSubjectService {
 		return this.examSubjectDao.load(id);
 	}
 
+	@Override
+	public long getExamSubjectCount() {
+		return examSubjectDao.findAll().size();
+	}
+
 }
