@@ -6,6 +6,26 @@
 
 <struts>
 	<package name="default" extends="struts-default, tiles-default">
+		<interceptors>
+			<interceptor name="trainmanDatabaseCheckInterceptor"
+				class="de.hatoma.exman.action.interceptors.TrainmanDatabaseCheckInterceptor" />
+			<interceptor-stack name="hatomaInterceptorStack">
+
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="trainmanDatabaseCheckInterceptor" />
+			</interceptor-stack>
+
+		</interceptors>
+		<default-interceptor-ref name="hatomaInterceptorStack" />
+
+		<!-- Global Results (needed eg. by the Trainman Interceptor) -->
+		<global-results>
+			<result name="globalTrainmanInput" type="tiles">trainmanIntro</result>
+		</global-results>
+
+
+
+
 		<!-- es darf bei den results nur die Typen "tiles" und "chain" geben. Direktes 
 			verlinken auf JSP muss wegen der Templating Engine vermieden werden. -->
 
@@ -20,6 +40,7 @@
 			<result type="tiles">inputSingle</result>
 		</action>
 		<!-- Dummy Ende -->
+
 
 
 		<action name="SaveNewExam" class="de.hatoma.exman.action.HandleExamAction"
@@ -37,13 +58,13 @@
 			</result>
 		</action>
 
-		<action name="OralExamination"
-			class="de.hatoma.exman.action.OralExaminationAction">
+		<action name="OralExamination" class="de.hatoma.exman.action.OralExaminationAction">
 			<result name="showList" type="tiles">showListForOralExamAttendance
 			</result>
 			<result name="input" type="tiles">fileSingleOralExamAttendance
 			</result>
-			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirnation</result>
+			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirnation
+			</result>
 		</action>
 
 		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
@@ -65,7 +86,8 @@
 			</result>
 			<result name="input" type="tiles">examAttendanceBulkUpdateList
 			</result>
-			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation</result>
+			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
+			</result>
 		</action>
 	</package>
 

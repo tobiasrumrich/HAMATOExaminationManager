@@ -87,4 +87,9 @@ public class StudentService implements IStudentService {
 		return studentDao.load(id);
 	}
 
+	@Override
+	public long getStudentCount() {
+		return studentDao.findAll().size();
+	}
+
 }
