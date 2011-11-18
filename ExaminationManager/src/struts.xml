@@ -38,12 +38,12 @@
 		</action>
 
 		<action name="OralExamination"
-			class="de.hatoma.exman.action.OralExaminationAction">
+			class="de.hatoma.exman.action.OralExaminationAction">			
 			<result name="showList" type="tiles">showListForOralExamAttendance
 			</result>
 			<result name="input" type="tiles">fileSingleOralExamAttendance
 			</result>
-			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirnation</result>
+			<result name="protocol" type="tiles">commonProtocol</result>
 		</action>
 
 		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">

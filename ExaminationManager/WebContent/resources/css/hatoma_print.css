@@ -1,0 +1,180 @@
+  /*******************************************/
+ /* CSS für generelles Design               */
+/*******************************************/
+
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	font-family: "Times","Times New Roman", serif;
+	margin: 0px;
+	padding: 0px;
+	background-image: none;
+}
+
+div#headerbar {
+	display:none;}
+
+div#header {
+	display:none;
+}
+
+div#navigation-wrapper {
+	display:none;
+}
+
+div#navigation {
+	display:none;}
+
+div#header h1 {
+	font-size: 120%;
+	padding: 0px;
+	margin: 0px;
+}
+
+div#container {
+/*	width: 1000px;
+	height: 100%;*/
+}
+
+div#main-wrapper {
+/*	height: 100%;
+	overflow: auto;*/
+}
+
+div#main {
+/*	position: relative;
+	top: 54px;
+	padding: 10px;*/
+}
+
+div#main h1 {
+	margin: 0px;
+	padding-bottom: 12px;
+}
+
+/******/
+.ui-accordion {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	height: 0px;
+}
+
+.ui-accordion-header {
+	padding: 5px 0px 5px 10px;
+	background: lightgray;
+	margin: 0px;
+	font-size: 70%;
+}
+
+.ui-accordion-header a {
+	color: black;
+	text-decoration: none;
+}
+
+.ui-accordion * :focus {
+	outline: 0;
+}
+
+.ui-accordion-content {
+	background: #eeeeee;
+	font-size: 70%;
+}
+
+.ui-accordion-content-active { /*padding: 5px 0px 5px 10px*/
+	margin: 0px;
+}
+
+span#sessioninfo {
+	float: right;
+	padding-right: 20px;
+}
+
+  /*******************************************/
+ /* CSS für jQuery DatePicker               */
+/*******************************************/
+
+#ui-datepicker-div {
+	background-color: white;
+	border: 1px solid grey;
+}
+
+  /*******************************************/
+ /* CSS für Datatables                      */
+/*******************************************/
+.dataTables_info {
+	font-size: 70%;
+	font-weight: bold;
+}
+/* Spaltenüerschriften */
+.sorting_asc,.sorting_desc,.sorting {
+	font-weight: bold;
+}
+
+.sorting_asc,.sorting_desc {
+	font-weight: bold;
+	background-color: #4fa0cd;
+}
+
+.sorting {
+	font-weight: bold;
+	background-color: #91c3e0;
+}
+
+.hatoma_dataTable {
+	clear: both;
+	border-collapse: collapse;
+	border: 2px grey solid;
+	margin: 05px;
+}
+
+.dataTables_wrapper {
+	background-color: #eeeeee;
+	padding: 10px;
+	min-height: none !important;
+}
+
+tr.odd {
+	background-color: #eef6fa;
+}
+
+tr.odd td.sorting_1 {
+	background-color: #d3e7f3;
+}
+
+tr.even {
+	background-color: white;
+}
+
+tr.even td.sorting_1 {
+	background-color: #e1eff6;
+}
+
+td {
+	padding: 0.4em;
+}
+
+.hatoma_dataTable a {
+	text-decoration: underline;
+	color: black;
+	font-weight: bold;
+}
+
+.hatoma_dataTable a:hover {
+	text-decoration: underline;
+	color: orange;
+	font-weight: bold;
+}
+
+.hatoma_dataTable {
+	font-size: 80%;
+}
+
+#ui-datepicker-div {
+	background-color: white;
+	border: 1px solid grey;
+}

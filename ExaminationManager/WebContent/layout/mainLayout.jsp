@@ -42,9 +42,10 @@
 	});
 </script>
 
+<link rel="stylesheet" type="text/css" media="print" href="resources/css/hatoma_print.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="resources/css/hatoma_screen.css" />
 <style type="text/css">
 @import "resources/jquery/js/datatables/media/css/demo_table.css";
-@import "resources/css/hatoma_screen.css";
 </style>
 </head>
 <body>

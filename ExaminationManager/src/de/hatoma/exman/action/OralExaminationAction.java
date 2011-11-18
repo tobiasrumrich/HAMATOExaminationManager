@@ -1,8 +1,8 @@
 package de.hatoma.exman.action;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -43,20 +43,13 @@ public class OralExaminationAction extends ActionSupport {
 	private IManipleService manipleService;
 	private long manipleToFetch;
 	private SortedMap<OralExamGrade, String> oralExamGrades;
+	private List<ExamAttendance> protocolledExamAttendances = new ArrayList<ExamAttendance>();
 	private ExamAttendance selectedExamAttendance;
-	public ExamAttendance getSelectedExamAttendance() {
-		return selectedExamAttendance;
-	}
-
-	public void setSelectedExamAttendance(ExamAttendance selectedExamAttendance) {
-		this.selectedExamAttendance = selectedExamAttendance;
-	}
-
 	private ExamSubject selectedExamSubject;
+
 	private String selectedManiple;
 
 	private Student selectedStudent;
-
 	private List<Student> students;
 
 	@Override
@@ -68,6 +61,7 @@ public class OralExaminationAction extends ActionSupport {
 	public long getExamAttendanceId() {
 		return examAttendanceId;
 	}
+
 	public List<ExamAttendance> getExamAttendances() {
 		return examAttendances;
 	}
@@ -75,7 +69,6 @@ public class OralExaminationAction extends ActionSupport {
 	public IExamAttendanceService getExamAttendanceService() {
 		return examAttendanceService;
 	}
-
 	public IExamSubjectService getExamSubjectService() {
 		return examSubjectService;
 	}
@@ -92,7 +85,7 @@ public class OralExaminationAction extends ActionSupport {
 	 * @return the allManiples
 	 */
 	public List<Maniple> getManiples() {
-		return (List<Maniple>) manipleService.getAll();
+		return maniples;
 	}
 
 	public IManipleService getManipleService() {
@@ -102,10 +95,14 @@ public class OralExaminationAction extends ActionSupport {
 	public long getManipleToFetch() {
 		return manipleToFetch;
 	}
+
 	public SortedMap<OralExamGrade, String> getOralExamGrades() {
 		return oralExamGrades;
 	}
 
+	public ExamAttendance getSelectedExamAttendance() {
+		return selectedExamAttendance;
+	}
 	public ExamSubject getSelectedExamSubject() {
 		return selectedExamSubject;
 	}
@@ -147,7 +144,6 @@ public class OralExaminationAction extends ActionSupport {
 		System.out.println(frmSupplementalOralExaminationGrade);
 		ExamAttendance examAttendance;
 		OralExamGrade oralExamGrade;
-		Date oralExamDate;
 		Calendar calendar = Calendar.getInstance();
 		try {
 			
@@ -160,13 +156,14 @@ public class OralExaminationAction extends ActionSupport {
 			
 			
 			examAttendanceService.addOralExaminationResultToExamAttendance(examAttendance, oralExamGrade, calendar.getTime());
+			getProtocolledExamAttendances().add(examAttendance);
 		} catch (Exception e) {
 			// TODO text i18n oder wie dat heißt
 			addActionError("Für diesen Studenten und die Prüfung existiert bereits eine mündliche Ergänzungsnote im System!");
 			return "FAIL";
 		}
 		System.out.println("BAM!");
-		return "confirmation";
+		return "protocol";
 
 	}
 
@@ -217,6 +214,10 @@ public class OralExaminationAction extends ActionSupport {
 		this.oralExamGrades = oralExamGrades;
 	}
 
+	public void setSelectedExamAttendance(ExamAttendance selectedExamAttendance) {
+		this.selectedExamAttendance = selectedExamAttendance;
+	}
+
 	public void setSelectedExamSubject(ExamSubject selectedExamSubject) {
 		this.selectedExamSubject = selectedExamSubject;
 	}
@@ -243,9 +244,18 @@ public class OralExaminationAction extends ActionSupport {
 		} else {
 			manipleToFetch = Integer.valueOf(selectedManiple);
 		}
-		maniples = getManiples();
+		maniples = (List<Maniple>) manipleService.getAll();
 		examAttendances = (List<ExamAttendance>) getExamAttendanceService()
 				.getOralCandidates(manipleToFetch);
+	}
+
+	public List<ExamAttendance> getProtocolledExamAttendances() {
+		return protocolledExamAttendances;
+	}
+
+	public void setProtocolledExamAttendances(
+			List<ExamAttendance> protocolledExamAttendances) {
+		this.protocolledExamAttendances = protocolledExamAttendances;
 	}
 
 }

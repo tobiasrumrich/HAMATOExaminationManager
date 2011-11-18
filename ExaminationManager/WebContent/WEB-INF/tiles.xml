@@ -27,6 +27,11 @@
 		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe" />
 	</definition>
 
+	<definition name="commonProtocol" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/common/protocol.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNDatabaseProtocol" />
+	</definition>
+
 	<definition name="inputSingleExamAttendance" extends="mainLayout">
 		<put-attribute name="content"
 			value="/tiles/inputSingleExamAttendance.jsp" />
