@@ -20,7 +20,7 @@
 	<!-- Screens -->
 	<definition name="home" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/home.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe" />
+		<put-attribute name="actionDisplayName" value="txtADNWelcome" />
 	</definition>
 	<definition name="inputSingle" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/inputSingle.jsp" />
