@@ -45,11 +45,6 @@
 <style type="text/css">
 @import url(resources/css/hatoma_screen.css);
 @import "resources/jquery/js/datatables/media/css/demo_table.css";
-
-
-
-}
-
 </style>
 </head>
 <body>
