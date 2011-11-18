@@ -71,8 +71,8 @@
 	<s:token />
 
 
-	<s:select key="lblManiple" name="selectedManiple" list="maniples"
-		listKey="Id" />
+	<div style="float:left;" ><s:select key="lblManiple" name="selectedManiple" list="maniples"
+		listKey="Id" /></div>
 
 	<s:submit name="submit" key="lblShowOtherManipleSubmit"
 		action="OralExamination" method="execute" />

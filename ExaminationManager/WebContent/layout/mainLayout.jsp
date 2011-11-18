@@ -43,13 +43,8 @@
 </script>
 
 <style type="text/css">
-@import url(resources/css/hatoma_screen.css);
 @import "resources/jquery/js/datatables/media/css/demo_table.css";
-
-
-
-}
-
+@import "resources/css/hatoma_screen.css";
 </style>
 </head>
 <body>
