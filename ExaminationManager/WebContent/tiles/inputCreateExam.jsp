@@ -85,7 +85,7 @@
 				availableManiples);
 
 		$("#examDateI").datepicker({
-			dateFormat : '<s:text name="examDateFormatNoTime" />'
+			dateFormat : '<s:text name="examDateFormatNoTimeJQuery" />'
 		});
 
 		$("#examManipleIid").change(checkIsManipleSet);
@@ -104,10 +104,16 @@
 			kvSubjects = availableExamSubjectsByManiple[manipleId];
 			hamatoAutocomplete($("#examSubjectI"), $("#examSubjectIid"),
 					kvSubjects);
+			foundItem = kvSubjects.findBy(function(e) {
+				return e.value == $('#examSubjectI').val();
+			});
+			if (foundItem == undefined) {
+				$('#examSubjectI').val("");
+				$('#examSubjectIid').val(-1);
+			}
 		}
 	}
 </script>
-
 <s:form validate="true">
 	<s:token />
 	<s:textfield required="true" name="lecturerN" key="lblLecturer"
@@ -127,7 +133,8 @@
 
 	<s:textfield required="true" name="examDateN" id="examDateI"
 		key='lblDate' />
-
-	<s:submit key="btnSave" action="CreateExam" method="save" />
+	<s:hidden name="examId" />
+	<s:submit key="btnSave" action="%{targetAction}"
+		method="%{targetMethod}" />
 	<s:submit key="btnCancel" action="SaveNewExam" name="btnCancel" />
 </s:form>
