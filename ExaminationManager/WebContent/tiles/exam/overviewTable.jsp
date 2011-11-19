@@ -74,7 +74,6 @@
 				<td><s:property value="examiner" /></td>
 
 				<td><s:property value="%{getText(examType.key)}" /></td>
-
 				<td><s:url action="ExamAttendanceBulkUpdate"
 						id="examAttendanceBulkUpdateUrl">
 						<s:param name="examId" value="id" />
@@ -82,16 +81,12 @@
 						tooltip="txtLinkToExamAttendanceBulkUpdate">
 						<img src="resources/img/icons/table_add.png" />
 					</s:a> <s:if test="%{isExamEditable(id)}">
-
-						<s:url action="EditExamination" id="editExamaninationUrl">
+						<s:url action="EditExam" id="editExam">
 							<s:param name="examId" value="id" />
 						</s:url>
-
-
-						<s:a href="%{editExamaninationUrl}" tooltip="txtEditExam">
+						<s:a href="%{editExam}" tooltip="txtEditExam">
 							<img src="resources/img/icons/pencil_go.png" />
 						</s:a>
-
 					</s:if> <s:else>
 						<img src="resources/img/icons/lock.png"
 							alt="<s:text name="txtNotEditable" />" />

@@ -44,12 +44,15 @@ public class ManipleService implements IManipleService {
 		return students;
 	}
 
-
 	public void setManipleDao(IManipleDao manipleDao) {
 		this.manipleDao = manipleDao;
 	}
 
 	@Override
+	public Collection<Maniple> findAll() {
+		return manipleDao.findAll();
+	}
+
 	public long getManipleCount() {
 		return manipleDao.findAll().size();
 	}

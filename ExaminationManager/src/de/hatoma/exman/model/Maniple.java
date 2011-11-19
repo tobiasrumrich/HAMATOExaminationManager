@@ -29,7 +29,7 @@ public class Maniple implements Serializable {
 	private int year;
 
 	@OneToMany(mappedBy = "maniple")
-	public Collection<ExamSubject> getExamSubject() {
+	public Collection<ExamSubject> getExamSubjects() {
 		return examSubjects;
 	}
 
@@ -57,7 +57,7 @@ public class Maniple implements Serializable {
 		return year;
 	}
 
-	public void setExamSubject(Collection<ExamSubject> param) {
+	public void setExamSubjects(Collection<ExamSubject> param) {
 		this.examSubjects = param;
 	}
 
