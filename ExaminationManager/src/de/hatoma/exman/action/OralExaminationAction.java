@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.StrutsStatics;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -69,6 +72,7 @@ public class OralExaminationAction extends ActionSupport {
 	public IExamAttendanceService getExamAttendanceService() {
 		return examAttendanceService;
 	}
+
 	public IExamSubjectService getExamSubjectService() {
 		return examSubjectService;
 	}
@@ -103,6 +107,7 @@ public class OralExaminationAction extends ActionSupport {
 	public ExamAttendance getSelectedExamAttendance() {
 		return selectedExamAttendance;
 	}
+
 	public ExamSubject getSelectedExamSubject() {
 		return selectedExamSubject;
 	}
@@ -122,13 +127,40 @@ public class OralExaminationAction extends ActionSupport {
 		return students;
 	}
 
+	@Override
+	public void validate() {
+		super.validate();
+		
+//		
+//		Calendar calendar = Calendar.getInstance();
+//		Calendar currentCalendar = Calendar.getInstance();
+//
+//		try {
+//			int date = Integer.valueOf(frmSupplementalOralExaminationDate
+//					.substring(0, 2));
+//			int month = Integer.valueOf(frmSupplementalOralExaminationDate
+//					.substring(3, 5)) - 1;
+//			int year = Integer.valueOf(frmSupplementalOralExaminationDate
+//					.substring(6, 10));
+//
+//			calendar.set(year, month, date);
+//		} catch (Exception e) {
+//			addFieldError(frmSupplementalOralExaminationDate,getText("txtActionWrongDateFormatError"));
+//		}
+//		if (calendar.after(currentCalendar)) {
+//			addActionMessage(getText("txtActionDateInFutureError"));
+//			addFieldError(frmSupplementalOralExaminationDate,getText("txtActionDateInFutureError"));
+//		}
+	}
+
 	public String input() throws Exception {
 		// TODO: was is wenn ohne id?
 		// TODO: was is wenn nich erlaubte id?
 
 		SortedMap<OralExamGrade, String> tempOralExamGrades = new TreeMap<OralExamGrade, String>();
 		for (OralExamGrade oralExamGrade : OralExamGrade.values()) {
-			tempOralExamGrades.put(oralExamGrade, oralExamGrade.getAsExpression());
+			tempOralExamGrades.put(oralExamGrade,
+					oralExamGrade.getAsExpression());
 		}
 		oralExamGrades = tempOralExamGrades;
 		selectedExamAttendance = examAttendanceService
@@ -140,29 +172,33 @@ public class OralExaminationAction extends ActionSupport {
 	}
 
 	public String save() throws Exception {
-		System.out.println(frmSupplementalOralExaminationDate);
-		System.out.println(frmSupplementalOralExaminationGrade);
 		ExamAttendance examAttendance;
 		OralExamGrade oralExamGrade;
 		Calendar calendar = Calendar.getInstance();
 		try {
-			
-			examAttendance = examAttendanceService.getExamAttendanceById(examAttendanceId);
-			oralExamGrade = OralExamGrade.valueOf(frmSupplementalOralExaminationGrade);
-			int date = Integer.valueOf(frmSupplementalOralExaminationDate.substring(0, 2));
-			int month = Integer.valueOf(frmSupplementalOralExaminationDate.substring(3, 5))-1;
-			int year = Integer.valueOf(frmSupplementalOralExaminationDate.substring(6, 10));			
+
+			examAttendance = examAttendanceService
+					.getExamAttendanceById(examAttendanceId);
+			oralExamGrade = OralExamGrade
+					.valueOf(frmSupplementalOralExaminationGrade);
+			int date = Integer.valueOf(frmSupplementalOralExaminationDate
+					.substring(0, 2));
+			int month = Integer.valueOf(frmSupplementalOralExaminationDate
+					.substring(3, 5)) - 1;
+			int year = Integer.valueOf(frmSupplementalOralExaminationDate
+					.substring(6, 10));
+			calendar.clear();
 			calendar.set(year, month, date);
-			
-			
-			examAttendanceService.addOralExaminationResultToExamAttendance(examAttendance, oralExamGrade, calendar.getTime());
-			getProtocolledExamAttendances().add(examAttendance);
+			examAttendanceService.addOralExaminationResultToExamAttendance(
+					examAttendance, oralExamGrade, calendar.getTime());
+			getProtocolledExamAttendances().add(
+					examAttendanceService
+							.getExamAttendanceById(examAttendanceId));
 		} catch (Exception e) {
 			// TODO text i18n oder wie dat heißt
 			addActionError("Für diesen Studenten und die Prüfung existiert bereits eine mündliche Ergänzungsnote im System!");
 			return "FAIL";
 		}
-		System.out.println("BAM!");
 		return "protocol";
 
 	}
@@ -210,7 +246,8 @@ public class OralExaminationAction extends ActionSupport {
 		this.manipleToFetch = manipleToFetch;
 	}
 
-	public void setOralExamGrades(SortedMap<OralExamGrade, String> oralExamGrades) {
+	public void setOralExamGrades(
+			SortedMap<OralExamGrade, String> oralExamGrades) {
 		this.oralExamGrades = oralExamGrades;
 	}
 
