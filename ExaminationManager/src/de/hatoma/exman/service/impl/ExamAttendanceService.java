@@ -25,7 +25,6 @@ import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
-import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.model.Student;
@@ -245,7 +244,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			s.add(m);
 		}
 		
-		return gson.toJson(s);
+		return gson.toJson(new SimpleEntry<String, List<Map<String,String>>>("aaData", s));
 	}
 
 	public IStudentDao getStudentDao() {
