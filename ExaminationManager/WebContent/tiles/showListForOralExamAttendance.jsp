@@ -89,6 +89,7 @@
 			<td>Vorname</td>
 			<td>Nachname</td>
 			<td>Mat.-Nr.</td>
+			<td>&nbsp;</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -101,11 +102,12 @@
 			</s:url>
 			<tr>
 				<td><s:property value="attempt" /></td>
-				<td><s:a href="%{currentUrl}"><img src="resources/img/icons/comment_edit.png" alt="<s:text name="txtADNFileSingleOralExamAttendance"></s:text>" /><s:property value="exam.examSubject.title" /></s:a></td>
+				<td><s:property value="exam.examSubject.title" /></td>
 				<td><s:property value="examGrade.getAsExpression()" /></td>
-				<td><s:a href="%{currentUrl}"><img src="resources/img/icons/comment_edit.png" alt="<s:text name="txtADNFileSingleOralExamAttendance"></s:text>" /><s:property value="student.forename" /></s:a></td>
-				<td><s:a href="%{currentUrl}"><img src="resources/img/icons/comment_edit.png" alt="<s:text name="txtADNFileSingleOralExamAttendance"></s:text>" /><s:property value="student.lastname" /></s:a></td>
+				<td><s:property value="student.forename" /></td>
+				<td><s:property value="student.lastname" /></td>
 				<td><s:property value="student.matriculationNumber" /></td>
+				<td><s:a href="%{currentUrl}" tooltip="%{txtADNFileSingleOralExamAttendance}"><img src="resources/img/icons/comment_edit.png"></s:a></td>
 			</tr>
 		</s:iterator>
 	</tbody>

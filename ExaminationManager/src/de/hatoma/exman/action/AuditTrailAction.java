@@ -1,5 +1,7 @@
 package de.hatoma.exman.action;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.dao.helpers.AuditTrailBean;
 import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamSubject;
+import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamSubjectService;
+import de.hatoma.exman.service.IManipleService;
 import de.hatoma.exman.service.IStudentService;
 
 /**
@@ -39,6 +44,9 @@ public class AuditTrailAction extends ActionSupport {
 
 	@Autowired
 	private IStudentService studentService;
+	
+	@Autowired
+	private IManipleService manipleService;
 
 	private String studentId;
 	private String examSubjectId;
@@ -51,6 +59,27 @@ public class AuditTrailAction extends ActionSupport {
 	private List<ExamAttendance> examAttendances;
 	private Map<String, Exam> examMap;
 	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map;
+
+	private List<ExamAttendance> attendancesList;
+	
+	public String prepareList() {
+		attendancesList = new ArrayList<ExamAttendance>();
+		
+		for (Maniple maniple : manipleService.getAll()) {
+			Collection<Student> students = manipleService.getStudents(maniple.getId());
+			for (Student student : students) {
+				for (ExamSubject examSubject : maniple.getExamSubject()) {
+					try {
+						attendancesList.add(examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student));
+					} catch (NoPreviousAttemptException e) {
+						continue;
+					}
+				}
+			}
+		}
+
+		return "list";
+	}
 
 	public String execute() {
 
@@ -272,5 +301,33 @@ public class AuditTrailAction extends ActionSupport {
 	 */
 	public void setExamSubject(ExamSubject examSubject) {
 		this.examSubject = examSubject;
+	}
+
+	/**
+	 * @return the attendancesList
+	 */
+	public List<ExamAttendance> getAttendancesList() {
+		return attendancesList;
+	}
+
+	/**
+	 * @param attendancesList the attendancesList to set
+	 */
+	public void setAttendancesList(List<ExamAttendance> attendancesList) {
+		this.attendancesList = attendancesList;
+	}
+
+	/**
+	 * @return the manipleService
+	 */
+	public IManipleService getManipleService() {
+		return manipleService;
+	}
+
+	/**
+	 * @param manipleService the manipleService to set
+	 */
+	public void setManipleService(IManipleService manipleService) {
+		this.manipleService = manipleService;
 	}
 }

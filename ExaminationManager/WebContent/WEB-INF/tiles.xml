@@ -88,10 +88,14 @@
 			value="/tiles/auditTrail/auditTrailExamAttendance.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNAuditTrailExamAttendance" />
 	</definition>
-	
+
 	<definition name="commonError" extends="mainLayout">
-			<put-attribute name="content"
-			value="/tiles/common/error.jsp" />
-	<put-attribute name="actionDisplayName" value="txtADNCommonError" />
+		<put-attribute name="content" value="/tiles/common/error.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNCommonError" />
+	</definition>
+	
+	<definition name="displayCurrentExamAttendanceRecords" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/auditTrail/list.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNCommonError" />
 	</definition>
 </tiles-definitions>
