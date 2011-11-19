@@ -70,13 +70,18 @@
 			<result name="input" type="tiles">trainmanIntro</result>
 			<result name="success" type="tiles">trainmanSuccess</result>
 		</action>
-		<action name="CreateExam" class="de.hatoma.exman.action.CreateAndUpdateExamAction"
+		<action name="CreateExam" class="de.hatoma.exman.action.CreateExamAction"
 			method="create">
 			<result name="input" type="tiles">inputCreateExam</result>
 			<result name="error" type="chain">CreateExam</result>
 			<result name="success" type="chain">ExamOverview</result>
 		</action>
-
+		<action name="EditExam" class="de.hatoma.exman.action.EditExamAction"
+			method="edit">
+			<result name="input" type="tiles">inputEditExam</result>
+			<result name="error" type="chain">EditExam</result>
+			<result name="success" type="chain">ExamOverview</result>
+		</action>
 		<action name="ExamOverview" class="de.hatoma.exman.action.ExamOverviewAction">
 			<result name="showTable" type="tiles">examOverviewTable</result>
 		</action>

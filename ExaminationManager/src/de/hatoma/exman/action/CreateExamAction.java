@@ -1,44 +1,41 @@
 package de.hatoma.exman.action;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.opensymphony.xwork2.Action;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import de.hatoma.exman.model.Exam;
 
-import com.opensymphony.xwork2.ActionSupport;
+public class CreateExamAction extends AbstractExamAction {
 
-import de.hatoma.exman.dao.IStudentDao;
-import de.hatoma.exman.model.Student;
-
-public class CreateExamAction extends ActionSupport {
-	private List<Student> allExaminers;
-	@Autowired
-	private IStudentDao examinerDao;
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5425944372766400873L;
 
 	public String create() {
-		allExaminers = new ArrayList<Student>();
-		allExaminers.add(examinerDao.load(0));
-		return "input";
+		init();
+		return Action.INPUT;
 	}
 
-	public List<Student> getAllExaminers() {
-		return allExaminers;
+	public String save() {
+		init();
+
+		Exam exam = readAndValidateParams();
+
+		if (getFieldErrors() != null && getFieldErrors().size() > 0) {
+			return Action.ERROR;
+		}
+		examService.save(exam);
+
+		addActionMessage(getText("lblExamCreatedSuccess",
+				new String[] { String.valueOf(exam.getId()) }));
+
+		return Action.SUCCESS;
 	}
 
-	public void setAllExaminers(List<Student> allExaminers) {
-		this.allExaminers = allExaminers;
+	@Override
+	public String getTargetAction() {
+		return "CreateExam";
 	}
 
-	public IStudentDao getExaminerDao() {
-		return examinerDao;
-	}
-
-	public void setStudentDao(IStudentDao examinerDao) {
-		this.examinerDao = examinerDao;
+	@Override
+	public String getTargetMethod() {
+		return "save";
 	}
 }

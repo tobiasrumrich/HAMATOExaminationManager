@@ -14,7 +14,6 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 import de.hatoma.exman.model.Exam;
@@ -27,36 +26,32 @@ import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IExaminerService;
 import de.hatoma.exman.service.IManipleService;
 
-public class CreateAndUpdateExamAction extends ActionSupport {
-
+public abstract class AbstractExamAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String availableExaminersJson;
 	private String availableExamSubjectsByManipleJson;
 	private String availableManiplesJson;
-	private String examDateN;
+	protected String examDateN;
 	@Autowired
-	private IExaminerService examinerService;
-	private String examManipleN;
-	private String examManipleNid;
+	protected IExaminerService examinerService;
+	protected String examManipleN;
+	protected String examManipleNid;
 	@Autowired
-	private IExamService examService;
-	private String examSubjectN;
-	private String examSubjectNid;
+	protected IExamService examService;
+	protected String examSubjectN;
+	protected String examSubjectNid;
 	@Autowired
-	private IExamSubjectService examSubjectService;
-	private String examType;
-	private String lecturerN;
-
-	private String lecturerNid;
-
+	protected IExamSubjectService examSubjectService;
+	protected String examType;
+	
+	protected String lecturerN;
+	protected String lecturerNid;
 	@Autowired
 	private IManipleService manipleService;
+	protected SimpleDateFormat dateFormat;
 
-	public String create() {
-		this.availableExaminersJson = getAllExaminers();
-		this.availableExamSubjectsByManipleJson = getAllExamSubjects();
-		this.availableManiplesJson = getAllManiples();
-		return Action.INPUT;
+	public AbstractExamAction() {
+		super();
 	}
 
 	private String getAllExaminers() {
@@ -69,50 +64,6 @@ public class CreateAndUpdateExamAction extends ActionSupport {
 		}
 		String json = new Gson().toJson(s);
 		return json;
-	}
-
-	public String save() {
-		Exam exam = new Exam();
-		Date date = null;
-
-		notNull(examDateN, "examDateN");
-		notNull(examManipleN, "examManipleN");
-		notNull(examSubjectN, "examSubjectN");
-		notNull(lecturerN, "lecturerN");
-
-		if (examDateN != null && !examDateN.trim().equals("")) {
-			try {
-				date = new SimpleDateFormat(getText("examDateFormatNoTime"))
-						.parse(examDateN);
-			} catch (ParseException e) {
-				String msg = getText("errorDateFailed",
-						new String[] { examDateN });
-				addFieldError("examDateN", msg);
-			}
-		}
-		exam.setDate(date);
-		exam.setExaminer(examinerService.load(Long.valueOf(lecturerNid)));
-		exam.setExamSubject(examSubjectService.load(Long
-				.valueOf(examSubjectNid)));
-		exam.setExamType(ExamType.valueOf(examType));
-
-		if (getFieldErrors() != null && getFieldErrors().size() > 0) {
-			create();
-			return Action.ERROR;
-		}
-
-		examService.save(exam);
-
-		addActionMessage(getText("lblExamCreatedSuccess",
-				new String[] { String.valueOf(exam.getId()) }));
-
-		return Action.SUCCESS;
-	}
-
-	private void notNull(String value, String fieldName) {
-		if (value == null || value.trim().length() == 0) {
-			addFieldError(fieldName, getText("errorRequired"));
-		}
 	}
 
 	private String getAllExamSubjects() {
@@ -128,7 +79,7 @@ public class CreateAndUpdateExamAction extends ActionSupport {
 
 			for (ExamSubject es : subjects) {
 				subjectIdsAndNames.add(new SimpleEntry<Long, String>(
-						es.getId(), es.getTitle()));
+						es.getId(), es.toString()));
 			}
 
 			examSubjectsByMainple.put(manipleId, subjectIdsAndNames);
@@ -213,6 +164,19 @@ public class CreateAndUpdateExamAction extends ActionSupport {
 		return manipleService;
 	}
 
+	public void init() {
+		dateFormat = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
+		this.availableExaminersJson = getAllExaminers();
+		this.availableExamSubjectsByManipleJson = getAllExamSubjects();
+		this.availableManiplesJson = getAllManiples();
+	}
+
+	protected void notNull(String value, String fieldName) {
+		if (value == null || value.trim().length() == 0) {
+			addFieldError(fieldName, getText("errorRequired"));
+		}
+	}
+
 	public void setAvailableExaminersJson(String availableExaminersJson) {
 		this.availableExaminersJson = availableExaminersJson;
 	}
@@ -273,4 +237,39 @@ public class CreateAndUpdateExamAction extends ActionSupport {
 	public void setManipleService(IManipleService manipleService) {
 		this.manipleService = manipleService;
 	}
+
+	protected Exam readAndValidateParams() {
+		return readAndValidateParams(new Exam());
+	}
+
+	protected Exam readAndValidateParams(Exam exam) {
+		Date date = null;
+
+		notNull(examDateN, "examDateN");
+		notNull(examManipleN, "examManipleN");
+		notNull(examSubjectN, "examSubjectN");
+		notNull(lecturerN, "lecturerN");
+
+		if (examDateN != null && !examDateN.trim().equals("")) {
+			try {
+				date = dateFormat.parse(examDateN);
+			} catch (ParseException e) {
+				String msg = getText("errorDateFailed",
+						new String[] { examDateN });
+				addFieldError("examDateN", msg);
+			}
+		}
+		exam.setDate(date);
+		exam.setExaminer(examinerService.load(Long.valueOf(lecturerNid)));
+		exam.setExamSubject(examSubjectService.load(Long
+				.valueOf(examSubjectNid)));
+		exam.setExamType(ExamType.valueOf(examType));
+
+		return exam;
+	}
+
+	public abstract String getTargetAction();
+
+	public abstract String getTargetMethod();
+
 }

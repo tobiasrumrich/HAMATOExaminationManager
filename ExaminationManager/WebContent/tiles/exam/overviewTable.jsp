@@ -71,22 +71,20 @@
 				<td><s:date name="date" format="%{getText('examDateFormat')}" />
 				</td>
 
-				<td>
-						<s:property value="examiner" />
-					</td>
+				<td><s:property value="examiner" /></td>
 
 				<td><s:property value="%{getText(examType.key)}" /></td>
 
-				<td>
-				<s:if test="targetActionName=='EditExam'">
+				<td><s:if test="targetActionName=='EditExam'">
 						<s:if test="%{isExamEditable(id)}">
 
 							<s:url action="EditExam" id="editExamaninationUrl">
-								<s:param name="examId"></s:param>
+								<s:param name="examId" value="id" />
 							</s:url>
 							<s:a href="%{editExamaninationUrl}">
-							<span class="ui-icon ui-icon-pencil"></span>
-							<s:text name="txtEditExam" /></s:a>
+								<span class="ui-icon ui-icon-pencil"></span>
+								<s:text name="txtEditExam" />
+							</s:a>
 
 						</s:if>
 					</s:if> <s:if test="targetActionName=='ExamAttendanceBulkUpdate'">

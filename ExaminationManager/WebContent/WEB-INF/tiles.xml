@@ -52,6 +52,10 @@
 		<put-attribute name="content" value="/tiles/inputCreateExam.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNInputCreateExam" />
 	</definition>
+	<definition name="inputEditExam" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/inputCreateExam.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNEditCreateExam" />
+	</definition>
 	<definition name="trainmanIntro" extends="modalLayout">
 		<put-attribute name="content" value="/tiles/trainman/intro.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
