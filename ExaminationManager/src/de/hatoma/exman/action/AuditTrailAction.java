@@ -1,6 +1,5 @@
 package de.hatoma.exman.action;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import de.hatoma.exman.dao.helpers.AuditTrailBean;
 import de.hatoma.exman.model.ExManRevisionEntity;
+import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Student;
@@ -46,15 +46,10 @@ public class AuditTrailAction extends ActionSupport {
 	private long selectedExamSubjectId;
 
 	private Student student;
-
 	private ExamSubject examSubject;
 
-	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> combinedAuditTrail;
-
 	private List<ExamAttendance> examAttendances;
-
-	private List<List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> myMapList;
-
+	private Map<String, Exam> examMap;
 	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map;
 
 	public String execute() {
@@ -84,37 +79,15 @@ public class AuditTrailAction extends ActionSupport {
 		}
 
 		map = new HashMap<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>();
-
+		examMap = new HashMap<String, Exam> ();
 		examAttendances = examAttendanceService
 				.getExamAttendancesForStudentByExamSubject(examSubject, student);
 		for (ExamAttendance examAttendance : examAttendances) {
 			List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail = examAttendanceService
 					.getAuditTrail(examAttendance.getId());
 			map.put(String.valueOf(examAttendance.getId()), auditTrail);
+			examMap.put(String.valueOf(examAttendance.getId()), examAttendance.getExam());
 		}
-		/*
-		 * 
-		 * examAttendances =
-		 * examAttendanceService.getExamAttendancesForStudentByExamSubject
-		 * (examSubject, student); myMapList = new
-		 * ArrayList<List<AuditTrailBean<ExManRevisionEntity,
-		 * ExamAttendance>>>(); combinedAuditTrail = new HashMap<String,
-		 * List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>(); for
-		 * (ExamAttendance examAttendance : examAttendances) {
-		 * //examAttendance.setExamGrade(ExamGrade.G30);
-		 * //examAttendanceService.
-		 * createExamAttendanceForStudent(examAttendance.getStudent(),
-		 * examAttendance.getExam(), ExamGrade.G10); try {
-		 * examAttendanceService.update(examAttendance); } catch (Exception e) {
-		 * // TODO Auto-generated catch block e.printStackTrace(); }
-		 * examAttendance =
-		 * examAttendanceService.getExamAttendanceById(examAttendance.getId());
-		 * List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail
-		 * = examAttendanceService.getAuditTrail(examAttendance.getId());
-		 * combinedAuditTrail
-		 * .put(String.valueOf(examAttendance.getId()),auditTrail);
-		 * myMapList.add(auditTrail); }
-		 */
 		return "displayExamAttendanceAuditTrail";
 	}
 
@@ -240,22 +213,6 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the combinedAuditTrail
-	 */
-	public Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> getCombinedAuditTrail() {
-		return combinedAuditTrail;
-	}
-
-	/**
-	 * @param combinedAuditTrail
-	 *            the combinedAuditTrail to set
-	 */
-	public void setCombinedAuditTrail(
-			Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> combinedAuditTrail) {
-		this.combinedAuditTrail = combinedAuditTrail;
-	}
-
-	/**
 	 * @return the map
 	 */
 	public Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> getMap() {
@@ -263,9 +220,54 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @param map the map to set
+	 * @param map
+	 *            the map to set
 	 */
-	public void setMap(Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map) {
+	public void setMap(
+			Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map) {
 		this.map = map;
+	}
+
+	/**
+	 * @return the examMap
+	 */
+	public Map<String, Exam> getExamMap() {
+		return examMap;
+	}
+
+	/**
+	 * @param examMap
+	 *            the examMap to set
+	 */
+	public void setExamMap(Map<String, Exam> examMap) {
+		this.examMap = examMap;
+	}
+
+	/**
+	 * @return the student
+	 */
+	public Student getStudent() {
+		return student;
+	}
+
+	/**
+	 * @param student the student to set
+	 */
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	/**
+	 * @return the examSubject
+	 */
+	public ExamSubject getExamSubject() {
+		return examSubject;
+	}
+
+	/**
+	 * @param examSubject the examSubject to set
+	 */
+	public void setExamSubject(ExamSubject examSubject) {
+		this.examSubject = examSubject;
 	}
 }

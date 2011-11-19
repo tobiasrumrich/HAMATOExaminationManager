@@ -3,8 +3,8 @@ package de.hatoma.exman.model;
 import java.io.Serializable;
 
 public enum ExamType implements Serializable {
-	OralExam("Mündliche Prüfung"), SeminarPaper("Hausarbeit"), WrittenExam(
-			"Klausur");
+	OralExam("txtExamTypeOralExam"), SeminarPaper("txtExamTypeSeminarPaper"), WrittenExam(
+			"txtExamTypeWrittenExam");
 
 	private String key;
 
