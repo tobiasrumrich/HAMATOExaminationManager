@@ -2,25 +2,17 @@ package de.hatoma.exman.action;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 
 import de.hatoma.exman.model.Exam;
-import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.ExamType;
-import de.hatoma.exman.model.Examiner;
-import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.service.IExamService;
 import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IExaminerService;
@@ -54,46 +46,16 @@ public abstract class AbstractExamAction extends ActionSupport {
 		super();
 	}
 
-	private String getAllExaminers() {
-		List<Examiner> allExaminers = examinerService.findAll();
-		List<Entry<String, String>> s = new ArrayList<Entry<String, String>>();
-
-		for (Examiner e : allExaminers) {
-			s.add(new SimpleEntry<String, String>(String.valueOf(e.getId()), e
-					.getForename() + " " + e.getLastname()));
-		}
-		String json = new Gson().toJson(s);
-		return json;
+	private String getAllExaminersAsJson() {
+		return examinerService.getAllExaminersAsJson();
 	}
 
-	private String getAllExamSubjects() {
-		Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple = examSubjectService
-				.allSubjectsByManiple();
-		Map<Long, List<Entry<Long, String>>> examSubjectsByMainple = new HashMap<Long, List<Entry<Long, String>>>();
-
-		for (Entry<Maniple, Collection<ExamSubject>> e : allSubjectsByManiple
-				.entrySet()) {
-			long manipleId = e.getKey().getId();
-			Collection<ExamSubject> subjects = e.getValue();
-			List<Entry<Long, String>> subjectIdsAndNames = new ArrayList<Entry<Long, String>>();
-
-			for (ExamSubject es : subjects) {
-				subjectIdsAndNames.add(new SimpleEntry<Long, String>(
-						es.getId(), es.toString()));
-			}
-
-			examSubjectsByMainple.put(manipleId, subjectIdsAndNames);
-		}
-
-		return new Gson().toJson(examSubjectsByMainple);
+	private String getAllExamSubjectsJson() {
+		return examinerService.getAllExamSubjectsJson();
 	}
 
-	private String getAllManiples() {
-		List<Entry<Long, String>> maniples = new ArrayList<Entry<Long, String>>();
-		for (Maniple m : manipleService.findAll()) {
-			maniples.add(new SimpleEntry<Long, String>(m.getId(), m.toString()));
-		}
-		return new Gson().toJson(maniples);
+	private String getAllManiplesJson() {
+		return examinerService.getAllManiplesJson();
 	}
 
 	public String getAvailableExaminersJson() {
@@ -166,9 +128,9 @@ public abstract class AbstractExamAction extends ActionSupport {
 
 	public void init() {
 		dateFormat = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
-		this.availableExaminersJson = getAllExaminers();
-		this.availableExamSubjectsByManipleJson = getAllExamSubjects();
-		this.availableManiplesJson = getAllManiples();
+		this.availableExaminersJson = getAllExaminersAsJson();
+		this.availableExamSubjectsByManipleJson = getAllExamSubjectsJson();
+		this.availableManiplesJson = getAllManiplesJson();
 	}
 
 	protected void notNull(String value, String fieldName) {

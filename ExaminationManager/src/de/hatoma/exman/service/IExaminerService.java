@@ -10,4 +10,10 @@ public interface IExaminerService {
 	public Examiner load(long id);
 
 	public List<Examiner> findAll();
+
+	public String getAllExaminersAsJson();
+
+	public String getAllExamSubjectsJson();
+
+	public String getAllManiplesJson();
 }

@@ -53,8 +53,8 @@
 		</action>
 
 		<action name="FileSingleExamAttendance"
-			class="de.hatoma.exman.action.SingleExamAttendanceAction" method="display">
-			<result name="showInputForm" type="tiles">inputSingleExamAttendance
+			class="de.hatoma.exman.action.SingleExamAttendanceAction" method="input">
+			<result name="input" type="tiles">inputSingleExamAttendance
 			</result>
 		</action>
 

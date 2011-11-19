@@ -8,7 +8,8 @@
 	<s:textfield name="examSubject" key="lblExamSubject" required="true" />
 	<s:select name="exam" key="lblExam" list="{'apfelmuß','beerenschmand'}"
 		required="true" />
-	<s:select key="lblExamGrade" list="{1.0,2.0}" required="true" />
+	<s:select key="lblExamGrade" list="allGrades"
+		required="true" />
 
 	<s:submit key="btnSave" action="FileSingleExamAttendance" method="save" />
 	<s:submit key="btnCancel" action="SaveNewExam" name="btnCancel" />
