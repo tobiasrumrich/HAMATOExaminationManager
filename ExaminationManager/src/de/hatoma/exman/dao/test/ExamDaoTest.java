@@ -69,27 +69,25 @@ public class ExamDaoTest extends BaseDaoTest {
 		Exam s2 = getExamDao().load(s.getId());
 
 	}
-	//
-	// @Test
-	// public void testUpdate() {
-	// Student s1 = getDefaultStudent();
-	//
-	// s1.setForename("A1");
-	// s1.setLastname("A2");
-	// s1.setMatriculationNumber("YYY");
-	//
-	// getExamDao().update(s1);
-	//
-	// // Persistieren erfolgriech
-	// Assert.assertNotNull(s1.getId());
-	// Assert.assertTrue(s1.getId() > 0);
-	//
-	// // Werte vergleichen
-	// Student s2 = getExamDao().load(s1.getId());
-	// Assert.assertEquals("A1", s2.getForename());
-	// Assert.assertEquals("A2", s2.getLastname());
-	// Assert.assertEquals(getDefaultManiple(), s2.getManiple());
-	// Assert.assertEquals("YYY", s2.getMatriculationNumber());
-	// }
+
+	@Test
+	public void testUpdate() {
+		Exam s1 = getDefaultExam();
+
+		s1.setDate(getRandomDate());
+		s1.setExaminer(getDefaultExaminer());
+		s1.setExamType(ExamType.OralExam);
+		s1.setExamSubject(getDefaultExamSubject());
+
+		getExamDao().update(s1);
+
+		// Persistieren erfolgriech
+		Assert.assertNotNull(s1.getId());
+		Assert.assertTrue(s1.getId() > 0);
+
+		// Werte vergleichen
+		Exam s2 = getExamDao().load(s1.getId());
+
+	}
 
 }
