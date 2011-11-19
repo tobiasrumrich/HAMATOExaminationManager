@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 
 import de.hatoma.exman.dao.helpers.AuditTrailBean;
 import de.hatoma.exman.model.ExManRevisionEntity;
@@ -25,7 +26,7 @@ import de.hatoma.exman.service.IStudentService;
  * @author tobias
  * 
  */
-public class AuditTrailAction extends ActionSupport {
+public class AuditTrailAction extends ActionSupport implements Preparable {
 
 	/**
 	 * 
@@ -57,12 +58,30 @@ public class AuditTrailAction extends ActionSupport {
 	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map;
 
 	private List<ExamAttendance> attendancesList;
+
+	private String studentsAsJson;
+	
+	private String jsonValueString;
+	private String jsonStudentId;
 	
 	public String prepareList() {
 
 		return "list";
 	}
 
+	@Override
+	public void prepare() throws Exception {
+		studentsAsJson = studentService.getAllStudentsAsJson();
+		
+	}
+	
+	public String jsonResponder() {
+		Student jsonStudent = studentService.getStudent(Long.valueOf(jsonStudentId));
+		jsonValueString = examAttendanceService.getAllCurrentExamAttendancesForStudentAsJSON(jsonStudent);
+		return "json";
+	}
+	
+	
 	public String execute() {
 
 		try {
@@ -312,4 +331,48 @@ public class AuditTrailAction extends ActionSupport {
 	public void setManipleService(IManipleService manipleService) {
 		this.manipleService = manipleService;
 	}
+
+	/**
+	 * @return the studentsAsJson
+	 */
+	public String getStudentsAsJson() {
+		return studentsAsJson;
+	}
+
+	/**
+	 * @param studentsAsJson the studentsAsJson to set
+	 */
+	public void setStudentsAsJson(String studentsAsJson) {
+		this.studentsAsJson = studentsAsJson;
+	}
+
+	/**
+	 * @return the jsonValueString
+	 */
+	public String getJsonValueString() {
+		return jsonValueString;
+	}
+
+	/**
+	 * @param jsonValueString the jsonValueString to set
+	 */
+	public void setJsonValueString(String jsonValueString) {
+		this.jsonValueString = jsonValueString;
+	}
+
+	/**
+	 * @return the jsonStudentId
+	 */
+	public String getJsonStudentId() {
+		return jsonStudentId;
+	}
+
+	/**
+	 * @param jsonStudentId the jsonStudentId to set
+	 */
+	public void setJsonStudentId(String jsonStudentId) {
+		this.jsonStudentId = jsonStudentId;
+	}
+
+
 }
