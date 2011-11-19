@@ -71,11 +71,11 @@
 	<s:token />
 
 
-	<s:select key="lblManiple" name="selectedManiple" list="maniples"
-		listKey="Id" />
+	<div style="float:left;" ><s:select key="lblManiple" name="selectedManiple" list="maniples"
+		listKey="Id" /></div>
 
 	<s:submit name="submit" key="lblShowOtherManipleSubmit"
-		action="ShowStudentListForOralExamination" method="execute" />
+		action="OralExamination" method="execute" />
 </s:form>
 
 
@@ -94,17 +94,17 @@
 
 
 		<s:iterator value="examAttendances" status="iteratorStatus">
-			<s:url id="currentUrl" action="SingleOralExaminationAttendanceAction"
-				method="showInputForm">
-				<s:param name="id" value="%{student.getId()}" />
+			<s:url id="currentUrl" action="OralExamination"
+				method="input">
+				<s:param name="examAttendanceId" value="%{id}" />
 			</s:url>
 			<tr>
 				<td><s:property value="attempt" /></td>
-				<td><s:a href="%{currentUrl}"><s:property value="exam.getExamSubject().getTitle()" /></s:a></td>
-				<td><s:property value="examGrade" /></td>
-				<td><s:a href="%{currentUrl}"><s:property value="student.getForename()" /></s:a></td>
-				<td><s:a href="%{currentUrl}"><s:property value="student.getLastname()" /></s:a></td>
-				<td><s:property value="student.getMatriculationNumber()" /></td>
+				<td><s:a href="%{currentUrl}"><s:property value="exam.examSubject.title" /></s:a></td>
+				<td><s:property value="examGrade.getAsExpression()" /></td>
+				<td><s:a href="%{currentUrl}"><s:property value="student.forename" /></s:a></td>
+				<td><s:a href="%{currentUrl}"><s:property value="student.lastname" /></s:a></td>
+				<td><s:property value="student.matriculationNumber" /></td>
 			</tr>
 		</s:iterator>
 	</tbody>

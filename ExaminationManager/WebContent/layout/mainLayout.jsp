@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,208 +41,24 @@
 			fillSpace : true,
 			animated : true
 		});
-
-		$("#sessioninfo").html(
-				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
 	});
 </script>
-<!-- CSS für DatPicker -->
-<style type="text/css">
-#ui-datepicker-div {
-	background-color: white;
-	border: 1px solid grey;
-}
-</style>
-<!-- CSS für DataTables -->
+<link rel="stylesheet" type="text/css" media="print"
+	href="resources/css/hatoma_print.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="resources/css/hatoma_screen.css" />
 <style type="text/css">
 @import "resources/jquery/js/datatables/media/css/demo_table.css";
-
-.dataTables_info {
-	font-size: 70%;
-	font-weight: bold;
-}
-/*Spaltenüberschriften*/
-.sorting_asc,.sorting_desc,.sorting {
-	font-weight: bold;
-}
-
-.sorting_asc,.sorting_desc {
-	font-weight: bold;
-	background-color: #4fa0cd;
-}
-
-.sorting {
-	font-weight: bold;
-	background-color: #91c3e0;
-}
-
-.hatoma_dataTable {
-	clear: both;
-	border-collapse: collapse;
-	border: 2px grey solid;
-	margin: 05px;
-}
-
-.dataTables_wrapper {
-	background-color: #eeeeee;
-	padding: 10px;
-	min-height: none !important;
-}
-
-tr.odd {
-	background-color: #eef6fa;
-}
-
-tr.odd td.sorting_1 {
-	background-color: #d3e7f3;
-}
-
-tr.even {
-	background-color: white;
-}
-
-tr.even td.sorting_1 {
-	background-color: #e1eff6;
-}
-
-td {
-	padding: 0.4em;
-}
-
-.hatoma_dataTable a {
-	text-decoration: underline;
-	color: black;
-	font-weight: bold;
-}
-
-.hatoma_dataTable a:hover {
-	text-decoration: underline;
-	color: orange;
-	font-weight: bold;
-}
-
-.hatoma_dataTable {
-	font-size: 80%;
-}
-</style>
-<style type="text/css">
-html {
-	height: 100%;
-}
-
-body {
-	height: 100%;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", tahoma, Verdana,
-		Geneva, Arial, Helvetica, sans-serif;
-	margin: 0px;
-	padding: 0px;
-	background-image: url(resources/img/header_bg.gif);
-	background-repeat: repeat-x;
-}
-
-div#headerbar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 54px;
-	width: 100%;
-	line-height: 54px;
-	padding: 0px 0px 0px 13px;
-	color: white;
-	z-index: 2;
-	background-image: url(resources/img/header_bg.gif);
-	background-repeat: repeat-x;
-}
-
-div#header {
-	width: 1000px;
-}
-
-div#navigation-wrapper {
-	background: #e1eff6;
-	float: left;
-	width: 250px;
-	clear: both;
-	height: 100%;
-}
-
-div#navigation {
-	position: relative;
-	top: 54px;
-	height: 340px;
-}
-
-div#header h1 {
-	font-size: 120%;
-	padding: 0px;
-	margin: 0px;
-}
-
-div#container {
-	width: 1000px;
-	height: 100%;
-}
-
-div#main-wrapper {
-	height: 100%;
-	overflow: auto;
-}
-
-div#main {
-	position: relative;
-	top: 54px;
-	padding: 10px;
-}
-
-div#main h1 {
-	margin: 0px;
-}
-
-/******/
-.ui-accordion {
-	margin: 0px;
-	padding: 0px;
-	border: 0px;
-	height: 0px;
-}
-
-.ui-accordion-header {
-	padding: 5px 0px 5px 10px;
-	background: lightgray;
-	margin: 0px;
-	font-size: 70%;
-}
-
-.ui-accordion-header a {
-	color: black;
-	text-decoration: none;
-}
-
-.ui-accordion * :focus {
-	outline: 0;
-}
-
-.ui-accordion-content {
-	background: #eeeeee;
-	font-size: 70%;
-}
-
-.ui-accordion-content-active { /*padding: 5px 0px 5px 10px*/
-	margin: 0px;
-}
-
-span#sessioninfo {
-	float: right;
-	padding-right: 20px;
-}
 </style>
 </head>
 <body>
 
 	<div id="headerbar">
 		<div id="header">
-			<span id="sessioninfo">&lt;sessioninfo&gt;</span>
-			<h1>HATOMA Examination Manager</h1>
+			<span id="sessioninfo"><s:text name="txtLoggedInAs" /> <strong><sec:authentication property="principal.username" /></strong> <a href="<s:url value="j_spring_security_logout" />" >Logout</a></span>
+			<h1>
+				<s:text name="%{#attr.title}" />
+			</h1>
 		</div>
 	</div>
 
@@ -250,62 +68,81 @@ span#sessioninfo {
 				<div id="hatoma_accordion">
 					<div>
 						<h3>
-							<a href="#">Reports</a>
+							<a href="#"><s:text name="lblNavReports" /></a>
 						</h3>
 						<div>
-							<p>Notenübersicht zu Person</p>
-							<p>Notenübersicht zu Manipel</p>
+							<p>
+								<s:text name="lblNavExamGradeOverviewByPerson" />
+							</p>
+							<p>
+								<s:text name="lblNavExamGradeOverviewByManiple" />
+							</p>
 						</div>
 					</div>
 
 					<div>
 						<h3>
-							<a href="#">Prüfungsergebnisse</a>
+							<a href="#"><s:text name="lblNavExamResults" /></a>
 						</h3>
 						<div>
 							<p>
-								<s:url action="ExamAttendanceBulkUpdate"
-									id="examAttendanceBulkUpdateUrl" />
-								<s:a href="%{examAttendanceBulkUpdateUrl}">Batcherfassung</s:a>
+								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl">
+									<s:param name="target">bulkInsert</s:param>
+								</s:url>
+								<s:a href="%{examAttendanceBulkUpdateUrl}">
+									<s:text name="lblNavExamAttendanceBulkInsert" />
+								</s:a>
 							</p>
 
 							<p>
 								<s:url action="FileSingleExamAttendance"
 									id="fileSingleExamAttendanceUrl" />
-								<s:a href="%{fileSingleExamAttendanceUrl}">Einzelerfassung</s:a>
+								<s:a href="%{fileSingleExamAttendanceUrl}">
+									<s:text name="lblNavExamAttendanceSingleInsert" />
+								</s:a>
 
 							</p>
 							<p>
-								<s:url action="ShowStudentListForOralExamination"
-									id="showStudentListForOralExaminationUrl" />
-								<s:a href="%{showStudentListForOralExaminationUrl}">Erfassung mündlicher Noten</s:a>
+								<s:url action="OralExamination" id="oralExaminationUrl" />
+								<s:a href="%{oralExaminationUrl}">
+									<s:text name="lblNavExamAttendanceOralExamination" />
+								</s:a>
 							</p>
 						</div>
 					</div>
 
 					<div>
 						<h3>
-							<a href="#">Prüfungsübersicht</a>
+							<a href="#"><s:text name="lblNaVExamOverviewHeader" /></a>
 						</h3>
 						<div>
 							<p>
 								<s:url action="CreateExam" id="createExamUrl" />
-								<s:a href="%{createExamUrl}">Neue Prüfung anlegen</s:a>
+								<s:a href="%{createExamUrl}">
+									<s:text name="lblNavCreateNewExam" />
+								</s:a>
 							</p>
 
 							<p>
 								<s:url action="ExamOverview" id="examOverviewUrl" />
-								<s:a href="%{examOverviewUrl}">Prüfungen verwalten</s:a>
+								<s:a href="%{examOverviewUrl}">
+									<s:text name="lblNavAdministerExams" />
+								</s:a>
 							</p>
 						</div>
 					</div>
 
 					<div>
 						<h3>
-							<a href="#">Sonstiges</a>
+							<a href="#"><s:text name="lblNavOthers" /></a>
 						</h3>
 						<div>
-							<p>dsadsd</p>
+							<p>
+								<s:url action="Trainman" id="trainManUrl" />
+								<s:a href="%{trainManUrl}">
+									<s:text name="lblNavTrainman" />
+								</s:a>
+							</p>
 						</div>
 					</div>
 				</div>

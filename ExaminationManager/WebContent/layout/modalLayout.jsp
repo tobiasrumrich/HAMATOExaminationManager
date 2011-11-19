@@ -26,20 +26,6 @@
 <script type="text/javascript"
 	src="resources/jquery/js/jquery-ui-1.8.16.custom.min.js"></script>
 
-<script type="text/javascript">
-	$(function() {
-		$("#hatoma_accordeon").accordion({
-			header : "h3",
-			active : 0,
-			collapsible : false,
-			fillSpace : true,
-			animated : true
-		});
-
-		$("#sessioninfo").html(
-				'<sessioninfo>Angemeldet als <u>Hannelore Pehlke</u>');
-	});
-</script>
 <style type="text/css">
 html {
 	height: 100%;

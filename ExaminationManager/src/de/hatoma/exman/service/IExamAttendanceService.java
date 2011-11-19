@@ -1,12 +1,16 @@
 package de.hatoma.exman.service;
 
+import java.util.Date;
 import java.util.List;
 
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
+import de.hatoma.exman.dao.helpers.AuditTrailBean;
+import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
+import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.model.Student;
 
 /**
@@ -40,6 +44,15 @@ public interface IExamAttendanceService {
 	 * @throws Exception
 	 */
 	public void update(ExamAttendance examAttendance) throws Exception;
+	
+	/**
+	 * Adds information about supplemental oral examination to existing attendance
+	 * @param examAttendance
+	 * @param oralExamGrade
+	 * @param oralExamDate
+	 * @throws Exception
+	 */
+	public void addOralExaminationResultToExamAttendance(ExamAttendance examAttendance, OralExamGrade oralExamGrade, Date oralExamDate) throws Exception;
 
 	/**
 	 * Delivers all students eligable for an oral exam
@@ -69,4 +82,21 @@ public interface IExamAttendanceService {
 	 * @return
 	 */
 	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(ExamSubject examSubject, Student student) throws NoPreviousAttemptException;
+	
+	
+	/**
+	 * Returns a list of all Students that eligible to attend to an exam
+	 * @param exam
+	 * @return
+	 */
+	public List<Student> getAllStudentsEligibleForExamAttendance(Exam exam);
+	
+	/**
+	 * Returns an ExamAttendance according to the given id.
+	 * @param id
+	 * @return
+	 */
+	public ExamAttendance getExamAttendanceById(long id);
+	
+	public List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> getAuditTrail(long examAttendanceId);
 }

@@ -81,10 +81,7 @@ public class ExamSubject implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ExamSubject [maniple=" + maniple + ", moduleIdentifier="
-				+ moduleIdentifier + ", title=" + title + "]";
+		return moduleIdentifier + " - " + title;
 	}
-	
-	
 
 }

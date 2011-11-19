@@ -1,14 +1,19 @@
 package de.hatoma.exman.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
+import de.hatoma.exman.dao.helpers.AuditTrailBean;
+import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -56,7 +61,7 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
 			ExamSubject examSubject, Student student) throws NoPreviousAttemptException {
 		Criteria criteria = getCurrentSession().createCriteria(ExamAttendance.class);
-		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject)).addOrder( Order.desc("date"));
+		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject)).addOrder( Order.asc("date"));
 		criteria.add(Restrictions.eq("student", student));
 		if (criteria.list().size() == 0) throw new NoPreviousAttemptException();
 		return (ExamAttendance) criteria.list().get(criteria.list().size()-1);
@@ -90,6 +95,22 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 				.add(Restrictions.isNotNull("supplementOralExamGrade"))
 				.createCriteria("exam")
 				.add(Restrictions.eq("examSubject", examSubject)).list();
+	}
+
+	@Override
+	public List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> getAuditTrail(long id) {
+		AuditReader reader = AuditReaderFactory.get(getCurrentSession());
+		List<Number> revisions = reader.getRevisions(ExamAttendance.class, id);
+		
+		List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> auditTrail = new ArrayList<AuditTrailBean<ExManRevisionEntity,ExamAttendance>>();
+		for (Number revisionId : revisions) {
+			ExManRevisionEntity revisionEntity = reader.findRevision(ExManRevisionEntity.class, revisionId);
+			ExamAttendance entity = reader.find(ExamAttendance.class, id, revisionId);
+			
+			auditTrail.add(new AuditTrailBean<ExManRevisionEntity,ExamAttendance>(revisionEntity, entity));
+			
+		}
+		return auditTrail;
 	}
 
 }

@@ -9,4 +9,5 @@ public interface IStudentService {
 
 	public Student getStudent(long id);
 	public Student getValidOralStudent(long id);
+	public long getStudentCount();
 }

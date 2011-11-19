@@ -15,4 +15,5 @@ public interface IManipleService {
 
 	public Collection<Maniple> findAll();
 
+	public long getManipleCount();
 }

@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<s:url action="FileSingleOralExamAttendance"
-	id="fileSingleOralExamAttendanceUrl" />
+
 
 <script type="text/javascript">
 	$(function() {
@@ -72,26 +71,32 @@
 				<td><s:date name="date" format="%{getText('examDateFormat')}" />
 				</td>
 
-				<td><s:a href="%{fileSingleOralExamAttendanceUrl}">
-						<s:property value="examiner" />
-					</s:a></td>
-
-				<td><s:property value="examType.key" /></td>
 				<td>
-				
-				
-				
-				<s:if test="%{isExamEditable(id)}">
-				
+						<s:property value="examiner" />
+					</td>
 
+				<td><s:property value="%{getText(examType.key)}" /></td>
 
+				<td>
+				<s:if test="targetActionName=='EditExam'">
+						<s:if test="%{isExamEditable(id)}">
 
+							<s:url action="EditExam" id="editExamaninationUrl">
+								<s:param name="examId"></s:param>
+							</s:url>
+							<s:a href="%{editExamaninationUrl}">
+							<span class="ui-icon ui-icon-pencil"></span>
+							<s:text name="txtEditExam" /></s:a>
 
-						<s:url action="EditExam" id="editExamaninationUrl">
-							<s:param name="examId"></s:param>
+						</s:if>
+					</s:if> <s:if test="targetActionName=='ExamAttendanceBulkUpdate'">
+						<s:url action="ExamAttendanceBulkUpdate"
+							id="examAttendanceBulkUpdateUrl">
+							<s:param name="examId" value="id" />
 						</s:url>
-						<s:a href="%{editExamaninationUrl}">[EDIT]</s:a>
-
+						<s:a href="%{examAttendanceBulkUpdateUrl}">
+							<s:text name="txtLinkToExamAttendanceBulkUpdate" />
+						</s:a>
 					</s:if></td>
 			</tr>
 		</s:iterator>

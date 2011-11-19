@@ -19,7 +19,7 @@ public class ExamSubjectService implements IExamSubjectService {
 
 	@Autowired
 	private IExamSubjectDao examSubjectDao;
-	
+
 	@Autowired
 	private IManipleDao manipleDao;
 
@@ -75,7 +75,16 @@ public class ExamSubjectService implements IExamSubjectService {
 	public ExamSubject load(Long id) {
 		return examSubjectDao.load(id);
 	}
-	
-	
+
+	@Override
+	// todo: load und examSubject angleichen
+	public ExamSubject getExamSubject(long id) {
+		return this.examSubjectDao.load(id);
+	}
+
+	@Override
+	public long getExamSubjectCount() {
+		return examSubjectDao.findAll().size();
+	}
 
 }

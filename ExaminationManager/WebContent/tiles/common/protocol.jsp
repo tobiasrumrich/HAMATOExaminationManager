@@ -32,30 +32,31 @@
 		</table>
 	</div>
 
-
+<p><s:text name="txtUiProtocolHeader" /></p>
 <table id="examList" class="hatoma_dataTable" style="width:100%; padding:0px; margin:0px;">
 	<thead>
 		<tr>
-			<td>Vorname</td>
-			<td>Nachname</td>
-			<td>Matrikelnr.</td>
-			<td>Bisherige Note</td>
-			<td>Note</td>
-			<td>Versuch</td>
+			<td>Mat.-Nr.</td>
+			<td>Name</td>
+			<td>Modul</td>
+			<td>Datum der Prüfung</td>
+			<td>Erzielte Note der Prüfung</td>
+			<td>Datum der mündlichen Prüfung</td>
+			<td>Erzielte Note der mündlichen Prüfung</td>
 		</tr>
 	</thead>
 	<tbody>
 
 
-		<s:iterator value="myEntitiesConfirmations">
+		<s:iterator value="protocolledExamAttendances">
 			<tr>
-				<td><s:property value="student.forename" /></td>
-				<td><s:property value="student.lastname" /></td>
 				<td><s:property value="student.matriculationNumber" /></td>
-				<td><s:property
-						value="previousExamAttendance.examGrade.asExpression" /></td>
-				<td><s:property value="newGrade" /></td>
-				<td>1. Versuch</td>
+				<td><s:property value="student.forename" /> <s:property value="student.lastname" /></td>
+				<td><s:property value="exam.examSubject.title" /></td>
+				<td><s:property value="exam.date.toLocaleString().substring(0,10)" /></td>
+				<td><s:property value="examGrade.getAsExpression()" /></td>
+				<td><s:property value="supplementalOralExamDate.toLocaleString().substring(0,10)" /></td>
+				<td><s:property value="supplementOralExamGrade.getAsExpression()" /></td>
 			</tr>
 		</s:iterator>
 		

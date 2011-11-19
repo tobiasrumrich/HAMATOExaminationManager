@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ExamType implements Serializable {
-	OralExam("lblExamTypeOralExam"), SeminarPaper("lblExamTypeSeminarPaper"), WrittenExam(
-			"lblExamTypeWrittenExam");
+	OralExam("txtExamTypeOralExam"), SeminarPaper("txtExamTypeSeminarPaper"), WrittenExam(
+			"txtExamTypeWrittenExam");
 
 	private String key;
 

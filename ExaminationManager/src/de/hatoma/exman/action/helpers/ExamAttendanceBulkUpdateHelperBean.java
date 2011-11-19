@@ -52,7 +52,7 @@ public class ExamAttendanceBulkUpdateHelperBean {
 	 * @return the numAttempt
 	 */
 	public int getNumAttempt() {
-		return numAttempt;
+		return numAttempt+1;
 	}
 
 	/**

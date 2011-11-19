@@ -6,6 +6,26 @@
 
 <struts>
 	<package name="default" extends="struts-default, tiles-default">
+		<interceptors>
+			<interceptor name="trainmanDatabaseCheckInterceptor"
+				class="de.hatoma.exman.action.interceptors.TrainmanDatabaseCheckInterceptor" />
+			<interceptor-stack name="hatomaInterceptorStack">
+
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="trainmanDatabaseCheckInterceptor" />
+			</interceptor-stack>
+
+		</interceptors>
+		<default-interceptor-ref name="hatomaInterceptorStack" />
+
+		<!-- Global Results (needed eg. by the Trainman Interceptor) -->
+		<global-results>
+			<result name="globalTrainmanInput" type="tiles">trainmanIntro</result>
+		</global-results>
+
+
+
+
 		<!-- es darf bei den results nur die Typen "tiles" und "chain" geben. Direktes 
 			verlinken auf JSP muss wegen der Templating Engine vermieden werden. -->
 
@@ -22,6 +42,7 @@
 		<!-- Dummy Ende -->
 
 
+
 		<action name="SaveNewExam" class="de.hatoma.exman.action.HandleExamAction"
 			method="save">
 			<result name="input" type="tiles">inputSingle</result>
@@ -31,39 +52,18 @@
 			<result type="tiles">inputSingleSuccess</result>
 		</action>
 
-		<action name="FileSingleOralExamAttendance" class="de.hatoma.exman.action.HandleExamAction"
-			method="save">
-			<result name="input" type="tiles">fileSingleOralExamAttendance
-			</result>
-			<result name="success" type="chain">FileSingleOralExamAttendanceSuccess
-			</result>
-		</action>
-		<action name="FileSingleOralExamAttendanceSuccess">
-			<result type="tiles">fileSingleOralExamAttendanceSuccess</result>
-		</action>
-
-
 		<action name="FileSingleExamAttendance"
 			class="de.hatoma.exman.action.SingleExamAttendanceAction" method="display">
 			<result name="showInputForm" type="tiles">inputSingleExamAttendance
 			</result>
 		</action>
 
-		<action name="ShowStudentListForOralExamination"
-			class="de.hatoma.exman.action.ShowStudentListForOralExaminationAction">
-			<result name="showInputForm" type="tiles">showListForOralExamAttendance
+		<action name="OralExamination" class="de.hatoma.exman.action.OralExaminationAction">
+			<result name="showList" type="tiles">showListForOralExamAttendance
 			</result>
-			<result name="input" type="tiles">showListForOralExamAttendance
+			<result name="input" type="tiles">fileSingleOralExamAttendance
 			</result>
-			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
-		</action>
-
-		<action name="SingleOralExaminationAttendanceAction"
-			class="de.hatoma.exman.action.SingleOralExaminationAttendanceAction">
-			<result name="showInputForm" type="tiles">fileSingleOralExamAttendance
-			</result>
-			<!-- <result name="input" type="tiles">showListForOralExamAttendance</result> -->
-			<!-- <result name="success" type="chain">FileSingleOralExamAttendance</result> -->
+			<result name="protocol" type="tiles">commonProtocol</result>
 		</action>
 
 		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
@@ -85,10 +85,16 @@
 			class="de.hatoma.exman.action.ExamAttendanceBulkUpdateAction">
 			<result name="showBulkList" type="tiles">examAttendanceBulkUpdateList
 			</result>
+			<result name="input" type="tiles">examAttendanceBulkUpdateList
+			</result>
 			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
 			</result>
 		</action>
+
+		<action name="AuditTrail" class="de.hatoma.exman.action.AuditTrailAction">
+			<result name="displayExamAttendanceAuditTrail" type="tiles">displayExamAttendanceAuditTrail
+			</result>
+			<result name="error" type="tiles">commonError</result>
+		</action>
 	</package>
-
-
 </struts>

@@ -1,6 +1,7 @@
 package de.hatoma.exman.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,6 +39,10 @@ public class ExManRevisionEntity implements Serializable {
 	 */
 	public long getChangedOn() {
 		return changedOn;
+	}
+	
+	public Date getChangedOnAsDate() {
+		return new java.sql.Date(changedOn);  
 	}
 
 	/**

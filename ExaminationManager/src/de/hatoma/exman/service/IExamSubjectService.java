@@ -15,4 +15,7 @@ public interface IExamSubjectService {
 
 	ExamSubject load(Long id);
 
+	ExamSubject getExamSubject(long id);
+
+	public long getExamSubjectCount();
 }

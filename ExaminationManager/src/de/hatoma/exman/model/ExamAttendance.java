@@ -28,7 +28,7 @@ public class ExamAttendance implements Serializable {
 	private Student student;
 
 	private Date supplementalOralExamDate;
-	private ExamGrade supplementOralExamGrade;
+	private OralExamGrade supplementOralExamGrade;
 
 	public int getAttempt() {
 		return attempt;
@@ -58,7 +58,7 @@ public class ExamAttendance implements Serializable {
 		return supplementalOralExamDate;
 	}
 
-	public ExamGrade getSupplementOralExamGrade() {
+	public OralExamGrade getSupplementOralExamGrade() {
 		return supplementOralExamGrade;
 	}
 
@@ -86,7 +86,7 @@ public class ExamAttendance implements Serializable {
 		this.supplementalOralExamDate = supplementalOralExamDate;
 	}
 
-	public void setSupplementOralExamGrade(ExamGrade supplementOralExamGrade) {
+	public void setSupplementOralExamGrade(OralExamGrade supplementOralExamGrade) {
 		this.supplementOralExamGrade = supplementOralExamGrade;
 	}
 
