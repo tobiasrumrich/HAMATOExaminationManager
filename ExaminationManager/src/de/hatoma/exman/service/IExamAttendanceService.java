@@ -98,5 +98,16 @@ public interface IExamAttendanceService {
 	 */
 	public ExamAttendance getExamAttendanceById(long id);
 	
+	/**
+	 * Retrieves the audit trail for the ExamAttendace entity with the id provided
+	 * @param examAttendanceId
+	 * @return
+	 */
 	public List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> getAuditTrail(long examAttendanceId);
+	
+	/**
+	 * Retrieves a list of all current ExamAttendance Records
+	 * @return
+	 */
+	public List<ExamAttendance> getAllCurrentRecords();
 }
