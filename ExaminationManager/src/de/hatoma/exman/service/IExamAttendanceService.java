@@ -15,8 +15,9 @@ import de.hatoma.exman.model.Student;
 
 /**
  * Interface for an ExamAttendance Service
+ * 
  * @author tobias
- *
+ * 
  */
 public interface IExamAttendanceService {
 
@@ -30,9 +31,10 @@ public interface IExamAttendanceService {
 	 */
 	public ExamAttendance createExamAttendanceForStudent(Student student,
 			Exam exam, ExamGrade examGrade);
-	
+
 	/**
 	 * Retrieves all ExamAttendances for
+	 * 
 	 * @param exam
 	 * @return List<ExamAttendace>
 	 */
@@ -40,74 +42,94 @@ public interface IExamAttendanceService {
 
 	/**
 	 * Updates an examAttendance
+	 * 
 	 * @param examAttendance
 	 * @throws Exception
 	 */
 	public void update(ExamAttendance examAttendance) throws Exception;
-	
+
 	/**
-	 * Adds information about supplemental oral examination to existing attendance
+	 * Adds information about supplemental oral examination to existing
+	 * attendance
+	 * 
 	 * @param examAttendance
 	 * @param oralExamGrade
 	 * @param oralExamDate
 	 * @throws Exception
 	 */
-	public void addOralExaminationResultToExamAttendance(ExamAttendance examAttendance, OralExamGrade oralExamGrade, Date oralExamDate) throws Exception;
+	public void addOralExaminationResultToExamAttendance(
+			ExamAttendance examAttendance, OralExamGrade oralExamGrade,
+			Date oralExamDate) throws Exception;
 
 	/**
 	 * Delivers all students eligable for an oral exam
+	 * 
 	 * @param manipleId
-	 */	
+	 */
 	public List<ExamAttendance> getOralCandidates(long manipleId);
 
 	/**
-	 * Retrieves all ExamAttendances for a specified 
+	 * Retrieves all ExamAttendances for a specified
+	 * 
 	 * @param examSubject
 	 * @return List<ExamAttendance>
 	 */
-	public List<ExamAttendance> getExamAttendancesByExamSubject(ExamSubject examSubject);
-	
+	public List<ExamAttendance> getExamAttendancesByExamSubject(
+			ExamSubject examSubject);
+
 	/**
-	 * Retrieves all ExtamAttendances of a student for a specified subject, 
+	 * Retrieves all ExtamAttendances of a student for a specified subject,
+	 * 
 	 * @param examSubject
 	 * @param student
 	 * @return
 	 */
-	public List<ExamAttendance> getExamAttendancesForStudentByExamSubject (ExamSubject examSubject, Student student);
-	
+	public List<ExamAttendance> getExamAttendancesForStudentByExamSubject(
+			ExamSubject examSubject, Student student);
+
 	/**
-	 * Returns the most recent ExamAttendance of a Student for a specified ExamSubject
+	 * Returns the most recent ExamAttendance of a Student for a specified
+	 * ExamSubject
+	 * 
 	 * @param examSubject
 	 * @param student
 	 * @return
 	 */
-	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(ExamSubject examSubject, Student student) throws NoPreviousAttemptException;
-	
-	
+	public ExamAttendance getLatestExamAttendanceOfStudentByExamSubject(
+			ExamSubject examSubject, Student student)
+			throws NoPreviousAttemptException;
+
 	/**
 	 * Returns a list of all Students that eligible to attend to an exam
+	 * 
 	 * @param exam
 	 * @return
 	 */
 	public List<Student> getAllStudentsEligibleForExamAttendance(Exam exam);
-	
+
 	/**
 	 * Returns an ExamAttendance according to the given id.
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public ExamAttendance getExamAttendanceById(long id);
-	
+
 	/**
-	 * Retrieves the audit trail for the ExamAttendace entity with the id provided
+	 * Retrieves the audit trail for the ExamAttendace entity with the id
+	 * provided
+	 * 
 	 * @param examAttendanceId
 	 * @return
 	 */
-	public List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> getAuditTrail(long examAttendanceId);
-	
+	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(
+			long examAttendanceId);
+
 	/**
-	 * Retrieves a list of all current ExamAttendance Records
+	 * Retrieves a list of all current ExamAttendances for a student
+	 * 
+	 * @param student
 	 * @return
 	 */
-	public List<ExamAttendance> getAllCurrentRecords();
+	public List<ExamAttendance> getAllCurrentRecordsForStudent(Student student);
 }

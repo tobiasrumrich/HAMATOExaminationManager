@@ -63,20 +63,7 @@ public class AuditTrailAction extends ActionSupport {
 	private List<ExamAttendance> attendancesList;
 	
 	public String prepareList() {
-		attendancesList = new ArrayList<ExamAttendance>();
-		
-		for (Maniple maniple : manipleService.getAll()) {
-			Collection<Student> students = manipleService.getStudents(maniple.getId());
-			for (Student student : students) {
-				for (ExamSubject examSubject : maniple.getExamSubject()) {
-					try {
-						attendancesList.add(examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student));
-					} catch (NoPreviousAttemptException e) {
-						continue;
-					}
-				}
-			}
-		}
+
 
 		return "list";
 	}

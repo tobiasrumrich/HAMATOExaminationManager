@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
+import de.hatoma.exman.dao.IStudentDao;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.dao.exceptions.OralGradeAlreadyExistantException;
 import de.hatoma.exman.dao.exceptions.StudentNotEligibleForOralExamException;
@@ -204,7 +205,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	}
 
 	@Override
-	public List<ExamAttendance> getAllCurrentRecords() {
+	public List<ExamAttendance> getAllCurrentRecordsForStudent(Student student) {
 		List<ExamAttendance> attendancesList = new ArrayList<ExamAttendance>();
 		
 		for (Maniple maniple : manipleService.getAll()) {

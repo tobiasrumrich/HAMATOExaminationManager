@@ -5,9 +5,19 @@
 <script type="text/javascript">
 	$(function() {
 
+		$('#example').dataTable( {
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "../examples_support/server_processing.php"
+		} );
+		
+		
 		$('#examList').dataTable({
 			"bAutoWidth" : true,
 			"bProcessing" : true,
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "JSONResponder"
 			"aoColumnDefs" : [ {
 				"sType" : "string",
 				"sWidth" : "120px",
@@ -43,6 +53,9 @@
 	});
 </script>
 
+
+<txt
+
 		<table id="examList" class="hatoma_dataTable">
 			<thead>
 				<tr>
@@ -56,10 +69,5 @@
 			</thead>
 			<tbody>
 
-
-<s:iterator value="attendancesList">
-<tr><s:
-
-</s:iterator>
 </tbody>
 </table>
