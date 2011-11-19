@@ -191,6 +191,7 @@ public class OralExaminationAction extends ActionSupport {
 			calendar.set(year, month, date);
 			examAttendanceService.addOralExaminationResultToExamAttendance(
 					examAttendance, oralExamGrade, calendar.getTime());
+			getProtocolledExamAttendances().clear();
 			getProtocolledExamAttendances().add(
 					examAttendanceService
 							.getExamAttendanceById(examAttendanceId));
