@@ -1,3 +1,4 @@
+<!-- author Marcel Schroeter, 3690 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
@@ -6,23 +7,34 @@
 		$("#date").datepicker({
 			dateFormat : 'dd.mm.yy',
 			firstDay : 0,
-			currentText : '<s:text name="lblToday" />',
-			dayNamesMin: ['<s:text name="lblMondayShort" />','<s:text name="lblTuesdayShort" />','<s:text name="lblWednesdayShort" />','<s:text name="lblThursdayShort" />','<s:text name="lblFridayShort" />','<s:text name="lblSaturdayShort" />','<s:text name="lblSundayShort" />'],
-			monthNames: ['<s:text name="lblJanuary" />','<s:text name="lblFebruary" />','<s:text name="lblMarch" />','<s:text name="lblApril" />','<s:text name="lblMay" />','<s:text name="lblJune" />','<s:text name="lblJuly" />','<s:text name="lblAugust" />','<s:text name="lblSeptember" />','<s:text name="lblOctober" />','<s:text name="lblNovember" />','<s:text name="lblDecember" />'],
-			maxDate: '+0m +0w +0d' 
-		});
+			currentText : '<s:text name="jQueryDatePickerToday" />',
+			dayNamesMin: ['<s:text name="jQueryDatePickerMondayShort" />','<s:text name="jQueryDatePickerTuesdayShort" />','<s:text name="jQueryDatePickerWednesdayShort" />','<s:text name="jQueryDatePickerThursdayShort" />','<s:text name="jQueryDatePickerFridayShort" />','<s:text name="jQueryDatePickerSaturdayShort" />','<s:text name="jQueryDatePickerSundayShort" />'],
+			monthNames: ['<s:text name="jQueryDatePickerJanuary" />','<s:text name="jQueryDatePickerFebruary" />','<s:text name="jQueryDatePickerMarch" />','<s:text name="jQueryDatePickerApril" />','<s:text name="jQueryDatePickerMay" />','<s:text name="jQueryDatePickerJune" />','<s:text name="jQueryDatePickerJuly" />','<s:text name="jQueryDatePickerAugust" />','<s:text name="jQueryDatePickerSeptember" />','<s:text name="jQueryDatePickerOctober" />','<s:text name="jQueryDatePickerNovember" />','<s:text name="
+	jQueryDatePickerDecember" />' ],
+					maxDate : '+0m +0w +0d'
+				});
 	})
 </script>
-<!-- <s:date name="date" format="%{getText('examDateFormat')}" /> -->
-
+<s:if test="hasActionErrors()">
+<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+	<p>
+		<span class="ui-icon ui-icon-alert"
+			style="float: left; margin-right: .3em;"></span> <strong><s:text
+				name="txtErrorHead" /></strong>
+	</p>
+	<s:actionerror />
+</div>
+</s:if>
 <s:form validate="true">
 	<s:token />
 	<s:hidden name="examAttendanceId" value="%{examAttendanceId}" />
-	<s:textfield name="student" key="lblStudentName"
-		value="%{selectedStudent.forename} %{selectedStudent.lastname}"
+	<s:hidden name="frmStudent" />
+	<s:hidden name="frmSubject" />
+				
+	<s:textfield name="frmStudent" key="lblStudentName"
 		disabled="true" />
-	<s:textfield name="examSubject" key="lblExamSubject"
-		value="%{selectedExamSubject.title}" disabled="true" />
+	<s:textfield name="frmSubject" key="lblExamSubject"
+		disabled="true" />
 	<s:textfield key="lblDate" id="date"
 		name="frmSupplementalOralExaminationDate" required="true" />
 	<s:select key="lblExamGrade" list="oralExamGrades" required="true"
