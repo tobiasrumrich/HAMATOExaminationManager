@@ -34,29 +34,36 @@
 <script type="text/javascript"
 	src="resources/jquery/js/jquery.cookie.js"></script>
 <script type="text/javascript">
-	$(function() {
+	jQuery(document).ready(function() {
+
+		var accordion = $("#hatoma_accordion");
+		var index = $.cookie("accordion");
+		var active;
+		if (index !== null) {
+			active = accordion.find("h3:eq(" + index + ")");
+		} else {
+			active = 0
+		}
+
 		$("#hatoma_accordion").accordion({
 			header : "h3",
-			active : 0,
 			collapsible : false,
 			fillSpace : true,
-			animated : true
+			active : active,
+			animated : true,
+			change : function(event, ui) {
+				var index = $(this).find("h3").index(ui.newHeader[0]);
+				$.cookie("accordion", index, {
+					path : "/"
+				});
+			}
 
 		});
-		
-		
-		$('#hatoma_accordion').bind('accordionchange', function(event, acc) {
-			$.cookie('exmaMenuState', 
-			  ui.newHeader // jQuery object, activated header
-			});
 
-		
-		
-		if($.cookie('menustate')) {
-	         $('#hatoma_accordion').accordion('option', 'animated', false);
-	         $('#hatoma_accordion').accordion('activate', $('#' + $.cookie('menustate')).parent('h3'));
-	         $('#hatoma_accordion').accordion('option', 'animated', 'slide');
-		}
+		//$("#hatoma_accordion").css('display', 'block');
+		$("#hatoma_accordion").show("fade");
+		$(".hatoma_dataTable").show("fade");
+
 	});
 </script>
 
@@ -86,7 +93,7 @@
 			<div id="navigation">
 				<div id="hatoma_accordion">
 					<div>
-						<h3>
+						<h3 id="acc001">
 							<a href="#"><img src="resources/img/icons/report.png" /> <s:text
 									name="lblNavReports" /></a>
 						</h3>
@@ -102,7 +109,7 @@
 						</div>
 					</div>
 
-					<div>
+					<div id="acc002">
 						<h3>
 							<a href="#"><img
 								src="resources/img/icons/award_star_gold_2.png" /> <s:text
@@ -138,7 +145,7 @@
 						</div>
 					</div>
 
-					<div>
+					<div id="acc003">
 						<h3>
 							<a href="#"><img src="resources/img/icons/calendar.png" /> <s:text
 									name="lblNaVExamOverviewHeader" /></a>
@@ -162,7 +169,7 @@
 						</div>
 					</div>
 
-					<div>
+					<div id="acc004">
 						<h3>
 							<a href="#"><img src="resources/img/icons/cog.png" /> <s:text
 									name="lblNavOthers" /></a>
