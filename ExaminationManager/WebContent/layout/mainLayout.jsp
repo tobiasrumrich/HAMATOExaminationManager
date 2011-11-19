@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -70,21 +69,21 @@
 				<div id="hatoma_accordion">
 					<div>
 						<h3>
-							<a href="#"><s:text name="lblNavReports" /></a>
+							<a href="#"><img src="resources/img/icons/report.png" /><s:text name="lblNavReports" /></a>
 						</h3>
 						<div>
 							<p>
-								<s:text name="lblNavExamGradeOverviewByPerson" />
+								<img src="resources/img/icons/user.png" /><s:text name="lblNavExamGradeOverviewByPerson" />
 							</p>
 							<p>
-								<s:text name="lblNavExamGradeOverviewByManiple" />
+								<img src="resources/img/icons/group.png" /><s:text name="lblNavExamGradeOverviewByManiple" />
 							</p>
 						</div>
 					</div>
 
 					<div>
 						<h3>
-							<a href="#"><s:text name="lblNavExamResults" /></a>
+							<a href="#"><img src="resources/img/icons/award_star_gold_2.png" /><s:text name="lblNavExamResults" /></a>
 						</h3>
 						<div>
 							<p>
@@ -92,7 +91,7 @@
 									<s:param name="target">bulkInsert</s:param>
 								</s:url>
 								<s:a href="%{examAttendanceBulkUpdateUrl}">
-									<s:text name="lblNavExamAttendanceBulkInsert" />
+									<img src="resources/img/icons/group_add.png" /><s:text name="lblNavExamAttendanceBulkInsert" />
 								</s:a>
 							</p>
 
@@ -100,14 +99,14 @@
 								<s:url action="FileSingleExamAttendance"
 									id="fileSingleExamAttendanceUrl" />
 								<s:a href="%{fileSingleExamAttendanceUrl}">
-									<s:text name="lblNavExamAttendanceSingleInsert" />
+									<img src="resources/img/icons/user_add.png" /><s:text name="lblNavExamAttendanceSingleInsert" />
 								</s:a>
 
 							</p>
 							<p>
 								<s:url action="OralExamination" id="oralExaminationUrl" />
 								<s:a href="%{oralExaminationUrl}">
-									<s:text name="lblNavExamAttendanceOralExamination" />
+									<img src="resources/img/icons/comments_add.png" /><s:text name="lblNavExamAttendanceOralExamination" />
 								</s:a>
 							</p>
 						</div>
@@ -115,20 +114,20 @@
 
 					<div>
 						<h3>
-							<a href="#"><s:text name="lblNaVExamOverviewHeader" /></a>
+							<a href="#"><img src="resources/img/icons/calendar.png" /><s:text name="lblNaVExamOverviewHeader" /></a>
 						</h3>
 						<div>
 							<p>
 								<s:url action="CreateExam" id="createExamUrl" />
 								<s:a href="%{createExamUrl}">
-									<s:text name="lblNavCreateNewExam" />
+									<img src="resources/img/icons/date_add.png" /><s:text name="lblNavCreateNewExam" />
 								</s:a>
 							</p>
 
 							<p>
 								<s:url action="ExamOverview" id="examOverviewUrl" />
 								<s:a href="%{examOverviewUrl}">
-									<s:text name="lblNavAdministerExams" />
+									<img src="resources/img/icons/calendar_edit.png" /><s:text name="lblNavAdministerExams" />
 								</s:a>
 							</p>
 						</div>
@@ -136,13 +135,13 @@
 
 					<div>
 						<h3>
-							<a href="#"><s:text name="lblNavOthers" /></a>
+							<a href="#"><img src="resources/img/icons/cog.png" /><s:text name="lblNavOthers" /></a>
 						</h3>
 						<div>
 							<p>
 								<s:url action="Trainman" id="trainManUrl" />
 								<s:a href="%{trainManUrl}">
-									<s:text name="lblNavTrainman" />
+									<img src="resources/img/icons/database_go.png" /><s:text name="lblNavTrainman" />
 								</s:a>
 							</p>
 						</div>

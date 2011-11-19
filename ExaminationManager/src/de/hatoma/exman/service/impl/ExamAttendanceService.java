@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
+import de.hatoma.exman.dao.exceptions.OralGradeAlreadyExistantException;
+import de.hatoma.exman.dao.exceptions.StudentNotEligibleForOralExamException;
 import de.hatoma.exman.dao.helpers.AuditTrailBean;
 import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
@@ -185,8 +187,8 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	public void addOralExaminationResultToExamAttendance(
 			ExamAttendance examAttendance, OralExamGrade oralExamGrade,
 			Date oralExamDate) throws Exception {
-		if (examAttendance.getSupplementOralExamGrade() != null) { throw new Exception(); }
-		if (examAttendance.getExamGrade() != ExamGrade.G50) { throw new Exception(); }
+		if (examAttendance.getSupplementOralExamGrade() != null) { throw new OralGradeAlreadyExistantException(); }
+		if (examAttendance.getExamGrade() != ExamGrade.G50) { throw new StudentNotEligibleForOralExamException(); }
 		examAttendance.setSupplementOralExamGrade(oralExamGrade);
 		examAttendance.setSupplementalOralExamDate(oralExamDate);
 		examAttendanceDao.update(examAttendance);

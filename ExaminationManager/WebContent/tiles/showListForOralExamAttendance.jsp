@@ -1,3 +1,4 @@
+<!-- author Marcel Schroeter, 3690 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page
@@ -100,10 +101,10 @@
 			</s:url>
 			<tr>
 				<td><s:property value="attempt" /></td>
-				<td><s:a href="%{currentUrl}"><s:property value="exam.examSubject.title" /></s:a></td>
+				<td><s:a href="%{currentUrl}"><img src="resources/img/icons/comment_edit.png" alt="<s:text name="txtADNFileSingleOralExamAttendance"></s:text>" /><s:property value="exam.examSubject.title" /></s:a></td>
 				<td><s:property value="examGrade.getAsExpression()" /></td>
-				<td><s:a href="%{currentUrl}"><s:property value="student.forename" /></s:a></td>
-				<td><s:a href="%{currentUrl}"><s:property value="student.lastname" /></s:a></td>
+				<td><s:a href="%{currentUrl}"><img src="resources/img/icons/comment_edit.png" alt="<s:text name="txtADNFileSingleOralExamAttendance"></s:text>" /><s:property value="student.forename" /></s:a></td>
+				<td><s:a href="%{currentUrl}"><img src="resources/img/icons/comment_edit.png" alt="<s:text name="txtADNFileSingleOralExamAttendance"></s:text>" /><s:property value="student.lastname" /></s:a></td>
 				<td><s:property value="student.matriculationNumber" /></td>
 			</tr>
 		</s:iterator>
