@@ -82,7 +82,7 @@
 							id="examAttendanceBulkUpdateUrl">
 							<s:param name="examId" value="id" />
 						</s:url>
-						<s:a href="%{examAttendanceBulkUpdateUrl}" tooltip="txtLinkToExamAttendanceBulkUpdate">
+						<s:a href="%{examAttendanceBulkUpdateUrl}" tooltip="%{txtLinkToExamAttendanceBulkUpdate}">
 							<img src="resources/img/icons/table_add.png" />
 						</s:a>
 						<s:if test="%{isExamEditable(id)}">
@@ -90,7 +90,7 @@
 							<s:url action="EditExamination" id="editExamaninationUrl">
 								<s:param name="examId"></s:param>
 							</s:url>
-							<s:a href="%{editExamaninationUrl}" tooltip="txtEditExam">
+							<s:a href="%{editExamaninationUrl}" tooltip="%{txtEditExam}">
 							<img src="resources/img/icons/pencil_go.png" />
 							</s:a>
 						</s:if>

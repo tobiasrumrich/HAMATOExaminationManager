@@ -17,6 +17,11 @@ body {
 	background-repeat: repeat-x;
 }
 
+img {
+	margin-left:3px;
+	margin-right:3px;
+}
+
 div#headerbar {
 	position: fixed;
 	top: 0;
