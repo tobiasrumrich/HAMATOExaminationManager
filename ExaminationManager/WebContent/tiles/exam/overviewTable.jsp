@@ -87,7 +87,7 @@
 
 
 
-						<s:url action="EditExamination" id="editExamaninationUrl">
+						<s:url action="EditExam" id="editExamaninationUrl">
 							<s:param name="examId"></s:param>
 						</s:url>
 						<s:a href="%{editExamaninationUrl}">[EDIT]</s:a>
