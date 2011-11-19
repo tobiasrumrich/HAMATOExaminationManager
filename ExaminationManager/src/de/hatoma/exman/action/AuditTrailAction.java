@@ -19,9 +19,10 @@ import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IStudentService;
 
 /**
- * This action displays 
+ * This action displays
+ * 
  * @author tobias
- *
+ * 
  */
 public class AuditTrailAction extends ActionSupport {
 
@@ -32,10 +33,10 @@ public class AuditTrailAction extends ActionSupport {
 
 	@Autowired
 	private IExamSubjectService examSubjectService;
-	
-	@Autowired 
+
+	@Autowired
 	private IExamAttendanceService examAttendanceService;
-	
+
 	@Autowired
 	private IStudentService studentService;
 
@@ -48,60 +49,72 @@ public class AuditTrailAction extends ActionSupport {
 
 	private ExamSubject examSubject;
 
-	private Map<String,List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> combinedAuditTrail;
+	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> combinedAuditTrail;
 
 	private List<ExamAttendance> examAttendances;
-	
+
 	private List<List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> myMapList;
 
+	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map;
+
 	public String execute() {
-		
+
 		try {
 			selectedStudentId = Long.valueOf(studentId);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			addActionError("Ungültige Student ID");
 			return "error";
 		}
-		
+
 		student = studentService.getStudent(selectedStudentId);
 		if (student == null) {
 			addActionError("Ungültige Student ID");
 			return "error";
 		}
-		
+
 		try {
 			selectedExamSubjectId = Long.valueOf(examSubjectId);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			addActionError("Ungültige Prüfungsfach ID");
 		}
-		
+
 		examSubject = examSubjectService.getExamSubject(selectedExamSubjectId);
 		if (examSubject == null) {
 			addActionError("Ungültige Prüfungsfach ID");
 		}
-		
-		// ****** TEST **********
 
-		
-		examAttendances = examAttendanceService.getExamAttendancesForStudentByExamSubject(examSubject, student);
-		myMapList = new ArrayList<List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>();
-		combinedAuditTrail = new HashMap<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>();
+		map = new HashMap<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>();
+
+		examAttendances = examAttendanceService
+				.getExamAttendancesForStudentByExamSubject(examSubject, student);
 		for (ExamAttendance examAttendance : examAttendances) {
-			//examAttendance.setExamGrade(ExamGrade.G30);
-			//examAttendanceService.createExamAttendanceForStudent(examAttendance.getStudent(), examAttendance.getExam(), ExamGrade.G10);
-			try {
-				examAttendanceService.update(examAttendance);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			examAttendance = examAttendanceService.getExamAttendanceById(examAttendance.getId());
-			List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail = examAttendanceService.getAuditTrail(examAttendance.getId());
-			combinedAuditTrail.put(String.valueOf(examAttendance.getId()),auditTrail);
-			myMapList.add(auditTrail);
+			List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail = examAttendanceService
+					.getAuditTrail(examAttendance.getId());
+			map.put(String.valueOf(examAttendance.getId()), auditTrail);
 		}
+		/*
+		 * 
+		 * examAttendances =
+		 * examAttendanceService.getExamAttendancesForStudentByExamSubject
+		 * (examSubject, student); myMapList = new
+		 * ArrayList<List<AuditTrailBean<ExManRevisionEntity,
+		 * ExamAttendance>>>(); combinedAuditTrail = new HashMap<String,
+		 * List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>(); for
+		 * (ExamAttendance examAttendance : examAttendances) {
+		 * //examAttendance.setExamGrade(ExamGrade.G30);
+		 * //examAttendanceService.
+		 * createExamAttendanceForStudent(examAttendance.getStudent(),
+		 * examAttendance.getExam(), ExamGrade.G10); try {
+		 * examAttendanceService.update(examAttendance); } catch (Exception e) {
+		 * // TODO Auto-generated catch block e.printStackTrace(); }
+		 * examAttendance =
+		 * examAttendanceService.getExamAttendanceById(examAttendance.getId());
+		 * List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail
+		 * = examAttendanceService.getAuditTrail(examAttendance.getId());
+		 * combinedAuditTrail
+		 * .put(String.valueOf(examAttendance.getId()),auditTrail);
+		 * myMapList.add(auditTrail); }
+		 */
 		return "displayExamAttendanceAuditTrail";
 	}
 
@@ -188,7 +201,8 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @param studentService the studentService to set
+	 * @param studentService
+	 *            the studentService to set
 	 */
 	public void setStudentService(IStudentService studentService) {
 		this.studentService = studentService;
@@ -202,12 +216,13 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @param examAttendanceService the examAttendanceService to set
+	 * @param examAttendanceService
+	 *            the examAttendanceService to set
 	 */
-	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
 		this.examAttendanceService = examAttendanceService;
 	}
-
 
 	/**
 	 * @return the examAttendances
@@ -217,7 +232,8 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @param examAttendances the examAttendances to set
+	 * @param examAttendances
+	 *            the examAttendances to set
 	 */
 	public void setExamAttendances(List<ExamAttendance> examAttendances) {
 		this.examAttendances = examAttendances;
@@ -226,14 +242,30 @@ public class AuditTrailAction extends ActionSupport {
 	/**
 	 * @return the combinedAuditTrail
 	 */
-	public Map<String,List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> getCombinedAuditTrail() {
+	public Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> getCombinedAuditTrail() {
 		return combinedAuditTrail;
 	}
 
 	/**
-	 * @param combinedAuditTrail the combinedAuditTrail to set
+	 * @param combinedAuditTrail
+	 *            the combinedAuditTrail to set
 	 */
-	public void setCombinedAuditTrail(Map<String,List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> combinedAuditTrail) {
+	public void setCombinedAuditTrail(
+			Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> combinedAuditTrail) {
 		this.combinedAuditTrail = combinedAuditTrail;
+	}
+
+	/**
+	 * @return the map
+	 */
+	public Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> getMap() {
+		return map;
+	}
+
+	/**
+	 * @param map the map to set
+	 */
+	public void setMap(Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map) {
+		this.map = map;
 	}
 }

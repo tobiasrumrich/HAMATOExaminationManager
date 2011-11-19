@@ -162,7 +162,6 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 
 	public String execute() throws Exception {
 		if (getActionErrors().size() > 0) return "criticalError";
-		System.out.println("THIS");
 		return "showBulkList";
 	}
 
