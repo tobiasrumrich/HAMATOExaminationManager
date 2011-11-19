@@ -33,6 +33,7 @@
 	src="resources/jquery/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript"
 	src="resources/jquery/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="resources/hatoma.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function() {
 

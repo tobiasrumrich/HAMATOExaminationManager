@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
+import de.hatoma.exman.dao.IStudentDao;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.dao.exceptions.OralGradeAlreadyExistantException;
 import de.hatoma.exman.dao.exceptions.StudentNotEligibleForOralExamException;
@@ -35,7 +36,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
 	private IManipleService manipleService;
-	
+
 	@Autowired
 	private IStudentDao studentDao;
 
@@ -140,7 +141,8 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 			currentSubject = attendance.getExam().getExamSubject();
 			// TODO Hannes, ich steh grad aufm Schlauch, ich wei� dass es gegen
-			// den Nachbarschaftskodex (oder wie dat heisst^^) verstoesst,  aber ich
+			// den Nachbarschaftskodex (oder wie dat heisst^^) verstoesst, aber
+			// ich
 			// hab grad ne Blockade, wie ichs besser mach
 
 			int numberOfOralExams;
@@ -190,29 +192,37 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	public void addOralExaminationResultToExamAttendance(
 			ExamAttendance examAttendance, OralExamGrade oralExamGrade,
 			Date oralExamDate) throws Exception {
-		if (examAttendance.getSupplementOralExamGrade() != null) { throw new OralGradeAlreadyExistantException(); }
-		if (examAttendance.getExamGrade() != ExamGrade.G50) { throw new StudentNotEligibleForOralExamException(); }
+		if (examAttendance.getSupplementOralExamGrade() != null) {
+			throw new OralGradeAlreadyExistantException();
+		}
+		if (examAttendance.getExamGrade() != ExamGrade.G50) {
+			throw new StudentNotEligibleForOralExamException();
+		}
 		examAttendance.setSupplementOralExamGrade(oralExamGrade);
 		examAttendance.setSupplementalOralExamDate(oralExamDate);
 		examAttendanceDao.update(examAttendance);
-		
-		}
+
+	}
 
 	@Override
-	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(long examAttendanceId) {
+	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(
+			long examAttendanceId) {
 		return examAttendanceDao.getAuditTrail(examAttendanceId);
 	}
 
 	@Override
 	public List<ExamAttendance> getAllCurrentRecords() {
 		List<ExamAttendance> attendancesList = new ArrayList<ExamAttendance>();
-		
+
 		for (Maniple maniple : manipleService.getAll()) {
-			Collection<Student> students = manipleService.getStudents(maniple.getId());
+			Collection<Student> students = manipleService.getStudents(maniple
+					.getId());
 			for (Student student : students) {
-				for (ExamSubject examSubject : maniple.getExamSubject()) {
+				for (ExamSubject examSubject : maniple.getExamSubjects()) {
 					try {
-						attendancesList.add(examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student));
+						attendancesList
+								.add(getLatestExamAttendanceOfStudentByExamSubject(
+										examSubject, student));
 					} catch (NoPreviousAttemptException e) {
 						continue;
 					}
@@ -221,6 +231,12 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		}
 		return attendancesList;
 	}
-		
+
+	public IStudentDao getStudentDao() {
+		return studentDao;
 	}
 
+	public void setStudentDao(IStudentDao studentDao) {
+		this.studentDao = studentDao;
+	}
+}

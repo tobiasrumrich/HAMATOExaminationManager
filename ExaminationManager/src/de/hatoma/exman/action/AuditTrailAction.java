@@ -68,7 +68,7 @@ public class AuditTrailAction extends ActionSupport {
 		for (Maniple maniple : manipleService.getAll()) {
 			Collection<Student> students = manipleService.getStudents(maniple.getId());
 			for (Student student : students) {
-				for (ExamSubject examSubject : maniple.getExamSubject()) {
+				for (ExamSubject examSubject : maniple.getExamSubjects()) {
 					try {
 						attendancesList.add(examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student));
 					} catch (NoPreviousAttemptException e) {
