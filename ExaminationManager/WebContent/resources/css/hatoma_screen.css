@@ -1,8 +1,6 @@
-  /*******************************************/
- /* CSS für generelles Design               */
 /*******************************************/
-
-
+/* CSS für generelles Design               */
+/*******************************************/
 html {
 	height: 100%;
 }
@@ -81,17 +79,17 @@ div#main h1 {
 	padding-bottom: 12px;
 }
 
-.emphasized{
-	background-color:#eeeeee;
+.emphasized {
+	background-color: #eeeeee;
 }
 
-.trailTable{
-	display:none;
+.trailTable {
+	display: none;
 }
 
-.trailTable, .trailTable td{
-	border:1px solid black;
-	border-collapse:collapse;
+.trailTable,.trailTable td {
+	border: 1px solid black;
+	border-collapse: collapse;
 }
 
 /******/
@@ -132,17 +130,16 @@ span#sessioninfo {
 	padding-right: 20px;
 }
 
-  /*******************************************/
- /* CSS für jQuery DatePicker               */
 /*******************************************/
-
+/* CSS für jQuery DatePicker               */
+/*******************************************/
 #ui-datepicker-div {
 	background-color: white;
 	border: 1px solid grey;
 }
 
-  /*******************************************/
- /* CSS für Datatables                      */
+/*******************************************/
+/* CSS für Datatables                      */
 /*******************************************/
 .dataTables_info {
 	font-size: 70%;
@@ -168,6 +165,7 @@ span#sessioninfo {
 	border-collapse: collapse;
 	border: 2px grey solid;
 	margin: 05px;
+	display: none;
 }
 
 .dataTables_wrapper {
@@ -215,4 +213,8 @@ td {
 #ui-datepicker-div {
 	background-color: white;
 	border: 1px solid grey;
+}
+
+#hatoma_accordion {
+	display: none;
 }

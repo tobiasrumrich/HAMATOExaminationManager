@@ -71,34 +71,31 @@
 				<td><s:date name="date" format="%{getText('examDateFormat')}" />
 				</td>
 
-				<td>
-						<s:property value="examiner" />
-					</td>
+				<td><s:property value="examiner" /></td>
 
 				<td><s:property value="%{getText(examType.key)}" /></td>
 
-				<td>
-						<s:url action="ExamAttendanceBulkUpdate"
-							id="examAttendanceBulkUpdateUrl">
+				<td><s:url action="ExamAttendanceBulkUpdate"
+						id="examAttendanceBulkUpdateUrl">
+						<s:param name="examId" value="id" />
+					</s:url> <s:a href="%{examAttendanceBulkUpdateUrl}"
+						tooltip="txtLinkToExamAttendanceBulkUpdate">
+						<img src="resources/img/icons/table_add.png" />
+					</s:a> <s:if test="%{isExamEditable(id)}">
+
+						<s:url action="EditExamination" id="editExamaninationUrl">
 							<s:param name="examId" value="id" />
 						</s:url>
-						<s:a href="%{examAttendanceBulkUpdateUrl}" tooltip="%{txtLinkToExamAttendanceBulkUpdate}">
-							<img src="resources/img/icons/table_add.png" />
-						</s:a>
-						<s:if test="%{isExamEditable(id)}">
 
-							<s:url action="EditExamination" id="editExamaninationUrl">
-								<s:param name="examId"></s:param>
-							</s:url>
-							<s:a href="%{editExamaninationUrl}" tooltip="%{txtEditExam}">
+
+						<s:a href="%{editExamaninationUrl}" tooltip="txtEditExam">
 							<img src="resources/img/icons/pencil_go.png" />
-							</s:a>
-						</s:if>
-						<s:else>
-							<img src="resources/img/icons/lock.png" alt="<s:text name="txtNotEditable" />"/>
-						</s:else>
+						</s:a>
 
-				</td>
+					</s:if> <s:else>
+						<img src="resources/img/icons/lock.png"
+							alt="<s:text name="txtNotEditable" />" />
+					</s:else></td>
 			</tr>
 		</s:iterator>
 	</tbody>

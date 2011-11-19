@@ -35,6 +35,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
 	private IManipleService manipleService;
+	
+	@Autowired
+	private IStudentDao studentDao;
 
 	@Override
 	public ExamAttendance createExamAttendanceForStudent(Student student,
@@ -198,6 +201,25 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	@Override
 	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(long examAttendanceId) {
 		return examAttendanceDao.getAuditTrail(examAttendanceId);
+	}
+
+	@Override
+	public List<ExamAttendance> getAllCurrentRecords() {
+		List<ExamAttendance> attendancesList = new ArrayList<ExamAttendance>();
+		
+		for (Maniple maniple : manipleService.getAll()) {
+			Collection<Student> students = manipleService.getStudents(maniple.getId());
+			for (Student student : students) {
+				for (ExamSubject examSubject : maniple.getExamSubject()) {
+					try {
+						attendancesList.add(examAttendanceService.getLatestExamAttendanceOfStudentByExamSubject(examSubject, student));
+					} catch (NoPreviousAttemptException e) {
+						continue;
+					}
+				}
+			}
+		}
+		return attendancesList;
 	}
 		
 	}

@@ -28,7 +28,7 @@ table tr {
 		if (document.getElementById("trailTable_" + numberOfTrailtable).style.display == "block") {
 			document.getElementById("trailTable_" + numberOfTrailtable).style.display = "none";
 		} else {
-			document.getElementById("trailTable_" + numberOfTrailtable).style.display = "block"
+			document.getElementById("trailTable_" + numberOfTrailtable).style.display = "block";
 		}
 	}
 </script>
@@ -46,7 +46,7 @@ table tr {
 </table>
 <hr>
 <s:iterator value="map" status="mapStatus">
-	<div>
+<div>
 		<table>
 			<thead>
 				<tr>
@@ -66,17 +66,15 @@ table tr {
 
 					<td><s:property
 							value="%{getText(examMap[key].examType.getKey())}" /></td>
-
-
-					<td><s:property value="%{examMap[key].examiner}" />
+					<td><s:property value="%{examMap[key].examiner}" /></td>
 				</tr>
 
 				<tr>
 					<td>&nbsp;</td>
 					<td colspan="5"><a href="javascript: void(0);"
 						onClick="toggleTrailTable('<s:text name="%{#mapStatus.count}" />');">
-							<s:text name="txtHistoryOfDataset" /></a>
-					<br />
+							<s:text name="txtHistoryOfDataset" />
+					</a> <br />
 						<table class="trailTable"
 							id="trailTable_<s:text name="%{#mapStatus.count}" />">
 							<thead>
@@ -113,5 +111,5 @@ table tr {
 				</tr>
 			</tbody>
 		</table>
+		</div>
 </s:iterator>
-</div>
