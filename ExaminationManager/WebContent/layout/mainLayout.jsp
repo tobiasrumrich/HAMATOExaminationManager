@@ -55,7 +55,9 @@
 
 	<div id="headerbar">
 		<div id="header">
-			<span id="sessioninfo"><s:text name="txtLoggedInAs" /> <strong><sec:authentication property="principal.username" /></strong> <a href="<s:url value="j_spring_security_logout" />" >Logout</a></span>
+			<span id="sessioninfo"><s:text name="txtLoggedInAs" /> <strong><sec:authentication
+						property="principal.username" /></strong> <a
+				href="<s:url value="j_spring_security_logout" />">Logout</a></span>
 			<h1>
 				<s:text name="%{#attr.title}" />
 			</h1>
@@ -154,9 +156,32 @@
 				<h1>
 					<s:text name="%{#attr.actionDisplayName}" />
 				</h1>
-				<s:actionerror />
 
-				<s:actionmessage />
+				<!-- Hinweismeldungen -->
+				<s:if test="hasActionMessages()">
+					<div class="ui-widget">
+						<div class="ui-state-highlight ui-corner-all"
+							style="margin-top: 20px; padding: 0 .7em;">
+							<p>
+								<span class="ui-icon ui-icon-info"
+									style="float: left; margin-right: .3em;"></span> <strong><s:text
+										name="txtUiNotificationHeader" /></strong>
+								<s:actionmessage />
+							</p>
+						</div>
+					</div>
+				</s:if>
+
+				<s:if test="hasActionErrors()">
+					<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+						<p>
+							<span class="ui-icon ui-icon-alert"
+								style="float: left; margin-right: .3em;"></span> <strong><s:text
+									name="txtErrorHead" /></strong>
+						</p>
+						<s:actionerror />
+					</div>
+				</s:if>
 
 				<tiles:insertAttribute name="content" />
 
