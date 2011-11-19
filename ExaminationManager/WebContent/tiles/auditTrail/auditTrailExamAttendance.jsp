@@ -1,3 +1,5 @@
+<!-- author Marcel Schroeter, 3690 -->
+<!-- author Tobias Rumrich, 3638 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
@@ -33,14 +35,14 @@ table tr {
 	}
 </script>
 
-<p>Die folgenden Daten existieren zu diesem Geschäftsvorfall:</p>
+<p><s:text name="lblInfotextAuditTrail" /></p>
 <table>
 	<tr>
-		<td><strong>Student</strong></td>
+		<td><strong><s:text name="lblStudent" /></strong></td>
 		<td><s:property value="student" /></td>
 	</tr>
 	<tr>
-		<td><strong>Prüfungsfach</strong></td>
+		<td><strong><s:text name="lblExamSubject" /></strong></td>
 		<td><s:property value="examSubject" /></td>
 	</tr>
 </table>
@@ -50,11 +52,11 @@ table tr {
 		<table>
 			<thead>
 				<tr>
-					<td class="emphasized">Versuch</td>
-					<td>Status</td>
-					<td>Prüfungsdatum</td>
-					<td>Form</td>
-					<td>Prüfer</td>
+					<td class="emphasized"><s:text name="lblAttempt" /></td>
+					<td><s:text name="lblStatus" /></td>
+					<td><s:text name="lblExamDate2" /></td>
+					<td><s:text name="lblExamType" /></td>
+					<td><s:text name="lblExaminer" /></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,15 +81,14 @@ table tr {
 							id="trailTable_<s:text name="%{#mapStatus.count}" />">
 							<thead>
 								<tr>
-									<th rowspan="2">Datum der Änderung</th>
-									<th rowspan="2">Benutzer</th>
-									<th rowspan="2">Note</th>
-									<th colspan="2" style="text-align: center;">Mündlich.
-										Ergänzungsprüfung</th>
+									<th rowspan="2"><s:text name="lblDateOfEdit" /></th>
+									<th rowspan="2"><s:text name="lblUser" /></th>
+									<th rowspan="2"><s:text name="lblExamGrade" />Note</th>
+									<th colspan="2" style="text-align: center;"><s:text name="lblOralExam" /></th>
 								</tr>
 								<tr>
-									<th>Datum</th>
-									<th>Ergebnis</th>
+									<th><s:text name="lblDate" /></th>
+									<th><s:text name="lblExamGrade" /></th>
 
 								</tr>
 							</thead>

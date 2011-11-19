@@ -1,12 +1,17 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
 
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
@@ -20,6 +25,7 @@ import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
+import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.model.Student;
@@ -39,6 +45,12 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
 	private IStudentDao studentDao;
+
+	private Gson gson;
+
+	public ExamAttendanceService() {
+		gson = new Gson();
+	}
 
 	@Override
 	public ExamAttendance createExamAttendanceForStudent(Student student,
@@ -211,11 +223,29 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	}
 
 	@Override
-	public List<ExamAttendance> getAllCurrentRecordsForStudent(Student student) {
-		List<ExamAttendance> attendancesList = new ArrayList<ExamAttendance>();
-
-
-		return attendancesList;
+	public String getAllCurrentExamAttendancesForStudentAsJSON(Student student) {
+		
+		Maniple maniple = manipleDao.load(student.getManiple().getId());
+		
+		Collection<ExamSubject> examSubjects = maniple.getExamSubjects();
+		
+		
+		List<Map<String, String>> s = new ArrayList<Map<String, String>>();
+		for (ExamSubject examSubject : examSubjects) {
+			ExamAttendance attendance;
+			try {
+				attendance = examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+			} catch (NoPreviousAttemptException e) {
+				continue;
+			}
+			Map<String,String> m = new HashMap<String,String>();
+			m.put("examSubject", attendance.getExam().getExamSubject().toString());
+			m.put("dateLastExam", attendance.getExam().getDate().toString());
+			m.put("lastGrade", attendance.getExamGrade().getAsExpression());
+			s.add(m);
+		}
+		
+		return gson.toJson(s);
 	}
 
 	public IStudentDao getStudentDao() {

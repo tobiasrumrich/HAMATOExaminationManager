@@ -39,32 +39,39 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ExamAttendance> findByExamSubject(ExamSubject examSubject) {
-		Criteria criteria = getCurrentSession().createCriteria(ExamAttendance.class)
-				.add(Restrictions.eq("exam.examSubject", examSubject));
+		Criteria criteria = getCurrentSession().createCriteria(
+				ExamAttendance.class).add(
+				Restrictions.eq("exam.examSubject", examSubject));
 		return criteria.list();
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ExamAttendance> findByExamSubjectAndStudent(
 			ExamSubject examSubject, Student student) {
-		
-		
-		Criteria criteria = getCurrentSession().createCriteria(ExamAttendance.class);
+
+		Criteria criteria = getCurrentSession().createCriteria(
+				ExamAttendance.class);
 		criteria.add(Restrictions.eq("student", student));
-		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject));
+		criteria.createCriteria("exam").add(
+				Restrictions.eq("examSubject", examSubject));
 		return criteria.list();
 	}
 
 	@Override
 	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
-			ExamSubject examSubject, Student student) throws NoPreviousAttemptException {
-		Criteria criteria = getCurrentSession().createCriteria(ExamAttendance.class);
-		criteria.createCriteria("exam").add(Restrictions.eq("examSubject", examSubject)).addOrder( Order.asc("date"));
+			ExamSubject examSubject, Student student)
+			throws NoPreviousAttemptException {
+		Criteria criteria = getCurrentSession().createCriteria(
+				ExamAttendance.class);
+		criteria.createCriteria("exam")
+				.add(Restrictions.eq("examSubject", examSubject))
+				.addOrder(Order.asc("date"));
 		criteria.add(Restrictions.eq("student", student));
-		if (criteria.list().size() == 0) throw new NoPreviousAttemptException();
-		return (ExamAttendance) criteria.list().get(criteria.list().size()-1);
+		if (criteria.list().size() == 0)
+			throw new NoPreviousAttemptException();
+		return (ExamAttendance) criteria.list().get(criteria.list().size() - 1);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -72,8 +79,10 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 	public List<ExamAttendance> findbyManipleAndGrade(Maniple maniple,
 			ExamGrade examGrade, ExamGrade oralExamGrade) {
 		return getCurrentSession().createCriteria(ExamAttendance.class)
-		.add(Restrictions.eq("examGrade", examGrade)).add(
-				Restrictions.eq("supplementOralExamGrade", oralExamGrade)).createCriteria("student").add(Restrictions.eq("maniple", maniple)).list();
+				.add(Restrictions.eq("examGrade", examGrade))
+				.add(Restrictions.eq("supplementOralExamGrade", oralExamGrade))
+				.createCriteria("student")
+				.add(Restrictions.eq("maniple", maniple)).list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -81,10 +90,11 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 	public List<ExamAttendance> findbyManipleAndGrade(Maniple maniple,
 			ExamGrade examGrade) {
 		return getCurrentSession().createCriteria(ExamAttendance.class)
-		.add(Restrictions.eq("examGrade", examGrade)).add(
-				Restrictions.isNull("supplementOralExamGrade")).createCriteria("student").add(Restrictions.eq("maniple", maniple)).list();
+				.add(Restrictions.eq("examGrade", examGrade))
+				.add(Restrictions.isNull("supplementOralExamGrade"))
+				.createCriteria("student")
+				.add(Restrictions.eq("maniple", maniple)).list();
 	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -98,17 +108,22 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 	}
 
 	@Override
-	public List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> getAuditTrail(long id) {
+	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(
+			long id) {
 		AuditReader reader = AuditReaderFactory.get(getCurrentSession());
 		List<Number> revisions = reader.getRevisions(ExamAttendance.class, id);
-		
-		List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> auditTrail = new ArrayList<AuditTrailBean<ExManRevisionEntity,ExamAttendance>>();
+
+		List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail = new ArrayList<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>();
 		for (Number revisionId : revisions) {
-			ExManRevisionEntity revisionEntity = reader.findRevision(ExManRevisionEntity.class, revisionId);
-			ExamAttendance entity = reader.find(ExamAttendance.class, id, revisionId);
-			
-			auditTrail.add(new AuditTrailBean<ExManRevisionEntity,ExamAttendance>(revisionEntity, entity));
-			
+			ExManRevisionEntity revisionEntity = reader.findRevision(
+					ExManRevisionEntity.class, revisionId);
+			ExamAttendance entity = reader.find(ExamAttendance.class, id,
+					revisionId);
+
+			auditTrail
+					.add(new AuditTrailBean<ExManRevisionEntity, ExamAttendance>(
+							revisionEntity, entity));
+
 		}
 		return auditTrail;
 	}
