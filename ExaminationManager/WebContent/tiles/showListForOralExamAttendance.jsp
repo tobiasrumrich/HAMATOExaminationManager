@@ -16,51 +16,55 @@
 			"bProcessing" : true,
 			"bStateSave" : true,
 			"aoColumnDefs" : [ {
-				"sWidth" : "50px",
+				"sWidth" : "40px",
 				"aTargets" : [ 0 ]
 			}, {
-				"sWidth" : "230px",
+				"sWidth" : "50px",
 				"aTargets" : [ 1 ]
 			}, {
-				"sWidth" : "40px",
+				"sWidth" : "230px",
 				"aTargets" : [ 2 ]
 			}, {
-				"sWidth" : "140px",
+				"sWidth" : "40px",
 				"aTargets" : [ 3 ]
 			}, {
 				"sWidth" : "140px",
 				"aTargets" : [ 4 ]
 			}, {
+				"sWidth" : "140px",
+				"aTargets" : [ 5 ]
+			}, {
 				"sWidth" : "60px",
-				"aTargets" : [ 5 ]
+				"aTargets" : [ 6 ]
 			}, {
 				"sType" : "numeric",
+				"aTargets" : [ 1 ]
+			}, {
+				"sType" : "numeric",
+				"aTargets" : [ 3 ]
+			}, {
+				"sType" : "numeric",
+				"aTargets" : [ 6 ]
+			}, {
+				"bSortable" : false,
 				"aTargets" : [ 0 ]
-			}, {
-				"sType" : "numeric",
-				"aTargets" : [ 2 ]
-			}, {
-				"sType" : "numeric",
-				"aTargets" : [ 5 ]
 			} ],
 			"oLanguage" : {
 				"oPaginate" : {
-					// TODO Hier keys aus message.properties verwenden!
-					"sPrevious" : "Vorherige Seite",
-					"sNext" : "Nächste Seite",
-					"sFirst" : "Erste Seite",
-					"sLast" : "Letzte Seite",
+					"sPrevious" : "<s:text name="jQueryDataTablesPrevious" />",
+					"sNext" : "<s:text name="jQueryDataTablesNext" />",
+					"sFirst" : "<s:text name="jQueryDataTablesFirst" />",
+					"sLast" : "<s:text name="jQueryDataTablesLast" />",
 				},
-				// TODO Hier keys aus message.properties verwenden!
-				"sSearch" : "Suche:",
-				"sEmptyTable" : "Keine Einträge gefunden.",
-				"sInfo" : "Zeige Eintrag _START_ bis _END_ von _TOTAL_.",
-				"sInfoEmpty" : "Zeige 0 von 0 Einträgen.",
-				"sInfoFiltered" : " - gefiltert aus _MAX_ Einträgen.",
-				"sInfoThousands" : ".", //Tausender-Trennzeichen
-				"sLengthMenu" : "Zeige _MENU_ Einträge.",
-				"sProcessing" : "Bitte warten",
-				"sZeroRecords" : "Keine Daten vorhanden."
+				"sSearch" : "<s:text name="jQueryDataTablesSearch" />",
+				"sEmptyTable" : "<s:text name="jQueryDataTablesEmptyTable" />",
+				"sInfo" : "<s:text name="jQueryDataTablesInfo" />",
+				"sInfoEmpty" : "<s:text name="jQueryDataTablesInfoEmpty" />",
+				"sInfoFiltered" : "<s:text name="jQueryDataTablesInfoFiltered" />",
+				"sInfoThousands" : "<s:text name="jQueryDataTablesInfoThousands" />", //Tausender-Trennzeichen
+				"sLengthMenu" : "<s:text name="jQueryDataTablesLengthMenu" />",
+				"sProcessing" : "<s:text name="jQueryDataTablesProcessing" />",
+				"sZeroRecords" : "<s:text name="jQueryDataTablesZeroRecords" />"
 
 			}
 		});
@@ -72,8 +76,10 @@
 	<s:token />
 
 
-	<div style="float:left;" ><s:select key="lblManiple" name="selectedManiple" list="maniples"
-		listKey="Id" /></div>
+	<div style="float: left;">
+		<s:select key="lblManiple" name="selectedManiple" list="maniples"
+			listKey="Id" />
+	</div>
 
 	<s:submit name="submit" key="lblShowOtherManipleSubmit"
 		action="OralExamination" method="execute" />
@@ -83,31 +89,33 @@
 <table id="attendance_list" class="hatoma_dataTable">
 	<thead>
 		<tr>
+			<td>&nbsp;</td>
 			<td>Versuch</td>
 			<td>Prüfung</td>
 			<td>Note</td>
 			<td>Vorname</td>
 			<td>Nachname</td>
 			<td>Mat.-Nr.</td>
-			<td>&nbsp;</td>
 		</tr>
 	</thead>
 	<tbody>
 
 
 		<s:iterator value="examAttendances" status="iteratorStatus">
-			<s:url id="currentUrl" action="OralExamination"
-				method="input">
+			<s:url id="currentUrl" action="OralExamination" method="input">
 				<s:param name="examAttendanceId" value="%{id}" />
 			</s:url>
 			<tr>
+				<td><s:a href="%{currentUrl}"
+						tooltip="%{txtADNFileSingleOralExamAttendance}">
+						<img src="resources/img/icons/comment_edit.png">
+					</s:a></td>
 				<td><s:property value="attempt" /></td>
 				<td><s:property value="exam.examSubject.title" /></td>
 				<td><s:property value="examGrade.getAsExpression()" /></td>
 				<td><s:property value="student.forename" /></td>
 				<td><s:property value="student.lastname" /></td>
 				<td><s:property value="student.matriculationNumber" /></td>
-				<td><s:a href="%{currentUrl}" tooltip="%{txtADNFileSingleOralExamAttendance}"><img src="resources/img/icons/comment_edit.png"></s:a></td>
 			</tr>
 		</s:iterator>
 	</tbody>
