@@ -17,7 +17,7 @@
 			"bProcessing" : true,
 			"bProcessing": true,
 			"bServerSide": true,
-			"sAjaxSource": "JSONResponder"
+			"sAjaxSource": "JSONResponder",
 			"aoColumnDefs" : [ {
 				"sType" : "string",
 				"sWidth" : "120px",

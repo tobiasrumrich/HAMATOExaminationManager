@@ -214,21 +214,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	public List<ExamAttendance> getAllCurrentRecordsForStudent(Student student) {
 		List<ExamAttendance> attendancesList = new ArrayList<ExamAttendance>();
 
-		for (Maniple maniple : manipleService.getAll()) {
-			Collection<Student> students = manipleService.getStudents(maniple
-					.getId());
-			for (Student student : students) {
-				for (ExamSubject examSubject : maniple.getExamSubjects()) {
-					try {
-						attendancesList
-								.add(getLatestExamAttendanceOfStudentByExamSubject(
-										examSubject, student));
-					} catch (NoPreviousAttemptException e) {
-						continue;
-					}
-				}
-			}
-		}
+
 		return attendancesList;
 	}
 
