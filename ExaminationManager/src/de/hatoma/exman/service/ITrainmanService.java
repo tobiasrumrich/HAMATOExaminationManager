@@ -2,12 +2,27 @@ package de.hatoma.exman.service;
 
 public interface ITrainmanService {
 
+
+
 	/**
-	 * Inserts initial data into the database
-	 * @param minStudentsPerCentury the minimal number of students to be created for a maniple
-	 * @param maxStudentsPerCentury the maximal number of students to be created for a maniple
-	 * @param createExamAttendances if set to true, the service will also randomly create exam attendances for students
+	 * Creates a minimum of entities in the database
+	 * @param minStudentsPerManiple the minimal number of students that will be created for a maniple
+	 * @param maxStudentsPerManiple the maximal number of students that will be created for a maniple
 	 */
-	void createPhaseOne(int minStudentsPerCentury, int maxStudentsPerCentury,
-			Boolean createExamAttendances);
+	void bootStrapper(int minStudentsPerManiple, int maxStudentsPerManiple);
+
+	/**
+	 * Creates a minimum of entities in the database and additionally some Exams for every StudyBranch and Maniple
+	 * @param minStudentsPerManiple the minimal number of students that will be created for a maniple
+	 * @param maxStudentsPerManiple the maximal number of students that will be created for a maniple
+	 */
+	void bootAndExams(int minStudentsPerManiple, int maxStudentsPerManiple);
+
+	/**
+	 * Creates a minimum of entities in the database, Exams for every StudyBranch and Maniple and a small number of ExamAttendances
+	 * @param minStudentsPerManiple the minimal number of students that will be created for a maniple
+	 * @param maxStudentsPerManiple the maximal number of students that will be created for a maniple
+	 */
+	void completeInitializatain(int minStudentsPerManiple, int maxStudentsPerManiple);
+	
 }

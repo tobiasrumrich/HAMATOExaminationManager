@@ -18,7 +18,6 @@ table tr {
 	vertical-align: top;
 	text-align: left;
 }
-
 </style>
 
 <p>Die folgenden Daten existieren zu diesem Geschäftsvorfall:</p>
@@ -59,41 +58,41 @@ table tr {
 				<td><s:property value="%{examMap[key].examiner}" />
 			</tr>
 			<tr>
-				<th colspan="5">
-
-				</th>
+				<th colspan="5"></th>
 			</tr>
 		</table>
-		
-			
-					<table>
-						<thead>
-							<tr>
-								<th rowspan="2">Datum</th>
-								<th rowspan="2">User</th>
-								<th rowspan="2">Note</th>
-								<th colspan="2">Mündlich. Ergänzungsprüfung</th>
-							</tr>
-							<tr>
-								<td>Datum</td>
-								<td>Ergebnis</td>
 
-							</tr>
-						</thead>
-						<tbody>
-							<s:iterator value="value">
-								<tr>
-									<td><s:date name="%{revisionEntity.getChangedOnAsDate() }"
-											format="%{getText('examDateFormat')}" /></td>
-									<td><s:property value="revisionEntity.changedBy" /></td>
-									<td><s:property
-											value="%{entity.examGrade.getAsExpression() }" /></td>
-									<td><s:date name="entity.supplementalOralExamDate"
-											format="%{getText('examDateFormat')}" /></td>
-									<td><s:property value="%{entity.supplementalOralExamGrade.getAsExpression() }" /></td>
-								</tr>
-							</s:iterator>
-						</tbody>
-					</table> </s:iterator>
-					<hr />
-	</div>
+
+		<table>
+			<thead>
+				<tr>
+					<th rowspan="2">Datum</th>
+					<th rowspan="2">User</th>
+					<th rowspan="2">Note</th>
+					<th colspan="2">Mündlich. Ergänzungsprüfung</th>
+				</tr>
+				<tr>
+					<td>Datum</td>
+					<td>Ergebnis</td>
+
+				</tr>
+			</thead>
+			<tbody>
+				<s:iterator value="value">
+					<tr>
+						<td><s:date name="%{revisionEntity.getChangedOnAsDate() }"
+								format="%{getText('examDateFormat')}" /></td>
+						<td><s:property value="revisionEntity.changedBy" /></td>
+						<td><s:property
+								value="%{entity.examGrade.getAsExpression() }" /></td>
+						<td><s:date name="entity.supplementalOralExamDate"
+								format="%{getText('examDateFormat')}" /></td>
+						<td><s:property
+								value="%{entity.supplementalOralExamGrade.getAsExpression() }" /></td>
+					</tr>
+				</s:iterator>
+			</tbody>
+		</table>
+		</div>
+</s:iterator>
+<hr />

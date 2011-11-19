@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.model.Exam;
+import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.ExamType;
-import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
@@ -43,34 +43,95 @@ public class TrainmanService implements ITrainmanService {
 	@Autowired
 	private IStudyBranchService studyBranchService;
 
-	@Override
-	public void createPhaseOne(int minStudentsPerCentury,
-			int maxStudentsPerCentury, Boolean createExamAttendances) {
-		// Create StudyBranches
-		StudyBranch winfBranch = studyBranchService.createStudyBranch("I",
-				"WINF", "BSc. Wirtschaftsinformatik");
-		StudyBranch wingBranch = studyBranchService.createStudyBranch("W",
-				"WING", "BSc. Wirtschaftsingenieurwesen");
-		StudyBranch bwlBranch = studyBranchService.createStudyBranch("B",
-				"BWL", "BSc. Betriebswirtschaftslehre");
+	// StudyBranches
+	private StudyBranch winfBranch;
+	private StudyBranch wingBranch;
+	private StudyBranch bwlBranch;
 
-		// Create the 08 maniple
-		Maniple i08 = getManipleService().createManiple(winfBranch, 2008);
-		Maniple w08 = getManipleService().createManiple(wingBranch, 2008);
-		Maniple b08 = getManipleService().createManiple(bwlBranch, 2008);
+	// Cohort 08
+	private Maniple i08;
+	private Maniple w08;
+	private Maniple b08;
 
-		// Create the 09 maniple
-		Maniple i09 = getManipleService().createManiple(winfBranch, 2009);
-		Maniple w09 = getManipleService().createManiple(wingBranch, 2009);
-		Maniple b09 = getManipleService().createManiple(bwlBranch, 2009);
+	// Cohort 09
+	private Maniple i09;
+	private Maniple w09;
+	private Maniple b09;
 
-		// create the 10 maniple
-		Maniple i10 = getManipleService().createManiple(winfBranch, 2010);
-		Maniple w10 = getManipleService().createManiple(wingBranch, 2010);
-		Maniple b10 = getManipleService().createManiple(bwlBranch, 2010);
+	// Cohort 10
+	private Maniple i10;
+	private Maniple w10;
+	private Maniple b10;
 
-		// Put all maniples into a list (as we will need them later)
-		List<Maniple> allManiples = new ArrayList<Maniple>();
+	// All Maniples
+	private List<Maniple> allManiples;
+	private List<Maniple> allWinfManiples;
+	private List<Maniple> allWingManiples;
+	private List<Maniple> allBwlManiples;
+	private List<Student> listOfStudents;
+	private List<Examiner> winfExaminer;
+	private List<Examiner> wingExaminer;
+	private List<Examiner> bwlExaminer;
+	private List<ExamSubject> winfExamSubjects;
+	private List<ExamSubject> wingExamSubjects;
+	private List<ExamSubject> bwlExamSubjects;
+	private List<Exam> winfExams;
+	private List<Exam> wingExams;
+	private List<Exam> bwlExams;
+
+	public void bootStrapper(int minStudentsPerManiple,
+			int maxStudentsPerManiple) {
+		createStudyBranches();
+		createManiples();
+		createStudents(minStudentsPerManiple, maxStudentsPerManiple);
+		createExaminers();
+		createExamSubjects();
+
+	}
+
+	public void bootAndExams(int minStudentsPerManiple,
+			int maxStudentsPerManiple) {
+		bootStrapper(minStudentsPerManiple, maxStudentsPerManiple);
+		createExams();
+	}
+
+	public void completeInitializatain(int minStudentsPerManiple,
+			int maxStudentsPerManiple) {
+		bootAndExams(minStudentsPerManiple, maxStudentsPerManiple);
+		createExamAttendances();
+	}
+
+	/**
+	 * Private method to create StudyBranches
+	 */
+	private void createStudyBranches() {
+		winfBranch = studyBranchService.createStudyBranch("I", "WINF",
+				"BSc. Wirtschaftsinformatik");
+		wingBranch = studyBranchService.createStudyBranch("W", "WING",
+				"BSc. Wirtschaftsingenieurwesen");
+		bwlBranch = studyBranchService.createStudyBranch("B", "BWL",
+				"BSc. Betriebswirtschaftslehre");
+	}
+
+	/**
+	 * Private method to create Maniples
+	 */
+	private void createManiples() {
+		// Create Maniples using the ManipleService
+		i08 = getManipleService().createManiple(winfBranch, 2008);
+		w08 = getManipleService().createManiple(wingBranch, 2008);
+		b08 = getManipleService().createManiple(bwlBranch, 2008);
+
+		i09 = getManipleService().createManiple(winfBranch, 2009);
+		w09 = getManipleService().createManiple(wingBranch, 2009);
+		b09 = getManipleService().createManiple(bwlBranch, 2009);
+
+		i10 = getManipleService().createManiple(winfBranch, 2010);
+		w10 = getManipleService().createManiple(wingBranch, 2010);
+		b10 = getManipleService().createManiple(bwlBranch, 2010);
+
+		// Add them to categorized lists for the purpose of this Service
+		allManiples = new ArrayList<Maniple>();
 		allManiples.add(i08);
 		allManiples.add(w08);
 		allManiples.add(b08);
@@ -81,38 +142,41 @@ public class TrainmanService implements ITrainmanService {
 		allManiples.add(w10);
 		allManiples.add(b10);
 
-		// Put all Winfs into a list
-		List<Maniple> allWinfManiples = new ArrayList<Maniple>();
+		allWinfManiples = new ArrayList<Maniple>();
 		allWinfManiples.add(i08);
 		allWinfManiples.add(i09);
 		allWinfManiples.add(i10);
 
-		// Put all Wings into a list
-		List<Maniple> allWingManiples = new ArrayList<Maniple>();
+		allWingManiples = new ArrayList<Maniple>();
 		allWingManiples.add(w08);
 		allWingManiples.add(w09);
 		allWingManiples.add(w10);
 
-		// Put all BWL maniples into a list
-		List<Maniple> allBwlManiples = new ArrayList<Maniple>();
+		allBwlManiples = new ArrayList<Maniple>();
 		allBwlManiples.add(b08);
 		allBwlManiples.add(b09);
 		allBwlManiples.add(b10);
+	}
 
-		// Now it is time to create some students
+	/**
+	 * Private method to create Students
+	 */
+	private void createStudents(int minStudentsPerManiple,
+			int maxStudentsPerManiple) {
 		// We will create their names randomly by using both a forename and a
 		// lastname repository with data from fakenamegenerator.com
 		List<String> forenameRepository = forenameRepository();
 		List<String> lastnameRepository = lastnameRepository();
 
-		List<Student> listOfStudents = new ArrayList<Student>();
+		listOfStudents = new ArrayList<Student>();
+
 		// We will start with the matriculation number 1000
 		long matriculationNumber = 1000L;
 
 		for (Maniple currentManiple : allManiples) {
 			// Determine how many students will be created for the maniple
 			for (int i = 0; i < ((int) (Math.random()
-					* (maxStudentsPerCentury - minStudentsPerCentury) + minStudentsPerCentury)); i++) {
+					* (maxStudentsPerManiple - minStudentsPerManiple) + minStudentsPerManiple)); i++) {
 				int keyVorname = (int) (Math.random() * (forenameRepository
 						.size()));
 				int keyNachname = (int) (Math.random() * (lastnameRepository
@@ -127,10 +191,13 @@ public class TrainmanService implements ITrainmanService {
 			}
 		}
 
-		// Create examiners
-		// They are not random - We are using a selected group of real
-		// Nordakademie examiners
-		List<Examiner> winfExaminer = new ArrayList<Examiner>();
+	}
+
+	/**
+	 * Private method to create Examiners
+	 */
+	private void createExaminers() {
+		winfExaminer = new ArrayList<Examiner>();
 		winfExaminer.add(getExaminerService().createExaminer("Ralf", "Kesten"));
 		winfExaminer.add(getExaminerService().createExaminer("Oliver",
 				"Brahmstädt"));
@@ -141,7 +208,7 @@ public class TrainmanService implements ITrainmanService {
 		winfExaminer
 				.add(getExaminerService().createExaminer("Fred", "Ludolph"));
 
-		List<Examiner> wingExaminer = new ArrayList<Examiner>();
+		wingExaminer = new ArrayList<Examiner>();
 		wingExaminer.add(getExaminerService().createExaminer("Arno", "Müller"));
 		wingExaminer.add(getExaminerService()
 				.createExaminer("Volker", "Ahrens"));
@@ -150,7 +217,7 @@ public class TrainmanService implements ITrainmanService {
 		wingExaminer.add(getExaminerService()
 				.createExaminer("Willy", "Netzler"));
 
-		List<Examiner> bwlExaminer = new ArrayList<Examiner>();
+		bwlExaminer = new ArrayList<Examiner>();
 		bwlExaminer.add(getExaminerService().createExaminer("Hinrich",
 				"Schröder"));
 		bwlExaminer
@@ -158,9 +225,13 @@ public class TrainmanService implements ITrainmanService {
 		bwlExaminer.add(getExaminerService().createExaminer("Lars",
 				"Binckebank"));
 		bwlExaminer.add(getExaminerService().createExaminer("Michael", "Lühn"));
+	}
 
-		// Create exam subjects
-		List<ExamSubject> winfExamSubjects = new ArrayList<ExamSubject>();
+	/**
+	 * Private method to create ExamSubjects
+	 */
+	private void createExamSubjects() {
+		winfExamSubjects = new ArrayList<ExamSubject>();
 		for (Maniple iManiple : allWinfManiples) {
 			winfExamSubjects.add(getExamSubjectService().createExamSubject(
 					"Internet Anwendungsarchitekturen [" + iManiple + "]",
@@ -182,7 +253,7 @@ public class TrainmanService implements ITrainmanService {
 							iManiple));
 		}
 
-		List<ExamSubject> wingExamSubjects = new ArrayList<ExamSubject>();
+		wingExamSubjects = new ArrayList<ExamSubject>();
 		for (Maniple iManiple : allWingManiples) {
 			wingExamSubjects.add(getExamSubjectService().createExamSubject(
 					"Werkstofftechnik [" + iManiple + "]",
@@ -198,7 +269,7 @@ public class TrainmanService implements ITrainmanService {
 					"W04", iManiple));
 		}
 
-		List<ExamSubject> bwlExamSubjects = new ArrayList<ExamSubject>();
+		bwlExamSubjects = new ArrayList<ExamSubject>();
 		for (Maniple iManiple : allBwlManiples) {
 			bwlExamSubjects.add(getExamSubjectService().createExamSubject(
 					"Kosten- und Leistungsrechnung [" + iManiple + "]",
@@ -214,7 +285,12 @@ public class TrainmanService implements ITrainmanService {
 					"Redetechniken", "B04", iManiple));
 
 		}
+	}
 
+	/**
+	 * Private method to create exams
+	 */
+	private void createExams() {
 		// Create exams
 		// As we will randomly create the start time and the date of the exam we
 		// first need to create a repository of the allowed values
@@ -222,8 +298,7 @@ public class TrainmanService implements ITrainmanService {
 				15, 16, 17, 18);
 		List<Integer> minutesRepository = Arrays.asList(0, 15, 30, 45);
 
-		// First the Winf exams
-		List<Exam> winfExams = new ArrayList<Exam>();
+		winfExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : winfExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
 			int hour = hoursRepository
@@ -245,8 +320,7 @@ public class TrainmanService implements ITrainmanService {
 							.size() - 1)))));
 		}
 
-		// Second the Wing exams
-		List<Exam> wingExams = new ArrayList<Exam>();
+		wingExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : wingExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
 			int hour = hoursRepository
@@ -268,8 +342,7 @@ public class TrainmanService implements ITrainmanService {
 							.size() - 1)))));
 		}
 
-		// And finally the BWL exams
-		List<Exam> bwlExams = new ArrayList<Exam>();
+		bwlExams = new ArrayList<Exam>();
 		for (ExamSubject exSubject : bwlExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
 			int hour = hoursRepository
@@ -291,88 +364,82 @@ public class TrainmanService implements ITrainmanService {
 							bwlExaminer.get((int) (Math.random() * (bwlExaminer
 									.size() - 1)))));
 		}
+	}
 
-		// If it was selected during the call of this method we will now create
-		// a examAttendances
-		if (createExamAttendances) {
+	/**
+	 * Private method to create ExamAttendances
+	 */
+	private void createExamAttendances() {
 
-			List<ExamGrade> grades = Arrays.asList(ExamGrade.G10,
-					ExamGrade.G13, ExamGrade.G17, ExamGrade.G20, ExamGrade.G23,
-					ExamGrade.G27, ExamGrade.G30, ExamGrade.G33, ExamGrade.G37,
-					ExamGrade.G40, ExamGrade.G50, ExamGrade.G60);
+		List<ExamGrade> grades = Arrays.asList(ExamGrade.G10, ExamGrade.G13,
+				ExamGrade.G17, ExamGrade.G20, ExamGrade.G23, ExamGrade.G27,
+				ExamGrade.G30, ExamGrade.G33, ExamGrade.G37, ExamGrade.G40,
+				ExamGrade.G50, ExamGrade.G60);
 
-			for (Maniple maniple : allWinfManiples) {
+		for (Maniple maniple : allWinfManiples) {
 
-				for (Student student : manipleService.getStudents(maniple
-						.getId())) {
+			for (Student student : manipleService.getStudents(maniple.getId())) {
 
-					// All students from the current maniple attended to this
-					// exam
-					ExamGrade grade = grades.get((int) (Math.random() * grades
-							.size()));
+				// All students from the current maniple attended to this
+				// exam
+				ExamGrade grade = grades.get((int) (Math.random() * grades
+						.size()));
+				examAttendanceService.createExamAttendanceForStudent(student,
+						winfExams.get(0), grade);
+
+				// Some people have not attended to this exam. If a person
+				// attended will be determined randomly.
+				if ((int) (Math.random() * 2) == 1) {
+					grade = grades.get((int) (Math.random() * grades.size()));
 					examAttendanceService.createExamAttendanceForStudent(
-							student, winfExams.get(0), grade);
-
-					// Some people have not attended to this exam. If a person
-					// attended will be determined randomly.
-					if ((int) (Math.random() * 2) == 1) {
-						grade = grades
-								.get((int) (Math.random() * grades.size()));
-						examAttendanceService.createExamAttendanceForStudent(
-								student, winfExams.get(1), grade);
-					}
-
+							student, winfExams.get(1), grade);
 				}
+
 			}
+		}
 
-			for (Maniple maniple : allWingManiples) {
+		for (Maniple maniple : allWingManiples) {
 
-				for (Student student : manipleService.getStudents(maniple
-						.getId())) {
+			for (Student student : manipleService.getStudents(maniple.getId())) {
 
-					// All students from the current maniple attended to this
-					// exam
-					ExamGrade grade = grades.get((int) (Math.random() * grades
-							.size()));
+				// All students from the current maniple attended to this
+				// exam
+				ExamGrade grade = grades.get((int) (Math.random() * grades
+						.size()));
+				examAttendanceService.createExamAttendanceForStudent(student,
+						wingExams.get(0), grade);
+
+				// Some people have not attended to this exam. If a person
+				// attended will be determined randomly.
+				if ((int) (Math.random() * 2) == 1) {
+					grade = grades.get((int) (Math.random() * grades.size()));
 					examAttendanceService.createExamAttendanceForStudent(
-							student, wingExams.get(0), grade);
-
-					// Some people have not attended to this exam. If a person
-					// attended will be determined randomly.
-					if ((int) (Math.random() * 2) == 1) {
-						grade = grades
-								.get((int) (Math.random() * grades.size()));
-						examAttendanceService.createExamAttendanceForStudent(
-								student, wingExams.get(1), grade);
-					}
-
+							student, wingExams.get(1), grade);
 				}
+
 			}
+		}
 
-			for (Maniple maniple : allBwlManiples) {
+		for (Maniple maniple : allBwlManiples) {
 
-				for (Student student : manipleService.getStudents(maniple
-						.getId())) {
+			for (Student student : manipleService.getStudents(maniple.getId())) {
 
-					// All students from the current maniple attended to this
-					// exam
-					ExamGrade grade = grades.get((int) (Math.random() * grades
-							.size()));
+				// All students from the current maniple attended to this
+				// exam
+				ExamGrade grade = grades.get((int) (Math.random() * grades
+						.size()));
+				examAttendanceService.createExamAttendanceForStudent(student,
+						bwlExams.get(0), grade);
+
+				// Some people have not attended to this exam. If a person
+				// attended will be determined randomly.
+				if ((int) (Math.random() * 2) == 1) {
+					grade = grades.get((int) (Math.random() * grades.size()));
 					examAttendanceService.createExamAttendanceForStudent(
-							student, bwlExams.get(0), grade);
-
-					// Some people have not attended to this exam. If a person
-					// attended will be determined randomly.
-					if ((int) (Math.random() * 2) == 1) {
-						grade = grades
-								.get((int) (Math.random() * grades.size()));
-						examAttendanceService.createExamAttendanceForStudent(
-								student, bwlExams.get(1), grade);
-					}
-
+							student, bwlExams.get(1), grade);
 				}
-			}
 
+			}
 		}
 
 	}
