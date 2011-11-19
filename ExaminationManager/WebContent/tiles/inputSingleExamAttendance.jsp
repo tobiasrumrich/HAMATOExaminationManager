@@ -6,7 +6,7 @@
 	<s:token />
 	<s:textfield name="formStudentId" key="lblStudentName" required="true" />
 	<s:textfield name="examSubject" key="lblExamSubject" required="true" />
-	<s:select name="exam" key="lblExam" list="{'apfelmuß','beerenschmand'}"
+	<s:select name="exam" key="lblExam" list=""
 		required="true" />
 	<s:select key="lblExamGrade" list="allGrades"
 		required="true" />
