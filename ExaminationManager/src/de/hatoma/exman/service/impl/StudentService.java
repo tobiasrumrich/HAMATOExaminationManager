@@ -1,7 +1,14 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
 
 import de.hatoma.exman.dao.IStudentDao;
 import de.hatoma.exman.model.Maniple;
@@ -13,11 +20,17 @@ import de.hatoma.exman.service.IStudentService;
 public class StudentService implements IStudentService {
 
 	@Autowired
-	private IStudentDao studentDao;
+	private IExamAttendanceService examAttendanceService;
 	
 	@Autowired
-	private IExamAttendanceService examAttendanceService;
+	private IStudentDao studentDao;
 
+	private Gson gson;
+
+	public StudentService() {
+		gson = new Gson();
+	}
+	
 	@Override
 	public Student createStudent(String matriculationNumber, String forename, String lastname,
 			Maniple maniple) {
@@ -30,24 +43,17 @@ public class StudentService implements IStudentService {
 		return student;
 	}
 
-	/**
-	 * @return the studentDao
-	 */
-	public IStudentDao getStudentDAO() {
-		return studentDao;
-	}
-
-	/**
-	 * @param studentDao
-	 *            the studentDao to set
-	 */
-	public void setStudentDAO(IStudentDao studentDao) {
-		this.studentDao = studentDao;
-	}
-
 	@Override
-	public Student getStudent(long id) {
-		return studentDao.load(id);
+	public String getAllStudentsAsJson() {
+		List<Student> allStudents = studentDao.findAll();
+		List<Entry<String, String>> s = new ArrayList<Entry<String, String>>();
+
+		for (Student currentStudent : allStudents) {
+			s.add(new SimpleEntry<String, String>(String.valueOf(currentStudent.getId()), currentStudent
+					.getForename() + " " + currentStudent.getLastname()));
+		}
+
+		return gson.toJson(s);
 	}
 
 	/**
@@ -57,35 +63,36 @@ public class StudentService implements IStudentService {
 		return examAttendanceService;
 	}
 
-	/**
-	 * @param examAttendanceService the examAttendanceService to set
-	 */
-	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
-	}
-
 	@Override
-	public Student getValidOralStudent(long id) {
-		//lade alle prüfungsergebnisse mit 5. und supplemental oral = 0
-		//füge alle module in liste ein
-		//for every modul in modulliste
-		//	List list = hole gesamte historie where supplemental oral != 0
-		//	if list.size <2
-		//		module is ok
-		//  endif
-		//endfor
-		//
-//			Exam exam = examService.getExamById(id);
-//			List<ExamAttendance> examAttendancesForExam = examAttendanceService.getExamAttendancesForExam(exam);
-//			
-//			return (examAttendancesForExam.size() == 0);
-
+	public Student getStudent(long id) {
 		return studentDao.load(id);
 	}
 
 	@Override
 	public long getStudentCount() {
 		return studentDao.findAll().size();
+	}
+
+	/**
+	 * @return the studentDao
+	 */
+	public IStudentDao getStudentDAO() {
+		return studentDao;
+	}
+
+	/**
+	 * @param examAttendanceService the examAttendanceService to set
+	 */
+	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
+	}
+	
+	/**
+	 * @param studentDao
+	 *            the studentDao to set
+	 */
+	public void setStudentDAO(IStudentDao studentDao) {
+		this.studentDao = studentDao;
 	}
 
 }

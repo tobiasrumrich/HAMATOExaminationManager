@@ -8,6 +8,13 @@ public interface IStudentService {
 			String lastname, Maniple maniple);
 
 	public Student getStudent(long id);
-	public Student getValidOralStudent(long id);
+
 	public long getStudentCount();
+
+	/**
+	 * Returns a list of all students as JSON
+	 * 
+	 * @return
+	 */
+	public String getAllStudentsAsJson();
 }
