@@ -85,7 +85,7 @@
 		<put-attribute name="actionDisplayName" value="txtADNAuditTrailExamAttendance" />
 	</definition>
 	
-	<definition name="commonError">
+	<definition name="commonError" extends="mainLayout">
 			<put-attribute name="content"
 			value="/tiles/common/error.jsp" />
 	<put-attribute name="actionDisplayName" value="txtADNCommonError" />

@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.StrutsStatics;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;

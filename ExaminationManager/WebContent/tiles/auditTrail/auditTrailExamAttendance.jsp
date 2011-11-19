@@ -2,14 +2,33 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
+<style type="text/css">
+table {
+	border: solid 1px;
+	margin-bottom: 10px;
+	width: 100%;
+	spacing: 0px;
+}
+
+table thead {
+	font-weight: bold;
+}
+
+table tr {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+
 <p>Die folgenden Daten existieren zu diesem Geschäftsvorfall:</p>
 <table>
 	<tr>
-		<td>Student</td>
+		<td><strong>Student</strong></td>
 		<td><s:property value="student" /></td>
 	</tr>
 	<tr>
-		<td>Prüfungsfach</td>
+		<td><strong>Prüfungsfach</strong></td>
 		<td><s:property value="examSubject" /></td>
 	</tr>
 </table>
@@ -28,8 +47,8 @@
 			</thead>
 			<tbody></tbody>
 			<tr>
-			<td>
-			<td><s:property value="entity.attempt"/></td>
+				<td>
+				<td><s:property value="entity.attempt" /></td>
 				<td><s:date name="%{examMap[key].date}"
 						format="%{getText('examDateFormat')}" /></td>
 
@@ -39,39 +58,42 @@
 
 				<td><s:property value="%{examMap[key].examiner}" />
 			</tr>
-		</table>
-	</div>
-	<h3>
-		<s:property value="key" />
-		<s:property value="%{getText(examMap[key].examType.getKey())}" />
-		<s:debug />
-	</h3>
-	<table>
-		<thead>
 			<tr>
-				<td>Datum</td>
-				<td>User</td>
-				<td>Note</td>
-				<td>Datum der mündlichen Ergänzungsprüfung</td>
-				<td>Ergebnis der mündlichen Ergänzungsprüfung</td>
-				
-			</tr>
-		</thead>
-		<tbody>
-			<s:iterator value="value">
-				<tr>
-					<td><s:property value="revisionEntity.changedOn" /> <s:set
-							name="date">%{revisionEntity.changedOn}</s:set> <s:date
-							name="date" format="%{getText('examDateFormat')}" /> <s:date
-							name="%{map[key].getRevisionEntity().getChangedOn()}"
-							format="%{getText('examDateFormat')}" /></td>
-					<td><s:property value="revisionEntity.changedBy" /></td>
-					<td><s:property value="%{entity.examGrade.getAsExpression() }" /></td>
-					<td><s:property value="entity.supplementalOralExamDate" /></td>
-					<td><s:property value="entity.supplementalOralExamGrade" /></td>
-				</tr>
-			</s:iterator>
-		</tbody>
-	</table>
-</s:iterator>
+				<th colspan="5">
 
+				</th>
+			</tr>
+		</table>
+		
+			
+					<table>
+						<thead>
+							<tr>
+								<th rowspan="2">Datum</th>
+								<th rowspan="2">User</th>
+								<th rowspan="2">Note</th>
+								<th colspan="2">Mündlich. Ergänzungsprüfung</th>
+							</tr>
+							<tr>
+								<td>Datum</td>
+								<td>Ergebnis</td>
+
+							</tr>
+						</thead>
+						<tbody>
+							<s:iterator value="value">
+								<tr>
+									<td><s:date name="%{revisionEntity.getChangedOnAsDate() }"
+											format="%{getText('examDateFormat')}" /></td>
+									<td><s:property value="revisionEntity.changedBy" /></td>
+									<td><s:property
+											value="%{entity.examGrade.getAsExpression() }" /></td>
+									<td><s:date name="entity.supplementalOralExamDate"
+											format="%{getText('examDateFormat')}" /></td>
+									<td><s:property value="%{entity.supplementalOralExamGrade.getAsExpression() }" /></td>
+								</tr>
+							</s:iterator>
+						</tbody>
+					</table> </s:iterator>
+					<hr />
+	</div>

@@ -71,11 +71,13 @@ public class AuditTrailAction extends ActionSupport {
 			selectedExamSubjectId = Long.valueOf(examSubjectId);
 		} catch (Exception e) {
 			addActionError("Ungültige Prüfungsfach ID");
+			return "error";
 		}
 
 		examSubject = examSubjectService.getExamSubject(selectedExamSubjectId);
 		if (examSubject == null) {
 			addActionError("Ungültige Prüfungsfach ID");
+			return "error";
 		}
 
 		map = new HashMap<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>();
@@ -88,6 +90,7 @@ public class AuditTrailAction extends ActionSupport {
 			map.put(String.valueOf(examAttendance.getId()), auditTrail);
 			examMap.put(String.valueOf(examAttendance.getId()), examAttendance.getExam());
 		}
+		
 		return "displayExamAttendanceAuditTrail";
 	}
 

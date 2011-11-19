@@ -75,7 +75,7 @@
 						<s:property value="examiner" />
 					</td>
 
-				<td><s:property value="examType.key" /></td>
+				<td><s:property value="%{getText(examType.key)}" /></td>
 
 				<td>
 				<s:if test="targetActionName=='EditExam'">
