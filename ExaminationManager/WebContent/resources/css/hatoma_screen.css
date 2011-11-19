@@ -198,3 +198,7 @@ td {
 	background-color: white;
 	border: 1px solid grey;
 }
+
+.ui-widget {
+	padding-bottom: 5px;
+}
