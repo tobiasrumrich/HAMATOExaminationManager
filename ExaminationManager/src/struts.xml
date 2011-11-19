@@ -58,8 +58,7 @@
 			</result>
 		</action>
 
-		<action name="OralExamination"
-			class="de.hatoma.exman.action.OralExaminationAction">			
+		<action name="OralExamination" class="de.hatoma.exman.action.OralExaminationAction">
 			<result name="showList" type="tiles">showListForOralExamAttendance
 			</result>
 			<result name="input" type="tiles">fileSingleOralExamAttendance
@@ -89,7 +88,11 @@
 			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
 			</result>
 		</action>
+
+		<action name="AuditTrail" class="de.hatoma.exman.action.AuditTrailAction">
+			<result name="displayExamAttendanceAuditTrail" type="tiles">displayExamAttendanceAuditTrail
+			</result>
+			<result name="error" type="tiles">commonError</result>
+		</action>
 	</package>
-
-
 </struts>

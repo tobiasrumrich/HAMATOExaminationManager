@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
+import de.hatoma.exman.dao.helpers.AuditTrailBean;
+import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -190,6 +192,11 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendanceDao.update(examAttendance);
 		
 		}
+
+	@Override
+	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(long examAttendanceId) {
+		return examAttendanceDao.getAuditTrail(examAttendanceId);
+	}
 		
 	}
 

@@ -6,6 +6,8 @@ package de.hatoma.exman.dao;
 import java.util.List;
 
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
+import de.hatoma.exman.dao.helpers.AuditTrailBean;
+import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -33,5 +35,7 @@ public interface IExamAttendanceDao extends IDao<ExamAttendance> {
 
 	public List<ExamAttendance> findByStudentAndExamSubject(Student student,
 			ExamSubject examSubject);
+	
+	public List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> getAuditTrail(long id);
 
 }

@@ -65,15 +65,29 @@
 		<put-attribute name="content" value="/tiles/exam/overviewTable.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNAdministerExams" />
 	</definition>
-	
+
 	<definition name="examAttendanceBulkUpdateList" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/examAttendance/bulkUpdateList.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
-	</definition>
-	
-	<definition name="examAttendanceBulkUpdateConfirmation" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/examAttendance/confirmation.jsp" />
+		<put-attribute name="content"
+			value="/tiles/examAttendance/bulkUpdateList.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
 	</definition>
 
+	<definition name="examAttendanceBulkUpdateConfirmation"
+		extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/examAttendance/confirmation.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamAttendanceBulkInput" />
+	</definition>
+
+	<definition name="displayExamAttendanceAuditTrail" extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/auditTrail/auditTrailExamAttendance.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNAuditTrailExamAttendance" />
+	</definition>
+	
+	<definition name="commonError">
+			<put-attribute name="content"
+			value="/tiles/common/error.jsp" />
+	<put-attribute name="actionDisplayName" value="txtADNCommonError" />
+	</definition>
 </tiles-definitions>

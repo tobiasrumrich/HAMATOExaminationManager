@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
+import de.hatoma.exman.dao.helpers.AuditTrailBean;
+import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
@@ -95,4 +97,6 @@ public interface IExamAttendanceService {
 	 * @return
 	 */
 	public ExamAttendance getExamAttendanceById(long id);
+	
+	public List<AuditTrailBean<ExManRevisionEntity,ExamAttendance>> getAuditTrail(long examAttendanceId);
 }
