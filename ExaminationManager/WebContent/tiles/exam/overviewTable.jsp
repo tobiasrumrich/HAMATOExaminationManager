@@ -78,26 +78,27 @@
 				<td><s:property value="%{getText(examType.key)}" /></td>
 
 				<td>
-				<s:if test="targetActionName=='EditExam'">
+						<s:url action="ExamAttendanceBulkUpdate"
+							id="examAttendanceBulkUpdateUrl">
+							<s:param name="examId" value="id" />
+						</s:url>
+						<s:a href="%{examAttendanceBulkUpdateUrl}" tooltip="txtLinkToExamAttendanceBulkUpdate">
+							<img src="resources/img/icons/table_add.png" />
+						</s:a>
 						<s:if test="%{isExamEditable(id)}">
 
 							<s:url action="EditExamination" id="editExamaninationUrl">
 								<s:param name="examId"></s:param>
 							</s:url>
-							<s:a href="%{editExamaninationUrl}">
-							<span class="ui-icon ui-icon-pencil"></span>
-							<s:text name="txtEditExam" /></s:a>
-
+							<s:a href="%{editExamaninationUrl}" tooltip="txtEditExam">
+							<img src="resources/img/icons/pencil_go.png" />
+							</s:a>
 						</s:if>
-					</s:if> <s:if test="targetActionName=='ExamAttendanceBulkUpdate'">
-						<s:url action="ExamAttendanceBulkUpdate"
-							id="examAttendanceBulkUpdateUrl">
-							<s:param name="examId" value="id" />
-						</s:url>
-						<s:a href="%{examAttendanceBulkUpdateUrl}">
-							<s:text name="txtLinkToExamAttendanceBulkUpdate" />
-						</s:a>
-					</s:if></td>
+						<s:else>
+							<img src="resources/img/icons/lock.png" alt="<s:text name="txtNotEditable" />"/>
+						</s:else>
+
+				</td>
 			</tr>
 		</s:iterator>
 	</tbody>
