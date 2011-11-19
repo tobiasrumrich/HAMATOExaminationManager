@@ -33,6 +33,7 @@
 	src="resources/jquery/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript"
 	src="resources/jquery/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="resources/hatoma.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function() {
 
@@ -66,7 +67,6 @@
 
 	});
 </script>
-
 <link rel="stylesheet" type="text/css" media="print"
 	href="resources/css/hatoma_print.css" />
 <link rel="stylesheet" type="text/css" media="screen"
@@ -193,6 +193,32 @@
 				<h1>
 					<s:text name="%{#attr.actionDisplayName}" />
 				</h1>
+
+				<!-- Hinweismeldungen -->
+				<s:if test="hasActionMessages()">
+					<div class="ui-widget">
+						<div class="ui-state-highlight ui-corner-all"
+							style="margin-top: 20px; padding: 0 .7em;">
+							<p>
+								<span class="ui-icon ui-icon-info"
+									style="float: left; margin-right: .3em;"></span> <strong><s:text
+										name="txtUiNotificationHeader" /></strong>
+								<s:actionmessage />
+							</p>
+						</div>
+					</div>
+				</s:if>
+
+				<s:if test="hasActionErrors()">
+					<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+						<p>
+							<span class="ui-icon ui-icon-alert"
+								style="float: left; margin-right: .3em;"></span> <strong><s:text
+									name="txtErrorHead" /></strong>
+						</p>
+						<s:actionerror />
+					</div>
+				</s:if>
 
 				<tiles:insertAttribute name="content" />
 

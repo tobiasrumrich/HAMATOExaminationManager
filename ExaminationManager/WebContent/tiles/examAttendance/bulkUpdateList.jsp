@@ -77,30 +77,6 @@ table ul.errorMessage {
 	</div>
 </s:if>
 
-<s:if test="hasActionMessages()">
-<div class="ui-widget">
-	<div class="ui-state-highlight ui-corner-all"
-		style="margin-top: 20px; padding: 0 .7em;">
-		<p>
-			<span class="ui-icon ui-icon-info"
-				style="float: left; margin-right: .3em;"></span> <strong><s:text name="txtUiNotificationHeader" /></strong>
-			<s:actionmessage />
-		</p>
-	</div>
-</div>
-</s:if>
-
-<s:if test="hasActionErrors()">
-<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-	<p>
-		<span class="ui-icon ui-icon-alert"
-			style="float: left; margin-right: .3em;"></span> <strong><s:text
-				name="txtErrorHead" /></strong>
-	</p>
-	<s:actionerror />
-</div>
-</s:if>
-
 <s:if test="!hasActionErrors()">
 	<s:form method="post" action="ExamAttendanceBulkUpdate">
 		<s:hidden name="examId" value="%{selectedExamId}" />

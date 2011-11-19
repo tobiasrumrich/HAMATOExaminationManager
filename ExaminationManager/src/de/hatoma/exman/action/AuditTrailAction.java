@@ -1,7 +1,5 @@
 package de.hatoma.exman.action;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.dao.helpers.AuditTrailBean;
 import de.hatoma.exman.model.ExManRevisionEntity;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamSubject;
-import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamSubjectService;
@@ -63,7 +59,6 @@ public class AuditTrailAction extends ActionSupport {
 	private List<ExamAttendance> attendancesList;
 	
 	public String prepareList() {
-
 
 		return "list";
 	}
