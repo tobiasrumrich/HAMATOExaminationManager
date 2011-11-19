@@ -52,11 +52,11 @@
 			<tr>
 				<td><s:property value="student.matriculationNumber" /></td>
 				<td><s:property value="student.forename" /> <s:property value="student.lastname" /></td>
-				<td><s:property value="examSubject.title" /></td>
-				<td><s:property value="date" /></td>
-				<td><s:property value="examGrade" /></td>
-				<td><s:property value="supplementalOralExamDate" /></td>
-				<td><s:property value="supplementalOralExamGrade" /></td>
+				<td><s:property value="exam.examSubject.title" /></td>
+				<td><s:property value="exam.date.toLocaleString().substring(0,10)" /></td>
+				<td><s:property value="examGrade.getAsExpression()" /></td>
+				<td><s:property value="supplementalOralExamDate.toLocaleString().substring(0,10)" /></td>
+				<td><s:property value="supplementOralExamGrade.getAsExpression()" /></td>
 			</tr>
 		</s:iterator>
 		
