@@ -10,7 +10,10 @@ import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 
+import de.hatoma.exman.dao.exceptions.OralGradeAlreadyExistantException;
+import de.hatoma.exman.dao.exceptions.StudentNotEligibleForOralExamException;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
@@ -19,8 +22,12 @@ import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IManipleService;
-
-public class OralExaminationAction extends ActionSupport {
+/**
+ * 
+ * @author Marcel Schroeter, 3690
+ *
+ */
+public class OralExaminationAction extends ActionSupport implements Preparable {
 	/**
 	 * 
 	 */
@@ -34,22 +41,22 @@ public class OralExaminationAction extends ActionSupport {
 
 	@Autowired
 	private IExamSubjectService examSubjectService;
+	private String frmStudent;
+	private String frmSubject;
 	private String frmSupplementalOralExaminationDate;
-
 	private String frmSupplementalOralExaminationGrade;
 
 	private List<Maniple> maniples;
+
 	@Autowired
 	private IManipleService manipleService;
+
 	private long manipleToFetch;
+
 	private SortedMap<OralExamGrade, String> oralExamGrades;
+
 	private List<ExamAttendance> protocolledExamAttendances = new ArrayList<ExamAttendance>();
-	private ExamAttendance selectedExamAttendance;
-	private ExamSubject selectedExamSubject;
-
 	private String selectedManiple;
-
-	private Student selectedStudent;
 	private List<Student> students;
 
 	@Override
@@ -72,6 +79,14 @@ public class OralExaminationAction extends ActionSupport {
 
 	public IExamSubjectService getExamSubjectService() {
 		return examSubjectService;
+	}
+
+	public String getFrmStudent() {
+		return frmStudent;
+	}
+
+	public String getFrmSubject() {
+		return frmSubject;
 	}
 
 	public String getFrmSupplementalOralExaminationDate() {
@@ -101,12 +116,8 @@ public class OralExaminationAction extends ActionSupport {
 		return oralExamGrades;
 	}
 
-	public ExamAttendance getSelectedExamAttendance() {
-		return selectedExamAttendance;
-	}
-
-	public ExamSubject getSelectedExamSubject() {
-		return selectedExamSubject;
+	public List<ExamAttendance> getProtocolledExamAttendances() {
+		return protocolledExamAttendances;
 	}
 
 	/**
@@ -116,68 +127,56 @@ public class OralExaminationAction extends ActionSupport {
 		return selectedManiple;
 	}
 
-	public Student getSelectedStudent() {
-		return selectedStudent;
-	}
-
 	public Collection<Student> getStudents() {
 		return students;
-	}
-
-	@Override
-	public void validate() {
-		super.validate();
-		
-//		
-//		Calendar calendar = Calendar.getInstance();
-//		Calendar currentCalendar = Calendar.getInstance();
-//
-//		try {
-//			int date = Integer.valueOf(frmSupplementalOralExaminationDate
-//					.substring(0, 2));
-//			int month = Integer.valueOf(frmSupplementalOralExaminationDate
-//					.substring(3, 5)) - 1;
-//			int year = Integer.valueOf(frmSupplementalOralExaminationDate
-//					.substring(6, 10));
-//
-//			calendar.set(year, month, date);
-//		} catch (Exception e) {
-//			addFieldError(frmSupplementalOralExaminationDate,getText("txtActionWrongDateFormatError"));
-//		}
-//		if (calendar.after(currentCalendar)) {
-//			addActionMessage(getText("txtActionDateInFutureError"));
-//			addFieldError(frmSupplementalOralExaminationDate,getText("txtActionDateInFutureError"));
-//		}
 	}
 
 	public String input() throws Exception {
 		// TODO: was is wenn ohne id?
 		// TODO: was is wenn nich erlaubte id?
+		ExamAttendance selectedExamAttendance = examAttendanceService
+				.getExamAttendanceById(this.examAttendanceId);
+		Student selectedStudent = selectedExamAttendance.getStudent();
+		// TODO: hier gehts 2 Schritte in die Tiefe:
+		ExamSubject selectedExamSubject = selectedExamAttendance.getExam()
+				.getExamSubject();
 
+		frmStudent = selectedStudent.getForename() + " "
+				+ selectedStudent.getLastname();
+		frmSubject = selectedExamSubject.getTitle();
+		return "input";
+	}
+
+	@Override
+	public void prepare() throws Exception {
 		SortedMap<OralExamGrade, String> tempOralExamGrades = new TreeMap<OralExamGrade, String>();
 		for (OralExamGrade oralExamGrade : OralExamGrade.values()) {
 			tempOralExamGrades.put(oralExamGrade,
 					oralExamGrade.getAsExpression());
 		}
 		oralExamGrades = tempOralExamGrades;
-		selectedExamAttendance = examAttendanceService
-				.getExamAttendanceById(this.examAttendanceId);
-		selectedStudent = selectedExamAttendance.getStudent();
-		selectedExamSubject = selectedExamAttendance.getExam().getExamSubject();
 
-		return "input";
 	}
 
 	public String save() throws Exception {
+		// Validierung
+		Calendar calendar = Calendar.getInstance();
+		Calendar currentCalendar = Calendar.getInstance();
 		ExamAttendance examAttendance;
 		OralExamGrade oralExamGrade;
-		Calendar calendar = Calendar.getInstance();
 		try {
+			if ((frmSupplementalOralExaminationDate.length() != 10)
+					|| (!frmSupplementalOralExaminationDate.substring(2, 3).equals("."))
+					|| (!frmSupplementalOralExaminationDate.substring(5, 6).equals("."))) {
+				addActionError(getText("txtErrorWrongDateFormat"));
+				return "input";
+			}
+		} catch (Exception e) {
+			addActionError(getText("txtErrorWrongDateFormat"));
+			return "input";
+		}
 
-			examAttendance = examAttendanceService
-					.getExamAttendanceById(examAttendanceId);
-			oralExamGrade = OralExamGrade
-					.valueOf(frmSupplementalOralExaminationGrade);
+		try {
 			int date = Integer.valueOf(frmSupplementalOralExaminationDate
 					.substring(0, 2));
 			int month = Integer.valueOf(frmSupplementalOralExaminationDate
@@ -186,16 +185,37 @@ public class OralExaminationAction extends ActionSupport {
 					.substring(6, 10));
 			calendar.clear();
 			calendar.set(year, month, date);
+		} catch (Exception e) {
+			addActionError(getText("txtErrorWrongDateFormat"));
+			return "input";
+		}
+		if (calendar.after(currentCalendar)) {
+			addActionError(getText("txtErrorDateInFuture"));
+			return "input";
+		}
+
+		// Speichern
+
+		try {
+			examAttendance = examAttendanceService
+					.getExamAttendanceById(examAttendanceId);
+			oralExamGrade = OralExamGrade
+					.valueOf(frmSupplementalOralExaminationGrade);
 			examAttendanceService.addOralExaminationResultToExamAttendance(
 					examAttendance, oralExamGrade, calendar.getTime());
 			getProtocolledExamAttendances().clear();
 			getProtocolledExamAttendances().add(
 					examAttendanceService
 							.getExamAttendanceById(examAttendanceId));
+		} catch (StudentNotEligibleForOralExamException e) {
+			addActionError(getText("txtErrorStudentNotEligibleForOralExam"));
+			return "input";
+		} catch (OralGradeAlreadyExistantException e) {
+			addActionError(getText("txtErrorOralGradeAlreadyExistant"));
+			return "input";
 		} catch (Exception e) {
-			// TODO text i18n oder wie dat heißt
-			addActionError("Für diesen Studenten und die Prüfung existiert bereits eine mündliche Ergänzungsnote im System!");
-			return "FAIL";
+			addActionError(getText("txtCommonError"));
+			return "input";
 		}
 		return "protocol";
 
@@ -216,6 +236,14 @@ public class OralExaminationAction extends ActionSupport {
 
 	public void setExamSubjectService(IExamSubjectService examSubjectService) {
 		this.examSubjectService = examSubjectService;
+	}
+
+	public void setFrmStudent(String frmStudent) {
+		this.frmStudent = frmStudent;
+	}
+
+	public void setFrmSubject(String frmSubject) {
+		this.frmSubject = frmSubject;
 	}
 
 	public void setFrmSupplementalOralExaminationDate(
@@ -249,12 +277,9 @@ public class OralExaminationAction extends ActionSupport {
 		this.oralExamGrades = oralExamGrades;
 	}
 
-	public void setSelectedExamAttendance(ExamAttendance selectedExamAttendance) {
-		this.selectedExamAttendance = selectedExamAttendance;
-	}
-
-	public void setSelectedExamSubject(ExamSubject selectedExamSubject) {
-		this.selectedExamSubject = selectedExamSubject;
+	public void setProtocolledExamAttendances(
+			List<ExamAttendance> protocolledExamAttendances) {
+		this.protocolledExamAttendances = protocolledExamAttendances;
 	}
 
 	/**
@@ -263,10 +288,6 @@ public class OralExaminationAction extends ActionSupport {
 	 */
 	public void setSelectedManiple(String selectedManiple) {
 		this.selectedManiple = selectedManiple;
-	}
-
-	public void setSelectedStudent(Student selectedStudent) {
-		this.selectedStudent = selectedStudent;
 	}
 
 	public void setStudents(List<Student> students) {
@@ -282,15 +303,6 @@ public class OralExaminationAction extends ActionSupport {
 		maniples = (List<Maniple>) manipleService.getAll();
 		examAttendances = (List<ExamAttendance>) getExamAttendanceService()
 				.getOralCandidates(manipleToFetch);
-	}
-
-	public List<ExamAttendance> getProtocolledExamAttendances() {
-		return protocolledExamAttendances;
-	}
-
-	public void setProtocolledExamAttendances(
-			List<ExamAttendance> protocolledExamAttendances) {
-		this.protocolledExamAttendances = protocolledExamAttendances;
 	}
 
 }

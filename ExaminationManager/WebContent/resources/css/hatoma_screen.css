@@ -76,6 +76,19 @@ div#main h1 {
 	padding-bottom: 12px;
 }
 
+.emphasized{
+	background-color:#eeeeee;
+}
+
+.trailTable{
+	display:none;
+}
+
+.trailTable, .trailTable td{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+
 /******/
 .ui-accordion {
 	margin: 0px;
@@ -175,7 +188,7 @@ tr.even td.sorting_1 {
 }
 
 td {
-	padding: 0.4em;
+	padding: 0.2em;
 }
 
 .hatoma_dataTable a {
