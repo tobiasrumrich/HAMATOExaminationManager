@@ -1,9 +1,15 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IExamSubjectDao;
+import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.service.IExamSubjectService;
@@ -13,6 +19,9 @@ public class ExamSubjectService implements IExamSubjectService {
 
 	@Autowired
 	private IExamSubjectDao examSubjectDao;
+	
+	@Autowired
+	private IManipleDao manipleDao;
 
 	@Override
 	public ExamSubject createExamSubject(String title, String description,
@@ -24,6 +33,19 @@ public class ExamSubjectService implements IExamSubjectService {
 		examSubject.setManiple(maniple);
 		examSubjectDao.save(examSubject);
 		return examSubject;
+	}
+
+	@Override
+	public Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple() {
+		Map<Maniple, Collection<ExamSubject>> subjects = new HashMap<Maniple, Collection<ExamSubject>>();
+
+		for (Maniple m : getManipleDao().findAll()) {
+			Collection<ExamSubject> examSubjects = m.getExamSubjects();
+			Hibernate.initialize(examSubjects);
+			subjects.put(m, examSubjects);
+		}
+
+		return subjects;
 	}
 
 	/**
@@ -40,5 +62,20 @@ public class ExamSubjectService implements IExamSubjectService {
 	public void setExamSubjectDAO(IExamSubjectDao examSubjectDao) {
 		this.examSubjectDao = examSubjectDao;
 	}
+
+	public IManipleDao getManipleDao() {
+		return manipleDao;
+	}
+
+	public void setManipleDao(IManipleDao manipleDao) {
+		this.manipleDao = manipleDao;
+	}
+
+	@Override
+	public ExamSubject load(Long id) {
+		return examSubjectDao.load(id);
+	}
+	
+	
 
 }

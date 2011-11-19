@@ -1,5 +1,6 @@
 package de.hatoma.exman.service.impl;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,10 @@ public class ExamService implements IExamService {
 
 	@Autowired
 	private IExamDao examDao;
-	
+
 	@Override
-	public Exam createExam(ExamType examType, ExamSubject examSubject, Date date, Examiner examiner){
+	public Exam createExam(ExamType examType, ExamSubject examSubject,
+			Date date, Examiner examiner) {
 		Exam exam = new Exam();
 		exam.setExamType(examType);
 		exam.setExamSubject(examSubject);
@@ -30,7 +32,7 @@ public class ExamService implements IExamService {
 		examDao.save(exam);
 		return exam;
 	}
-	
+
 	public void updateExam(Exam exam) throws Exception {
 		examDao.update(exam);
 	}
@@ -39,12 +41,12 @@ public class ExamService implements IExamService {
 	public List<Exam> getExamList() {
 		return examDao.findAll();
 	}
-	
+
 	@Override
 	public Exam getExamById(long id) {
 		return examDao.load(id);
 	}
-	
+
 	/**
 	 * @return the examDao
 	 */
@@ -60,6 +62,9 @@ public class ExamService implements IExamService {
 		this.examDao = examDao;
 	}
 
-
+	@Override
+	public Serializable save(Exam e) {
+		return examDao.save(e);
+	}
 
 }

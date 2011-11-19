@@ -1,5 +1,7 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +37,16 @@ public class ExaminerService implements IExaminerService {
 	 */
 	public void setExaminerDAO(IExaminerDao examinerDao) {
 		this.examinerDao = examinerDao;
+	}
+
+	@Override
+	public Examiner load(long id) {
+		return examinerDao.load(id);
+	}
+
+	@Override
+	public List<Examiner> findAll() {
+		return examinerDao.findAll();
 	}
 
 }
