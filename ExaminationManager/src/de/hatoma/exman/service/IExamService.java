@@ -19,4 +19,10 @@ public interface IExamService {
 	public Exam getExamById(long id);
 
 	public Serializable save(Exam e);
+
+	public void update(Exam exam);
+
+	public Exam load(Long examId);
+
+	public Boolean isExamEditable(Exam exam);
 }

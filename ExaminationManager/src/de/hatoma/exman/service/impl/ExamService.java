@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 
 import de.hatoma.exman.dao.IExamDao;
 import de.hatoma.exman.model.Exam;
+import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.ExamType;
 import de.hatoma.exman.model.Examiner;
+import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamService;
 
 @Component
@@ -19,6 +21,8 @@ public class ExamService implements IExamService {
 
 	@Autowired
 	private IExamDao examDao;
+	@Autowired
+	private IExamAttendanceService examAttendanceService;
 
 	@Override
 	public Exam createExam(ExamType examType, ExamSubject examSubject,
@@ -64,6 +68,33 @@ public class ExamService implements IExamService {
 	@Override
 	public Serializable save(Exam e) {
 		return examDao.save(e);
+	}
+
+	@Override
+	public void update(Exam exam) {
+		examDao.update(exam);
+	}
+
+	@Override
+	public Exam load(Long examId) {
+		return examDao.load(examId);
+	}
+
+	@Override
+	public Boolean isExamEditable(Exam exam) {
+		List<ExamAttendance> examAttendancesForExam = getExamAttendanceService()
+				.getExamAttendancesForExam(exam);
+
+		return (examAttendancesForExam.size() == 0);
+	}
+
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
 	}
 
 }
