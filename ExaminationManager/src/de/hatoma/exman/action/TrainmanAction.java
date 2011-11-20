@@ -1,6 +1,5 @@
 package de.hatoma.exman.action;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +72,7 @@ public class TrainmanAction extends ActionSupport implements
 		return selectedMethod;
 	}
 
+
 	/**
 	 * Starts processing to insert data to the database
 	 * 
@@ -82,25 +82,24 @@ public class TrainmanAction extends ActionSupport implements
 	public String insertData() throws Exception {
 
 		if (!trainmanService.doesDatabaseComplyWithRequirements()) {
-		if (selectedMethod.equals("complete")) {
-			trainmanService.completeInitializatain(minStudentsPerManiple,
-					maxStudentsPerManiple);
-			return "success";
-		} else if (selectedMethod.equals("examOnly")) {
-			trainmanService.bootAndExams(minStudentsPerManiple,
-					maxStudentsPerManiple);
-			return "success";
-		}
+			if (selectedMethod.equals("complete")) {
+				trainmanService.completeInitializatain(minStudentsPerManiple,
+						maxStudentsPerManiple);
+				return "success";
+			} else if (selectedMethod.equals("examOnly")) {
+				trainmanService.bootAndExams(minStudentsPerManiple,
+						maxStudentsPerManiple);
+				return "success";
+			}
 
-		else if (selectedMethod.equals("bootstrapper")) {
-			trainmanService.bootStrapper(minStudentsPerManiple,
-					maxStudentsPerManiple);
-			return "success";
-		}
+			else if (selectedMethod.equals("bootstrapper")) {
+				trainmanService.bootStrapper(minStudentsPerManiple,
+						maxStudentsPerManiple);
+				return "success";
+			}
 
-		return "input";
-		}
-		else{
+			return "input";
+		} else {
 			addActionError(getText("txtTrainmanErrorMayNotProvideServiceNow"));
 			return "error";
 		}
@@ -147,7 +146,6 @@ public class TrainmanAction extends ActionSupport implements
 	 * @param selectedMethods
 	 *            the selectedMethods to set
 	 */
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
 	public void setSelectedMethods(String selectedMethods) {
 		this.selectedMethod = selectedMethods;
 	}

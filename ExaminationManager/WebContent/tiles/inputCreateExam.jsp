@@ -14,11 +14,34 @@
 				availableExaminers);
 		hamatoAutocomplete($("#examManipleI"), $("#examManipleIid"),
 				availableManiples);
-
-		$("#examDateI").datepicker({
-			dateFormat : '<s:text name="examDateFormatNoTimeJQuery" />'
-		});
-
+///////////
+		$("#date").datepicker(
+				{
+					dateFormat : 'dd.mm.yy',
+					firstDay : 0,
+					currentText : '<s:text name="jQueryDatePickerToday" />',
+					dayNamesMin : [
+							'<s:text name="jQueryDatePickerMondayShort" />',
+							'<s:text name="jQueryDatePickerTuesdayShort" />',
+							'<s:text name="jQueryDatePickerWednesdayShort" />',
+							'<s:text name="jQueryDatePickerThursdayShort" />',
+							'<s:text name="jQueryDatePickerFridayShort" />',
+							'<s:text name="jQueryDatePickerSaturdayShort" />',
+							'<s:text name="jQueryDatePickerSundayShort" />' ],
+					monthNames : [ '<s:text name="jQueryDatePickerJanuary" />',
+							'<s:text name="jQueryDatePickerFebruary" />',
+							'<s:text name="jQueryDatePickerMarch" />',
+							'<s:text name="jQueryDatePickerApril" />',
+							'<s:text name="jQueryDatePickerMay" />',
+							'<s:text name="jQueryDatePickerJune" />',
+							'<s:text name="jQueryDatePickerJuly" />',
+							'<s:text name="jQueryDatePickerAugust" />',
+							'<s:text name="jQueryDatePickerSeptember" />',
+							'<s:text name="jQueryDatePickerOctober" />',
+							'<s:text name="jQueryDatePickerNovember" />',
+							'<s:text name="jQueryDatePickerDecember" />' ],
+					maxDate : '+0m +0w +0d'
+				});
 		$("#examManipleIid").change(checkIsManipleSet);
 		// Überprüfung, ob manipel gesetzt ist, 
 		checkIsManipleSet();
