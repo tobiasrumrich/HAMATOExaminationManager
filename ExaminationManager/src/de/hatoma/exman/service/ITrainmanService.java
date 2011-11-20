@@ -41,4 +41,6 @@ public interface ITrainmanService {
 	void completeInitializatain(int minStudentsPerManiple,
 			int maxStudentsPerManiple);
 
+	Boolean doesDatabaseComplyWithRequirements();
+
 }

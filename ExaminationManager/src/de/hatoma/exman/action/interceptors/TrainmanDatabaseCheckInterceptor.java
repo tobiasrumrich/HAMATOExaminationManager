@@ -5,12 +5,19 @@ package de.hatoma.exman.action.interceptors;
 
 import java.io.Serializable;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.StrutsStatics;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 import de.hatoma.exman.service.IExamSubjectService;
+import de.hatoma.exman.service.IExaminerService;
 import de.hatoma.exman.service.IManipleService;
 import de.hatoma.exman.service.IStudentService;
 
@@ -44,6 +51,8 @@ public class TrainmanDatabaseCheckInterceptor extends AbstractInterceptor
 	private IManipleService manipleService;
 	@Autowired
 	private IStudentService studentService;
+	@Autowired
+	private IExaminerService examinerService;
 
 	@Override
 	public String intercept(ActionInvocation inv) throws Exception {
@@ -53,7 +62,7 @@ public class TrainmanDatabaseCheckInterceptor extends AbstractInterceptor
 		// they can retrieve from the database
 		if (studentService.getStudentCount() == 0
 				|| manipleService.getManipleCount() == 0
-				|| examSubjectService.getExamSubjectCount() == 0) {
+				|| examSubjectService.getExamSubjectCount() == 0 || examinerService.getExaminerCount() == 0) {
 			// If we are at this point there is at least one service that
 			// informed us, that there are no entities in our database
 			Object action = inv.getAction();
@@ -67,7 +76,7 @@ public class TrainmanDatabaseCheckInterceptor extends AbstractInterceptor
 
 			// The current action may not pass through so we are sending the
 			// user to the trainman
-			return "globalTrainmanInput";
+			return "globalTrainmanDatabaseNotCompliant";
 
 		}
 		// If the check does not find an missing requirement on the data we
@@ -75,6 +84,20 @@ public class TrainmanDatabaseCheckInterceptor extends AbstractInterceptor
 		// interceptors that are waiting for action invocation.
 		return inv.invoke();
 
+	}
+
+	/**
+	 * @return the examinerService
+	 */
+	public IExaminerService getExaminerService() {
+		return examinerService;
+	}
+
+	/**
+	 * @param examinerService the examinerService to set
+	 */
+	public void setExaminerService(IExaminerService examinerService) {
+		this.examinerService = examinerService;
 	}
 
 }

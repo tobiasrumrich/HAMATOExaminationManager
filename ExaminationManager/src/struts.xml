@@ -20,7 +20,7 @@
 
 		<!-- Global Results (needed eg. by the Trainman Interceptor) -->
 		<global-results>
-			<result name="globalTrainmanInput" type="tiles">trainmanIntro</result>
+			<result name="globalTrainmanDatabaseNotCompliant" type="tiles">trainmanDatabaseNotCompliant</result>
 		</global-results>
 
 
@@ -69,6 +69,7 @@
 		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
 			<result name="input" type="tiles">trainmanIntro</result>
 			<result name="success" type="tiles">trainmanSuccess</result>
+			<result name="error" type="tiles">commonError</result>
 		</action>
 		<action name="CreateExam" class="de.hatoma.exman.action.CreateExamAction"
 			method="create">

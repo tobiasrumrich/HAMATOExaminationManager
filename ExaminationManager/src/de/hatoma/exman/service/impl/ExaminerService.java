@@ -49,6 +49,11 @@ public class ExaminerService implements IExaminerService {
 	public List<Examiner> findAll() {
 		return examinerDao.findAll();
 	}
+	
+	@Override
+	public long getExaminerCount() {
+		return examinerDao.findAll().size();
+	}
 
 	@Override
 	public String getAllExaminersAsJson() {

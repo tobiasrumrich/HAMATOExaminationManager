@@ -96,6 +96,13 @@ public class TrainmanService implements ITrainmanService {
 		createExamSubjects();
 
 	}
+	
+	@Override
+	public Boolean doesDatabaseComplyWithRequirements() {
+		return (studentService.getStudentCount() > 0
+				&& manipleService.getManipleCount() > 0
+				&& examSubjectService.getExamSubjectCount() > 0 && examinerService.getExaminerCount() > 0);
+	}
 
 	@Override
 	public void completeInitializatain(int minStudentsPerManiple,

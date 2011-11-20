@@ -38,18 +38,6 @@ public class TrainmanAction extends ActionSupport implements
 	@Autowired
 	private ITrainmanService trainmanService;
 
-	@Override
-	public String execute() throws Exception {
-		creationMethods = new HashMap<String, String>();
-		creationMethods.put("bootstrapper",
-				getText("lblTrainmanCheckBootstrapper"));
-		creationMethods.put("examOnly", getText("lblTrainmanCheckCreateExams"));
-		creationMethods.put("complete",
-				getText("lblTrainmanCheckCreateExamAttendances"));
-		return "input";
-
-	}
-
 	/**
 	 * @return the creationMethods
 	 */
@@ -93,6 +81,7 @@ public class TrainmanAction extends ActionSupport implements
 	 */
 	public String insertData() throws Exception {
 
+		if (!trainmanService.doesDatabaseComplyWithRequirements()) {
 		if (selectedMethod.equals("complete")) {
 			trainmanService.completeInitializatain(minStudentsPerManiple,
 					maxStudentsPerManiple);
@@ -110,6 +99,11 @@ public class TrainmanAction extends ActionSupport implements
 		}
 
 		return "input";
+		}
+		else{
+			addActionError(getText("txtTrainmanErrorMayNotProvideServiceNow"));
+			return "error";
+		}
 
 	}
 
@@ -136,7 +130,6 @@ public class TrainmanAction extends ActionSupport implements
 	 *            the minStudentsPerManiple to set
 	 */
 	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "3", max = "29997")
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
 	public void setMinStudentsPerManiple(String minStudentsPerManiple) {
 		this.minStudentsPerManiple = Integer.valueOf(minStudentsPerManiple);
 	}
@@ -145,6 +138,7 @@ public class TrainmanAction extends ActionSupport implements
 	 * @param selectedMethod
 	 *            the selectedMethod to set
 	 */
+	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
 	public void setSelectedMethod(String selectedMethod) {
 		this.selectedMethod = selectedMethod;
 	}
