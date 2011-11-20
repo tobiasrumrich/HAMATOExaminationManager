@@ -34,6 +34,10 @@ div#headerbar {
 	background-repeat: repeat-x;
 }
 
+div#headerbar a{
+	color:white;
+}
+
 div#header {
 	width: 1000px;
 }
@@ -168,6 +172,7 @@ div#main h1 {
 .ui-accordion-content {
 	background: #eeeeee;
 	font-size: 70%;
+	padding-left:1em !important;
 }
 
 .ui-accordion-content-active { /*padding: 5px 0px 5px 10px*/
@@ -193,7 +198,14 @@ span#sessioninfo {
 .dataTables_info {
 	font-size: 70%;
 	font-weight: bold;
+	float:none;
+	display:inline;
 }
+
+.dataTables_paginate {
+	display:inline;	
+}
+
 /* Spaltenüerschriften */
 .sorting_asc,.sorting_desc,.sorting {
 	font-weight: bold;

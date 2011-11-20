@@ -66,23 +66,22 @@
 
 	});
 </script>
+<style type="text/css">
+@import "resources/jquery/js/datatables/media/css/demo_table.css";
+</style>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="resources/css/hatoma_screen.css" />
 <link rel="stylesheet" type="text/css" media="print"
 	href="resources/css/hatoma_print.css" />
-<link rel="stylesheet" type="text/css" media="print"
-	href="resources/css/hatoma_print.css" />
-<!--<style type="text/css">
-@import "resources/jquery/js/datatables/media/css/demo_table.css";
-</style>-->
+
 </head>
 <body>
 
 	<div id="headerbar">
 		<div id="header">
 			<span id="sessioninfo"><s:text name="txtLoggedInAs" /> <strong><sec:authentication
-						property="principal.username" /></strong> <a
-				href="<s:url value="j_spring_security_logout" />">Logout</a></span>
+						property="principal.username" /></strong> (<a
+				href="<s:url value="j_spring_security_logout" />">Logout</a>)</span>
 			<h1>
 				<s:text name="%{#attr.title}" />
 			</h1>
@@ -189,9 +188,8 @@
 			</div>
 			<div id="left-panel-info">
 				<span class="left-panel-info">Eine J2EE Anwendung von</span><br />
-				Hannes Lemberg, 3547<br />
-				Tobias Rumrich, 3638<br />
-				Marcel Schroeter, 3690<br />
+				Hannes Lemberg, 3547<br /> Tobias Rumrich, 3638<br /> Marcel
+				Schroeter, 3690<br />
 				<hr>
 				Nordakademie 2011
 			</div>
