@@ -1,12 +1,17 @@
 package de.hatoma.exman.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.ParameterAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
@@ -23,7 +28,9 @@ import de.hatoma.exman.service.IExamService;
 import de.hatoma.exman.service.IStudentService;
 
 /**
- * This action allows the bulk insertion of ExamAttendances for a specified exam.
+ * This action allows the bulk insertion of ExamAttendances for a specified
+ * exam.
+ * 
  * @author Tobias Rumrich, 3638
  * 
  */
@@ -51,7 +58,8 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	private List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
 
 	private long selectedExamId;
-	//private long selectedManipleId;
+	// private long selectedManipleId;
+	private List<ExamAttendance> protocolledExamAttendances = new ArrayList<ExamAttendance>();
 	private ExamSubject examSubject;
 	private Exam exam;
 
@@ -68,15 +76,18 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 		/*
 		 * At this point the request parameters have not been injected into the
 		 * Actions fields yet. Therefore me have to ask the ActionContext for
-		 * the request parameters.
-		 * We could use: Map<String, Object> parameters = ActionContext.getContext().getParameters();
-		 * but it is better to use the <ParameterAware> interface, since by that
-		 * the servlet-config Interceptor delivers this info.
-		 * see: http://struts.apache.org/2.0.14/docs/how-can-we-access-request-parameters-passed-into-an-action.html
+		 * the request parameters. We could use: Map<String, Object> parameters
+		 * = ActionContext.getContext().getParameters(); but it is better to use
+		 * the <ParameterAware> interface, since by that the servlet-config
+		 * Interceptor delivers this info. see:
+		 * http://struts.apache.org/2.0.14/docs
+		 * /how-can-we-access-request-parameters-passed-into-an-action.html
 		 */
 
-		if (!(selectedExamId > 0) && (parameters.containsKey("examId") && parameters.get("examId") != null)) {
-			
+		if (!(selectedExamId > 0)
+				&& (parameters.containsKey("examId") && parameters
+						.get("examId") != null)) {
+
 			String[] examIdStrings = this.parameters.get("examId");
 
 			if (examIdStrings[0] != null) {
@@ -84,16 +95,16 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 			} else {
 				addActionError(getText("txtErrorParamsNoExamId"));
 			}
-		}
-		else {
+		} else {
 			addActionError(getText("txtErrorParamsNoExamId"));
 			return;
 		}
-		
+
 		// Get the target exam from the service
 		exam = examService.getExamById(selectedExamId);
-		
-		// Let us check if the examId served to us by the request is really existing
+
+		// Let us check if the examId served to us by the request is really
+		// existing
 		if (exam == null) {
 			addActionError(getText("txtErrorInvalidExamId"));
 			return;
@@ -117,8 +128,9 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 
 			int numAttempts = attendancesOfStudent.size();
 			ExamAttendance latestAttempt;
-			
-			//For the display part, we need the grade from the latest exam attempt
+
+			// For the display part, we need the grade from the latest exam
+			// attempt
 			try {
 				latestAttempt = examAttendanceService
 						.getLatestExamAttendanceOfStudentByExamSubject(
@@ -161,12 +173,13 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	}
 
 	public String execute() throws Exception {
-		if (getActionErrors().size() > 0) return "criticalError";
+		if (getActionErrors().size() > 0)
+			return "criticalError";
 		return "showBulkList";
 	}
 
 	/**
-	 * Redirects methos, if user presses ENTER to submit form
+	 * Redirects methods, if user presses ENTER to submit form
 	 */
 	public String input() throws Exception {
 		return insertNewExamAttendances();
@@ -212,13 +225,22 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 				if (myEntity.getNewGrade().equals("6.0")
 						|| myEntity.getNewGrade().equals("6,0"))
 					grade = ExamGrade.G60;
-				examAttendanceService.createExamAttendanceForStudent(
-						myEntity.getStudent(), exam, grade);
-				myEntitiesConfirmations.add(myEntity);
+				protocolledExamAttendances.add(examAttendanceService
+						.createExamAttendanceForStudent(myEntity.getStudent(),
+								exam, grade));
+//				myEntitiesConfirmations.add(myEntity);
 			}
 		}
-		addActionMessage("Die folgenden Daten wurden in die Datenbank geschrieben:");
-		return "confirmation";
+
+		DateFormat dateDay = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
+		DateFormat dateTime = new SimpleDateFormat("HH:mm");
+		Date date = new Date();
+		UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		addActionMessage(getText("txtUiProtocolHeader"));
+		addActionMessage(getText("lblDate") + ": " + dateDay.format(date));
+		addActionMessage(getText("lblTime") + ": " + dateTime.format(date));
+		addActionMessage(getText("lblUser") + ": " + currentUser.getUsername());
+		return "protocol";
 	}
 
 	/**
@@ -378,7 +400,16 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	@Override
 	public void setParameters(Map<String, String[]> arg0) {
 		this.parameters = arg0;
-		
+
+	}
+
+	public List<ExamAttendance> getProtocolledExamAttendances() {
+		return protocolledExamAttendances;
+	}
+
+	public void setProtocolledExamAttendances(
+			List<ExamAttendance> protocolledExamAttendances) {
+		this.protocolledExamAttendances = protocolledExamAttendances;
 	}
 
 }

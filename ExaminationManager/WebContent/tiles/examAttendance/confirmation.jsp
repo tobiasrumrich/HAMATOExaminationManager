@@ -2,19 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-
-<div class="ui-widget">
-	<div class="ui-state-highlight ui-corner-all"
-		style="margin-top: 20px; padding: 0 .7em;">
-		<p>
-			<span class="ui-icon ui-icon-info"
-				style="float: left; margin-right: .3em;"></span> <strong><s:text name="txtUiNotificationHeader" /></strong>
-			<s:actionmessage />
-		</p>
-	</div>
-</div>
-
-
 <div style="background: #d3e7f3">
 		<table>
 			<tr>

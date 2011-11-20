@@ -12,7 +12,7 @@
 	</p>
 </div>
 
-<s:form method="POST" validate="true">
+<s:form validate="true">
 	<s:token />
 	<s:checkbox name="createStudyBranches" disabled="true" value="true"
 		key="lblTrainmanCheckCreateStudyBranches" />
