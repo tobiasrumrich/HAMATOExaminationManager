@@ -10,6 +10,7 @@ import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
+import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.model.Student;
 
@@ -127,10 +128,19 @@ public interface IExamAttendanceService {
 
 	/**
 	 * Retrieves a list of all current ExamAttendances for a student as JSON String
-	 * @param student the student to query for
+	 * @param student the Student to query for
 	 * @param idPattern String with the pattern to use to encapsulate the studyBranchId. _ID_ will be replaced with the actual long id of the StudyBranch
 	 * @return
 	 */
 	String getAllCurrentExamAttendancesForStudentAsJSON(Student student,
 			String idPattern);
+
+	/**
+	 * Retrieves a list of all current ExamAttendances for a maniple as JSON String
+	 * @param maniple the Maniple to query for
+	 * @param idPattern String with the pattern to use to encapsulate the studyBranchId. _ID_ will be replaced with the actual long id of the StudyBranch
+	 * @return
+	 */
+	String getAllCurrentExamAttendancesForManipleAsJSON(Maniple maniple,
+			String idPattern, String dateFormat);
 }

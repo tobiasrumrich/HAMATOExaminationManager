@@ -2,6 +2,7 @@ package de.hatoma.exman.service.impl;
 
 import java.util.Collection;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +56,14 @@ public class ManipleService implements IManipleService {
 
 	public long getManipleCount() {
 		return manipleDao.findAll().size();
+	}
+
+	@Override
+	public Maniple getById(long id) {
+		Maniple load = manipleDao.load(id);
+		Collection<Student> students = load.getStudents();
+		Hibernate.initialize(students);
+		return load;
 	}
 
 }

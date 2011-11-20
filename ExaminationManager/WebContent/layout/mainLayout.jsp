@@ -66,15 +66,16 @@
 
 	});
 </script>
+<style type="text/css">
+@import "resources/jquery/js/datatables/media/css/demo_table.css";
+</style>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="resources/css/hatoma_screen.css" />
 <link rel="stylesheet" type="text/css" media="print"
 	href="resources/css/hatoma_print.css" />
 <link rel="stylesheet" type="text/css" media="print"
 	href="resources/css/hatoma_print.css" />
-<!--<style type="text/css">
-@import "resources/jquery/js/datatables/media/css/demo_table.css";
-</style>-->
+
 </head>
 <body>
 

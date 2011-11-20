@@ -1,5 +1,6 @@
 package de.hatoma.exman.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -29,6 +30,7 @@ import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
+import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IManipleService;
 
 @Component
@@ -44,6 +46,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
 	private IStudentDao studentDao;
+	
+	@Autowired
+	private IExamSubjectService examSubjectService;
 
 	private Gson gson;
 
@@ -248,7 +253,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			m.add(attendance.getExam().getDate().toString());
 			m.add(attendance.getExamGrade().getAsExpression());
 			m.add(String.valueOf(attendance.getAttempt()));
-			
+
 			// Match the idPattern
 			String idString;
 			if (idPattern != null && idPattern.contains("_ID_")) {
@@ -258,13 +263,62 @@ public class ExamAttendanceService implements IExamAttendanceService {
 						String.valueOf(attendance.getExam().getExamSubject()
 								.getId()));
 			} else {
-				idString = String.valueOf(attendance.getExam()
-						.getExamSubject().getId());
+				idString = String.valueOf(attendance.getExam().getExamSubject()
+						.getId());
 			}
 			m.add(idString);
 			s.add(m);
 		}
 
+		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
+		map.put("aaData", s);
+		return gson.toJson(map);
+	}
+
+	@Override
+	public String getAllCurrentExamAttendancesForManipleAsJSON(Maniple maniple,
+			String idPattern, String dateFormat) {
+
+		Collection<ExamSubject> examSubjects = examSubjectService.allSubjectsByManiple(maniple.getId());
+
+		List<List<String>> s = new ArrayList<List<String>>();
+
+		for (Student student : manipleService.getStudents(maniple.getId())) {
+
+			for (ExamSubject examSubject : examSubjects) {
+				ExamAttendance attendance;
+				try {
+					attendance = examAttendanceDao
+							.findLatestExamAttendanceOfStudentByExamSubject(
+									examSubject, student);
+				} catch (NoPreviousAttemptException e) {
+					continue;
+				}
+				List<String> m = new LinkedList<String>();
+				m.add(student.getMatriculationNumber());
+				m.add(student.getForename());
+				m.add(student.getLastname());
+				m.add(attendance.getExam().getExamSubject().toString());
+				m.add(new SimpleDateFormat( "dd.MM.yy" ).format( attendance.getExam().getDate()));
+				m.add(attendance.getExamGrade().getAsExpression());
+				m.add(String.valueOf(attendance.getAttempt()));
+
+				// Match the idPattern
+				String idString;
+				if (idPattern != null && idPattern.contains("_STUDID_") && idPattern.contains("_SUBJID_") && dateFormat != null) {
+
+					idString = idPattern.replace(
+							"_STUDID_",
+							String.valueOf(attendance.getExam()
+									.getExamSubject().getId())).replace("_SUBJID_", String.valueOf(attendance.getExam().getExamSubject().getId()));
+				} else {
+					idString = String.valueOf(attendance.getExam()
+							.getExamSubject().getId());
+				}
+				m.add(idString);
+				s.add(m);
+			}
+		}
 		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
 		map.put("aaData", s);
 		return gson.toJson(map);
@@ -276,5 +330,19 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	public void setStudentDao(IStudentDao studentDao) {
 		this.studentDao = studentDao;
+	}
+
+	/**
+	 * @return the examSubjectService
+	 */
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
+	}
+
+	/**
+	 * @param examSubjectService the examSubjectService to set
+	 */
+	public void setExamSubjectService(IExamSubjectService examSubjectService) {
+		this.examSubjectService = examSubjectService;
 	}
 }

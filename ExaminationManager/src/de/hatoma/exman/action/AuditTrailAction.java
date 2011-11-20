@@ -26,7 +26,7 @@ import de.hatoma.exman.service.IStudentService;
  * @author tobias
  * 
  */
-public class AuditTrailAction extends ActionSupport implements Preparable {
+public class AuditTrailAction extends ActionSupport {
 
 	/**
 	 * 
@@ -59,35 +59,7 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 
 	private List<ExamAttendance> attendancesList;
 
-	private String studentsAsJson;
 
-	private String jsonValueString;
-	private String jsonStudentId;
-
-	public String prepareList() {
-
-		return "list";
-	}
-
-	@Override
-	public void prepare() throws Exception {
-		studentsAsJson = studentService.getAllStudentsAsJson();
-
-	}
-
-	public String jsonResponder() {
-		Student jsonStudent;
-		try {
-		jsonStudent = studentService.getStudent(Long.valueOf(jsonStudentId));
-		}
-		catch (Exception e) {
-			jsonValueString="{}";
-			return "json";
-		}
-		String pattern = "<a href=\"AuditTrail?studentId="+jsonStudentId+"&examSubjectId=_ID_\"><img src=\"resources/img/icons/database_key.png\" /> "+getText("txtViewAuditTrail") +"</a>";
-		jsonValueString = examAttendanceService.getAllCurrentExamAttendancesForStudentAsJSON(jsonStudent,pattern);
-		return "json";
-	}
 
 	public String execute() {
 
@@ -344,49 +316,8 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 		this.manipleService = manipleService;
 	}
 
-	/**
-	 * @return the studentsAsJson
-	 */
-	public String getStudentsAsJson() {
-		return studentsAsJson;
-	}
 
-	/**
-	 * @param studentsAsJson
-	 *            the studentsAsJson to set
-	 */
-	public void setStudentsAsJson(String studentsAsJson) {
-		this.studentsAsJson = studentsAsJson;
-	}
 
-	/**
-	 * @return the jsonValueString
-	 */
-	public String getJsonValueString() {
-		return jsonValueString;
-	}
 
-	/**
-	 * @param jsonValueString
-	 *            the jsonValueString to set
-	 */
-	public void setJsonValueString(String jsonValueString) {
-		this.jsonValueString = jsonValueString;
-	}
-
-	/**
-	 * @return the jsonStudentId
-	 */
-	public String getJsonStudentId() {
-		return jsonStudentId;
-	}
-
-	/**
-	 * @param jsonStudentId
-	 *            the jsonStudentId to set
-	 */
-	public void setJsonStudentId(String jsonStudentId) {
-		this.jsonStudentId = jsonStudentId;
-	}
 
 }

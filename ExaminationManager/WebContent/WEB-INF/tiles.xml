@@ -93,9 +93,18 @@
 		<put-attribute name="content" value="/tiles/common/error.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNCommonError" />
 	</definition>
-	
-	<definition name="displayCurrentExamAttendanceRecords" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/auditTrail/list.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNAudiTrailExamOverview" />
+
+	<definition name="examAttendanceOverviewListPerStudent"
+		extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/examAttendance/listPerStudent.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamOverviewPerStudent" />
+	</definition>
+
+	<definition name="examAttendanceOverviewListPerManiple"
+		extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/examAttendance/listPerManiple.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamOverviewPerManiple" />
 	</definition>
 </tiles-definitions>

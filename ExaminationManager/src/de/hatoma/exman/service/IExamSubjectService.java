@@ -18,4 +18,6 @@ public interface IExamSubjectService {
 	ExamSubject getExamSubject(long id);
 
 	public long getExamSubjectCount();
+
+	Collection<ExamSubject> allSubjectsByManiple(long id);
 }

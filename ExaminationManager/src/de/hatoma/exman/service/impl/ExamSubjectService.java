@@ -47,6 +47,15 @@ public class ExamSubjectService implements IExamSubjectService {
 
 		return subjects;
 	}
+	
+	@Override
+	public Collection<ExamSubject> allSubjectsByManiple(long id) {
+		Maniple m = manipleDao.load(id);
+			Collection<ExamSubject> examSubjects = m.getExamSubjects();
+			Hibernate.initialize(examSubjects);
+
+		return examSubjects;
+	}
 
 	/**
 	 * @return the examSubjectDao
