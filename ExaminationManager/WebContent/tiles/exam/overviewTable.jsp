@@ -19,6 +19,9 @@
 			}, {
 				"sWidth" : "60px",
 				"aTargets" : [ 1 ]
+			}, {
+				"bSortable" : false,
+				"aTargets" : [ 7 ]
 			} ],
 			"bStateSave" : true,
 			"oLanguage" : {
@@ -53,7 +56,7 @@
 			<td><s:text name="lblDate" /></td>
 			<td><s:text name="lblExaminer" /></td>
 			<td><s:text name="lblExamType" /></td>
-			<td></td>
+			<td>&nbsp;</td>
 		</tr>
 	</thead>
 	<tbody>

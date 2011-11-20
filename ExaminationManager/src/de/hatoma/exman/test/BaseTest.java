@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IExamDao;
 import de.hatoma.exman.dao.IExamSubjectDao;
 import de.hatoma.exman.dao.IExaminerDao;
@@ -22,6 +23,8 @@ import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.dao.IStudentDao;
 import de.hatoma.exman.dao.IStudyBranchDao;
 import de.hatoma.exman.model.Exam;
+import de.hatoma.exman.model.ExamAttendance;
+import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.ExamType;
 import de.hatoma.exman.model.Examiner;
@@ -41,6 +44,7 @@ public abstract class BaseTest extends
 	private Examiner defaultExaminer;
 	private ExamSubject defaultExamSubject;
 	private Maniple defaultManiple;
+	private ExamAttendance defaultExamAttendance;
 
 	private Student defaultStudent;
 	private StudyBranch defaultStudyBranch;
@@ -50,6 +54,8 @@ public abstract class BaseTest extends
 	private IExamDao examDao;
 	@Autowired
 	private IExaminerDao examinerDao;
+	@Autowired
+	private IExamAttendanceDao examAttendanceDao;
 	@Autowired
 	private IExamService examService;
 	@Autowired
@@ -72,6 +78,7 @@ public abstract class BaseTest extends
 		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(0));
 		Assume.assumeThat(examDao.findAll().size(), CoreMatchers.equalTo(0));
 		Assume.assumeThat(examinerDao.findAll().size(), CoreMatchers.equalTo(0));
+		Assume.assumeThat(examAttendanceDao.findAll().size(), CoreMatchers.equalTo(0));
 		Assume.assumeThat(examSubjectDao.findAll().size(),
 				CoreMatchers.equalTo(0));
 
@@ -92,7 +99,8 @@ public abstract class BaseTest extends
 		student.setLastname("studentLastname");
 		student.setManiple(maniple);
 		studentDao.save(student);
-
+		
+		
 		Examiner examiner = new Examiner();
 		examiner.setForename("Emanuel");
 		examiner.setLastname("Asdf");
@@ -113,6 +121,13 @@ public abstract class BaseTest extends
 		exam.setExamType(ExamType.OralExam);
 		examDao.save(exam);
 
+		ExamAttendance examAttendance = new ExamAttendance();
+		examAttendance.setAttempt(1);
+		examAttendance.setExamGrade(ExamGrade.G10);
+		examAttendance.setExam(exam);
+		examAttendance.setStudent(student);
+		examAttendanceDao.save(examAttendance);
+		
 		// Annahmen nach den Vorbereitungen: es existiert eine Instanz für
 		// jeweils alle
 		Assume.assumeThat(studyBranchDao.findAll().size(),
@@ -121,6 +136,7 @@ public abstract class BaseTest extends
 		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(1));
 		Assume.assumeThat(examDao.findAll().size(), CoreMatchers.equalTo(1));
 		Assume.assumeThat(examinerDao.findAll().size(), CoreMatchers.equalTo(1));
+		Assume.assumeThat(examAttendanceDao.findAll().size(), CoreMatchers.equalTo(1));
 		Assume.assumeThat(examSubjectDao.findAll().size(),
 				CoreMatchers.equalTo(1));
 
@@ -131,6 +147,7 @@ public abstract class BaseTest extends
 		this.defaultExam = exam;
 		this.defaultExaminer = examiner;
 		this.defaultExamSubject = examSubject;
+		this.defaultExamAttendance = examAttendance;
 	}
 
 	public Exam getDefaultExam() {
@@ -177,7 +194,7 @@ public abstract class BaseTest extends
 		return examSubjectDao;
 	}
 
-	public IManipleDao getManipleDAO() {
+	public IManipleDao getManipleDao() {
 		return manipleDao;
 	}
 
@@ -193,7 +210,7 @@ public abstract class BaseTest extends
 		return studentDao;
 	}
 
-	public IStudyBranchDao getStudyBranchDAO() {
+	public IStudyBranchDao getStudyBranchDao() {
 		return studyBranchDao;
 	}
 
@@ -225,7 +242,7 @@ public abstract class BaseTest extends
 		this.examSubjectDao = examSubjectDao;
 	}
 
-	public void setManipleDAO(IManipleDao manipleDao) {
+	public void setManipleDao(IManipleDao manipleDao) {
 		this.manipleDao = manipleDao;
 	}
 
@@ -237,8 +254,24 @@ public abstract class BaseTest extends
 		this.studentDao = studentDao;
 	}
 
-	public void setStudyBranchDAO(IStudyBranchDao studyBranchDao) {
+	public void setStudyBranchDao(IStudyBranchDao studyBranchDao) {
 		this.studyBranchDao = studyBranchDao;
+	}
+
+	public ExamAttendance getDefaultExamAttendance() {
+		return defaultExamAttendance;
+	}
+
+	public void setDefaultExamAttendance(ExamAttendance defaultExamAttendance) {
+		this.defaultExamAttendance = defaultExamAttendance;
+	}
+
+	public IExamAttendanceDao getExamAttendanceDao() {
+		return examAttendanceDao;
+	}
+
+	public void setExamAttendanceDao(IExamAttendanceDao examAttendanceDao) {
+		this.examAttendanceDao = examAttendanceDao;
 	}
 
 }
