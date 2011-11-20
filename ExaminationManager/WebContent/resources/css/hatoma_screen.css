@@ -130,10 +130,29 @@ div#main h1 {
 	border-collapse:collapse;
 }
 
+.historyLink{
+	color:black;
+	text-decoration:none !important;
+}
+
+.historyLink:hover{
+	font-weight:bold;
+}
+
 .trailTable td, .trailTable th{
 	border:1px solid black;
 	padding:5px;
 	vertical-align:middle;
+}
+
+img.trailPlus{
+	display:inline;
+	margin:0;
+}
+
+img.trailMinus{
+	display:none;
+	margin:0;
 }
 
 #legend {
