@@ -13,19 +13,19 @@ import de.hatoma.exman.service.IExamService;
 /**
  * Diese Action stellt eine Übersicht der aktuellen Prüfungen bereit
  * 
- * @author tobias
+ * @author Tobias Rumrich, 3638
  * 
  */
 public class ExamOverviewAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private IExamService examService;
-
-	@Autowired
 	private IExamAttendanceService examAttendanceService;
 
 	private List<Exam> examList;
+
+	@Autowired
+	private IExamService examService;
 	private String target;
 	private String targetActionName;
 
@@ -41,10 +41,15 @@ public class ExamOverviewAction extends ActionSupport {
 		return "showTable";
 	}
 
-	public Boolean isExamEditable(long id) {
-		Exam exam = examService.getExamById(id);
-		
-		return examService.isExamEditable(exam);
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	/**
+	 * @return the examList
+	 */
+	public List<Exam> getExamList() {
+		return examList;
 	}
 
 	/**
@@ -55,18 +60,28 @@ public class ExamOverviewAction extends ActionSupport {
 	}
 
 	/**
-	 * @param examService
-	 *            the examService to set
+	 * @return the target
 	 */
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
+	public String getTarget() {
+		return target;
 	}
 
 	/**
-	 * @return the examList
+	 * @return the targetActionName
 	 */
-	public List<Exam> getExamList() {
-		return examList;
+	public String getTargetActionName() {
+		return targetActionName;
+	}
+
+	public Boolean isExamEditable(long id) {
+		Exam exam = examService.getExamById(id);
+
+		return examService.isExamEditable(exam);
+	}
+
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
 	}
 
 	/**
@@ -78,39 +93,27 @@ public class ExamOverviewAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the targetActionName
+	 * @param examService
+	 *            the examService to set
 	 */
-	public String getTargetActionName() {
-		return targetActionName;
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
 	}
 
 	/**
-	 * @param targetActionName the targetActionName to set
-	 */
-	public void setTargetActionName(String targetActionName) {
-		this.targetActionName = targetActionName;
-	}
-
-	/**
-	 * @return the target
-	 */
-	public String getTarget() {
-		return target;
-	}
-
-	/**
-	 * @param target the target to set
+	 * @param target
+	 *            the target to set
 	 */
 	public void setTarget(String target) {
 		this.target = target;
 	}
 
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
-	}
-
-	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
+	/**
+	 * @param targetActionName
+	 *            the targetActionName to set
+	 */
+	public void setTargetActionName(String targetActionName) {
+		this.targetActionName = targetActionName;
 	}
 
 }

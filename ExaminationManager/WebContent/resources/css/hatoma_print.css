@@ -66,15 +66,67 @@ div#main h1 {
 }
 
 .trailTable{
-	display:block;
-}
-
-.trailTable, .trailTable td{
-	border:1px solid black;
+	display:block !important;
+	width:auto;
+	border:0;
 	border-collapse:collapse;
 }
 
+.historyLink{
+	color:black;
+	text-decoration:none !important;
+}
+
+.trailTable td, .trailTable th{
+	border:1px solid black;
+}
+
+img.trailMinus, img.trailPlus,{
+	display:none;
+}
+
+#legend {
+	background-color:white;
+	padding:10px;
+	float:right;
+	font-size:70%;
+	font-weight:bold;
+}
+
+.protocolPrint {
+	display:block;
+	border:1px dashed black;
+	margin-bottom:25px;	
+}
+
+#examList {
+	border-spacing:5px;
+	border-collapse: collapse;
+	border: 1px black solid;
+	margin: 05px;
+}
+
+#examList thead{
+	border-bottom:1 px solid black;
+}
+
+#examList td{
+	border:1px dashed black;
+}
+
+.centered{
+	text-align:center;
+}
+
+#printButton {
+	display:none;
+}
+
 /******/
+.ui-widget {
+	display:none;
+}
+
 .ui-accordion {
 	margin: 0px;
 	padding: 0px;
@@ -146,8 +198,9 @@ span#sessioninfo {
 .hatoma_dataTable {
 	clear: both;
 	border-collapse: collapse;
-	border: 2px grey solid;
-	margin: 05px;
+	border: 2px black solid;
+	border-spacing:3px;
+	margin: 5px;
 }
 
 .dataTables_wrapper {

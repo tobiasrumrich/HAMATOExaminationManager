@@ -134,6 +134,7 @@
 		disabled="true" required="true" />
 	<s:select key="lblExamGrade" name="examGrade" list="allGrades"
 		required="true" />
-	<s:submit key="btnSave" action="FileSingleExamAttendance" method="save" />
+	<s:submit key="btnSave" action="FileSingleExamAttendance" method="save"
+		disabled="true" />
 </s:form>
 

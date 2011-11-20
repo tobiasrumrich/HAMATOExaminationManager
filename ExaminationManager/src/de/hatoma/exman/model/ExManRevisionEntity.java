@@ -40,9 +40,9 @@ public class ExManRevisionEntity implements Serializable {
 	public long getChangedOn() {
 		return changedOn;
 	}
-	
+
 	public Date getChangedOnAsDate() {
-		return new java.sql.Date(changedOn);  
+		return new java.sql.Date(changedOn);
 	}
 
 	/**

@@ -37,31 +37,31 @@ import de.hatoma.exman.service.IExamService;
 @TransactionConfiguration
 public abstract class BaseTest extends
 		AbstractTransactionalJUnit4SpringContextTests {
+	private Exam defaultExam;
+	private Examiner defaultExaminer;
+	private ExamSubject defaultExamSubject;
 	private Maniple defaultManiple;
+
 	private Student defaultStudent;
 	private StudyBranch defaultStudyBranch;
 	@Autowired
+	private IExamAttendanceService examAttendanceService;
+	@Autowired
+	private IExamDao examDao;
+	@Autowired
+	private IExaminerDao examinerDao;
+	@Autowired
+	private IExamService examService;
+	@Autowired
+	private IExamSubjectDao examSubjectDao;
+	@Autowired
 	private IManipleDao manipleDao;
-
 	@Autowired
 	private SessionFactory sessionFactory;
 	@Autowired
 	private IStudentDao studentDao;
 	@Autowired
 	private IStudyBranchDao studyBranchDao;
-	@Autowired
-	private IExamDao examDao;
-	@Autowired
-	private IExaminerDao examinerDao;
-	@Autowired
-	private IExamSubjectDao examSubjectDao;
-	private Exam defaultExam;
-	private ExamSubject defaultExamSubject;
-	private Examiner defaultExaminer;
-	@Autowired
-	private IExamAttendanceService examAttendanceService;
-	@Autowired
-	private IExamService examService;
 
 	@Before
 	public void beforeMethod() {
@@ -133,6 +133,18 @@ public abstract class BaseTest extends
 		this.defaultExamSubject = examSubject;
 	}
 
+	public Exam getDefaultExam() {
+		return defaultExam;
+	}
+
+	public Examiner getDefaultExaminer() {
+		return defaultExaminer;
+	}
+
+	public ExamSubject getDefaultExamSubject() {
+		return defaultExamSubject;
+	}
+
 	public Maniple getDefaultManiple() {
 		return defaultManiple;
 	}
@@ -145,12 +157,32 @@ public abstract class BaseTest extends
 		return defaultStudyBranch;
 	}
 
-	public Exam getDefaultExam() {
-		return defaultExam;
+	protected IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	public IExamDao getExamDao() {
+		return examDao;
+	}
+
+	public IExaminerDao getExaminerDao() {
+		return examinerDao;
+	}
+
+	protected IExamService getExamService() {
+		return examService;
+	}
+
+	public IExamSubjectDao getExamSubjectDao() {
+		return examSubjectDao;
 	}
 
 	public IManipleDao getManipleDAO() {
 		return manipleDao;
+	}
+
+	protected Date getRandomDate() {
+		return Calendar.getInstance().getTime();
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -163,6 +195,34 @@ public abstract class BaseTest extends
 
 	public IStudyBranchDao getStudyBranchDAO() {
 		return studyBranchDao;
+	}
+
+	public void setDefaultExaminer(Examiner defaultExaminer) {
+		this.defaultExaminer = defaultExaminer;
+	}
+
+	public void setDefaultExamSubject(ExamSubject defaultExamSubject) {
+		this.defaultExamSubject = defaultExamSubject;
+	}
+
+	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
+	}
+
+	public void setExamDao(IExamDao examDao) {
+		this.examDao = examDao;
+	}
+
+	public void setExaminerDao(IExaminerDao examinerDao) {
+		this.examinerDao = examinerDao;
+	}
+
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
+	}
+
+	public void setExamSubjectDao(IExamSubjectDao examSubjectDao) {
+		this.examSubjectDao = examSubjectDao;
 	}
 
 	public void setManipleDAO(IManipleDao manipleDao) {
@@ -179,66 +239,6 @@ public abstract class BaseTest extends
 
 	public void setStudyBranchDAO(IStudyBranchDao studyBranchDao) {
 		this.studyBranchDao = studyBranchDao;
-	}
-
-	public IExamDao getExamDao() {
-		return examDao;
-	}
-
-	public void setExamDao(IExamDao examDao) {
-		this.examDao = examDao;
-	}
-
-	public IExamSubjectDao getExamSubjectDao() {
-		return examSubjectDao;
-	}
-
-	public void setExamSubjectDao(IExamSubjectDao examSubjectDao) {
-		this.examSubjectDao = examSubjectDao;
-	}
-
-	public IExaminerDao getExaminerDao() {
-		return examinerDao;
-	}
-
-	public void setExaminerDao(IExaminerDao examinerDao) {
-		this.examinerDao = examinerDao;
-	}
-
-	protected Date getRandomDate() {
-		return Calendar.getInstance().getTime();
-	}
-
-	public ExamSubject getDefaultExamSubject() {
-		return defaultExamSubject;
-	}
-
-	public void setDefaultExamSubject(ExamSubject defaultExamSubject) {
-		this.defaultExamSubject = defaultExamSubject;
-	}
-
-	public Examiner getDefaultExaminer() {
-		return defaultExaminer;
-	}
-
-	public void setDefaultExaminer(Examiner defaultExaminer) {
-		this.defaultExaminer = defaultExaminer;
-	}
-
-	protected IExamService getExamService() {
-		return examService;
-	}
-
-	protected IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
-	}
-
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
-	}
-
-	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
 	}
 
 }

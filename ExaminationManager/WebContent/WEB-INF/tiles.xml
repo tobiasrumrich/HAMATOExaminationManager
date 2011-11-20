@@ -39,12 +39,12 @@
 	</definition>
 	<definition name="fileSingleOralExamAttendance" extends="mainLayout">
 		<put-attribute name="content"
-			value="/tiles/fileSingleOralExamAttendance.jsp" />
+			value="/tiles/oralExaminations/fileSingleOralExamAttendance.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNFileSingleOralExamAttendance" />
 	</definition>
 	<definition name="showListForOralExamAttendance" extends="mainLayout">
 		<put-attribute name="content"
-			value="/tiles/showListForOralExamAttendance.jsp" />
+			value="/tiles/oralExaminations/showListForOralExamAttendance.jsp" />
 		<put-attribute name="actionDisplayName"
 			value="txtADNShowListForOralExamAttendance" />
 	</definition>
@@ -62,6 +62,11 @@
 	</definition>
 	<definition name="trainmanSuccess" extends="modalLayout">
 		<put-attribute name="content" value="/tiles/trainman/success.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
+	</definition>
+	
+	<definition name="trainmanDatabaseNotCompliant" extends="modalLayout">
+		<put-attribute name="content" value="/tiles/trainman/databaseNotCompliant.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
 	</definition>
 
@@ -93,9 +98,18 @@
 		<put-attribute name="content" value="/tiles/common/error.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNCommonError" />
 	</definition>
-	
-	<definition name="displayCurrentExamAttendanceRecords" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/auditTrail/list.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNCommonError" />
+
+	<definition name="examAttendanceOverviewListPerStudent"
+		extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/examAttendance/listPerStudent.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamOverviewPerStudent" />
+	</definition>
+
+	<definition name="examAttendanceOverviewListPerManiple"
+		extends="mainLayout">
+		<put-attribute name="content"
+			value="/tiles/examAttendance/listPerManiple.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamOverviewPerManiple" />
 	</definition>
 </tiles-definitions>

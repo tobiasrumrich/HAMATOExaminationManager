@@ -31,9 +31,9 @@ import de.hatoma.exman.service.IExamSubjectService;
 public class ExamService implements IExamService {
 
 	@Autowired
-	private IExamDao examDao;
-	@Autowired
 	private IExamAttendanceService examAttendanceService;
+	@Autowired
+	private IExamDao examDao;
 	@Autowired
 	private IExamSubjectService examSubjectService;
 
@@ -47,67 +47,6 @@ public class ExamService implements IExamService {
 		exam.setExaminer(examiner);
 		examDao.save(exam);
 		return exam;
-	}
-
-	public void updateExam(Exam exam) throws Exception {
-		examDao.update(exam);
-	}
-
-	@Override
-	public List<Exam> getExamList() {
-		return examDao.findAll();
-	}
-
-	@Override
-	public Exam getExamById(long id) {
-		return examDao.load(id);
-	}
-
-	/**
-	 * @return the examDao
-	 */
-	public IExamDao getExamDao() {
-		return examDao;
-	}
-
-	/**
-	 * @param examDao
-	 *            the examDao to set
-	 */
-	public void setExamDao(IExamDao examDao) {
-		this.examDao = examDao;
-	}
-
-	@Override
-	public Serializable save(Exam e) {
-		return examDao.save(e);
-	}
-
-	@Override
-	public void update(Exam exam) {
-		examDao.update(exam);
-	}
-
-	@Override
-	public Exam load(Long examId) {
-		return examDao.load(examId);
-	}
-
-	@Override
-	public Boolean isExamEditable(Exam exam) {
-		List<ExamAttendance> examAttendancesForExam = getExamAttendanceService()
-				.getExamAttendancesForExam(exam);
-
-		return (examAttendancesForExam.size() == 0);
-	}
-
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
-	}
-
-	public void setExamAttendanceService(
-			IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
 	}
 
 	/*
@@ -168,11 +107,72 @@ public class ExamService implements IExamService {
 		return new Gson().toJson(l);
 	}
 
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	@Override
+	public Exam getExamById(long id) {
+		return examDao.load(id);
+	}
+
+	/**
+	 * @return the examDao
+	 */
+	public IExamDao getExamDao() {
+		return examDao;
+	}
+
+	@Override
+	public List<Exam> getExamList() {
+		return examDao.findAll();
+	}
+
 	public IExamSubjectService getExamSubjectService() {
 		return examSubjectService;
 	}
 
+	@Override
+	public Boolean isExamEditable(Exam exam) {
+		List<ExamAttendance> examAttendancesForExam = getExamAttendanceService()
+				.getExamAttendancesForExam(exam);
+
+		return (examAttendancesForExam.size() == 0);
+	}
+
+	@Override
+	public Exam load(Long examId) {
+		return examDao.load(examId);
+	}
+
+	@Override
+	public Serializable save(Exam e) {
+		return examDao.save(e);
+	}
+
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
+	}
+
+	/**
+	 * @param examDao
+	 *            the examDao to set
+	 */
+	public void setExamDao(IExamDao examDao) {
+		this.examDao = examDao;
+	}
+
 	public void setExamSubjectService(IExamSubjectService examSubjectService) {
 		this.examSubjectService = examSubjectService;
+	}
+
+	@Override
+	public void update(Exam exam) {
+		examDao.update(exam);
+	}
+
+	public void updateExam(Exam exam) throws Exception {
+		examDao.update(exam);
 	}
 }

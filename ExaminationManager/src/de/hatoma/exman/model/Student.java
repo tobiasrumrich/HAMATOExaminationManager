@@ -138,5 +138,4 @@ public class Student implements Serializable {
 		return forename + " " + lastname + " [" + matriculationNumber + "]";
 	}
 
-	
 }

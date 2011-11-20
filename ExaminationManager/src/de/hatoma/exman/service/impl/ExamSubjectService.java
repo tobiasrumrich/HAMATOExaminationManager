@@ -31,16 +31,38 @@ import de.hatoma.exman.service.IExamSubjectService;
 public class ExamSubjectService implements IExamSubjectService {
 
 	@Autowired
-	private IExamSubjectDao examSubjectDao;
-
-	@Autowired
-	private IManipleDao manipleDao;
+	private IExamAttendanceService examAttendanceService;
 
 	@Autowired
 	private IExamService examService;
 
 	@Autowired
-	private IExamAttendanceService examAttendanceService;
+	private IExamSubjectDao examSubjectDao;
+
+	@Autowired
+	private IManipleDao manipleDao;
+
+	@Override
+	public Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple() {
+		Map<Maniple, Collection<ExamSubject>> subjects = new HashMap<Maniple, Collection<ExamSubject>>();
+
+		for (Maniple m : getManipleDao().findAll()) {
+			Collection<ExamSubject> examSubjects = m.getExamSubjects();
+			Hibernate.initialize(examSubjects);
+			subjects.put(m, examSubjects);
+		}
+
+		return subjects;
+	}
+
+	@Override
+	public Collection<ExamSubject> allSubjectsByManiple(long id) {
+		Maniple m = manipleDao.load(id);
+		Collection<ExamSubject> examSubjects = m.getExamSubjects();
+		Hibernate.initialize(examSubjects);
+
+		return examSubjects;
+	}
 
 	@Override
 	public ExamSubject createExamSubject(String title, String description,
@@ -94,6 +116,36 @@ public class ExamSubjectService implements IExamSubjectService {
 		return new Gson().toJson(Lists.newArrayList(propertyMap));
 	}
 
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	
+	public IExamService getExamService() {
+		return examService;
+	}
+
+	// todo: load und examSubject angleichen
+	public ExamSubject getExamSubject(long id) {
+		return this.examSubjectDao.load(id);
+	}
+
+	@Override
+	public long getExamSubjectCount() {
+		return examSubjectDao.findAll().size();
+	}
+
+	/**
+	 * @return the examSubjectDao
+	 */
+	public IExamSubjectDao getExamSubjectDAO() {
+		return examSubjectDao;
+	}
+
+	public IManipleDao getManipleDao() {
+		return manipleDao;
+	}
+
 	@Override
 	public boolean hasStudentPassedSubject(Student student, ExamSubject subject) {
 		List<ExamAttendance> attendances = examAttendanceService
@@ -110,23 +162,17 @@ public class ExamSubjectService implements IExamSubjectService {
 	}
 
 	@Override
-	public Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple() {
-		Map<Maniple, Collection<ExamSubject>> subjects = new HashMap<Maniple, Collection<ExamSubject>>();
-
-		for (Maniple m : getManipleDao().findAll()) {
-			Collection<ExamSubject> examSubjects = m.getExamSubjects();
-			Hibernate.initialize(examSubjects);
-			subjects.put(m, examSubjects);
-		}
-
-		return subjects;
+	public ExamSubject load(Long id) {
+		return examSubjectDao.load(id);
 	}
 
-	/**
-	 * @return the examSubjectDao
-	 */
-	public IExamSubjectDao getExamSubjectDAO() {
-		return examSubjectDao;
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
+	}
+
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
 	}
 
 	/**
@@ -137,45 +183,8 @@ public class ExamSubjectService implements IExamSubjectService {
 		this.examSubjectDao = examSubjectDao;
 	}
 
-	public IManipleDao getManipleDao() {
-		return manipleDao;
-	}
-
 	public void setManipleDao(IManipleDao manipleDao) {
 		this.manipleDao = manipleDao;
-	}
-
-	@Override
-	public ExamSubject load(Long id) {
-		return examSubjectDao.load(id);
-	}
-
-	@Override
-	// todo: load und examSubject angleichen
-	public ExamSubject getExamSubject(long id) {
-		return this.examSubjectDao.load(id);
-	}
-
-	@Override
-	public long getExamSubjectCount() {
-		return examSubjectDao.findAll().size();
-	}
-
-	public IExamService getExamService() {
-		return examService;
-	}
-
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
-	}
-
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
-	}
-
-	public void setExamAttendanceService(
-			IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
 	}
 
 }

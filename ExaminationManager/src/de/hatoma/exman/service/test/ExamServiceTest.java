@@ -21,9 +21,9 @@ import de.hatoma.exman.test.BaseTest;
 
 public class ExamServiceTest extends BaseTest {
 	private Exam exam1;
+	private Exam exam2;
 	private Student student;
 	private ExamSubject subject;
-	private Exam exam2;
 
 	@Before
 	public void before() {

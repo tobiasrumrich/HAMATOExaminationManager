@@ -9,16 +9,12 @@ import de.hatoma.exman.model.Student;
 
 public interface IExamSubjectService {
 
-	ExamSubject createExamSubject(String title, String description,
-			String moduleIdentifier, Maniple maniple);
-
 	Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple();
 
-	ExamSubject load(Long id);
+	Collection<ExamSubject> allSubjectsByManiple(long id);
 
-	ExamSubject getExamSubject(long id);
-
-	public long getExamSubjectCount();
+	ExamSubject createExamSubject(String title, String description,
+			String moduleIdentifier, Maniple maniple);
 
 	/**
 	 * Liefert die ExamSubjects für den Studenten zurück, die der Student noch
@@ -30,6 +26,10 @@ public interface IExamSubjectService {
 	 */
 	String getAvailableExamSubjectsForStudentJson(Student student);
 
+	ExamSubject getExamSubject(long id);
+
+	public long getExamSubjectCount();
+
 	/**
 	 * Überprüft, ob der Student bereits eine Prüfung für dieses Fach bestanden
 	 * hat. TODO hal: mündliche prüfungen mit einbeziehen.
@@ -39,4 +39,6 @@ public interface IExamSubjectService {
 	 * @return
 	 */
 	boolean hasStudentPassedSubject(Student student, ExamSubject subject);
+
+	public ExamSubject load(Long id);
 }

@@ -1,65 +1,24 @@
+/**
+ * @author Tobias Rumrich, 3638
+ */
 package de.hatoma.exman.action.helpers;
 
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.Student;
 
 public class ExamAttendanceBulkUpdateHelperBean {
+	private String newGrade = "";
+	private int numAttempt;
 	private ExamAttendance previousExamAttendance;
 	private Student student;
-	private int numAttempt;
-	private String newGrade = "";
-	
-	public ExamAttendanceBulkUpdateHelperBean(
-			Student student,
-			int numAttempt, ExamAttendance previousExamAttendance) {
+
+	public ExamAttendanceBulkUpdateHelperBean(Student student, int numAttempt,
+			ExamAttendance previousExamAttendance) {
 		super();
 		this.previousExamAttendance = previousExamAttendance;
 		this.student = student;
 		this.numAttempt = numAttempt;
 
-	}
-	
-
-	/**
-	 * @return the previousExamAttendance
-	 */
-	public ExamAttendance getPreviousExamAttendance() {
-		return previousExamAttendance;
-	}
-
-	/**
-	 * @param previousExamAttendance the previousExamAttendance to set
-	 */
-	public void setPreviousExamAttendance(ExamAttendance previousExamAttendance) {
-		this.previousExamAttendance = previousExamAttendance;
-	}
-
-	/**
-	 * @return the student
-	 */
-	public Student getStudent() {
-		return student;
-	}
-
-	/**
-	 * @param student the student to set
-	 */
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
-	/**
-	 * @return the numAttempt
-	 */
-	public int getNumAttempt() {
-		return numAttempt+1;
-	}
-
-	/**
-	 * @param numAttempt the numAttempt to set
-	 */
-	public void setNumAttempt(int numAttempt) {
-		this.numAttempt = numAttempt;
 	}
 
 	/**
@@ -70,10 +29,56 @@ public class ExamAttendanceBulkUpdateHelperBean {
 	}
 
 	/**
-	 * @param newGrade the newGrade to set
+	 * @return the numAttempt
+	 */
+	public int getNumAttempt() {
+		return numAttempt + 1;
+	}
+
+	/**
+	 * @return the previousExamAttendance
+	 */
+	public ExamAttendance getPreviousExamAttendance() {
+		return previousExamAttendance;
+	}
+
+	/**
+	 * @return the student
+	 */
+	public Student getStudent() {
+		return student;
+	}
+
+	/**
+	 * @param newGrade
+	 *            the newGrade to set
 	 */
 	public void setNewGrade(String newGrade) {
 		this.newGrade = newGrade;
 	}
-	
+
+	/**
+	 * @param numAttempt
+	 *            the numAttempt to set
+	 */
+	public void setNumAttempt(int numAttempt) {
+		this.numAttempt = numAttempt;
+	}
+
+	/**
+	 * @param previousExamAttendance
+	 *            the previousExamAttendance to set
+	 */
+	public void setPreviousExamAttendance(ExamAttendance previousExamAttendance) {
+		this.previousExamAttendance = previousExamAttendance;
+	}
+
+	/**
+	 * @param student
+	 *            the student to set
+	 */
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
 }

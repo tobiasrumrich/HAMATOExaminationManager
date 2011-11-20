@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -80,7 +82,9 @@ div#container {
 
 	<div id="headerbar">
 		<div id="header">
-			<span id="sessioninfo">&lt;sessioninfo&gt;</span>
+			<span id="sessioninfo"><s:text name="txtLoggedInAs" /> <strong><sec:authentication
+						property="principal.username" /></strong> <a
+				href="<s:url value="j_spring_security_logout" />">Logout</a></span>
 			<h1>HATOMA Examination Manager</h1>
 		</div>
 	</div>

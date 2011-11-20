@@ -23,20 +23,20 @@ import de.hatoma.exman.service.IStudentService;
 public class SingleExamAttendanceAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private String studentN;
-	private Long studentNid;
-	private Long examSubjectN;
-	private Long examN;
-	private ExamGrade examGrade;
-
-	@Autowired
-	private IStudentService studentService;
-	@Autowired
-	private IExamSubjectService examSubjectService;
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
+	private ExamGrade examGrade;
+	private Long examN;
 	@Autowired
 	private IExamService examService;
+	private Long examSubjectN;
+
+	@Autowired
+	private IExamSubjectService examSubjectService;
+	private String studentN;
+	private Long studentNid;
+	@Autowired
+	private IStudentService studentService;
 
 	public Map<String, String> getAllGrades() {
 		TreeMap<String, String> grades = new TreeMap<String, String>();
@@ -48,6 +48,62 @@ public class SingleExamAttendanceAction extends ActionSupport {
 		}
 
 		return grades;
+	}
+
+	public String getAllStudents() {
+		return studentService.getAllStudentsAsJson();
+	}
+
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	public ExamGrade getExamGrade() {
+		return examGrade;
+	}
+
+	public Long getExamN() {
+		return examN;
+	}
+
+	public IExamService getExamService() {
+		return examService;
+	}
+
+	public Long getExamSubjectN() {
+		return examSubjectN;
+	}
+
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
+	}
+
+	public String getStudentN() {
+		return studentN;
+	}
+
+	public Long getStudentNid() {
+		return studentNid;
+	}
+
+	public IStudentService getStudentService() {
+		return studentService;
+	}
+
+	public String input() {
+		return Action.INPUT;
+	}
+
+	private void notNull(Object value, String fieldName) {
+		if (value == null) {
+			addFieldError(fieldName, getText("errorRequired"));
+		}
+	}
+
+	private void notNull(String value, String fieldName) {
+		if (value == null || value.trim().length() == 0) {
+			addFieldError(fieldName, getText("errorRequired"));
+		}
 	}
 
 	public String save() {
@@ -74,36 +130,29 @@ public class SingleExamAttendanceAction extends ActionSupport {
 		return Action.INPUT;
 	}
 
-	private void notNull(Object value, String fieldName) {
-		if (value == null) {
-			addFieldError(fieldName, getText("errorRequired"));
-		}
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
 	}
 
-	private void notNull(String value, String fieldName) {
-		if (value == null || value.trim().length() == 0) {
-			addFieldError(fieldName, getText("errorRequired"));
-		}
+	public void setExamGrade(ExamGrade examGrade) {
+		this.examGrade = examGrade;
 	}
 
-	public String getAllStudents() {
-		return studentService.getAllStudentsAsJson();
+	public void setExamN(Long examN) {
+		this.examN = examN;
 	}
 
-	public String getStudentN() {
-		return studentN;
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
 	}
 
-	public Long getStudentNid() {
-		return studentNid;
+	public void setExamSubjectN(Long examSubjectN) {
+		this.examSubjectN = examSubjectN;
 	}
 
-	public IStudentService getStudentService() {
-		return studentService;
-	}
-
-	public String input() {
-		return Action.INPUT;
+	public void setExamSubjectService(IExamSubjectService examSubjectService) {
+		this.examSubjectService = examSubjectService;
 	}
 
 	public void setStudentN(String studentN) {
@@ -116,54 +165,5 @@ public class SingleExamAttendanceAction extends ActionSupport {
 
 	public void setStudentService(IStudentService studentService) {
 		this.studentService = studentService;
-	}
-
-	public IExamSubjectService getExamSubjectService() {
-		return examSubjectService;
-	}
-
-	public void setExamSubjectService(IExamSubjectService examSubjectService) {
-		this.examSubjectService = examSubjectService;
-	}
-
-	public Long getExamSubjectN() {
-		return examSubjectN;
-	}
-
-	public void setExamSubjectN(Long examSubjectN) {
-		this.examSubjectN = examSubjectN;
-	}
-
-	public Long getExamN() {
-		return examN;
-	}
-
-	public void setExamN(Long examN) {
-		this.examN = examN;
-	}
-
-	public ExamGrade getExamGrade() {
-		return examGrade;
-	}
-
-	public void setExamGrade(ExamGrade examGrade) {
-		this.examGrade = examGrade;
-	}
-
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
-	}
-
-	public void setExamAttendanceService(
-			IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
-	}
-
-	public IExamService getExamService() {
-		return examService;
-	}
-
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
 	}
 }

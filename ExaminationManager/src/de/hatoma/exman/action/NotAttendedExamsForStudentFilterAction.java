@@ -11,14 +11,30 @@ import de.hatoma.exman.service.IStudentService;
 
 public class NotAttendedExamsForStudentFilterAction extends ActionSupport {
 	private static final long serialVersionUID = 2484053877817310866L;
-	private Long studentId;
+	@Autowired
+	private IExamService examService;
 	private Long examSubjectId;
 	@Autowired
 	private IExamSubjectService examSubjectService;
+	private Long studentId;
 	@Autowired
 	private IStudentService studentService;
-	@Autowired
-	private IExamService examService;
+
+	public IExamService getExamService() {
+		return examService;
+	}
+
+	public String getExamsForStudent() {
+		return "json";
+	}
+
+	public Long getExamSubjectId() {
+		return examSubjectId;
+	}
+
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
+	}
 
 	public String getJsonValueString() {
 		if (getStudentId() == null || getExamSubjectId() == null) {
@@ -37,48 +53,32 @@ public class NotAttendedExamsForStudentFilterAction extends ActionSupport {
 				});
 	}
 
-	public String getExamsForStudent() {
-		return "json";
-	}
-
 	public Long getStudentId() {
 		return studentId;
-	}
-
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
-	}
-
-	public IExamSubjectService getExamSubjectService() {
-		return examSubjectService;
-	}
-
-	public void setExamSubjectService(IExamSubjectService examSubjectService) {
-		this.examSubjectService = examSubjectService;
 	}
 
 	public IStudentService getStudentService() {
 		return studentService;
 	}
 
-	public void setStudentService(IStudentService studentService) {
-		this.studentService = studentService;
-	}
-
-	public Long getExamSubjectId() {
-		return examSubjectId;
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
 	}
 
 	public void setExamSubjectId(Long examSubjectId) {
 		this.examSubjectId = examSubjectId;
 	}
 
-	public IExamService getExamService() {
-		return examService;
+	public void setExamSubjectService(IExamSubjectService examSubjectService) {
+		this.examSubjectService = examSubjectService;
 	}
 
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
+	}
+
+	public void setStudentService(IStudentService studentService) {
+		this.studentService = studentService;
 	}
 
 }

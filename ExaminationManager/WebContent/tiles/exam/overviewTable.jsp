@@ -23,36 +23,36 @@
 			"bStateSave" : true,
 			"oLanguage" : {
 				"oPaginate" : {
-					"sPrevious" : "Vorherige Seite",
-					"sNext" : "Nächste Seite",
-					"sFirst" : "Erste Seite",
-					"sLast" : "Letzte Seite",
+					"sPrevious" : "<s:text name="jQueryDataTablesPrevious" />",
+					"sNext" : "<s:text name="jQueryDataTablesNext" />",
+					"sFirst" : "<s:text name="jQueryDataTablesFirst" />",
+					"sLast" : "<s:text name="jQueryDataTablesLast" />",
 				},
-				"sSearch" : "Suche:",
-				"sEmptyTable" : "Keine Einträge gefunden.",
-				"sInfo" : "Zeige Eintrag _START_ bis _END_ von _TOTAL_.",
-				"sInfoEmpty" : "Zeige 0 von 0 Einträgen.",
-				"sInfoFiltered" : " - gefiltert aus _MAX_ Einträgen.",
-				"sInfoThousands" : ".", //Tausender-Trennzeichen
-				"sLengthMenu" : "Zeige _MENU_ Einträge.",
-				"sProcessing" : "Bitte warten",
-				"sZeroRecords" : "Keine Daten vorhanden."
+				"sSearch" : "<s:text name="jQueryDataTablesSearch" />",
+				"sEmptyTable" : "<s:text name="jQueryDataTablesEmptyTable" />",
+				"sInfo" : "<s:text name="jQueryDataTablesInfo" />",
+				"sInfoEmpty" : "<s:text name="jQueryDataTablesInfoEmpty" />",
+				"sInfoFiltered" : "<s:text name="jQueryDataTablesInfoFiltered" />",
+				"sInfoThousands" : "<s:text name="jQueryDataTablesInfoThousands" />", //Tausender-Trennzeichen
+				"sLengthMenu" : "<s:text name="jQueryDataTablesLengthMenu" />",
+				"sProcessing" : "<s:text name="jQueryDataTablesProcessing" />",
+				"sZeroRecords" : "<s:text name="jQueryDataTablesZeroRecords" />"
 
 			}
 		});
 	});
 </script>
 
-
+<s:text name="txtInfotextListExams" />
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
-			<td>Manipel</td>
-			<td>Modul</td>
-			<td>Modulbezeichnung</td>
-			<td>Datum</td>
-			<td>Prüfer</td>
-			<td>Prüfungsform</td>
+			<td><s:text name="lblManiple" /></td>
+			<td><s:text name="lblModule" /></td>
+			<td><s:text name="lblModulename" /></td>
+			<td><s:text name="lblDate" /></td>
+			<td><s:text name="lblExaminer" /></td>
+			<td><s:text name="lblExamType" /></td>
 			<td></td>
 		</tr>
 	</thead>
@@ -68,7 +68,7 @@
 
 				<td><s:property value="examSubject.title" /></td>
 
-				<td><s:date name="date" format="%{getText('examDateFormat')}" />
+				<td><s:date name="date" format="%{getText('examDateFormatNoTimeFormat')}" />
 				</td>
 
 				<td><s:property value="examiner" /></td>
@@ -77,21 +77,26 @@
 				<td><s:url action="ExamAttendanceBulkUpdate"
 						id="examAttendanceBulkUpdateUrl">
 						<s:param name="examId" value="id" />
-					</s:url> <s:a href="%{examAttendanceBulkUpdateUrl}"
-						tooltip="txtLinkToExamAttendanceBulkUpdate">
-						<img src="resources/img/icons/table_add.png" />
-					</s:a> <s:if test="%{isExamEditable(id)}">
+					</s:url> <s:a href="%{examAttendanceBulkUpdateUrl}">
+						<img src="resources/img/icons/table_add.png" title="<s:text name="txtLinkToExamAttendanceBulkUpdate" />"/>
+					</s:a><br/><s:if test="%{isExamEditable(id)}">
 						<s:url action="EditExam" id="editExam">
 							<s:param name="examId" value="id" />
 						</s:url>
-						<s:a href="%{editExam}" tooltip="txtEditExam">
-							<img src="resources/img/icons/pencil_go.png" />
+						<s:a href="%{editExam}">
+							<img src="resources/img/icons/pencil_go.png" title="<s:text name="txtEditExam" />"/>
 						</s:a>
 					</s:if> <s:else>
 						<img src="resources/img/icons/lock.png"
-							alt="<s:text name="txtNotEditable" />" />
+							title="<s:text name="txtNotEditable" />" />
 					</s:else></td>
 			</tr>
 		</s:iterator>
 	</tbody>
 </table>
+<div id="legend">
+<s:text name="txtCaption" />:<br />
+<img src="resources/img/icons/pencil_go.png" title="<s:text name="txtEditExam" />"/> <s:text name="txtEditExam" /><br />
+<img src="resources/img/icons/table_add.png" title="<s:text name="txtLinkToExamAttendanceBulkUpdate" />"/> <s:text name="txtLinkToExamAttendanceBulkUpdate" /><br />
+<img src="resources/img/icons/lock.png" title="<s:text name="txtNotEditable" />" /> <s:text name="txtNotEditable" />
+</div>

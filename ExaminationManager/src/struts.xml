@@ -20,7 +20,7 @@
 
 		<!-- Global Results (needed eg. by the Trainman Interceptor) -->
 		<global-results>
-			<result name="globalTrainmanInput" type="tiles">trainmanIntro</result>
+			<result name="globalTrainmanDatabaseNotCompliant" type="tiles">trainmanDatabaseNotCompliant</result>
 		</global-results>
 
 
@@ -78,6 +78,7 @@
 		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
 			<result name="input" type="tiles">trainmanIntro</result>
 			<result name="success" type="tiles">trainmanSuccess</result>
+			<result name="error" type="tiles">commonError</result>
 		</action>
 		<action name="CreateExam" class="de.hatoma.exman.action.CreateExamAction"
 			method="create">
@@ -101,14 +102,22 @@
 			</result>
 			<result name="input" type="tiles">examAttendanceBulkUpdateList
 			</result>
-			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
-			</result>
+			<result name="protocol" type="tiles">commonProtocol</result>
+			<!-- <result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
+			</result>-->
 		</action>
 
 		<action name="AuditTrail" class="de.hatoma.exman.action.AuditTrailAction">
 			<result name="displayExamAttendanceAuditTrail" type="tiles">displayExamAttendanceAuditTrail
 			</result>
-			<result name="list" type="tiles">displayCurrentExamAttendanceRecords
+			<result name="error" type="tiles">commonError</result>
+		</action>
+
+		<action name="ExamAttendanceOverview"
+			class="de.hatoma.exman.action.ExamAttendanceOverviewAction">
+			<result name="listPerStudent" type="tiles">examAttendanceOverviewListPerStudent
+			</result>
+			<result name="listPerManiple" type="tiles">examAttendanceOverviewListPerManiple
 			</result>
 			<result name="error" type="tiles">commonError</result>
 			<result name="json">json.jsp</result>

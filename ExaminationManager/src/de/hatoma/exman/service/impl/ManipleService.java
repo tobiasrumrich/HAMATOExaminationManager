@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +36,16 @@ public class ManipleService implements IManipleService {
 	}
 
 	@Override
+	public Collection<Maniple> findAll() {
+		return manipleDao.findAll();
+	}
+
+	@Override
+	public Collection<Maniple> getAll() {
+		return manipleDao.findAll();
+	}
+
+	@Override
 	public String getAllManiplesJson() {
 		List<Entry<Long, String>> maniples = new ArrayList<Entry<Long, String>>();
 		for (Maniple m : findAll()) {
@@ -44,8 +55,15 @@ public class ManipleService implements IManipleService {
 	}
 
 	@Override
-	public Collection<Maniple> getAll() {
-		return manipleDao.findAll();
+	public Maniple getById(long id) {
+		Maniple load = manipleDao.load(id);
+		Collection<Student> students = load.getStudents();
+		Hibernate.initialize(students);
+		return load;
+	}
+
+	public long getManipleCount() {
+		return manipleDao.findAll().size();
 	}
 
 	public IManipleDao getManipleDao() {
@@ -59,22 +77,12 @@ public class ManipleService implements IManipleService {
 		return students;
 	}
 
-	public void setManipleDao(IManipleDao manipleDao) {
-		this.manipleDao = manipleDao;
-	}
-
-	@Override
-	public Collection<Maniple> findAll() {
-		return manipleDao.findAll();
-	}
-
-	public long getManipleCount() {
-		return manipleDao.findAll().size();
-	}
-
 	@Override
 	public Maniple load(long id) {
 		return manipleDao.load(id);
 	}
 
+	public void setManipleDao(IManipleDao manipleDao) {
+		this.manipleDao = manipleDao;
+	}
 }

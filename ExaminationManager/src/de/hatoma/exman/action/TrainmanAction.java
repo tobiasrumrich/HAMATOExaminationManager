@@ -17,7 +17,7 @@ import de.hatoma.exman.service.ITrainmanService;
  * This is the action that allows to initialize the database with default
  * respective generated initial values.
  * 
- * @author tobias
+ * @author Tobias Rumrich, 3638
  * 
  */
 public class TrainmanAction extends ActionSupport implements
@@ -30,24 +30,19 @@ public class TrainmanAction extends ActionSupport implements
 
 	private Map<String, String> creationMethods;
 
-	private String selectedMethod;
-
 	private int maxStudentsPerManiple = 130;
+
 	private int minStudentsPerManiple = 90;
+	private String selectedMethod;
 
 	@Autowired
 	private ITrainmanService trainmanService;
 
-	@Override
-	public String execute() throws Exception {
-		creationMethods = new HashMap<String, String>();
-		creationMethods.put("bootstrapper",
-				getText("lblTrainmanCheckBootstrapper"));
-		creationMethods.put("examOnly", getText("lblTrainmanCheckCreateExams"));
-		creationMethods.put("complete",
-				getText("lblTrainmanCheckCreateExamAttendances"));
-		return "input";
-
+	/**
+	 * @return the creationMethods
+	 */
+	public Map<String, String> getCreationMethods() {
+		return creationMethods;
 	}
 
 	/**
@@ -65,59 +60,10 @@ public class TrainmanAction extends ActionSupport implements
 	}
 
 	/**
-	 * Starts processing to insert data to the database
-	 * 
-	 * @return
-	 * @throws Exception
+	 * @return the selectedMethod
 	 */
-	public String insertData() throws Exception {
-
-		if (selectedMethod.equals("complete")) {
-			trainmanService.completeInitializatain(minStudentsPerManiple,
-					maxStudentsPerManiple);
-			return "success";
-		}
-		else if (selectedMethod.equals("examOnly")) {
-			trainmanService.bootAndExams(minStudentsPerManiple,
-					maxStudentsPerManiple);
-			return "success";
-		}
-
-		else if (selectedMethod.equals("bootstrapper")) {
-			trainmanService.bootStrapper(minStudentsPerManiple,maxStudentsPerManiple);
-			return "success";
-		}
-				
-		return "input";
-
-	}
-
-	/**
-	 * @param maxStudentsPerManiple
-	 *            the maxStudentsPerManiple to set
-	 */
-	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "6", max = "30000")
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key="errorRequired")
-	public void setMaxStudentsPerManiple(String maxStudentsPerManiple) {
-		this.maxStudentsPerManiple = Integer.valueOf(maxStudentsPerManiple);
-	}
-
-	/**
-	 * @param minStudentsPerManiple
-	 *            the minStudentsPerManiple to set
-	 */
-	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "3", max = "29997")
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key="errorRequired")
-	public void setMinStudentsPerManiple(String minStudentsPerManiple) {
-		this.minStudentsPerManiple = Integer.valueOf(minStudentsPerManiple);
-	}
-
-	/**
-	 * @param trainmanService
-	 *            the trainmanService to set
-	 */
-	public void setTrainmanService(ITrainmanService trainmanService) {
-		this.trainmanService = trainmanService;
+	public String getSelectedMethod() {
+		return selectedMethod;
 	}
 
 	/**
@@ -128,19 +74,37 @@ public class TrainmanAction extends ActionSupport implements
 	}
 
 	/**
-	 * @param selectedMethods
-	 *            the selectedMethods to set
+	 * Starts processing to insert data to the database
+	 * 
+	 * @return
+	 * @throws Exception
 	 */
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key="errorRequired")
-	public void setSelectedMethods(String selectedMethods) {
-		this.selectedMethod = selectedMethods;
-	}
+	public String insertData() throws Exception {
 
-	/**
-	 * @return the creationMethods
-	 */
-	public Map<String, String> getCreationMethods() {
-		return creationMethods;
+		if (!trainmanService.doesDatabaseComplyWithRequirements()) {
+		if (selectedMethod.equals("complete")) {
+			trainmanService.completeInitializatain(minStudentsPerManiple,
+					maxStudentsPerManiple);
+			return "success";
+		} else if (selectedMethod.equals("examOnly")) {
+			trainmanService.bootAndExams(minStudentsPerManiple,
+					maxStudentsPerManiple);
+			return "success";
+		}
+
+		else if (selectedMethod.equals("bootstrapper")) {
+			trainmanService.bootStrapper(minStudentsPerManiple,
+					maxStudentsPerManiple);
+			return "success";
+		}
+
+		return "input";
+		}
+		else{
+			addActionError(getText("txtTrainmanErrorMayNotProvideServiceNow"));
+			return "error";
+		}
+
 	}
 
 	/**
@@ -152,17 +116,48 @@ public class TrainmanAction extends ActionSupport implements
 	}
 
 	/**
-	 * @return the selectedMethod
+	 * @param maxStudentsPerManiple
+	 *            the maxStudentsPerManiple to set
 	 */
-	public String getSelectedMethod() {
-		return selectedMethod;
+	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "6", max = "30000")
+	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
+	public void setMaxStudentsPerManiple(String maxStudentsPerManiple) {
+		this.maxStudentsPerManiple = Integer.valueOf(maxStudentsPerManiple);
 	}
 
 	/**
-	 * @param selectedMethod the selectedMethod to set
+	 * @param minStudentsPerManiple
+	 *            the minStudentsPerManiple to set
 	 */
+	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "3", max = "29997")
+	public void setMinStudentsPerManiple(String minStudentsPerManiple) {
+		this.minStudentsPerManiple = Integer.valueOf(minStudentsPerManiple);
+	}
+
+	/**
+	 * @param selectedMethod
+	 *            the selectedMethod to set
+	 */
+	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
 	public void setSelectedMethod(String selectedMethod) {
 		this.selectedMethod = selectedMethod;
+	}
+
+	/**
+	 * @param selectedMethods
+	 *            the selectedMethods to set
+	 */
+	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
+	public void setSelectedMethods(String selectedMethods) {
+		this.selectedMethod = selectedMethods;
+	}
+
+	/**
+	 * @param trainmanService
+	 *            the trainmanService to set
+	 */
+	public void setTrainmanService(ITrainmanService trainmanService) {
+		this.trainmanService = trainmanService;
 	}
 
 }

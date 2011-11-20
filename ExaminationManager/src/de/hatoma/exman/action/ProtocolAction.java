@@ -1,8 +1,12 @@
 package de.hatoma.exman.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 
+/**
+ * 
+ * @author Marcel Schroeter, 3690
+ * 
+ */
 public class ProtocolAction extends ActionSupport {
 
 	/**
@@ -20,8 +24,4 @@ public class ProtocolAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	@RequiredStringValidator(message = "das erste Feld ist ben�tigt!", key = "i18n.key", shortCircuit = true, trim = true)
-	public void setMessage(String message) {
-		this.message = message;
-	}
 }

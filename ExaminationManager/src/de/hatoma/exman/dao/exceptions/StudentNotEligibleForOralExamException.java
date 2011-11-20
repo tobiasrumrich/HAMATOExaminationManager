@@ -1,11 +1,11 @@
 package de.hatoma.exman.dao.exceptions;
+
 /**
  * 
  * @author Marcel Schroeter
- *
+ * 
  */
 public class StudentNotEligibleForOralExamException extends RuntimeException {
-
 
 	private static final long serialVersionUID = -6846335544066288070L;
 

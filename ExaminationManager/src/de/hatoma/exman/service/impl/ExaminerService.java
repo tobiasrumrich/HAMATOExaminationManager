@@ -28,9 +28,9 @@ public class ExaminerService implements IExaminerService {
 	private IExaminerDao examinerDao;
 	@Autowired
 	private IExamSubjectService examSubjectService;
+	private Gson gson;
 	@Autowired
 	private IManipleService manipleService;
-	private Gson gson;
 
 	public ExaminerService() {
 		gson = new Gson();
@@ -49,7 +49,7 @@ public class ExaminerService implements IExaminerService {
 	public List<Examiner> findAll() {
 		return examinerDao.findAll();
 	}
-
+	
 	@Override
 	public String getAllExaminersAsJson() {
 		List<Examiner> allExaminers = findAll();
@@ -84,6 +84,11 @@ public class ExaminerService implements IExaminerService {
 		}
 
 		return gson.toJson(examSubjectsByMainple);
+	}
+
+	@Override
+	public long getExaminerCount() {
+		return examinerDao.findAll().size();
 	}
 
 	/**

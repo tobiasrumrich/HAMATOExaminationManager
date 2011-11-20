@@ -12,11 +12,23 @@ import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamSubject;
 
+/**
+ * 
+ * @author Tobias Rumrich, 3638
+ * 
+ */
 @Component
 public class ExamDao extends BaseDao<Exam> implements IExamDao {
 
 	public ExamDao() {
 		super(Exam.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Exam> findAllForSubject(ExamSubject subject) {
+		return getCurrentSession().createCriteria(Exam.class)
+				.add(Restrictions.eq("examSubject", subject)).list();
 	}
 
 	@Override
@@ -30,13 +42,6 @@ public class ExamDao extends BaseDao<Exam> implements IExamDao {
 		}
 		getCurrentSession().update(exam);
 
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Exam> findAllForSubject(ExamSubject subject) {
-		return getCurrentSession().createCriteria(Exam.class)
-				.add(Restrictions.eq("examSubject", subject)).list();
 	}
 
 }

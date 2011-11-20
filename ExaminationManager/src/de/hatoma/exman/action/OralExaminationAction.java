@@ -1,13 +1,18 @@
 package de.hatoma.exman.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
@@ -22,10 +27,11 @@ import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IManipleService;
+
 /**
  * 
  * @author Marcel Schroeter, 3690
- *
+ * 
  */
 public class OralExaminationAction extends ActionSupport implements Preparable {
 	/**
@@ -131,6 +137,7 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		return students;
 	}
 
+	@Override
 	public String input() throws Exception {
 		// TODO: was is wenn ohne id?
 		// TODO: was is wenn nich erlaubte id?
@@ -166,8 +173,10 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		OralExamGrade oralExamGrade;
 		try {
 			if ((frmSupplementalOralExaminationDate.length() != 10)
-					|| (!frmSupplementalOralExaminationDate.substring(2, 3).equals("."))
-					|| (!frmSupplementalOralExaminationDate.substring(5, 6).equals("."))) {
+					|| (!frmSupplementalOralExaminationDate.substring(2, 3)
+							.equals("."))
+					|| (!frmSupplementalOralExaminationDate.substring(5, 6)
+							.equals("."))) {
 				addActionError(getText("txtErrorWrongDateFormat"));
 				return "input";
 			}
@@ -217,6 +226,15 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 			addActionError(getText("txtCommonError"));
 			return "input";
 		}
+
+		DateFormat dateDay = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
+		DateFormat dateTime = new SimpleDateFormat("HH:mm");
+		Date date = new Date();
+		UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		addActionMessage(getText("txtUiProtocolHeader"));
+		addActionMessage(getText("lblDate") + ": " + dateDay.format(date));		
+		addActionMessage(getText("lblTime") + ": " + dateTime.format(date));
+		addActionMessage(getText("lblUser") + ": " + currentUser.getUsername());
 		return "protocol";
 
 	}
@@ -301,8 +319,8 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 			manipleToFetch = Integer.valueOf(selectedManiple);
 		}
 		maniples = (List<Maniple>) manipleService.getAll();
-		examAttendances = (List<ExamAttendance>) getExamAttendanceService()
-				.getOralCandidates(manipleToFetch);
+		examAttendances = getExamAttendanceService().getOralCandidates(
+				manipleToFetch);
 	}
 
 }

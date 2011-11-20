@@ -2,24 +2,38 @@ package de.hatoma.exman.dao.helpers;
 
 /**
  * Bean to store a pair of a RevisionEntity and a Revision
- * @author tobias
- *
- * @param <RevisionEntityType> RevisionEntity (contains meta-information related to the revision)
- * @param <EntityType> Revision of an Entity (contains the revisioned entity)
+ * 
+ * @author Tobias Rumrich, 3638
+ * 
+ * @param <RevisionEntityType>
+ *            RevisionEntity (contains meta-information related to the revision)
+ * @param <EntityType>
+ *            Revision of an Entity (contains the revisioned entity)
  */
-public class AuditTrailBean<RevisionEntityType,EntityType> {
-	private final RevisionEntityType revisionEntity;
+public class AuditTrailBean<RevisionEntityType, EntityType> {
 	private final EntityType entity;
-	
+	private final Boolean isCurrentRevision;
+	private final RevisionEntityType revisionEntity;
+
 	/**
 	 * Creates a new RevisionEntity Bean
-	 * @param revisionEntity (contains meta-information related to the revision)
-	 * @param entity Revision of the Entity (contains the revisioned entity)
+	 * 
+	 * @param revisionEntity
+	 *            (contains meta-information related to the revision)
+	 * @param entity
+	 *            Revision of the Entity (contains the revisioned entity)
 	 */
-	public AuditTrailBean(RevisionEntityType revisionEntity,
-			EntityType entity) {
+	public AuditTrailBean(RevisionEntityType revisionEntity, EntityType entity, Boolean isCurrentRevision) {
 		this.revisionEntity = revisionEntity;
 		this.entity = entity;
+		this.isCurrentRevision = isCurrentRevision;
+	}
+
+	/**
+	 * @return the entity
+	 */
+	public EntityType getEntity() {
+		return entity;
 	}
 
 	/**
@@ -30,12 +44,10 @@ public class AuditTrailBean<RevisionEntityType,EntityType> {
 	}
 
 	/**
-	 * @return the entity
+	 * @return the isCurrentRevision
 	 */
-	public EntityType getEntity() {
-		return entity;
+	public Boolean isCurrentRevision() {
+		return isCurrentRevision;
 	}
 
-	
-	
 }
