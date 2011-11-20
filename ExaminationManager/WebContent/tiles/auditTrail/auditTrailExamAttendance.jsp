@@ -29,8 +29,12 @@ table tr {
 
 		if (document.getElementById("trailTable_" + numberOfTrailtable).style.display == "block") {
 			document.getElementById("trailTable_" + numberOfTrailtable).style.display = "none";
+			document.getElementById("trailPlus_" + numberOfTrailtable).style.display = "inline";
+			document.getElementById("trailMinus_" + numberOfTrailtable).style.display = "none";
 		} else {
 			document.getElementById("trailTable_" + numberOfTrailtable).style.display = "block";
+			document.getElementById("trailPlus_" + numberOfTrailtable).style.display = "none";
+			document.getElementById("trailMinus_" + numberOfTrailtable).style.display = "inline";
 		}
 	}
 </script>
@@ -38,7 +42,12 @@ table tr {
 <p>
 	<s:text name="lblInfotextAuditTrail" />
 </p>
-<div id="printButton"><form><input type="button" onClick="window.print()" value="<s:text name="btnPrint" />"/></form></div>
+<div id="printButton">
+	<form>
+		<input type="button" onClick="window.print()"
+			value="<s:text name="btnPrint" />" />
+	</form>
+</div>
 <table>
 	<tr>
 		<td><strong><s:text name="lblStudentName" /></strong></td>
@@ -65,9 +74,12 @@ table tr {
 			</thead>
 			<tbody>
 				<tr>
-					<td class="emphasized"><s:property value="entity.attempt" /></td>
-					<td><s:property value="%{getText(examMap[key].examGrade)}" /></td>
-					<td></td>
+					<td class="emphasized"><s:property
+							value="%{value.get(0).getEntity().getAttempt()}" /></td>
+					<td><s:property
+							value="%{value.get(0).getEntity().getExamGrade()}" /></td>
+					<td><s:text
+							name="txtIsCurrentRevision%{value.get(0).isCurrentRevision() }" /></td>
 					<td><s:date name="%{examMap[key].date}"
 							format="%{getText('examDateFormat')}" /></td>
 
@@ -79,13 +91,19 @@ table tr {
 				<tr>
 					<td>&nbsp;</td>
 					<td colspan="5"><a href="javascript: void(0);"
-						onClick="toggleTrailTable('<s:text name="%{#mapStatus.count}" />');">
-							<s:text name="txtHistoryOfDataset" />
-					</a> <br />
-						<table class="trailTable"
-							id="trailTable_<s:text name="%{#mapStatus.count}" />">
+							class="historyLink"
+							onClick="toggleTrailTable('<s:property value="%{#mapStatus.count}" />');"
+							title="<s:text name="showHistory" />">
+							<img id="trailPlus_<s:property value="%{#mapStatus.count}" />" class="trailPlus"
+								src="resources/img/icons/bullet_toggle_plus.png" />
+							<img id="trailMinus_<s:property value="%{#mapStatus.count}" />" class="trailMinus"
+								src="resources/img/icons/bullet_toggle_minus.png" />
+							<s:text name="txtHistoryOfDataset" /></a>
+							<br />
+						<table class="trailTable" id="trailTable_<s:property value="%{#mapStatus.count}" />">
 							<thead>
 								<tr>
+									<th rowspan="2"><s:text name="txtRecordType" /></th>
 									<th rowspan="2"><s:text name="lblDateOfEdit" /></th>
 									<th rowspan="2"><s:text name="lblUser" /></th>
 									<th rowspan="2"><s:text name="lblExamGrade" /></th>
@@ -100,6 +118,8 @@ table tr {
 							<tbody>
 								<s:iterator value="value">
 									<tr>
+										<td><s:text
+												name="txtIsCurrentRevision%{isCurrentRevision() }" /></td>
 										<td><s:date
 												name="%{revisionEntity.getChangedOnAsDate() }"
 												format="%{getText('examDateFormat')}" /></td>
