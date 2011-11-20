@@ -16,7 +16,7 @@
 			"bProcessing" : true,
 			"bStateSave" : true,
 			"aoColumnDefs" : [ {
-				"sWidth" : "40px",
+				"sWidth" : "25px",
 				"aTargets" : [ 0 ]
 			}, {
 				"sWidth" : "50px",
@@ -65,7 +65,7 @@
 	});
 </script>
 
-<s:text name="lblInfotextListStudentsOral" />
+<s:text name="txtInfotextListStudentsOral" />
 <s:form validate="true">
 	<s:token />
 
@@ -99,9 +99,8 @@
 				<s:param name="examAttendanceId" value="%{id}" />
 			</s:url>
 			<tr>
-				<td><s:a href="%{currentUrl}"
-						tooltip="%{txtADNFileSingleOralExamAttendance}">
-						<img src="resources/img/icons/comment_edit.png">
+				<td><s:a href="%{currentUrl}">
+						<img src="resources/img/icons/comment_edit.png" title="<s:text name="txtADNFileSingleOralExamAttendance" />">
 					</s:a></td>
 				<td><s:property value="student.matriculationNumber" /></td>
 				<td><s:property value="student.forename" /></td>
@@ -114,3 +113,7 @@
 		</s:iterator>
 	</tbody>
 </table>
+<div id="legend">
+<s:text name="txtCaption" />:<br />
+<img src="resources/img/icons/comment_edit.png" title="<s:text name="txtADNFileSingleOralExamAttendance" />"> <s:text name="txtADNFileSingleOralExamAttendance" />
+</div>

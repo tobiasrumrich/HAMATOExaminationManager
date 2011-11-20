@@ -43,7 +43,7 @@
 	});
 </script>
 
-
+<s:text name="txtInfotextListExams" />
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
@@ -77,21 +77,26 @@
 				<td><s:url action="ExamAttendanceBulkUpdate"
 						id="examAttendanceBulkUpdateUrl">
 						<s:param name="examId" value="id" />
-					</s:url> <s:a href="%{examAttendanceBulkUpdateUrl}"
-						tooltip="txtLinkToExamAttendanceBulkUpdate">
-						<img src="resources/img/icons/table_add.png" />
+					</s:url> <s:a href="%{examAttendanceBulkUpdateUrl}">
+						<img src="resources/img/icons/table_add.png" title="<s:text name="txtLinkToExamAttendanceBulkUpdate" />"/>
 					</s:a> <s:if test="%{isExamEditable(id)}">
 						<s:url action="EditExam" id="editExam">
 							<s:param name="examId" value="id" />
 						</s:url>
-						<s:a href="%{editExam}" tooltip="txtEditExam">
-							<img src="resources/img/icons/pencil_go.png" />
+						<s:a href="%{editExam}">
+							<img src="resources/img/icons/pencil_go.png" title="<s:text name="txtEditExam" />"/>
 						</s:a>
 					</s:if> <s:else>
 						<img src="resources/img/icons/lock.png"
-							alt="<s:text name="txtNotEditable" />" />
+							title="<s:text name="txtNotEditable" />" />
 					</s:else></td>
 			</tr>
 		</s:iterator>
 	</tbody>
 </table>
+<div id="legend">
+<s:text name="txtCaption" />:<br />
+<img src="resources/img/icons/pencil_go.png" title="<s:text name="txtEditExam" />"/> <s:text name="txtEditExam" /><br />
+<img src="resources/img/icons/table_add.png" title="<s:text name="txtLinkToExamAttendanceBulkUpdate" />"/> <s:text name="txtLinkToExamAttendanceBulkUpdate" /><br />
+<img src="resources/img/icons/lock.png" title="<s:text name="txtNotEditable" />" /> <s:text name="txtNotEditable" />
+</div>

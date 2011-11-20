@@ -65,7 +65,7 @@ div#left-panel-info {
 	padding:10px;
 	position:absolute;
 	bottom:10px;
-	font-size:70%;
+	font-size:60%;
 	text-align:right;
 	color:#16384c;
 	line-height: normal;
@@ -83,8 +83,10 @@ span.left-panel-info {
 
 div#navigation {
 	position: relative;
+	background: #e1eff6;
 	top: 54px;
-	height: 340px;
+	height: 200px;
+	z-index:+2;
 }
 
 div#header h1 {
@@ -127,6 +129,14 @@ div#main h1 {
 	border-collapse: collapse;
 }
 
+#legend {
+	background-color:#EEEEEE;
+	padding:10px;
+	float:right;
+	font-size:70%;
+	font-weight:bold;
+}
+
 /******/
 .ui-accordion {
 	margin: 0px;
@@ -140,6 +150,10 @@ div#main h1 {
 	background: lightgray;
 	margin: 0px;
 	font-size: 70%;
+}
+
+.ui-accordion-header img {
+	margin-top:0px;
 }
 
 .ui-accordion-header a {
