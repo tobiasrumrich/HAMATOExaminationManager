@@ -186,9 +186,14 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	}
 
 	public String insertNewExamAttendances() throws Exception {
+		
+		//Prüfen, ob überhaupt etwas eingegeben wurde
+		long numChanges = 0;
+		
 		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities()) {
 			if (!myEntity.getNewGrade().equals("")) {
 				ExamGrade grade = null;
+				numChanges++;
 				if (myEntity.getNewGrade().equals("1.0")
 						|| myEntity.getNewGrade().equals("1,0"))
 					grade = ExamGrade.G10;
@@ -228,10 +233,9 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 				protocolledExamAttendances.add(examAttendanceService
 						.createExamAttendanceForStudent(myEntity.getStudent(),
 								exam, grade));
-//				myEntitiesConfirmations.add(myEntity);
 			}
 		}
-
+		if (numChanges >0) {
 		DateFormat dateDay = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
 		DateFormat dateTime = new SimpleDateFormat("HH:mm");
 		Date date = new Date();
@@ -241,6 +245,11 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 		addActionMessage(getText("lblTime") + ": " + dateTime.format(date));
 		addActionMessage(getText("lblUser") + ": " + currentUser.getUsername());
 		return "protocol";
+		}
+		else {
+			addActionMessage(getText("txtYouHaveNotFilledOutAnything"));
+			 return "showBulkList";
+		}
 	}
 
 	/**
