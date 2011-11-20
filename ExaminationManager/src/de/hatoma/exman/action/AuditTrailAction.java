@@ -41,7 +41,7 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 
 	@Autowired
 	private IStudentService studentService;
-	
+
 	@Autowired
 	private IManipleService manipleService;
 
@@ -60,10 +60,10 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	private List<ExamAttendance> attendancesList;
 
 	private String studentsAsJson;
-	
+
 	private String jsonValueString;
 	private String jsonStudentId;
-	
+
 	public String prepareList() {
 
 		return "list";
@@ -72,16 +72,23 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	@Override
 	public void prepare() throws Exception {
 		studentsAsJson = studentService.getAllStudentsAsJson();
-		
+
 	}
-	
+
 	public String jsonResponder() {
-		Student jsonStudent = studentService.getStudent(Long.valueOf(jsonStudentId));
-		jsonValueString = examAttendanceService.getAllCurrentExamAttendancesForStudentAsJSON(jsonStudent);
+		Student jsonStudent;
+		try {
+		jsonStudent = studentService.getStudent(Long.valueOf(jsonStudentId));
+		}
+		catch (Exception e) {
+			jsonValueString="{}";
+			return "json";
+		}
+		String pattern = "<a href=\"AuditTrail?studentId="+jsonStudentId+"&examSubjectId=_ID_\"><img src=\"resources/img/icons/database_key.png\" /> "+getText("txtViewAuditTrail") +"</a>";
+		jsonValueString = examAttendanceService.getAllCurrentExamAttendancesForStudentAsJSON(jsonStudent,pattern);
 		return "json";
 	}
-	
-	
+
 	public String execute() {
 
 		try {
@@ -111,16 +118,17 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 		}
 
 		map = new HashMap<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>();
-		examMap = new HashMap<String, Exam> ();
+		examMap = new HashMap<String, Exam>();
 		examAttendances = examAttendanceService
 				.getExamAttendancesForStudentByExamSubject(examSubject, student);
 		for (ExamAttendance examAttendance : examAttendances) {
 			List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail = examAttendanceService
 					.getAuditTrail(examAttendance.getId());
 			map.put(String.valueOf(examAttendance.getId()), auditTrail);
-			examMap.put(String.valueOf(examAttendance.getId()), examAttendance.getExam());
+			examMap.put(String.valueOf(examAttendance.getId()),
+					examAttendance.getExam());
 		}
-		
+
 		return "displayExamAttendanceAuditTrail";
 	}
 
@@ -284,7 +292,8 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	}
 
 	/**
-	 * @param student the student to set
+	 * @param student
+	 *            the student to set
 	 */
 	public void setStudent(Student student) {
 		this.student = student;
@@ -298,7 +307,8 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	}
 
 	/**
-	 * @param examSubject the examSubject to set
+	 * @param examSubject
+	 *            the examSubject to set
 	 */
 	public void setExamSubject(ExamSubject examSubject) {
 		this.examSubject = examSubject;
@@ -312,7 +322,8 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	}
 
 	/**
-	 * @param attendancesList the attendancesList to set
+	 * @param attendancesList
+	 *            the attendancesList to set
 	 */
 	public void setAttendancesList(List<ExamAttendance> attendancesList) {
 		this.attendancesList = attendancesList;
@@ -326,7 +337,8 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	}
 
 	/**
-	 * @param manipleService the manipleService to set
+	 * @param manipleService
+	 *            the manipleService to set
 	 */
 	public void setManipleService(IManipleService manipleService) {
 		this.manipleService = manipleService;
@@ -340,7 +352,8 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	}
 
 	/**
-	 * @param studentsAsJson the studentsAsJson to set
+	 * @param studentsAsJson
+	 *            the studentsAsJson to set
 	 */
 	public void setStudentsAsJson(String studentsAsJson) {
 		this.studentsAsJson = studentsAsJson;
@@ -354,7 +367,8 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	}
 
 	/**
-	 * @param jsonValueString the jsonValueString to set
+	 * @param jsonValueString
+	 *            the jsonValueString to set
 	 */
 	public void setJsonValueString(String jsonValueString) {
 		this.jsonValueString = jsonValueString;
@@ -368,11 +382,11 @@ public class AuditTrailAction extends ActionSupport implements Preparable {
 	}
 
 	/**
-	 * @param jsonStudentId the jsonStudentId to set
+	 * @param jsonStudentId
+	 *            the jsonStudentId to set
 	 */
 	public void setJsonStudentId(String jsonStudentId) {
 		this.jsonStudentId = jsonStudentId;
 	}
-
 
 }

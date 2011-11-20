@@ -96,6 +96,6 @@
 	
 	<definition name="displayCurrentExamAttendanceRecords" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/auditTrail/list.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNCommonError" />
+		<put-attribute name="actionDisplayName" value="txtADNAudiTrailExamOverview" />
 	</definition>
 </tiles-definitions>

@@ -1,10 +1,10 @@
 package de.hatoma.exman.service.impl;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -222,29 +222,52 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	}
 
 	@Override
-	public String getAllCurrentExamAttendancesForStudentAsJSON(Student student) {
-		
-		Maniple maniple = manipleDao.load(student.getManiple().getId());
-		
+	public String getAllCurrentExamAttendancesForStudentAsJSON(Student student,
+			String idPattern) {
+		Maniple maniple;
+		try {
+			maniple = manipleDao.load(student.getManiple().getId());
+		} catch (Exception e) {
+			return "{}";
+		}
+
 		Collection<ExamSubject> examSubjects = maniple.getExamSubjects();
-		
-		
-		List<Map<String, String>> s = new ArrayList<Map<String, String>>();
+
+		List<List<String>> s = new ArrayList<List<String>>();
 		for (ExamSubject examSubject : examSubjects) {
 			ExamAttendance attendance;
 			try {
-				attendance = examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+				attendance = examAttendanceDao
+						.findLatestExamAttendanceOfStudentByExamSubject(
+								examSubject, student);
 			} catch (NoPreviousAttemptException e) {
 				continue;
 			}
-			Map<String,String> m = new HashMap<String,String>();
-			m.put("examSubject", attendance.getExam().getExamSubject().toString());
-			m.put("dateLastExam", attendance.getExam().getDate().toString());
-			m.put("lastGrade", attendance.getExamGrade().getAsExpression());
+			List<String> m = new LinkedList<String>();
+			m.add(attendance.getExam().getExamSubject().toString());
+			m.add(attendance.getExam().getDate().toString());
+			m.add(attendance.getExamGrade().getAsExpression());
+			m.add(String.valueOf(attendance.getAttempt()));
+			
+			// Match the idPattern
+			String idString;
+			if (idPattern != null && idPattern.contains("_ID_")) {
+
+				idString = idPattern.replace(
+						"_ID_",
+						String.valueOf(attendance.getExam().getExamSubject()
+								.getId()));
+			} else {
+				idString = String.valueOf(attendance.getExam()
+						.getExamSubject().getId());
+			}
+			m.add(idString);
 			s.add(m);
 		}
-		
-		return gson.toJson(new SimpleEntry<String, List<Map<String,String>>>("aaData", s));
+
+		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
+		map.put("aaData", s);
+		return gson.toJson(map);
 	}
 
 	public IStudentDao getStudentDao() {

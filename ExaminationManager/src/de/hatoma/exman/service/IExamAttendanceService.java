@@ -127,9 +127,10 @@ public interface IExamAttendanceService {
 
 	/**
 	 * Retrieves a list of all current ExamAttendances for a student as JSON String
-	 * 
-	 * @param student
+	 * @param student the student to query for
+	 * @param idPattern String with the pattern to use to encapsulate the studyBranchId. _ID_ will be replaced with the actual long id of the StudyBranch
 	 * @return
 	 */
-	String getAllCurrentExamAttendancesForStudentAsJSON(Student student);
+	String getAllCurrentExamAttendancesForStudentAsJSON(Student student,
+			String idPattern);
 }

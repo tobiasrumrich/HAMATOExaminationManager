@@ -3,11 +3,73 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <script type="text/javascript">
+//Advanced AJAX Support
+//See: http://datatables.net/plug-ins/api
+$.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
+{
+    if ( typeof sNewSource != 'undefined' && sNewSource != null )
+    {
+        oSettings.sAjaxSource = sNewSource;
+    }
+    this.oApi._fnProcessingDisplay( oSettings, true );
+    var that = this;
+    var iStart = oSettings._iDisplayStart;
+     
+    oSettings.fnServerData( oSettings.sAjaxSource, [], function(json) {
+        /* Clear the old information from the table */
+        that.oApi._fnClearTable( oSettings );
+         
+        /* Got the data - add it to the table */
+        var aData =  (oSettings.sAjaxDataProp !== "") ?
+            that.oApi._fnGetObjectDataFn( oSettings.sAjaxDataProp )( json ) : json;
+         
+        for ( var i=0 ; i<json.aaData.length ; i++ )
+        {
+            that.oApi._fnAddData( oSettings, json.aaData[i] );
+        }
+         
+        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+        that.fnDraw();
+         
+        if ( typeof bStandingRedraw != 'undefined' && bStandingRedraw === true )
+        {
+            oSettings._iDisplayStart = iStart;
+            that.fnDraw( false );
+        }
+         
+        that.oApi._fnProcessingDisplay( oSettings, false );
+         
+        /* Callback user function - for event handlers etc */
+        if ( typeof fnCallback == 'function' && fnCallback != null )
+        {
+            fnCallback( oSettings );
+        }
+    }, oSettings );
+}
+//END 
+
+
+
 	var availableExaminers = <s:property value="studentsAsJson" escape="false" />;
 	$(function() {
 
 		hamatoAutocomplete($("#student"), $("#studentId"), availableExaminers);
-
+		
+		
+		
+		$("#studentId").change( function () {
+			if ($("#studentId").val() == -1 || $("#student").val =="") {
+				$("#tableContainer").hide();
+			}
+			else {
+				$("#tableContainer").show();
+			}
+			dataTable.fnReloadAjax( 'AuditTrail!jsonResponder?jsonStudentId=' + $("#studentId").val());
+			$("#examList td").doubleclick(function(){
+				alert(this);
+			});
+			
+		});
 		/**
 		$('#example').dataTable( {
 			"bProcessing": true,
@@ -16,22 +78,34 @@
 		} );
 		
 		 **/
+		 
 
-		$('#examList')
+
+		var dataTable = $('#examList')
 				.dataTable(
 						{
-							"bAutoWidth" : true,
+							"bAutoWidth" : false,
 							"bProcessing" : true,
-							"sAjaxSource" : "AuditTrail!jsonResponder?jsonStudentId=1",
+							"sAjaxSource" : "AuditTrail!jsonResponder?jsonStudentId=",
 							"aoColumnDefs" : [ {
 								"sType" : "string",
-								"sWidth" : "120px",
+								"sWidth": "300px",
 								"aTargets" : [ 0 ]
 							}, {
+								"sType" : "string",
 								"sWidth" : "120px",
 								"aTargets" : [ 1 ]
 							}, {
-								"sWidth" : "20px",
+								"sType" : "string",
+								"sWidth" : "50px",
+								"aTargets" : [ 2 ]
+							}, {
+								"sType" : "string",
+								"sWidth" : "120px",
+								"aTargets" : [ 3 ]
+							}, {
+
+								"sType" : "string",
 								"bSortable" : false,
 								"aTargets" : [ 4 ]
 							} ],
@@ -60,12 +134,12 @@
 
 
 <s:form>
-	<s:textfield required="true" name="studentN" key="lblStudent"
+	<s:textfield required="true" name="studentN" key="lblStudentName"
 		id="student" onfocus="$(this).autocomplete('search');" />
 	<s:hidden name="studentId" id="studentId" value="-1" />
 </s:form>
 
-
+<div id="tableContainer" style="display:none;">
 <table id="examList" class="hatoma_dataTable">
 	<thead>
 		<tr>
@@ -80,3 +154,4 @@
 
 	</tbody>
 </table>
+</div>

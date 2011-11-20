@@ -61,7 +61,6 @@
 
 		});
 
-		//$("#hatoma_accordion").css('display', 'block');
 		$("#hatoma_accordion").show("fade");
 		$(".hatoma_dataTable").show("fade");
 
