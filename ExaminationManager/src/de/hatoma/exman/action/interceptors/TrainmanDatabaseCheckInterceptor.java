@@ -1,3 +1,6 @@
+/**
+ * @author Tobias Rumrich, 3638
+ */
 package de.hatoma.exman.action.interceptors;
 
 import java.io.Serializable;

@@ -8,6 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.hatoma.exman.dao.IDao;
 
+/**
+ * 
+ * @author Hannes Lemberg, 3547
+ *
+ * @param <T>
+ */
 public abstract class BaseDao<T> implements IDao<T> {
 
 	private Class<T> clazz;

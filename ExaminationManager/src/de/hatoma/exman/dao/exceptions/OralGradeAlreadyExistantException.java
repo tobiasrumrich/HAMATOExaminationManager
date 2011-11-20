@@ -2,7 +2,7 @@ package de.hatoma.exman.dao.exceptions;
 
 public class OralGradeAlreadyExistantException extends RuntimeException {
 	/**
-	 * author marcel
+	 * author Marcel Schroeter, 3638
 	 */
 	private static final long serialVersionUID = -228100684265814068L;
 

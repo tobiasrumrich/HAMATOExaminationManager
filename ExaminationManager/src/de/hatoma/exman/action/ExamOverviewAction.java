@@ -13,7 +13,7 @@ import de.hatoma.exman.service.IExamService;
 /**
  * Diese Action stellt eine Übersicht der aktuellen Prüfungen bereit
  * 
- * @author tobias
+ * @author Tobias Rumrich, 3638
  * 
  */
 public class ExamOverviewAction extends ActionSupport {
