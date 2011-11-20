@@ -20,9 +20,9 @@ import de.hatoma.exman.service.IExamService;
 public class ExamService implements IExamService {
 
 	@Autowired
-	private IExamDao examDao;
-	@Autowired
 	private IExamAttendanceService examAttendanceService;
+	@Autowired
+	private IExamDao examDao;
 
 	@Override
 	public Exam createExam(ExamType examType, ExamSubject examSubject,
@@ -36,13 +36,8 @@ public class ExamService implements IExamService {
 		return exam;
 	}
 
-	public void updateExam(Exam exam) throws Exception {
-		examDao.update(exam);
-	}
-
-	@Override
-	public List<Exam> getExamList() {
-		return examDao.findAll();
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
 	}
 
 	@Override
@@ -57,27 +52,9 @@ public class ExamService implements IExamService {
 		return examDao;
 	}
 
-	/**
-	 * @param examDao
-	 *            the examDao to set
-	 */
-	public void setExamDao(IExamDao examDao) {
-		this.examDao = examDao;
-	}
-
 	@Override
-	public Serializable save(Exam e) {
-		return examDao.save(e);
-	}
-
-	@Override
-	public void update(Exam exam) {
-		examDao.update(exam);
-	}
-
-	@Override
-	public Exam load(Long examId) {
-		return examDao.load(examId);
+	public List<Exam> getExamList() {
+		return examDao.findAll();
 	}
 
 	@Override
@@ -88,13 +65,36 @@ public class ExamService implements IExamService {
 		return (examAttendancesForExam.size() == 0);
 	}
 
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
+	@Override
+	public Exam load(Long examId) {
+		return examDao.load(examId);
+	}
+
+	@Override
+	public Serializable save(Exam e) {
+		return examDao.save(e);
 	}
 
 	public void setExamAttendanceService(
 			IExamAttendanceService examAttendanceService) {
 		this.examAttendanceService = examAttendanceService;
+	}
+
+	/**
+	 * @param examDao
+	 *            the examDao to set
+	 */
+	public void setExamDao(IExamDao examDao) {
+		this.examDao = examDao;
+	}
+
+	@Override
+	public void update(Exam exam) {
+		examDao.update(exam);
+	}
+
+	public void updateExam(Exam exam) throws Exception {
+		examDao.update(exam);
 	}
 
 }

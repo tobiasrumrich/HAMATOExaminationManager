@@ -23,6 +23,7 @@ public abstract class AbstractExamAction extends ActionSupport {
 	private String availableExaminersJson;
 	private String availableExamSubjectsByManipleJson;
 	private String availableManiplesJson;
+	protected SimpleDateFormat dateFormat;
 	protected String examDateN;
 	@Autowired
 	protected IExaminerService examinerService;
@@ -34,13 +35,12 @@ public abstract class AbstractExamAction extends ActionSupport {
 	protected String examSubjectNid;
 	@Autowired
 	protected IExamSubjectService examSubjectService;
+
 	protected String examType;
-	
 	protected String lecturerN;
 	protected String lecturerNid;
 	@Autowired
 	private IManipleService manipleService;
-	protected SimpleDateFormat dateFormat;
 
 	public AbstractExamAction() {
 		super();
@@ -126,6 +126,10 @@ public abstract class AbstractExamAction extends ActionSupport {
 		return manipleService;
 	}
 
+	public abstract String getTargetAction();
+
+	public abstract String getTargetMethod();
+
 	public void init() {
 		dateFormat = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
 		this.availableExaminersJson = getAllExaminersAsJson();
@@ -137,6 +141,36 @@ public abstract class AbstractExamAction extends ActionSupport {
 		if (value == null || value.trim().length() == 0) {
 			addFieldError(fieldName, getText("errorRequired"));
 		}
+	}
+
+	protected Exam readAndValidateParams() {
+		return readAndValidateParams(new Exam());
+	}
+
+	protected Exam readAndValidateParams(Exam exam) {
+		Date date = null;
+
+		notNull(examDateN, "examDateN");
+		notNull(examManipleN, "examManipleN");
+		notNull(examSubjectN, "examSubjectN");
+		notNull(lecturerN, "lecturerN");
+
+		if (examDateN != null && !examDateN.trim().equals("")) {
+			try {
+				date = dateFormat.parse(examDateN);
+			} catch (ParseException e) {
+				String msg = getText("errorDateFailed",
+						new String[] { examDateN });
+				addFieldError("examDateN", msg);
+			}
+		}
+		exam.setDate(date);
+		exam.setExaminer(examinerService.load(Long.valueOf(lecturerNid)));
+		exam.setExamSubject(examSubjectService.load(Long
+				.valueOf(examSubjectNid)));
+		exam.setExamType(ExamType.valueOf(examType));
+
+		return exam;
 	}
 
 	public void setAvailableExaminersJson(String availableExaminersJson) {
@@ -199,39 +233,5 @@ public abstract class AbstractExamAction extends ActionSupport {
 	public void setManipleService(IManipleService manipleService) {
 		this.manipleService = manipleService;
 	}
-
-	protected Exam readAndValidateParams() {
-		return readAndValidateParams(new Exam());
-	}
-
-	protected Exam readAndValidateParams(Exam exam) {
-		Date date = null;
-
-		notNull(examDateN, "examDateN");
-		notNull(examManipleN, "examManipleN");
-		notNull(examSubjectN, "examSubjectN");
-		notNull(lecturerN, "lecturerN");
-
-		if (examDateN != null && !examDateN.trim().equals("")) {
-			try {
-				date = dateFormat.parse(examDateN);
-			} catch (ParseException e) {
-				String msg = getText("errorDateFailed",
-						new String[] { examDateN });
-				addFieldError("examDateN", msg);
-			}
-		}
-		exam.setDate(date);
-		exam.setExaminer(examinerService.load(Long.valueOf(lecturerNid)));
-		exam.setExamSubject(examSubjectService.load(Long
-				.valueOf(examSubjectNid)));
-		exam.setExamType(ExamType.valueOf(examType));
-
-		return exam;
-	}
-
-	public abstract String getTargetAction();
-
-	public abstract String getTargetMethod();
 
 }

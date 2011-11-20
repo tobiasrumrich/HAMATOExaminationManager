@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.Preparable;
 
 import de.hatoma.exman.dao.helpers.AuditTrailBean;
 import de.hatoma.exman.model.ExManRevisionEntity;
@@ -33,34 +32,33 @@ public class AuditTrailAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private IExamSubjectService examSubjectService;
+	private List<ExamAttendance> attendancesList;
+
+	private List<ExamAttendance> examAttendances;
 
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
 
-	@Autowired
-	private IStudentService studentService;
+	private Map<String, Exam> examMap;
 
+	private ExamSubject examSubject;
+	private String examSubjectId;
+	@Autowired
+	private IExamSubjectService examSubjectService;
 	@Autowired
 	private IManipleService manipleService;
 
-	private String studentId;
-	private String examSubjectId;
-	private long selectedStudentId;
+	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map;
 	private long selectedExamSubjectId;
 
+	private long selectedStudentId;
 	private Student student;
-	private ExamSubject examSubject;
+	private String studentId;
 
-	private List<ExamAttendance> examAttendances;
-	private Map<String, Exam> examMap;
-	private Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> map;
+	@Autowired
+	private IStudentService studentService;
 
-	private List<ExamAttendance> attendancesList;
-
-
-
+	@Override
 	public String execute() {
 
 		try {
@@ -105,63 +103,38 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the examSubjectService
+	 * @return the attendancesList
 	 */
-	public IExamSubjectService getExamSubjectService() {
-		return examSubjectService;
+	public List<ExamAttendance> getAttendancesList() {
+		return attendancesList;
 	}
 
 	/**
-	 * @param examSubjectService
-	 *            the examSubjectService to set
+	 * @return the examAttendances
 	 */
-	public void setExamSubjectService(IExamSubjectService examSubjectService) {
-		this.examSubjectService = examSubjectService;
+	public List<ExamAttendance> getExamAttendances() {
+		return examAttendances;
 	}
 
 	/**
-	 * @return the seletedStudentId
+	 * @return the examAttendanceService
 	 */
-	public long getSeletedStudentId() {
-		return selectedStudentId;
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
 	}
 
 	/**
-	 * @param seletedStudentId
-	 *            the seletedStudentId to set
+	 * @return the examMap
 	 */
-	public void setSeletedStudentId(long seletedStudentId) {
-		this.selectedStudentId = seletedStudentId;
+	public Map<String, Exam> getExamMap() {
+		return examMap;
 	}
 
 	/**
-	 * @return the selectedExamSubjectId
+	 * @return the examSubject
 	 */
-	public long getSelectedExamSubjectId() {
-		return selectedExamSubjectId;
-	}
-
-	/**
-	 * @param selectedExamSubjectId
-	 *            the selectedExamSubjectId to set
-	 */
-	public void setSelectedExamSubjectId(long selectedExamSubjectId) {
-		this.selectedExamSubjectId = selectedExamSubjectId;
-	}
-
-	/**
-	 * @return the studentId
-	 */
-	public String getStudentId() {
-		return studentId;
-	}
-
-	/**
-	 * @param studentId
-	 *            the studentId to set
-	 */
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public ExamSubject getExamSubject() {
+		return examSubject;
 	}
 
 	/**
@@ -172,11 +145,52 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @param examSubjectId
-	 *            the examSubjectId to set
+	 * @return the examSubjectService
 	 */
-	public void setExamSubjectId(String examSubjectId) {
-		this.examSubjectId = examSubjectId;
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
+	}
+
+	/**
+	 * @return the manipleService
+	 */
+	public IManipleService getManipleService() {
+		return manipleService;
+	}
+
+	/**
+	 * @return the map
+	 */
+	public Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> getMap() {
+		return map;
+	}
+
+	/**
+	 * @return the selectedExamSubjectId
+	 */
+	public long getSelectedExamSubjectId() {
+		return selectedExamSubjectId;
+	}
+
+	/**
+	 * @return the seletedStudentId
+	 */
+	public long getSeletedStudentId() {
+		return selectedStudentId;
+	}
+
+	/**
+	 * @return the student
+	 */
+	public Student getStudent() {
+		return student;
+	}
+
+	/**
+	 * @return the studentId
+	 */
+	public String getStudentId() {
+		return studentId;
 	}
 
 	/**
@@ -187,18 +201,19 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @param studentService
-	 *            the studentService to set
+	 * @param attendancesList
+	 *            the attendancesList to set
 	 */
-	public void setStudentService(IStudentService studentService) {
-		this.studentService = studentService;
+	public void setAttendancesList(List<ExamAttendance> attendancesList) {
+		this.attendancesList = attendancesList;
 	}
 
 	/**
-	 * @return the examAttendanceService
+	 * @param examAttendances
+	 *            the examAttendances to set
 	 */
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
+	public void setExamAttendances(List<ExamAttendance> examAttendances) {
+		this.examAttendances = examAttendances;
 	}
 
 	/**
@@ -211,25 +226,43 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the examAttendances
+	 * @param examMap
+	 *            the examMap to set
 	 */
-	public List<ExamAttendance> getExamAttendances() {
-		return examAttendances;
+	public void setExamMap(Map<String, Exam> examMap) {
+		this.examMap = examMap;
 	}
 
 	/**
-	 * @param examAttendances
-	 *            the examAttendances to set
+	 * @param examSubject
+	 *            the examSubject to set
 	 */
-	public void setExamAttendances(List<ExamAttendance> examAttendances) {
-		this.examAttendances = examAttendances;
+	public void setExamSubject(ExamSubject examSubject) {
+		this.examSubject = examSubject;
 	}
 
 	/**
-	 * @return the map
+	 * @param examSubjectId
+	 *            the examSubjectId to set
 	 */
-	public Map<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>> getMap() {
-		return map;
+	public void setExamSubjectId(String examSubjectId) {
+		this.examSubjectId = examSubjectId;
+	}
+
+	/**
+	 * @param examSubjectService
+	 *            the examSubjectService to set
+	 */
+	public void setExamSubjectService(IExamSubjectService examSubjectService) {
+		this.examSubjectService = examSubjectService;
+	}
+
+	/**
+	 * @param manipleService
+	 *            the manipleService to set
+	 */
+	public void setManipleService(IManipleService manipleService) {
+		this.manipleService = manipleService;
 	}
 
 	/**
@@ -242,25 +275,19 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the examMap
+	 * @param selectedExamSubjectId
+	 *            the selectedExamSubjectId to set
 	 */
-	public Map<String, Exam> getExamMap() {
-		return examMap;
+	public void setSelectedExamSubjectId(long selectedExamSubjectId) {
+		this.selectedExamSubjectId = selectedExamSubjectId;
 	}
 
 	/**
-	 * @param examMap
-	 *            the examMap to set
+	 * @param seletedStudentId
+	 *            the seletedStudentId to set
 	 */
-	public void setExamMap(Map<String, Exam> examMap) {
-		this.examMap = examMap;
-	}
-
-	/**
-	 * @return the student
-	 */
-	public Student getStudent() {
-		return student;
+	public void setSeletedStudentId(long seletedStudentId) {
+		this.selectedStudentId = seletedStudentId;
 	}
 
 	/**
@@ -272,52 +299,19 @@ public class AuditTrailAction extends ActionSupport {
 	}
 
 	/**
-	 * @return the examSubject
+	 * @param studentId
+	 *            the studentId to set
 	 */
-	public ExamSubject getExamSubject() {
-		return examSubject;
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
 
 	/**
-	 * @param examSubject
-	 *            the examSubject to set
+	 * @param studentService
+	 *            the studentService to set
 	 */
-	public void setExamSubject(ExamSubject examSubject) {
-		this.examSubject = examSubject;
+	public void setStudentService(IStudentService studentService) {
+		this.studentService = studentService;
 	}
-
-	/**
-	 * @return the attendancesList
-	 */
-	public List<ExamAttendance> getAttendancesList() {
-		return attendancesList;
-	}
-
-	/**
-	 * @param attendancesList
-	 *            the attendancesList to set
-	 */
-	public void setAttendancesList(List<ExamAttendance> attendancesList) {
-		this.attendancesList = attendancesList;
-	}
-
-	/**
-	 * @return the manipleService
-	 */
-	public IManipleService getManipleService() {
-		return manipleService;
-	}
-
-	/**
-	 * @param manipleService
-	 *            the manipleService to set
-	 */
-	public void setManipleService(IManipleService manipleService) {
-		this.manipleService = manipleService;
-	}
-
-
-
-
 
 }

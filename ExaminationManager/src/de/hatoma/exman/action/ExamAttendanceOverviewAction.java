@@ -19,41 +19,91 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 
 	private static final long serialVersionUID = 1L;
 
-	private String jsonValueString;
-	private String jsonStudentId;
-	private String jsonManipleId;
-	private String studentsAsJson;
-	private Collection<Maniple> maniplesList;
-
-	@Autowired
-	private IExamSubjectService examSubjectService;
-
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
-
 	@Autowired
-	private IStudentService studentService;
+	private IExamSubjectService examSubjectService;
+	private String jsonManipleId;
+	private String jsonStudentId;
+	private String jsonValueString;
 
 	@Autowired
 	private IManipleService manipleService;
 
-	public String student() {
-		studentsAsJson = studentService.getAllStudentsAsJson();
-		return "listPerStudent";
+	private Collection<Maniple> maniplesList;
 
-	}
+	private String studentsAsJson;
 
-	public String maniple() {
-		maniplesList = manipleService.getAll();
-		return "listPerManiple";
-	}
+	@Autowired
+	private IStudentService studentService;
 
-	public void prepare() throws Exception {
-
-	}
-
+	@Override
 	public String execute() {
 		return student();
+	}
+
+	/**
+	 * @return the examAttendanceService
+	 */
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	/**
+	 * @return the examSubjectService
+	 */
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
+	}
+
+	/**
+	 * @return the jsonManipleId
+	 */
+	public String getJsonManipleId() {
+		return jsonManipleId;
+	}
+
+	/**
+	 * @return the jsonStudentId
+	 */
+	public String getJsonStudentId() {
+		return jsonStudentId;
+	}
+
+	/**
+	 * @return the jsonValueString
+	 */
+	public String getJsonValueString() {
+		return jsonValueString;
+	}
+
+	/**
+	 * @return the maniplesList
+	 */
+	public Collection<Maniple> getManiplesList() {
+		return maniplesList;
+	}
+
+	/**
+	 * @return the studentsAsJson
+	 */
+	public String getStudentsAsJson() {
+		return studentsAsJson;
+	}
+
+	public String jsonResponderManiple() {
+		Maniple jsonManiple;
+		try {
+			jsonManiple = manipleService.getById(Long.valueOf(jsonManipleId));
+		} catch (Exception e) {
+			jsonValueString = "{}";
+			return "json";
+		}
+		String pattern = "<a href=\"AuditTrail?studentId=_STUDID_&examSubjectId=_SUBJID_\"><img src=\"resources/img/icons/database_key.png\" /></a>";
+		jsonValueString = examAttendanceService
+				.getAllCurrentExamAttendancesForManipleAsJSON(jsonManiple,
+						pattern, getText("examDateFormatNoTimeFormat"));
+		return "json";
 	}
 
 	public String jsonResponderStudent() {
@@ -75,71 +125,14 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 		return "json";
 	}
 
-	public String jsonResponderManiple() {
-		Maniple jsonManiple;
-		try {
-			jsonManiple = manipleService.getById(Long.valueOf(jsonManipleId));
-		} catch (Exception e) {
-			jsonValueString = "{}";
-			return "json";
-		}
-		String pattern = "<a href=\"AuditTrail?studentId=_STUDID_&examSubjectId=_SUBJID_\"><img src=\"resources/img/icons/database_key.png\" /></a>";
-		jsonValueString = examAttendanceService
-				.getAllCurrentExamAttendancesForManipleAsJSON(jsonManiple,
-						pattern, getText("examDateFormatNoTimeFormat"));
-		return "json";
+	public String maniple() {
+		maniplesList = manipleService.getAll();
+		return "listPerManiple";
 	}
 
-	/**
-	 * @return the jsonValueString
-	 */
-	public String getJsonValueString() {
-		return jsonValueString;
-	}
+	@Override
+	public void prepare() throws Exception {
 
-	/**
-	 * @param jsonValueString
-	 *            the jsonValueString to set
-	 */
-	public void setJsonValueString(String jsonValueString) {
-		this.jsonValueString = jsonValueString;
-	}
-
-	/**
-	 * @return the jsonStudentId
-	 */
-	public String getJsonStudentId() {
-		return jsonStudentId;
-	}
-
-	/**
-	 * @param jsonStudentId
-	 *            the jsonStudentId to set
-	 */
-	public void setJsonStudentId(String jsonStudentId) {
-		this.jsonStudentId = jsonStudentId;
-	}
-
-	/**
-	 * @return the examSubjectService
-	 */
-	public IExamSubjectService getExamSubjectService() {
-		return examSubjectService;
-	}
-
-	/**
-	 * @param examSubjectService
-	 *            the examSubjectService to set
-	 */
-	public void setExamSubjectService(IExamSubjectService examSubjectService) {
-		this.examSubjectService = examSubjectService;
-	}
-
-	/**
-	 * @return the examAttendanceService
-	 */
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
 	}
 
 	/**
@@ -152,25 +145,35 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 	}
 
 	/**
-	 * @return the studentsAsJson
+	 * @param examSubjectService
+	 *            the examSubjectService to set
 	 */
-	public String getStudentsAsJson() {
-		return studentsAsJson;
+	public void setExamSubjectService(IExamSubjectService examSubjectService) {
+		this.examSubjectService = examSubjectService;
 	}
 
 	/**
-	 * @param studentsAsJson
-	 *            the studentsAsJson to set
+	 * @param jsonManipleId
+	 *            the jsonManipleId to set
 	 */
-	public void setStudentsAsJson(String studentsAsJson) {
-		this.studentsAsJson = studentsAsJson;
+	public void setJsonManipleId(String jsonManipleId) {
+		this.jsonManipleId = jsonManipleId;
 	}
 
 	/**
-	 * @return the maniplesList
+	 * @param jsonStudentId
+	 *            the jsonStudentId to set
 	 */
-	public Collection<Maniple> getManiplesList() {
-		return maniplesList;
+	public void setJsonStudentId(String jsonStudentId) {
+		this.jsonStudentId = jsonStudentId;
+	}
+
+	/**
+	 * @param jsonValueString
+	 *            the jsonValueString to set
+	 */
+	public void setJsonValueString(String jsonValueString) {
+		this.jsonValueString = jsonValueString;
 	}
 
 	/**
@@ -182,18 +185,17 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 	}
 
 	/**
-	 * @return the jsonManipleId
+	 * @param studentsAsJson
+	 *            the studentsAsJson to set
 	 */
-	public String getJsonManipleId() {
-		return jsonManipleId;
+	public void setStudentsAsJson(String studentsAsJson) {
+		this.studentsAsJson = studentsAsJson;
 	}
 
-	/**
-	 * @param jsonManipleId
-	 *            the jsonManipleId to set
-	 */
-	public void setJsonManipleId(String jsonManipleId) {
-		this.jsonManipleId = jsonManipleId;
+	public String student() {
+		studentsAsJson = studentService.getAllStudentsAsJson();
+		return "listPerStudent";
+
 	}
 
 }

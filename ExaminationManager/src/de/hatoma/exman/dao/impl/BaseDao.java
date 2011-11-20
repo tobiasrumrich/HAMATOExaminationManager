@@ -11,7 +11,7 @@ import de.hatoma.exman.dao.IDao;
 /**
  * 
  * @author Hannes Lemberg, 3547
- *
+ * 
  * @param <T>
  */
 public abstract class BaseDao<T> implements IDao<T> {
@@ -61,7 +61,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public void update(T entity){
+	public void update(T entity) {
 		getCurrentSession().update(entity);
 	}
 }

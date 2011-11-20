@@ -13,6 +13,16 @@ public class CreateExamAction extends AbstractExamAction {
 		return Action.INPUT;
 	}
 
+	@Override
+	public String getTargetAction() {
+		return "CreateExam";
+	}
+
+	@Override
+	public String getTargetMethod() {
+		return "save";
+	}
+
 	public String save() {
 		init();
 
@@ -27,15 +37,5 @@ public class CreateExamAction extends AbstractExamAction {
 				new String[] { String.valueOf(exam.getId()) }));
 
 		return Action.SUCCESS;
-	}
-
-	@Override
-	public String getTargetAction() {
-		return "CreateExam";
-	}
-
-	@Override
-	public String getTargetMethod() {
-		return "save";
 	}
 }

@@ -19,10 +19,6 @@ public class SingleExamAttendanceAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public String input() {
-		return Action.INPUT;
-	}
-
 	public Map<String, String> getAllGrades() {
 		TreeMap<String, String> grades = new TreeMap<String, String>();
 
@@ -33,5 +29,10 @@ public class SingleExamAttendanceAction extends ActionSupport {
 		}
 
 		return grades;
+	}
+
+	@Override
+	public String input() {
+		return Action.INPUT;
 	}
 }

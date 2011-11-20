@@ -22,10 +22,11 @@ import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
 import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IManipleService;
+
 /**
  * 
  * @author Marcel Schroeter, 3690
- *
+ * 
  */
 public class OralExaminationAction extends ActionSupport implements Preparable {
 	/**
@@ -131,6 +132,7 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		return students;
 	}
 
+	@Override
 	public String input() throws Exception {
 		// TODO: was is wenn ohne id?
 		// TODO: was is wenn nich erlaubte id?
@@ -166,8 +168,10 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		OralExamGrade oralExamGrade;
 		try {
 			if ((frmSupplementalOralExaminationDate.length() != 10)
-					|| (!frmSupplementalOralExaminationDate.substring(2, 3).equals("."))
-					|| (!frmSupplementalOralExaminationDate.substring(5, 6).equals("."))) {
+					|| (!frmSupplementalOralExaminationDate.substring(2, 3)
+							.equals("."))
+					|| (!frmSupplementalOralExaminationDate.substring(5, 6)
+							.equals("."))) {
 				addActionError(getText("txtErrorWrongDateFormat"));
 				return "input";
 			}
@@ -301,8 +305,8 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 			manipleToFetch = Integer.valueOf(selectedManiple);
 		}
 		maniples = (List<Maniple>) manipleService.getAll();
-		examAttendances = (List<ExamAttendance>) getExamAttendanceService()
-				.getOralCandidates(manipleToFetch);
+		examAttendances = getExamAttendanceService().getOralCandidates(
+				manipleToFetch);
 	}
 
 }

@@ -24,6 +24,24 @@ public class EditExamAction extends AbstractExamAction {
 		return Action.INPUT;
 	}
 
+	public Long getExamId() {
+		return examId;
+	}
+
+	@Override
+	public String getTargetAction() {
+		return "EditExam";
+	}
+
+	@Override
+	public String getTargetMethod() {
+		return "update";
+	}
+
+	public void setExamId(Long examId) {
+		this.examId = examId;
+	}
+
 	public String update() {
 		init();
 		Exam exam = examService.load(getExamId());
@@ -39,23 +57,5 @@ public class EditExamAction extends AbstractExamAction {
 
 		return Action.SUCCESS;
 
-	}
-
-	@Override
-	public String getTargetAction() {
-		return "EditExam";
-	}
-
-	@Override
-	public String getTargetMethod() {
-		return "update";
-	}
-
-	public Long getExamId() {
-		return examId;
-	}
-
-	public void setExamId(Long examId) {
-		this.examId = examId;
 	}
 }

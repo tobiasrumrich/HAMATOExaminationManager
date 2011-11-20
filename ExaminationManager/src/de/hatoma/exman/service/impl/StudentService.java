@@ -21,19 +21,19 @@ public class StudentService implements IStudentService {
 
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
-	
-	@Autowired
-	private IStudentDao studentDao;
 
 	private Gson gson;
+
+	@Autowired
+	private IStudentDao studentDao;
 
 	public StudentService() {
 		gson = new Gson();
 	}
-	
+
 	@Override
-	public Student createStudent(String matriculationNumber, String forename, String lastname,
-			Maniple maniple) {
+	public Student createStudent(String matriculationNumber, String forename,
+			String lastname, Maniple maniple) {
 		Student student = new Student();
 		student.setMatriculationNumber(matriculationNumber);
 		student.setForename(forename);
@@ -49,8 +49,9 @@ public class StudentService implements IStudentService {
 		List<Entry<String, String>> s = new ArrayList<Entry<String, String>>();
 
 		for (Student currentStudent : allStudents) {
-			s.add(new SimpleEntry<String, String>(String.valueOf(currentStudent.getId()), currentStudent
-					.getForename() + " " + currentStudent.getLastname()));
+			s.add(new SimpleEntry<String, String>(String.valueOf(currentStudent
+					.getId()), currentStudent.getForename() + " "
+					+ currentStudent.getLastname()));
 		}
 
 		return gson.toJson(s);
@@ -81,12 +82,14 @@ public class StudentService implements IStudentService {
 	}
 
 	/**
-	 * @param examAttendanceService the examAttendanceService to set
+	 * @param examAttendanceService
+	 *            the examAttendanceService to set
 	 */
-	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
 		this.examAttendanceService = examAttendanceService;
 	}
-	
+
 	/**
 	 * @param studentDao
 	 *            the studentDao to set

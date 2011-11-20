@@ -30,8 +30,26 @@ public class ManipleService implements IManipleService {
 	}
 
 	@Override
+	public Collection<Maniple> findAll() {
+		return manipleDao.findAll();
+	}
+
+	@Override
 	public Collection<Maniple> getAll() {
 		return manipleDao.findAll();
+	}
+
+	@Override
+	public Maniple getById(long id) {
+		Maniple load = manipleDao.load(id);
+		Collection<Student> students = load.getStudents();
+		Hibernate.initialize(students);
+		return load;
+	}
+
+	@Override
+	public long getManipleCount() {
+		return manipleDao.findAll().size();
 	}
 
 	public IManipleDao getManipleDao() {
@@ -47,23 +65,6 @@ public class ManipleService implements IManipleService {
 
 	public void setManipleDao(IManipleDao manipleDao) {
 		this.manipleDao = manipleDao;
-	}
-
-	@Override
-	public Collection<Maniple> findAll() {
-		return manipleDao.findAll();
-	}
-
-	public long getManipleCount() {
-		return manipleDao.findAll().size();
-	}
-
-	@Override
-	public Maniple getById(long id) {
-		Maniple load = manipleDao.load(id);
-		Collection<Student> students = load.getStudents();
-		Hibernate.initialize(students);
-		return load;
 	}
 
 }

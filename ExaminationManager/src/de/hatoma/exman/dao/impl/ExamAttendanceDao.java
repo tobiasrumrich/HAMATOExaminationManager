@@ -24,9 +24,9 @@ import de.hatoma.exman.model.Student;
 /**
  * 
  * @author Tobias Rumrich, 3638
- * @author Hannes Lemberg, 3547 
+ * @author Hannes Lemberg, 3547
  * @author Marcel Schroeter, 3690
- *
+ * 
  */
 @Component
 public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
@@ -66,19 +66,15 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 		return criteria.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
-			ExamSubject examSubject, Student student)
-			throws NoPreviousAttemptException {
-		Criteria criteria = getCurrentSession().createCriteria(
-				ExamAttendance.class);
-		criteria.createCriteria("exam")
-				.add(Restrictions.eq("examSubject", examSubject))
-				.addOrder(Order.asc("date"));
-		criteria.add(Restrictions.eq("student", student));
-		if (criteria.list().size() == 0)
-			throw new NoPreviousAttemptException();
-		return (ExamAttendance) criteria.list().get(criteria.list().size() - 1);
+	public List<ExamAttendance> findbyManipleAndGrade(Maniple maniple,
+			ExamGrade examGrade) {
+		return getCurrentSession().createCriteria(ExamAttendance.class)
+				.add(Restrictions.eq("examGrade", examGrade))
+				.add(Restrictions.isNull("supplementOralExamGrade"))
+				.createCriteria("student")
+				.add(Restrictions.eq("maniple", maniple)).list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -94,17 +90,6 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ExamAttendance> findbyManipleAndGrade(Maniple maniple,
-			ExamGrade examGrade) {
-		return getCurrentSession().createCriteria(ExamAttendance.class)
-				.add(Restrictions.eq("examGrade", examGrade))
-				.add(Restrictions.isNull("supplementOralExamGrade"))
-				.createCriteria("student")
-				.add(Restrictions.eq("maniple", maniple)).list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<ExamAttendance> findByStudentAndExamSubject(Student student,
 			ExamSubject examSubject) {
 		return getCurrentSession().createCriteria(ExamAttendance.class)
@@ -112,6 +97,21 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 				.add(Restrictions.isNotNull("supplementOralExamGrade"))
 				.createCriteria("exam")
 				.add(Restrictions.eq("examSubject", examSubject)).list();
+	}
+
+	@Override
+	public ExamAttendance findLatestExamAttendanceOfStudentByExamSubject(
+			ExamSubject examSubject, Student student)
+			throws NoPreviousAttemptException {
+		Criteria criteria = getCurrentSession().createCriteria(
+				ExamAttendance.class);
+		criteria.createCriteria("exam")
+				.add(Restrictions.eq("examSubject", examSubject))
+				.addOrder(Order.asc("date"));
+		criteria.add(Restrictions.eq("student", student));
+		if (criteria.list().size() == 0)
+			throw new NoPreviousAttemptException();
+		return (ExamAttendance) criteria.list().get(criteria.list().size() - 1);
 	}
 
 	@Override

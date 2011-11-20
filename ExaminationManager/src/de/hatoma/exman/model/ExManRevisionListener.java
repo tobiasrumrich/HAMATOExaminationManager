@@ -8,7 +8,8 @@ public class ExManRevisionListener implements RevisionListener {
 	@Override
 	public void newRevision(Object revisionEntity) {
 		ExManRevisionEntity revEntity = (ExManRevisionEntity) revisionEntity;
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = (User) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
 		revEntity.setChangedBy(user.getUsername());
 	}
 }

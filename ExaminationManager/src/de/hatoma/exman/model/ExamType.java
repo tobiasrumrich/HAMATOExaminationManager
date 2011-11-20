@@ -9,16 +9,6 @@ public enum ExamType implements Serializable {
 	OralExam("txtExamTypeOralExam"), SeminarPaper("txtExamTypeSeminarPaper"), WrittenExam(
 			"txtExamTypeWrittenExam");
 
-	private String key;
-
-	ExamType(String value) {
-		this.key = value;
-	}
-
-	public String getKey() {
-		return key;
-	}
-
 	public static Map<ExamType, String> keys() {
 		Map<ExamType, String> s = new HashMap<ExamType, String>();
 		ExamType[] values = values();
@@ -27,5 +17,15 @@ public enum ExamType implements Serializable {
 			s.put(t, t.getKey());
 		}
 		return s;
+	}
+
+	private String key;
+
+	ExamType(String value) {
+		this.key = value;
+	}
+
+	public String getKey() {
+		return key;
 	}
 }

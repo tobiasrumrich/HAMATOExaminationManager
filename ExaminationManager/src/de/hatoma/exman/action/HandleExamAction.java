@@ -6,7 +6,7 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 /**
  * 
  * @author Tobias Rumrich, 3638
- *
+ * 
  */
 public class HandleExamAction extends ActionSupport {
 
