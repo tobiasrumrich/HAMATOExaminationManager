@@ -393,7 +393,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	}
 
 	@Override
-	public void update(ExamAttendance examAttendance) throws Exception {
+	public void update(ExamAttendance examAttendance) {
 		examAttendanceDao.update(examAttendance);
 
 	}

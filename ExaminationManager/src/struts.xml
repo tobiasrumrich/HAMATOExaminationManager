@@ -20,7 +20,8 @@
 
 		<!-- Global Results (needed eg. by the Trainman Interceptor) -->
 		<global-results>
-			<result name="globalTrainmanDatabaseNotCompliant" type="tiles">trainmanDatabaseNotCompliant</result>
+			<result name="globalTrainmanDatabaseNotCompliant" type="tiles">trainmanDatabaseNotCompliant
+			</result>
 		</global-results>
 
 
@@ -103,8 +104,14 @@
 			<result name="input" type="tiles">examAttendanceBulkUpdateList
 			</result>
 			<result name="protocol" type="tiles">commonProtocol</result>
-			<!-- <result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
-			</result>-->
+			<!-- <result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation 
+				</result> -->
+		</action>
+
+		<action name="EditExamAttendance" method="edit"
+			class="de.hatoma.exman.action.EditExamAttendanceAction">
+			<result name="input" type="tiles">editExamAttendance</result>
+			<result name="success" type="chain">EditExamAttendance</result>
 		</action>
 
 		<action name="AuditTrail" class="de.hatoma.exman.action.AuditTrailAction">
