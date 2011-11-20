@@ -74,6 +74,12 @@
 						}
 					}, 100);
 				});
+		$("form").submit(function() {
+			if ($("#FileSingleExamAttendance_btnSave").is(':disabled')) {
+				return false;
+			}
+			return true;
+		});
 	});
 
 	function updateSelectbox(idField, selectBox, lastSelectedReference,
@@ -123,7 +129,7 @@
 	</p>
 
 </div>
-<s:form validate="true">
+<s:form validate="true" onkeypress="allowSubmit">
 	<s:token />
 	<s:textfield name="studentN" id="studentI" key="lblStudentName"
 		required="true" />
