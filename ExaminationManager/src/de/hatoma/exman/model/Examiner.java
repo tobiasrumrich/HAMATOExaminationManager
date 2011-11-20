@@ -61,7 +61,5 @@ public class Examiner implements Serializable {
 	public String toString() {
 		return forename + " " + lastname;
 	}
-	
-	
 
 }

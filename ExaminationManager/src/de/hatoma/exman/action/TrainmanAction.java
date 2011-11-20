@@ -30,10 +30,10 @@ public class TrainmanAction extends ActionSupport implements
 
 	private Map<String, String> creationMethods;
 
-	private String selectedMethod;
-
 	private int maxStudentsPerManiple = 130;
+
 	private int minStudentsPerManiple = 90;
+	private String selectedMethod;
 
 	@Autowired
 	private ITrainmanService trainmanService;
@@ -51,6 +51,13 @@ public class TrainmanAction extends ActionSupport implements
 	}
 
 	/**
+	 * @return the creationMethods
+	 */
+	public Map<String, String> getCreationMethods() {
+		return creationMethods;
+	}
+
+	/**
 	 * @return the maxStudentsPerManiple
 	 */
 	public int getMaxStudentsPerManiple() {
@@ -65,6 +72,20 @@ public class TrainmanAction extends ActionSupport implements
 	}
 
 	/**
+	 * @return the selectedMethod
+	 */
+	public String getSelectedMethod() {
+		return selectedMethod;
+	}
+
+	/**
+	 * @return the selectedMethods
+	 */
+	public String getSelectedMethods() {
+		return selectedMethod;
+	}
+
+	/**
 	 * Starts processing to insert data to the database
 	 * 
 	 * @return
@@ -76,71 +97,20 @@ public class TrainmanAction extends ActionSupport implements
 			trainmanService.completeInitializatain(minStudentsPerManiple,
 					maxStudentsPerManiple);
 			return "success";
-		}
-		else if (selectedMethod.equals("examOnly")) {
+		} else if (selectedMethod.equals("examOnly")) {
 			trainmanService.bootAndExams(minStudentsPerManiple,
 					maxStudentsPerManiple);
 			return "success";
 		}
 
 		else if (selectedMethod.equals("bootstrapper")) {
-			trainmanService.bootStrapper(minStudentsPerManiple,maxStudentsPerManiple);
+			trainmanService.bootStrapper(minStudentsPerManiple,
+					maxStudentsPerManiple);
 			return "success";
 		}
-				
+
 		return "input";
 
-	}
-
-	/**
-	 * @param maxStudentsPerManiple
-	 *            the maxStudentsPerManiple to set
-	 */
-	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "6", max = "30000")
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key="errorRequired")
-	public void setMaxStudentsPerManiple(String maxStudentsPerManiple) {
-		this.maxStudentsPerManiple = Integer.valueOf(maxStudentsPerManiple);
-	}
-
-	/**
-	 * @param minStudentsPerManiple
-	 *            the minStudentsPerManiple to set
-	 */
-	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "3", max = "29997")
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key="errorRequired")
-	public void setMinStudentsPerManiple(String minStudentsPerManiple) {
-		this.minStudentsPerManiple = Integer.valueOf(minStudentsPerManiple);
-	}
-
-	/**
-	 * @param trainmanService
-	 *            the trainmanService to set
-	 */
-	public void setTrainmanService(ITrainmanService trainmanService) {
-		this.trainmanService = trainmanService;
-	}
-
-	/**
-	 * @return the selectedMethods
-	 */
-	public String getSelectedMethods() {
-		return selectedMethod;
-	}
-
-	/**
-	 * @param selectedMethods
-	 *            the selectedMethods to set
-	 */
-	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key="errorRequired")
-	public void setSelectedMethods(String selectedMethods) {
-		this.selectedMethod = selectedMethods;
-	}
-
-	/**
-	 * @return the creationMethods
-	 */
-	public Map<String, String> getCreationMethods() {
-		return creationMethods;
 	}
 
 	/**
@@ -152,17 +122,48 @@ public class TrainmanAction extends ActionSupport implements
 	}
 
 	/**
-	 * @return the selectedMethod
+	 * @param maxStudentsPerManiple
+	 *            the maxStudentsPerManiple to set
 	 */
-	public String getSelectedMethod() {
-		return selectedMethod;
+	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "6", max = "30000")
+	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
+	public void setMaxStudentsPerManiple(String maxStudentsPerManiple) {
+		this.maxStudentsPerManiple = Integer.valueOf(maxStudentsPerManiple);
 	}
 
 	/**
-	 * @param selectedMethod the selectedMethod to set
+	 * @param minStudentsPerManiple
+	 *            the minStudentsPerManiple to set
+	 */
+	@IntRangeFieldValidator(key = "errorInt", shortCircuit = true, min = "3", max = "29997")
+	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
+	public void setMinStudentsPerManiple(String minStudentsPerManiple) {
+		this.minStudentsPerManiple = Integer.valueOf(minStudentsPerManiple);
+	}
+
+	/**
+	 * @param selectedMethod
+	 *            the selectedMethod to set
 	 */
 	public void setSelectedMethod(String selectedMethod) {
 		this.selectedMethod = selectedMethod;
+	}
+
+	/**
+	 * @param selectedMethods
+	 *            the selectedMethods to set
+	 */
+	@RequiredFieldValidator(type = ValidatorType.FIELD, shortCircuit = true, key = "errorRequired")
+	public void setSelectedMethods(String selectedMethods) {
+		this.selectedMethod = selectedMethods;
+	}
+
+	/**
+	 * @param trainmanService
+	 *            the trainmanService to set
+	 */
+	public void setTrainmanService(ITrainmanService trainmanService) {
+		this.trainmanService = trainmanService;
 	}
 
 }

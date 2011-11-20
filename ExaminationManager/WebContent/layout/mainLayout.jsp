@@ -43,7 +43,7 @@
 		if (index !== null) {
 			active = accordion.find("h3:eq(" + index + ")");
 		} else {
-			active = 0
+			active = 0;
 		}
 
 		$("#hatoma_accordion").accordion({
@@ -98,13 +98,20 @@
 									name="lblNavReports" /></a>
 						</h3>
 						<div>
-							<p>
+							<p><s:url action="ExamAttendanceOverview" id="examAttendanceOverviewStudentUrl" method="student">
+								</s:url>
+								<s:a href="%{examAttendanceOverviewStudentUrl}">
 								<img src="resources/img/icons/user.png" />
 								<s:text name="lblNavExamGradeOverviewByPerson" />
+								</s:a>
 							</p>
 							<p>
+							<s:url action="ExamAttendanceOverview" id="examAttendanceOverviewManipleUrl" method="maniple">
+								</s:url>
+								<s:a href="%{examAttendanceOverviewManipleUrl}">
 								<img src="resources/img/icons/group.png" />
 								<s:text name="lblNavExamGradeOverviewByManiple" />
+								</s:a>
 							</p>
 						</div>
 					</div>

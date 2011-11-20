@@ -137,6 +137,7 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		return students;
 	}
 
+	@Override
 	public String input() throws Exception {
 		// TODO: was is wenn ohne id?
 		// TODO: was is wenn nich erlaubte id?
@@ -318,8 +319,8 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 			manipleToFetch = Integer.valueOf(selectedManiple);
 		}
 		maniples = (List<Maniple>) manipleService.getAll();
-		examAttendances = (List<ExamAttendance>) getExamAttendanceService()
-				.getOralCandidates(manipleToFetch);
+		examAttendances = getExamAttendanceService().getOralCandidates(
+				manipleToFetch);
 	}
 
 }

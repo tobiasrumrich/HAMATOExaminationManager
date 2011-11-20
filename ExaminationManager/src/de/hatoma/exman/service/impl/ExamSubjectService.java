@@ -24,18 +24,6 @@ public class ExamSubjectService implements IExamSubjectService {
 	private IManipleDao manipleDao;
 
 	@Override
-	public ExamSubject createExamSubject(String title, String description,
-			String moduleIdentifier, Maniple maniple) {
-		ExamSubject examSubject = new ExamSubject();
-		examSubject.setTitle(title);
-		examSubject.setDescription(description);
-		examSubject.setModuleIdentifier(moduleIdentifier);
-		examSubject.setManiple(maniple);
-		examSubjectDao.save(examSubject);
-		return examSubject;
-	}
-
-	@Override
 	public Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple() {
 		Map<Maniple, Collection<ExamSubject>> subjects = new HashMap<Maniple, Collection<ExamSubject>>();
 
@@ -48,32 +36,25 @@ public class ExamSubjectService implements IExamSubjectService {
 		return subjects;
 	}
 
-	/**
-	 * @return the examSubjectDao
-	 */
-	public IExamSubjectDao getExamSubjectDAO() {
-		return examSubjectDao;
-	}
+	@Override
+	public Collection<ExamSubject> allSubjectsByManiple(long id) {
+		Maniple m = manipleDao.load(id);
+		Collection<ExamSubject> examSubjects = m.getExamSubjects();
+		Hibernate.initialize(examSubjects);
 
-	/**
-	 * @param examSubjectDao
-	 *            the examSubjectDao to set
-	 */
-	public void setExamSubjectDAO(IExamSubjectDao examSubjectDao) {
-		this.examSubjectDao = examSubjectDao;
-	}
-
-	public IManipleDao getManipleDao() {
-		return manipleDao;
-	}
-
-	public void setManipleDao(IManipleDao manipleDao) {
-		this.manipleDao = manipleDao;
+		return examSubjects;
 	}
 
 	@Override
-	public ExamSubject load(Long id) {
-		return examSubjectDao.load(id);
+	public ExamSubject createExamSubject(String title, String description,
+			String moduleIdentifier, Maniple maniple) {
+		ExamSubject examSubject = new ExamSubject();
+		examSubject.setTitle(title);
+		examSubject.setDescription(description);
+		examSubject.setModuleIdentifier(moduleIdentifier);
+		examSubject.setManiple(maniple);
+		examSubjectDao.save(examSubject);
+		return examSubject;
 	}
 
 	@Override
@@ -85,6 +66,34 @@ public class ExamSubjectService implements IExamSubjectService {
 	@Override
 	public long getExamSubjectCount() {
 		return examSubjectDao.findAll().size();
+	}
+
+	/**
+	 * @return the examSubjectDao
+	 */
+	public IExamSubjectDao getExamSubjectDAO() {
+		return examSubjectDao;
+	}
+
+	public IManipleDao getManipleDao() {
+		return manipleDao;
+	}
+
+	@Override
+	public ExamSubject load(Long id) {
+		return examSubjectDao.load(id);
+	}
+
+	/**
+	 * @param examSubjectDao
+	 *            the examSubjectDao to set
+	 */
+	public void setExamSubjectDAO(IExamSubjectDao examSubjectDao) {
+		this.examSubjectDao = examSubjectDao;
+	}
+
+	public void setManipleDao(IManipleDao manipleDao) {
+		this.manipleDao = manipleDao;
 	}
 
 }

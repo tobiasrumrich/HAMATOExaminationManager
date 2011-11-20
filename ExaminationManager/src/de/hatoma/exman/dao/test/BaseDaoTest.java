@@ -35,27 +35,27 @@ import de.hatoma.exman.model.StudyBranch;
 @TransactionConfiguration
 public abstract class BaseDaoTest extends
 		AbstractTransactionalJUnit4SpringContextTests {
+	private Exam defaultExam;
+	private Examiner defaultExaminer;
+	private ExamSubject defaultExamSubject;
 	private Maniple defaultManiple;
+
 	private Student defaultStudent;
 	private StudyBranch defaultStudyBranch;
-	@Autowired
-	private IManipleDao manipleDao;
-
-	@Autowired
-	private SessionFactory sessionFactory;
-	@Autowired
-	private IStudentDao studentDao;
-	@Autowired
-	private IStudyBranchDao studyBranchDao;
 	@Autowired
 	private IExamDao examDao;
 	@Autowired
 	private IExaminerDao examinerDao;
 	@Autowired
 	private IExamSubjectDao examSubjectDao;
-	private Exam defaultExam;
-	private ExamSubject defaultExamSubject;
-	private Examiner defaultExaminer;
+	@Autowired
+	private IManipleDao manipleDao;
+	@Autowired
+	private SessionFactory sessionFactory;
+	@Autowired
+	private IStudentDao studentDao;
+	@Autowired
+	private IStudyBranchDao studyBranchDao;
 
 	@Before
 	public void beforeMethod() {
@@ -127,6 +127,18 @@ public abstract class BaseDaoTest extends
 		this.defaultExamSubject = examSubject;
 	}
 
+	public Exam getDefaultExam() {
+		return defaultExam;
+	}
+
+	public Examiner getDefaultExaminer() {
+		return defaultExaminer;
+	}
+
+	public ExamSubject getDefaultExamSubject() {
+		return defaultExamSubject;
+	}
+
 	public Maniple getDefaultManiple() {
 		return defaultManiple;
 	}
@@ -139,12 +151,24 @@ public abstract class BaseDaoTest extends
 		return defaultStudyBranch;
 	}
 
-	public Exam getDefaultExam() {
-		return defaultExam;
+	public IExamDao getExamDao() {
+		return examDao;
+	}
+
+	public IExaminerDao getExaminerDao() {
+		return examinerDao;
+	}
+
+	public IExamSubjectDao getExamSubjectDao() {
+		return examSubjectDao;
 	}
 
 	public IManipleDao getManipleDAO() {
 		return manipleDao;
+	}
+
+	protected Date getRandomDate() {
+		return Calendar.getInstance().getTime();
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -157,6 +181,26 @@ public abstract class BaseDaoTest extends
 
 	public IStudyBranchDao getStudyBranchDAO() {
 		return studyBranchDao;
+	}
+
+	public void setDefaultExaminer(Examiner defaultExaminer) {
+		this.defaultExaminer = defaultExaminer;
+	}
+
+	public void setDefaultExamSubject(ExamSubject defaultExamSubject) {
+		this.defaultExamSubject = defaultExamSubject;
+	}
+
+	public void setExamDao(IExamDao examDao) {
+		this.examDao = examDao;
+	}
+
+	public void setExaminerDao(IExaminerDao examinerDao) {
+		this.examinerDao = examinerDao;
+	}
+
+	public void setExamSubjectDao(IExamSubjectDao examSubjectDao) {
+		this.examSubjectDao = examSubjectDao;
 	}
 
 	public void setManipleDAO(IManipleDao manipleDao) {
@@ -173,50 +217,6 @@ public abstract class BaseDaoTest extends
 
 	public void setStudyBranchDAO(IStudyBranchDao studyBranchDao) {
 		this.studyBranchDao = studyBranchDao;
-	}
-
-	public IExamDao getExamDao() {
-		return examDao;
-	}
-
-	public void setExamDao(IExamDao examDao) {
-		this.examDao = examDao;
-	}
-
-	public IExamSubjectDao getExamSubjectDao() {
-		return examSubjectDao;
-	}
-
-	public void setExamSubjectDao(IExamSubjectDao examSubjectDao) {
-		this.examSubjectDao = examSubjectDao;
-	}
-
-	public IExaminerDao getExaminerDao() {
-		return examinerDao;
-	}
-
-	public void setExaminerDao(IExaminerDao examinerDao) {
-		this.examinerDao = examinerDao;
-	}
-
-	protected Date getRandomDate() {
-		return Calendar.getInstance().getTime();
-	}
-
-	public ExamSubject getDefaultExamSubject() {
-		return defaultExamSubject;
-	}
-
-	public void setDefaultExamSubject(ExamSubject defaultExamSubject) {
-		this.defaultExamSubject = defaultExamSubject;
-	}
-
-	public Examiner getDefaultExaminer() {
-		return defaultExaminer;
-	}
-
-	public void setDefaultExaminer(Examiner defaultExaminer) {
-		this.defaultExaminer = defaultExaminer;
 	}
 
 }

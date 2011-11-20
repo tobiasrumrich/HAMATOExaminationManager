@@ -1,5 +1,6 @@
 package de.hatoma.exman.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -29,6 +30,7 @@ import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.service.IExamAttendanceService;
+import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IManipleService;
 
 @Component
@@ -36,6 +38,11 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
 	private IExamAttendanceDao examAttendanceDao;
+	@Autowired
+	private IExamSubjectService examSubjectService;
+
+	private Gson gson;
+
 	@Autowired
 	private IManipleDao manipleDao;
 
@@ -45,10 +52,24 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	@Autowired
 	private IStudentDao studentDao;
 
-	private Gson gson;
-
 	public ExamAttendanceService() {
 		gson = new Gson();
+	}
+
+	@Override
+	public void addOralExaminationResultToExamAttendance(
+			ExamAttendance examAttendance, OralExamGrade oralExamGrade,
+			Date oralExamDate) throws Exception {
+		if (examAttendance.getSupplementOralExamGrade() != null) {
+			throw new OralGradeAlreadyExistantException();
+		}
+		if (examAttendance.getExamGrade() != ExamGrade.G50) {
+			throw new StudentNotEligibleForOralExamException();
+		}
+		examAttendance.setSupplementOralExamGrade(oralExamGrade);
+		examAttendance.setSupplementalOralExamDate(oralExamDate);
+		examAttendanceDao.update(examAttendance);
+
 	}
 
 	@Override
@@ -64,6 +85,110 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendanceDao.save(examAttendance);
 
 		return examAttendance;
+	}
+
+	@Override
+	public String getAllCurrentExamAttendancesForManipleAsJSON(Maniple maniple,
+			String idPattern, String dateFormat) {
+
+		Collection<ExamSubject> examSubjects = examSubjectService
+				.allSubjectsByManiple(maniple.getId());
+
+		List<List<String>> s = new ArrayList<List<String>>();
+
+		for (Student student : manipleService.getStudents(maniple.getId())) {
+
+			for (ExamSubject examSubject : examSubjects) {
+				ExamAttendance attendance;
+				try {
+					attendance = examAttendanceDao
+							.findLatestExamAttendanceOfStudentByExamSubject(
+									examSubject, student);
+				} catch (NoPreviousAttemptException e) {
+					continue;
+				}
+				List<String> m = new LinkedList<String>();
+				m.add(student.getMatriculationNumber());
+				m.add(student.getForename());
+				m.add(student.getLastname());
+				m.add(attendance.getExam().getExamSubject().toString());
+				m.add(new SimpleDateFormat("dd.MM.yy").format(attendance
+						.getExam().getDate()));
+				m.add(attendance.getExamGrade().getAsExpression());
+				m.add(String.valueOf(attendance.getAttempt()));
+
+				// Match the idPattern
+				String idString;
+				if (idPattern != null && idPattern.contains("_STUDID_")
+						&& idPattern.contains("_SUBJID_") && dateFormat != null) {
+
+					idString = idPattern.replace(
+							"_STUDID_",
+							String.valueOf(attendance.getExam()
+									.getExamSubject().getId())).replace(
+							"_SUBJID_",
+							String.valueOf(attendance.getExam()
+									.getExamSubject().getId()));
+				} else {
+					idString = String.valueOf(attendance.getExam()
+							.getExamSubject().getId());
+				}
+				m.add(idString);
+				s.add(m);
+			}
+		}
+		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
+		map.put("aaData", s);
+		return gson.toJson(map);
+	}
+
+	@Override
+	public String getAllCurrentExamAttendancesForStudentAsJSON(Student student,
+			String idPattern) {
+		Maniple maniple;
+		try {
+			maniple = manipleDao.load(student.getManiple().getId());
+		} catch (Exception e) {
+			return "{}";
+		}
+
+		Collection<ExamSubject> examSubjects = maniple.getExamSubjects();
+
+		List<List<String>> s = new ArrayList<List<String>>();
+		for (ExamSubject examSubject : examSubjects) {
+			ExamAttendance attendance;
+			try {
+				attendance = examAttendanceDao
+						.findLatestExamAttendanceOfStudentByExamSubject(
+								examSubject, student);
+			} catch (NoPreviousAttemptException e) {
+				continue;
+			}
+			List<String> m = new LinkedList<String>();
+			m.add(attendance.getExam().getExamSubject().toString());
+			m.add(attendance.getExam().getDate().toString());
+			m.add(attendance.getExamGrade().getAsExpression());
+			m.add(String.valueOf(attendance.getAttempt()));
+
+			// Match the idPattern
+			String idString;
+			if (idPattern != null && idPattern.contains("_ID_")) {
+
+				idString = idPattern.replace(
+						"_ID_",
+						String.valueOf(attendance.getExam().getExamSubject()
+								.getId()));
+			} else {
+				idString = String.valueOf(attendance.getExam().getExamSubject()
+						.getId());
+			}
+			m.add(idString);
+			s.add(m);
+		}
+
+		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
+		map.put("aaData", s);
+		return gson.toJson(map);
 	}
 
 	@Override
@@ -93,6 +218,12 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	}
 
 	@Override
+	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(
+			long examAttendanceId) {
+		return examAttendanceDao.getAuditTrail(examAttendanceId);
+	}
+
+	@Override
 	public ExamAttendance getExamAttendanceById(long id) {
 		return examAttendanceDao.load(id);
 	}
@@ -110,6 +241,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		return examAttendanceDao.findByExamSubject(examSubject);
 	}
 
+	@Override
 	public List<ExamAttendance> getExamAttendancesForExam(Exam exam) {
 		return examAttendanceDao.findByExam(exam);
 	}
@@ -119,6 +251,13 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			ExamSubject examSubject, Student student) {
 		return examAttendanceDao.findByExamSubjectAndStudent(examSubject,
 				student);
+	}
+
+	/**
+	 * @return the examSubjectService
+	 */
+	public IExamSubjectService getExamSubjectService() {
+		return examSubjectService;
 	}
 
 	@Override
@@ -173,12 +312,24 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		return allAttendances;
 	}
 
+	public IStudentDao getStudentDao() {
+		return studentDao;
+	}
+
 	/**
 	 * @param examAttendanceDao
 	 *            the examAttendanceDao to set
 	 */
 	public void setExamAttendanceDao(IExamAttendanceDao examAttendanceDao) {
 		this.examAttendanceDao = examAttendanceDao;
+	}
+
+	/**
+	 * @param examSubjectService
+	 *            the examSubjectService to set
+	 */
+	public void setExamSubjectService(IExamSubjectService examSubjectService) {
+		this.examSubjectService = examSubjectService;
 	}
 
 	public void setManipleDao(IManipleDao manipleDao) {
@@ -193,88 +344,13 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		this.manipleService = manipleService;
 	}
 
+	public void setStudentDao(IStudentDao studentDao) {
+		this.studentDao = studentDao;
+	}
+
 	@Override
 	public void update(ExamAttendance examAttendance) throws Exception {
 		examAttendanceDao.update(examAttendance);
 
-	}
-
-	@Override
-	public void addOralExaminationResultToExamAttendance(
-			ExamAttendance examAttendance, OralExamGrade oralExamGrade,
-			Date oralExamDate) throws Exception {
-		if (examAttendance.getSupplementOralExamGrade() != null) {
-			throw new OralGradeAlreadyExistantException();
-		}
-		if (examAttendance.getExamGrade() != ExamGrade.G50) {
-			throw new StudentNotEligibleForOralExamException();
-		}
-		examAttendance.setSupplementOralExamGrade(oralExamGrade);
-		examAttendance.setSupplementalOralExamDate(oralExamDate);
-		examAttendanceDao.update(examAttendance);
-
-	}
-
-	@Override
-	public List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> getAuditTrail(
-			long examAttendanceId) {
-		return examAttendanceDao.getAuditTrail(examAttendanceId);
-	}
-
-	@Override
-	public String getAllCurrentExamAttendancesForStudentAsJSON(Student student,
-			String idPattern) {
-		Maniple maniple;
-		try {
-			maniple = manipleDao.load(student.getManiple().getId());
-		} catch (Exception e) {
-			return "{}";
-		}
-
-		Collection<ExamSubject> examSubjects = maniple.getExamSubjects();
-
-		List<List<String>> s = new ArrayList<List<String>>();
-		for (ExamSubject examSubject : examSubjects) {
-			ExamAttendance attendance;
-			try {
-				attendance = examAttendanceDao
-						.findLatestExamAttendanceOfStudentByExamSubject(
-								examSubject, student);
-			} catch (NoPreviousAttemptException e) {
-				continue;
-			}
-			List<String> m = new LinkedList<String>();
-			m.add(attendance.getExam().getExamSubject().toString());
-			m.add(attendance.getExam().getDate().toString());
-			m.add(attendance.getExamGrade().getAsExpression());
-			m.add(String.valueOf(attendance.getAttempt()));
-			
-			// Match the idPattern
-			String idString;
-			if (idPattern != null && idPattern.contains("_ID_")) {
-
-				idString = idPattern.replace(
-						"_ID_",
-						String.valueOf(attendance.getExam().getExamSubject()
-								.getId()));
-			} else {
-				idString = String.valueOf(attendance.getExam()
-						.getExamSubject().getId());
-			}
-			m.add(idString);
-			s.add(m);
-		}
-
-		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
-		map.put("aaData", s);
-		return gson.toJson(map);
-	}
-
-	public IStudentDao getStudentDao() {
-		return studentDao;
-	}
-
-	public void setStudentDao(IStudentDao studentDao) {
-		this.studentDao = studentDao;
 	}
 }

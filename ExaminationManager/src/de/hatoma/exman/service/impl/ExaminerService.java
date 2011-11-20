@@ -28,9 +28,9 @@ public class ExaminerService implements IExaminerService {
 	private IExaminerDao examinerDao;
 	@Autowired
 	private IExamSubjectService examSubjectService;
+	private Gson gson;
 	@Autowired
 	private IManipleService manipleService;
-	private Gson gson;
 
 	public ExaminerService() {
 		gson = new Gson();

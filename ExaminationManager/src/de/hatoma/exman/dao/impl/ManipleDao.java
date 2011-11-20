@@ -13,11 +13,11 @@ import de.hatoma.exman.model.Student;
 /**
  * 
  * @author Marcel Schroeter, 3690
- *
+ * 
  */
 @Component
 public class ManipleDao extends BaseDao<Maniple> implements IManipleDao {
-	
+
 	public ManipleDao() {
 		super(Maniple.class);
 	}

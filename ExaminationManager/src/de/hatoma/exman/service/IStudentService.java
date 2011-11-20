@@ -7,14 +7,14 @@ public interface IStudentService {
 	public Student createStudent(String matriculationNumber, String forename,
 			String lastname, Maniple maniple);
 
-	public Student getStudent(long id);
-
-	public long getStudentCount();
-
 	/**
 	 * Returns a list of all students as JSON
 	 * 
 	 * @return
 	 */
 	public String getAllStudentsAsJson();
+
+	public Student getStudent(long id);
+
+	public long getStudentCount();
 }

@@ -39,11 +39,11 @@ public class TrainmanDatabaseCheckInterceptor extends AbstractInterceptor
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private IStudentService studentService;
+	private IExamSubjectService examSubjectService;
 	@Autowired
 	private IManipleService manipleService;
 	@Autowired
-	private IExamSubjectService examSubjectService;
+	private IStudentService studentService;
 
 	@Override
 	public String intercept(ActionInvocation inv) throws Exception {
