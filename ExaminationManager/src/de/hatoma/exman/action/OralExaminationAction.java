@@ -67,7 +67,8 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 
 	@Override
 	public String execute() throws Exception {
-		showList();
+		//Liste aller passenden Studenten vorbereiten
+		retrieveList();
 		return "showList";
 	}
 
@@ -139,10 +140,21 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 
 	@Override
 	public String input() throws Exception {
-		// TODO: was is wenn ohne id?
-		// TODO: was is wenn nich erlaubte id?
-		ExamAttendance selectedExamAttendance = examAttendanceService
+		ExamAttendance selectedExamAttendance;
+		try {
+			Long.valueOf(examAttendanceId);
+		} catch (Exception e) {
+			addActionError(getText("txtErrorInvalidExamAttendanceId"));
+			return "error";
+		}
+
+		selectedExamAttendance = examAttendanceService
 				.getExamAttendanceById(this.examAttendanceId);
+		if (selectedExamAttendance == null) {
+			addActionError(getText("txtErrorInvalidExamAttendanceId"));
+			return "error";
+		}
+
 		Student selectedStudent = selectedExamAttendance.getStudent();
 		// TODO: hier gehts 2 Schritte in die Tiefe:
 		ExamSubject selectedExamSubject = selectedExamAttendance.getExam()
@@ -312,7 +324,7 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		this.students = students;
 	}
 
-	public void showList() {
+	public void retrieveList() {
 		if (selectedManiple == null || selectedManiple.isEmpty()) {
 			manipleToFetch = 1;
 		} else {

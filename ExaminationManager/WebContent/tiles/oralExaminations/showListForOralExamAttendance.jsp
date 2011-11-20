@@ -19,31 +19,31 @@
 							"bStateSave" : true,
 							"aoColumnDefs" : [ {
 								"sWidth" : "25px",
-								"aTargets" : [ 0 ]
-							}, {
-								"sWidth" : "50px",
 								"aTargets" : [ 5 ]
 							}, {
-								"sWidth" : "230px",
+								"sWidth" : "50px",
 								"aTargets" : [ 4 ]
+							}, {
+								"sWidth" : "230px",
+								"aTargets" : [ 3 ]
 							}, {
 								"sWidth" : "140px",
 								"aTargets" : [ 2 ]
 							}, {
 								"sWidth" : "140px",
-								"aTargets" : [ 3 ]
+								"aTargets" : [ 2 ]
 							}, {
 								"sWidth" : "60px",
-								"aTargets" : [ 1 ]
+								"aTargets" : [ 0 ]
 							}, {
 								"sType" : "numeric",
-								"aTargets" : [ 3 ]
+								"aTargets" : [ 2 ]
 							}, {
 								"sType" : "numeric",
-								"aTargets" : [ 1 ]
+								"aTargets" : [ 0 ]
 							}, {
 								"bSortable" : false,
-								"aTargets" : [ 0 ]
+								"aTargets" : [ 5 ]
 							} ],
 							"oLanguage" : {
 								"oPaginate" : {
@@ -80,12 +80,12 @@
 <table id="attendance_list" class="hatoma_dataTable">
 	<thead>
 		<tr>
-			<td>&nbsp;</td>
 			<td>Mat.-Nr.</td>
 			<td>Vorname</td>
 			<td>Nachname</td>
 			<td>Prüfung</td>
 			<td>Versuch</td>
+			<td>&nbsp;</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -96,17 +96,15 @@
 				<s:param name="examAttendanceId" value="%{id}" />
 			</s:url>
 			<tr>
-				<td><s:a href="%{currentUrl}">
-						<img src="resources/img/icons/comment_edit.png"
-							title="<s:text name="txtADNFileSingleOralExamAttendance" />">
-					</s:a></td>
 				<td><s:property value="student.matriculationNumber" /></td>
 				<td><s:property value="student.forename" /></td>
 				<td><s:property value="student.lastname" /></td>
 				<td><s:property value="exam.examSubject.title" /></td>
 				<td><s:property value="attempt" /></td>
-
-
+				<td><s:a href="%{currentUrl}">
+						<img src="resources/img/icons/comment_edit.png"
+							title="<s:text name="txtADNFileSingleOralExamAttendance" />">
+					</s:a></td>
 			</tr>
 		</s:iterator>
 	</tbody>

@@ -72,6 +72,8 @@
 			</result>
 			<result name="input" type="tiles">fileSingleOralExamAttendance
 			</result>
+			<result name="error" type="tiles">showListForOralExamAttendance
+			</result>
 			<result name="protocol" type="tiles">commonProtocol</result>
 		</action>
 
