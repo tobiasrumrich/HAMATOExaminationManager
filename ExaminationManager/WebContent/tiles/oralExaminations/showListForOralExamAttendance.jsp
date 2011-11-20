@@ -11,70 +11,67 @@
 <script type="text/javascript">
 	$(function() {
 
-		$('#attendance_list').dataTable({
-			"bAutoWidth" : false,
-			"bProcessing" : true,
-			"bStateSave" : true,
-			"aoColumnDefs" : [ {
-				"sWidth" : "25px",
-				"aTargets" : [ 0 ]
-			}, {
-				"sWidth" : "50px",
-				"aTargets" : [ 5 ]
-			}, {
-				"sWidth" : "230px",
-				"aTargets" : [ 4 ]
-			}, {
-				"sWidth" : "140px",
-				"aTargets" : [ 2 ]
-			}, {
-				"sWidth" : "140px",
-				"aTargets" : [ 3 ]
-			}, {
-				"sWidth" : "60px",
-				"aTargets" : [ 1 ]
-			}, {
-				"sType" : "numeric",
-				"aTargets" : [ 3 ]
-			}, {
-				"sType" : "numeric",
-				"aTargets" : [ 1 ]
-			}, {
-				"bSortable" : false,
-				"aTargets" : [ 0 ]
-			} ],
-			"oLanguage" : {
-				"oPaginate" : {
-					"sPrevious" : "<s:text name="jQueryDataTablesPrevious" />",
-					"sNext" : "<s:text name="jQueryDataTablesNext" />",
-					"sFirst" : "<s:text name="jQueryDataTablesFirst" />",
-					"sLast" : "<s:text name="jQueryDataTablesLast" />",
-				},
-				"sSearch" : "<s:text name="jQueryDataTablesSearch" />",
-				"sEmptyTable" : "<s:text name="jQueryDataTablesEmptyTable" />",
-				"sInfo" : "<s:text name="jQueryDataTablesInfo" />",
-				"sInfoEmpty" : "<s:text name="jQueryDataTablesInfoEmpty" />",
-				"sInfoFiltered" : "<s:text name="jQueryDataTablesInfoFiltered" />",
-				"sInfoThousands" : "<s:text name="jQueryDataTablesInfoThousands" />", //Tausender-Trennzeichen
-				"sLengthMenu" : "<s:text name="jQueryDataTablesLengthMenu" />",
-				"sProcessing" : "<s:text name="jQueryDataTablesProcessing" />",
-				"sZeroRecords" : "<s:text name="jQueryDataTablesZeroRecords" />"
+		$('#attendance_list')
+				.dataTable(
+						{
+							"bAutoWidth" : false,
+							"bProcessing" : true,
+							"bStateSave" : true,
+							"aoColumnDefs" : [ {
+								"sWidth" : "25px",
+								"aTargets" : [ 0 ]
+							}, {
+								"sWidth" : "50px",
+								"aTargets" : [ 5 ]
+							}, {
+								"sWidth" : "230px",
+								"aTargets" : [ 4 ]
+							}, {
+								"sWidth" : "140px",
+								"aTargets" : [ 2 ]
+							}, {
+								"sWidth" : "140px",
+								"aTargets" : [ 3 ]
+							}, {
+								"sWidth" : "60px",
+								"aTargets" : [ 1 ]
+							}, {
+								"sType" : "numeric",
+								"aTargets" : [ 3 ]
+							}, {
+								"sType" : "numeric",
+								"aTargets" : [ 1 ]
+							}, {
+								"bSortable" : false,
+								"aTargets" : [ 0 ]
+							} ],
+							"oLanguage" : {
+								"oPaginate" : {
+									"sPrevious" : "<s:text name="jQueryDataTablesPrevious" />",
+									"sNext" : "<s:text name="jQueryDataTablesNext" />",
+									"sFirst" : "<s:text name="jQueryDataTablesFirst" />",
+									"sLast" : "<s:text name="jQueryDataTablesLast" />",
+								},
+								"sSearch" : "<s:text name="jQueryDataTablesSearch" />",
+								"sEmptyTable" : "<s:text name="jQueryDataTablesEmptyTable" />",
+								"sInfo" : "<s:text name="jQueryDataTablesInfo" />",
+								"sInfoEmpty" : "<s:text name="jQueryDataTablesInfoEmpty" />",
+								"sInfoFiltered" : "<s:text name="jQueryDataTablesInfoFiltered" />",
+								"sInfoThousands" : "<s:text name="jQueryDataTablesInfoThousands" />", //Tausender-Trennzeichen
+								"sLengthMenu" : "<s:text name="jQueryDataTablesLengthMenu" />",
+								"sProcessing" : "<s:text name="jQueryDataTablesProcessing" />",
+								"sZeroRecords" : "<s:text name="jQueryDataTablesZeroRecords" />"
 
-			}
-		});
+							}
+						});
 	});
 </script>
 
 <s:text name="txtInfotextListStudentsOral" />
 <s:form validate="true">
 	<s:token />
-
-
-	<div style="float: left;">
-		<s:select key="lblManiple" name="selectedManiple" list="maniples"
-			listKey="Id" />
-	</div>
-
+	<s:select key="lblManiple" name="selectedManiple" list="maniples"
+		listKey="Id" />
 	<s:submit name="submit" key="lblShowOtherManipleSubmit"
 		action="OralExamination" method="execute" />
 </s:form>
@@ -100,7 +97,8 @@
 			</s:url>
 			<tr>
 				<td><s:a href="%{currentUrl}">
-						<img src="resources/img/icons/comment_edit.png" title="<s:text name="txtADNFileSingleOralExamAttendance" />">
+						<img src="resources/img/icons/comment_edit.png"
+							title="<s:text name="txtADNFileSingleOralExamAttendance" />">
 					</s:a></td>
 				<td><s:property value="student.matriculationNumber" /></td>
 				<td><s:property value="student.forename" /></td>
@@ -114,6 +112,8 @@
 	</tbody>
 </table>
 <div id="legend">
-<s:text name="txtCaption" />:<br />
-<img src="resources/img/icons/comment_edit.png" title="<s:text name="txtADNFileSingleOralExamAttendance" />"> <s:text name="txtADNFileSingleOralExamAttendance" />
+	<s:text name="txtCaption" />
+	:<br /> <img src="resources/img/icons/comment_edit.png"
+		title="<s:text name="txtADNFileSingleOralExamAttendance" />">
+	<s:text name="txtADNFileSingleOralExamAttendance" />
 </div>

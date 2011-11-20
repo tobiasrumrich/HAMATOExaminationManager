@@ -79,7 +79,7 @@
 						<s:param name="examId" value="id" />
 					</s:url> <s:a href="%{examAttendanceBulkUpdateUrl}">
 						<img src="resources/img/icons/table_add.png" title="<s:text name="txtLinkToExamAttendanceBulkUpdate" />"/>
-					</s:a> <s:if test="%{isExamEditable(id)}">
+					</s:a><br/><s:if test="%{isExamEditable(id)}">
 						<s:url action="EditExam" id="editExam">
 							<s:param name="examId" value="id" />
 						</s:url>
