@@ -35,10 +35,13 @@ table tr {
 	}
 </script>
 
-<p><s:text name="lblInfotextAuditTrail" /></p>
+<p>
+	<s:text name="lblInfotextAuditTrail" />
+</p>
+<div id="printButton"><form><input type="button" onClick="window.print()" value="<s:text name="btnPrint" />"/></form></div>
 <table>
 	<tr>
-		<td><strong><s:text name="lblStudent" /></strong></td>
+		<td><strong><s:text name="lblStudentName" /></strong></td>
 		<td><s:property value="student" /></td>
 	</tr>
 	<tr>
@@ -48,20 +51,22 @@ table tr {
 </table>
 <hr>
 <s:iterator value="map" status="mapStatus">
-<div>
+	<div>
 		<table>
 			<thead>
 				<tr>
-					<td class="emphasized"><s:text name="lblAttempt" /></td>
-					<td><s:text name="lblStatus" /></td>
-					<td><s:text name="lblExamDate2" /></td>
-					<td><s:text name="lblExamType" /></td>
-					<td><s:text name="lblExaminer" /></td>
+					<th class="emphasized"><s:text name="lblAttempt" /></th>
+					<th><s:text name="lblExamGrade" /></th>
+					<th><s:text name="lblStatus" /></th>
+					<th><s:text name="lblExamDate2" /></th>
+					<th><s:text name="lblExamType" /></th>
+					<th><s:text name="lblExaminer" /></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td class="emphasized"><s:property value="entity.attempt" /></td>
+					<td><s:property value="%{getText(examMap[key].examGrade)}" /></td>
 					<td></td>
 					<td><s:date name="%{examMap[key].date}"
 							format="%{getText('examDateFormat')}" /></td>
@@ -83,13 +88,13 @@ table tr {
 								<tr>
 									<th rowspan="2"><s:text name="lblDateOfEdit" /></th>
 									<th rowspan="2"><s:text name="lblUser" /></th>
-									<th rowspan="2"><s:text name="lblExamGrade" />Note</th>
-									<th colspan="2" style="text-align: center;"><s:text name="lblOralExam" /></th>
+									<th rowspan="2"><s:text name="lblExamGrade" /></th>
+									<th colspan="2" style="text-align: center;"><s:text
+											name="lblOralExam" /></th>
 								</tr>
 								<tr>
 									<th><s:text name="lblDate" /></th>
 									<th><s:text name="lblExamGrade" /></th>
-
 								</tr>
 							</thead>
 							<tbody>
@@ -112,5 +117,5 @@ table tr {
 				</tr>
 			</tbody>
 		</table>
-		</div>
+	</div>
 </s:iterator>

@@ -92,8 +92,9 @@
 			</result>
 			<result name="input" type="tiles">examAttendanceBulkUpdateList
 			</result>
-			<result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
-			</result>
+			<result name="protocol" type="tiles">commonProtocol</result>
+			<!-- <result name="confirmation" type="tiles">examAttendanceBulkUpdateConfirmation
+			</result>-->
 		</action>
 
 		<action name="AuditTrail" class="de.hatoma.exman.action.AuditTrailAction">

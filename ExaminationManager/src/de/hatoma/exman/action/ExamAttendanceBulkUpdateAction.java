@@ -1,12 +1,17 @@
 package de.hatoma.exman.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.ParameterAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
@@ -37,169 +42,35 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Exam exam;
-
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
 
-	private String examId;
-
 	@Autowired
 	private IExamService examService;
-	// private long selectedManipleId;
-	private ExamSubject examSubject;
-
-	// Model Beans
-	private List<ExamAttendanceBulkUpdateHelperBean> myEntities = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
-
-	private List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
-	private Map<String, ExamAttendanceBulkUpdateHelperBean> myEntitiesMap = new HashMap<String, ExamAttendanceBulkUpdateHelperBean>();
-	private Map<String, String[]> parameters;
-
-	private long selectedExamId;
 
 	@Autowired
 	private IStudentService studentService;
 
-	@Override
-	public String execute() throws Exception {
-		if (getActionErrors().size() > 0)
-			return "criticalError";
-		return "showBulkList";
-	}
+	// Model Beans
+	private List<ExamAttendanceBulkUpdateHelperBean> myEntities = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
+	private Map<String, ExamAttendanceBulkUpdateHelperBean> myEntitiesMap = new HashMap<String, ExamAttendanceBulkUpdateHelperBean>();
 
-	/**
-	 * @return the exam
-	 */
-	public Exam getExam() {
-		return exam;
-	}
+	private List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations = new ArrayList<ExamAttendanceBulkUpdateHelperBean>();
 
-	/**
-	 * @return the examAttendanceService
-	 */
-	public IExamAttendanceService getExamAttendanceService() {
-		return examAttendanceService;
-	}
+	private long selectedExamId;
+	// private long selectedManipleId;
+	private List<ExamAttendance> protocolledExamAttendances = new ArrayList<ExamAttendance>();
+	private ExamSubject examSubject;
+	private Exam exam;
 
-	/**
-	 * @return the examId
-	 */
-	public String getExamId() {
-		return examId;
-	}
+	private String examId;
 
-	/**
-	 * @return the examService
-	 */
-	public IExamService getExamService() {
-		return examService;
-	}
-
-	/**
-	 * @return the examSubject
-	 */
-	public ExamSubject getExamSubject() {
-		return examSubject;
-	}
-
-	/**
-	 * @return the myEntities
-	 */
-	public List<ExamAttendanceBulkUpdateHelperBean> getMyEntities() {
-		return myEntities;
-	}
-
-	/**
-	 * @return the myEntitiesConfirmations
-	 */
-	public List<ExamAttendanceBulkUpdateHelperBean> getMyEntitiesConfirmations() {
-		return myEntitiesConfirmations;
-	}
-
-	/**
-	 * @return the myEntitiesMap
-	 */
-	public Map<String, ExamAttendanceBulkUpdateHelperBean> getMyEntitiesMap() {
-		return myEntitiesMap;
-	}
-
-	/**
-	 * @return the selectedExamId
-	 */
-	public long getSelectedExamId() {
-		return selectedExamId;
-	}
-
-	/**
-	 * @return the studentService
-	 */
-	public IStudentService getStudentService() {
-		return studentService;
-	}
-
-	/**
-	 * Redirects methos, if user presses ENTER to submit form
-	 */
-	@Override
-	public String input() throws Exception {
-		return insertNewExamAttendances();
-	}
-
-	public String insertNewExamAttendances() throws Exception {
-		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities()) {
-			if (!myEntity.getNewGrade().equals("")) {
-				ExamGrade grade = null;
-				if (myEntity.getNewGrade().equals("1.0")
-						|| myEntity.getNewGrade().equals("1,0"))
-					grade = ExamGrade.G10;
-				if (myEntity.getNewGrade().equals("1.3")
-						|| myEntity.getNewGrade().equals("1,3"))
-					grade = ExamGrade.G13;
-				if (myEntity.getNewGrade().equals("1.7")
-						|| myEntity.getNewGrade().equals("1,7"))
-					grade = ExamGrade.G17;
-				if (myEntity.getNewGrade().equals("2.0")
-						|| myEntity.getNewGrade().equals("2,0"))
-					grade = ExamGrade.G20;
-				if (myEntity.getNewGrade().equals("2.3")
-						|| myEntity.getNewGrade().equals("2,3"))
-					grade = ExamGrade.G23;
-				if (myEntity.getNewGrade().equals("2.7")
-						|| myEntity.getNewGrade().equals("2,7"))
-					grade = ExamGrade.G27;
-				if (myEntity.getNewGrade().equals("3.0")
-						|| myEntity.getNewGrade().equals("3,0"))
-					grade = ExamGrade.G30;
-				if (myEntity.getNewGrade().equals("3.3")
-						|| myEntity.getNewGrade().equals("3,3"))
-					grade = ExamGrade.G33;
-				if (myEntity.getNewGrade().equals("3.7")
-						|| myEntity.getNewGrade().equals("3,7"))
-					grade = ExamGrade.G37;
-				if (myEntity.getNewGrade().equals("4.0")
-						|| myEntity.getNewGrade().equals("4,0"))
-					grade = ExamGrade.G40;
-				if (myEntity.getNewGrade().equals("5.0")
-						|| myEntity.getNewGrade().equals("5,0"))
-					grade = ExamGrade.G50;
-				if (myEntity.getNewGrade().equals("6.0")
-						|| myEntity.getNewGrade().equals("6,0"))
-					grade = ExamGrade.G60;
-				examAttendanceService.createExamAttendanceForStudent(
-						myEntity.getStudent(), exam, grade);
-				myEntitiesConfirmations.add(myEntity);
-			}
-		}
-		addActionMessage("Die folgenden Daten wurden in die Datenbank geschrieben:");
-		return "confirmation";
-	}
+	private Map<String, String[]> parameters;
 
 	/**
 	 * This function is called to prepare the action. This happens, because we
 	 * have implemented the <Preparable> interface
 	 */
-	@Override
 	public void prepare() {
 
 		/*
@@ -277,96 +148,6 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 
 	}
 
-	/**
-	 * @param exam
-	 *            the exam to set
-	 */
-	public void setExam(Exam exam) {
-		this.exam = exam;
-	}
-
-	/**
-	 * @param examAttendanceService
-	 *            the examAttendanceService to set
-	 */
-	public void setExamAttendanceService(
-			IExamAttendanceService examAttendanceService) {
-		this.examAttendanceService = examAttendanceService;
-	}
-
-	/**
-	 * @param examId
-	 *            the examId to set
-	 */
-	public void setExamId(String examId) {
-		this.examId = examId;
-	}
-
-	/**
-	 * @param examService
-	 *            the examService to set
-	 */
-	public void setExamService(IExamService examService) {
-		this.examService = examService;
-	}
-
-	/**
-	 * @param examSubject
-	 *            the examSubject to set
-	 */
-	public void setExamSubject(ExamSubject examSubject) {
-		this.examSubject = examSubject;
-	}
-
-	/**
-	 * @param myEntities
-	 *            the myEntities to set
-	 */
-	public void setMyEntities(
-			List<ExamAttendanceBulkUpdateHelperBean> myEntities) {
-		this.myEntities = myEntities;
-	}
-
-	/**
-	 * @param myEntitiesConfirmations
-	 *            the myEntitiesConfirmations to set
-	 */
-	public void setMyEntitiesConfirmations(
-			List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations) {
-		this.myEntitiesConfirmations = myEntitiesConfirmations;
-	}
-
-	/**
-	 * @param myEntitiesMap
-	 *            the myEntitiesMap to set
-	 */
-	public void setMyEntitiesMap(
-			Map<String, ExamAttendanceBulkUpdateHelperBean> myEntitiesMap) {
-		this.myEntitiesMap = myEntitiesMap;
-	}
-
-	@Override
-	public void setParameters(Map<String, String[]> arg0) {
-		this.parameters = arg0;
-
-	}
-
-	/**
-	 * @param selectedExamId
-	 *            the selectedExamId to set
-	 */
-	public void setSelectedExamId(long selectedExamId) {
-		this.selectedExamId = selectedExamId;
-	}
-
-	/**
-	 * @param studentService
-	 *            the studentService to set
-	 */
-	public void setStudentService(IStudentService studentService) {
-		this.studentService = studentService;
-	}
-
 	@Override
 	public void validate() {
 		super.validate();
@@ -389,6 +170,246 @@ public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
 			addActionMessage(getText("txtActionInfoGradeValidationError"));
 		}
 
+	}
+
+	public String execute() throws Exception {
+		if (getActionErrors().size() > 0)
+			return "criticalError";
+		return "showBulkList";
+	}
+
+	/**
+	 * Redirects methods, if user presses ENTER to submit form
+	 */
+	public String input() throws Exception {
+		return insertNewExamAttendances();
+	}
+
+	public String insertNewExamAttendances() throws Exception {
+		for (ExamAttendanceBulkUpdateHelperBean myEntity : getMyEntities()) {
+			if (!myEntity.getNewGrade().equals("")) {
+				ExamGrade grade = null;
+				if (myEntity.getNewGrade().equals("1.0")
+						|| myEntity.getNewGrade().equals("1,0"))
+					grade = ExamGrade.G10;
+				if (myEntity.getNewGrade().equals("1.3")
+						|| myEntity.getNewGrade().equals("1,3"))
+					grade = ExamGrade.G13;
+				if (myEntity.getNewGrade().equals("1.7")
+						|| myEntity.getNewGrade().equals("1,7"))
+					grade = ExamGrade.G17;
+				if (myEntity.getNewGrade().equals("2.0")
+						|| myEntity.getNewGrade().equals("2,0"))
+					grade = ExamGrade.G20;
+				if (myEntity.getNewGrade().equals("2.3")
+						|| myEntity.getNewGrade().equals("2,3"))
+					grade = ExamGrade.G23;
+				if (myEntity.getNewGrade().equals("2.7")
+						|| myEntity.getNewGrade().equals("2,7"))
+					grade = ExamGrade.G27;
+				if (myEntity.getNewGrade().equals("3.0")
+						|| myEntity.getNewGrade().equals("3,0"))
+					grade = ExamGrade.G30;
+				if (myEntity.getNewGrade().equals("3.3")
+						|| myEntity.getNewGrade().equals("3,3"))
+					grade = ExamGrade.G33;
+				if (myEntity.getNewGrade().equals("3.7")
+						|| myEntity.getNewGrade().equals("3,7"))
+					grade = ExamGrade.G37;
+				if (myEntity.getNewGrade().equals("4.0")
+						|| myEntity.getNewGrade().equals("4,0"))
+					grade = ExamGrade.G40;
+				if (myEntity.getNewGrade().equals("5.0")
+						|| myEntity.getNewGrade().equals("5,0"))
+					grade = ExamGrade.G50;
+				if (myEntity.getNewGrade().equals("6.0")
+						|| myEntity.getNewGrade().equals("6,0"))
+					grade = ExamGrade.G60;
+				protocolledExamAttendances.add(examAttendanceService
+						.createExamAttendanceForStudent(myEntity.getStudent(),
+								exam, grade));
+//				myEntitiesConfirmations.add(myEntity);
+			}
+		}
+
+		DateFormat dateDay = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
+		DateFormat dateTime = new SimpleDateFormat("HH:mm");
+		Date date = new Date();
+		UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		addActionMessage(getText("txtUiProtocolHeader"));
+		addActionMessage(getText("lblDate") + ": " + dateDay.format(date));
+		addActionMessage(getText("lblTime") + ": " + dateTime.format(date));
+		addActionMessage(getText("lblUser") + ": " + currentUser.getUsername());
+		return "protocol";
+	}
+
+	/**
+	 * @return the examAttendanceService
+	 */
+	public IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	/**
+	 * @param examAttendanceService
+	 *            the examAttendanceService to set
+	 */
+	public void setExamAttendanceService(
+			IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
+	}
+
+	/**
+	 * @return the examService
+	 */
+	public IExamService getExamService() {
+		return examService;
+	}
+
+	/**
+	 * @param examService
+	 *            the examService to set
+	 */
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
+	}
+
+	/**
+	 * @return the examSubject
+	 */
+	public ExamSubject getExamSubject() {
+		return examSubject;
+	}
+
+	/**
+	 * @param examSubject
+	 *            the examSubject to set
+	 */
+	public void setExamSubject(ExamSubject examSubject) {
+		this.examSubject = examSubject;
+	}
+
+	/**
+	 * @return the selectedExamId
+	 */
+	public long getSelectedExamId() {
+		return selectedExamId;
+	}
+
+	/**
+	 * @param selectedExamId
+	 *            the selectedExamId to set
+	 */
+	public void setSelectedExamId(long selectedExamId) {
+		this.selectedExamId = selectedExamId;
+	}
+
+	/**
+	 * @return the studentService
+	 */
+	public IStudentService getStudentService() {
+		return studentService;
+	}
+
+	/**
+	 * @param studentService
+	 *            the studentService to set
+	 */
+	public void setStudentService(IStudentService studentService) {
+		this.studentService = studentService;
+	}
+
+	/**
+	 * @return the myEntitiesMap
+	 */
+	public Map<String, ExamAttendanceBulkUpdateHelperBean> getMyEntitiesMap() {
+		return myEntitiesMap;
+	}
+
+	/**
+	 * @param myEntitiesMap
+	 *            the myEntitiesMap to set
+	 */
+	public void setMyEntitiesMap(
+			Map<String, ExamAttendanceBulkUpdateHelperBean> myEntitiesMap) {
+		this.myEntitiesMap = myEntitiesMap;
+	}
+
+	/**
+	 * @return the myEntities
+	 */
+	public List<ExamAttendanceBulkUpdateHelperBean> getMyEntities() {
+		return myEntities;
+	}
+
+	/**
+	 * @param myEntities
+	 *            the myEntities to set
+	 */
+	public void setMyEntities(
+			List<ExamAttendanceBulkUpdateHelperBean> myEntities) {
+		this.myEntities = myEntities;
+	}
+
+	/**
+	 * @return the exam
+	 */
+	public Exam getExam() {
+		return exam;
+	}
+
+	/**
+	 * @param exam
+	 *            the exam to set
+	 */
+	public void setExam(Exam exam) {
+		this.exam = exam;
+	}
+
+	/**
+	 * @return the myEntitiesConfirmations
+	 */
+	public List<ExamAttendanceBulkUpdateHelperBean> getMyEntitiesConfirmations() {
+		return myEntitiesConfirmations;
+	}
+
+	/**
+	 * @param myEntitiesConfirmations
+	 *            the myEntitiesConfirmations to set
+	 */
+	public void setMyEntitiesConfirmations(
+			List<ExamAttendanceBulkUpdateHelperBean> myEntitiesConfirmations) {
+		this.myEntitiesConfirmations = myEntitiesConfirmations;
+	}
+
+	/**
+	 * @return the examId
+	 */
+	public String getExamId() {
+		return examId;
+	}
+
+	/**
+	 * @param examId
+	 *            the examId to set
+	 */
+	public void setExamId(String examId) {
+		this.examId = examId;
+	}
+
+	@Override
+	public void setParameters(Map<String, String[]> arg0) {
+		this.parameters = arg0;
+
+	}
+
+	public List<ExamAttendance> getProtocolledExamAttendances() {
+		return protocolledExamAttendances;
+	}
+
+	public void setProtocolledExamAttendances(
+			List<ExamAttendance> protocolledExamAttendances) {
+		this.protocolledExamAttendances = protocolledExamAttendances;
 	}
 
 }
