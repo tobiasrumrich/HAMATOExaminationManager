@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.dao.IStudentDao;
+import de.hatoma.exman.dao.exceptions.InvalidEntityIdException;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.dao.exceptions.OralGradeAlreadyExistantException;
 import de.hatoma.exman.dao.exceptions.StudentNotEligibleForOralExamException;
@@ -121,15 +122,20 @@ public class ExamAttendanceService implements IExamAttendanceService {
 				// Match the idPattern
 				String idString;
 				if (idPattern != null && idPattern.contains("_STUDID_")
-						&& idPattern.contains("_SUBJID_") && dateFormat != null) {
+						&& idPattern.contains("_SUBJID_")
+						&& idPattern.contains("_ATTID_") && dateFormat != null) {
 
-					idString = idPattern.replace(
-							"_STUDID_",
-							String.valueOf(attendance.getExam()
-									.getExamSubject().getId())).replace(
-							"_SUBJID_",
-							String.valueOf(attendance.getExam()
-									.getExamSubject().getId()));
+					idString = idPattern
+							.replace(
+									"_STUDID_",
+									String.valueOf(attendance.getExam()
+											.getExamSubject().getId()))
+							.replace(
+									"_SUBJID_",
+									String.valueOf(attendance.getExam()
+											.getExamSubject().getId()))
+							.replace("_ATTID_",
+									String.valueOf(attendance.getId()));
 				} else {
 					idString = String.valueOf(attendance.getExam()
 							.getExamSubject().getId());
@@ -396,5 +402,13 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	public void update(ExamAttendance examAttendance) throws Exception {
 		examAttendanceDao.update(examAttendance);
 
+	}
+
+	@Override
+	public void delete(long id) throws InvalidEntityIdException {
+		ExamAttendance examAttendance = examAttendanceDao.load(id);
+		if (examAttendance == null) throw new InvalidEntityIdException(); 
+		examAttendanceDao.delete(examAttendance);
+		
 	}
 }

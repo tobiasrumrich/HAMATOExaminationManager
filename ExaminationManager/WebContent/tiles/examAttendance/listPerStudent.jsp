@@ -139,3 +139,14 @@
 		</tbody>
 	</table>
 </div>
+<div id="legend">
+	<s:text name="txtCaption" />
+	:<br /> <img src="resources/img/icons/database_key.png"
+		title="<s:text name="txtShowAuditTrailForThisRecord" />">
+	<s:text name="txtShowAuditTrailForThisRecord" />
+
+	<br /> <img src="resources/img/icons/pencil_go.png"
+		title="<s:text name="txtShowAuditTrailForThisRecord" />">
+	<s:text name="lblEditExamAttendance" />
+
+</div>

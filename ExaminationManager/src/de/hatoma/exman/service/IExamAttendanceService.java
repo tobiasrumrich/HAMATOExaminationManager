@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import de.hatoma.exman.dao.exceptions.InvalidEntityIdException;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.dao.helpers.AuditTrailBean;
 import de.hatoma.exman.model.ExManRevisionEntity;
@@ -55,8 +56,10 @@ public interface IExamAttendanceService {
 	 *            the Maniple to query for
 	 * @param idPattern
 	 *            String with the pattern to use to encapsulate the
-	 *            studyBranchId. _ID_ will be replaced with the actual long id
-	 *            of the StudyBranch
+	 *            studyBranchId.
+	 *            _STUDID_ wird mit der id der Student ersetzt
+	 *            _SUBJID_ wird mit der id des ExamSubjects ersetzt
+	 *            _ATTID_ wird mit der id der ExamAttendance ersetzt
 	 * @return
 	 */
 	String getAllCurrentExamAttendancesForManipleAsJSON(Maniple maniple,
@@ -176,4 +179,12 @@ public interface IExamAttendanceService {
 	 * @throws Exception
 	 */
 	public void update(ExamAttendance examAttendance) throws Exception;
+	
+	
+	/**
+	 * Löscht eine ExamAttendance. Diese bleibt im Audit Trail enthalten.
+	 * @param id
+	 * @throws Exception wenn die Id nicht existiert
+	 */
+	public void delete(long id) throws InvalidEntityIdException;
 }
