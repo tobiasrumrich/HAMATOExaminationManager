@@ -17,7 +17,7 @@ import de.hatoma.exman.service.ITrainmanService;
  * This is the action that allows to initialize the database with default
  * respective generated initial values.
  * 
- * @author tobias
+ * @author Tobias Rumrich, 3638
  * 
  */
 public class TrainmanAction extends ActionSupport implements

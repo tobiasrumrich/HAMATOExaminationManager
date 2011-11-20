@@ -20,31 +20,25 @@
 				"aTargets" : [ 0 ]
 			}, {
 				"sWidth" : "50px",
-				"aTargets" : [ 1 ]
+				"aTargets" : [ 5 ]
 			}, {
 				"sWidth" : "230px",
-				"aTargets" : [ 2 ]
-			}, {
-				"sWidth" : "40px",
-				"aTargets" : [ 3 ]
-			}, {
-				"sWidth" : "140px",
 				"aTargets" : [ 4 ]
 			}, {
 				"sWidth" : "140px",
-				"aTargets" : [ 5 ]
+				"aTargets" : [ 2 ]
+			}, {
+				"sWidth" : "140px",
+				"aTargets" : [ 3 ]
 			}, {
 				"sWidth" : "60px",
-				"aTargets" : [ 6 ]
-			}, {
-				"sType" : "numeric",
 				"aTargets" : [ 1 ]
 			}, {
 				"sType" : "numeric",
 				"aTargets" : [ 3 ]
 			}, {
 				"sType" : "numeric",
-				"aTargets" : [ 6 ]
+				"aTargets" : [ 1 ]
 			}, {
 				"bSortable" : false,
 				"aTargets" : [ 0 ]
@@ -90,12 +84,11 @@
 	<thead>
 		<tr>
 			<td>&nbsp;</td>
-			<td>Versuch</td>
-			<td>Prüfung</td>
-			<td>Note</td>
+			<td>Mat.-Nr.</td>
 			<td>Vorname</td>
 			<td>Nachname</td>
-			<td>Mat.-Nr.</td>
+			<td>Prüfung</td>
+			<td>Versuch</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -110,12 +103,13 @@
 						tooltip="%{txtADNFileSingleOralExamAttendance}">
 						<img src="resources/img/icons/comment_edit.png">
 					</s:a></td>
-				<td><s:property value="attempt" /></td>
-				<td><s:property value="exam.examSubject.title" /></td>
-				<td><s:property value="examGrade.getAsExpression()" /></td>
+				<td><s:property value="student.matriculationNumber" /></td>
 				<td><s:property value="student.forename" /></td>
 				<td><s:property value="student.lastname" /></td>
-				<td><s:property value="student.matriculationNumber" /></td>
+				<td><s:property value="exam.examSubject.title" /></td>
+				<td><s:property value="attempt" /></td>
+
+
 			</tr>
 		</s:iterator>
 	</tbody>

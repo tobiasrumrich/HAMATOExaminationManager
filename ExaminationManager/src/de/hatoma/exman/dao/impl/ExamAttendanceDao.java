@@ -21,6 +21,13 @@ import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
+/**
+ * 
+ * @author Tobias Rumrich, 3638
+ * @author Hannes Lemberg, 3547 
+ * @author Marcel Schroeter, 3690
+ *
+ */
 @Component
 public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 		IExamAttendanceDao {

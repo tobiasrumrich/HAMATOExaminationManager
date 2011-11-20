@@ -10,17 +10,20 @@ import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
+/**
+ * 
+ * @author Marcel Schroeter, 3690
+ *
+ */
 @Component
 public class ManipleDao extends BaseDao<Maniple> implements IManipleDao {
 	
 	public ManipleDao() {
 		super(Maniple.class);
-		// TODO Auto-generated constructor stub
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	// TODO hal: sprechenderer name
 	public Collection<Student> getStudentsForManiple(long id) {
 		Maniple maniple = this.load(id);
 		Criteria criteria = getCurrentSession().getSessionFactory()

@@ -9,6 +9,11 @@ import de.hatoma.exman.dao.exceptions.EntityIsFrozenException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 
+/**
+ * 
+ * @author Tobias Rumrich, 3638
+ *
+ */
 @Component
 public class ExamDao extends BaseDao<Exam> implements IExamDao {
 

@@ -2,7 +2,7 @@ package de.hatoma.exman.dao.helpers;
 
 /**
  * Bean to store a pair of a RevisionEntity and a Revision
- * @author tobias
+ * @author Tobias Rumrich, 3638
  *
  * @param <RevisionEntityType> RevisionEntity (contains meta-information related to the revision)
  * @param <EntityType> Revision of an Entity (contains the revisioned entity)

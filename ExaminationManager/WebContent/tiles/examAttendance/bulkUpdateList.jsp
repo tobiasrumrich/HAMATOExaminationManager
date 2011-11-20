@@ -11,10 +11,10 @@
 			"aoColumnDefs" : [ {
 				"sType" : "string",
 				"sWidth" : "120px",
-				"aTargets" : [ 0 ]
+				"aTargets" : [ 1 ]
 			}, {
 				"sWidth" : "120px",
-				"aTargets" : [ 1 ]
+				"aTargets" : [ 2 ]
 			}, {
 				"sWidth" : "20px",
 				"bSortable" : false,
@@ -83,9 +83,9 @@ table ul.errorMessage {
 		<table id="examList" class="hatoma_dataTable">
 			<thead>
 				<tr>
+					<td><s:text name="lblMatriculationNo" /></td>
 					<td><s:text name="lblForename" /></td>
 					<td><s:text name="lblLastname" /></td>
-					<td><s:text name="lblMatriculationNo" /></td>
 					<td><s:text name="lblPreviousExamGrade" /></td>
 					<td><s:text name="lblExamGrade" /></td>
 					<td><s:text name="lblAttempt" /></td>
@@ -95,9 +95,9 @@ table ul.errorMessage {
 
 				<s:iterator value="myEntities">
 					<tr>
+						<td><s:property value="student.matriculationNumber" /></td>
 						<td><s:property value="student.forename" /></td>
 						<td><s:property value="student.lastname" /></td>
-						<td><s:property value="student.matriculationNumber" /></td>
 						<td><s:property
 								value="previousExamAttendance.examGrade.asExpression" /></td>
 						<td><s:textfield

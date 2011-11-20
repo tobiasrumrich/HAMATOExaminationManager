@@ -46,6 +46,41 @@ div#navigation-wrapper {
 	height: 100%;
 }
 
+div#navigation-wrapper a{
+	text-decoration:none;
+}
+
+div#navigation-wrapper a:hover{
+	font-weight:bold;
+}
+
+div#navigation-wrapper img{
+	margin:3px 6px 0px 3px;
+	float:left;
+}
+
+
+div#left-panel-info {
+	width: 210px;
+	padding:10px;
+	position:absolute;
+	bottom:10px;
+	font-size:70%;
+	text-align:right;
+	color:#16384c;
+	line-height: normal;
+}
+
+hr {
+	border-top:0px;
+	border-left:0px;
+	border-bottom:1px solid #16384c;
+}
+
+span.left-panel-info {
+	line-height: 2.7em;
+}
+
 div#navigation {
 	position: relative;
 	top: 54px;
@@ -150,7 +185,7 @@ span#sessioninfo {
 	font-weight: bold;
 }
 
-.sorting_asc,.sorting_desc {
+.sorting_asc, .sorting_desc {
 	font-weight: bold;
 	background-color: #4fa0cd;
 }

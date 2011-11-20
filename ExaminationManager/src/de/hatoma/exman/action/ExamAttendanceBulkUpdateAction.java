@@ -24,7 +24,7 @@ import de.hatoma.exman.service.IStudentService;
 
 /**
  * This action allows the bulk insertion of ExamAttendances for a specified exam.
- * @author tobias
+ * @author Tobias Rumrich, 3638
  * 
  */
 public class ExamAttendanceBulkUpdateAction extends ActionSupport implements
