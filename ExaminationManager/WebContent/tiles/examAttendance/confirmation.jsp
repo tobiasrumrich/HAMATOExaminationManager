@@ -2,24 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<div style="background: #d3e7f3">
-		<table>
-			<tr>
-				<td><s:text name="lblExamSubject" />:</td>
-				<td><s:property value="examSubject.title" /></td>
-			</tr>
-
-			<tr>
-				<td><s:text name="lblExam" />:</td>
-				<td><s:date name="exam.date"
-						format="%{getText('examDateFormat')}" /> *** <s:property
-						value="exam.examiner" /></td>
-			</tr>
-
-		</table>
-	</div>
-
-
 <table id="examList" class="hatoma_dataTable" style="width:100%; padding:0px; margin:0px;">
 	<thead>
 		<tr>

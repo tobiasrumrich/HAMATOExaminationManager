@@ -13,6 +13,7 @@ package de.hatoma.exman.dao.helpers;
 public class AuditTrailBean<RevisionEntityType, EntityType> {
 	private final EntityType entity;
 	private final RevisionEntityType revisionEntity;
+	private final Boolean isCurrentRevision;
 
 	/**
 	 * Creates a new RevisionEntity Bean
@@ -22,9 +23,10 @@ public class AuditTrailBean<RevisionEntityType, EntityType> {
 	 * @param entity
 	 *            Revision of the Entity (contains the revisioned entity)
 	 */
-	public AuditTrailBean(RevisionEntityType revisionEntity, EntityType entity) {
+	public AuditTrailBean(RevisionEntityType revisionEntity, EntityType entity, Boolean isCurrentRevision) {
 		this.revisionEntity = revisionEntity;
 		this.entity = entity;
+		this.isCurrentRevision = isCurrentRevision;
 	}
 
 	/**
@@ -39,6 +41,13 @@ public class AuditTrailBean<RevisionEntityType, EntityType> {
 	 */
 	public RevisionEntityType getRevisionEntity() {
 		return revisionEntity;
+	}
+
+	/**
+	 * @return the isCurrentRevision
+	 */
+	public Boolean isCurrentRevision() {
+		return isCurrentRevision;
 	}
 
 }

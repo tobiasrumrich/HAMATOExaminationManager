@@ -126,10 +126,18 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 					ExManRevisionEntity.class, revisionId);
 			ExamAttendance entity = reader.find(ExamAttendance.class, id,
 					revisionId);
+			
+			Boolean isCurrentRevision;
+			if (revisionId.longValue() < revisions.size()) {
+				isCurrentRevision = false;
+			}
+			else {
+				isCurrentRevision = true;
+			}
 
 			auditTrail
 					.add(new AuditTrailBean<ExManRevisionEntity, ExamAttendance>(
-							revisionEntity, entity));
+							revisionEntity, entity, isCurrentRevision));
 
 		}
 		return auditTrail;
