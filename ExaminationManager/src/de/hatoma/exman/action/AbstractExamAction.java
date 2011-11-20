@@ -55,7 +55,7 @@ public abstract class AbstractExamAction extends ActionSupport {
 	}
 
 	private String getAllManiplesJson() {
-		return examinerService.getAllManiplesJson();
+		return manipleService.getAllManiplesJson();
 	}
 
 	public String getAvailableExaminersJson() {

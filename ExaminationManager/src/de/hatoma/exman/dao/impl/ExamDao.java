@@ -1,5 +1,7 @@
 package de.hatoma.exman.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
@@ -8,6 +10,7 @@ import de.hatoma.exman.dao.IExamDao;
 import de.hatoma.exman.dao.exceptions.EntityIsFrozenException;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
+import de.hatoma.exman.model.ExamSubject;
 
 @Component
 public class ExamDao extends BaseDao<Exam> implements IExamDao {
@@ -27,6 +30,13 @@ public class ExamDao extends BaseDao<Exam> implements IExamDao {
 		}
 		getCurrentSession().update(exam);
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Exam> findAllForSubject(ExamSubject subject) {
+		return getCurrentSession().createCriteria(Exam.class)
+				.add(Restrictions.eq("examSubject", subject)).list();
 	}
 
 }

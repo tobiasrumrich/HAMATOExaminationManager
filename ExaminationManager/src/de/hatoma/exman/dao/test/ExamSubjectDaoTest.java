@@ -7,11 +7,12 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import de.hatoma.exman.model.ExamSubject;
+import de.hatoma.exman.test.BaseTest;
 
 /**
  * @author Hannes Lemberg 3547
  */
-public class ExamSubjectDaoTest extends BaseDaoTest {
+public class ExamSubjectDaoTest extends BaseTest {
 	@Test
 	public void testDelete() {
 		long oldID = getDefaultExamSubject().getId();

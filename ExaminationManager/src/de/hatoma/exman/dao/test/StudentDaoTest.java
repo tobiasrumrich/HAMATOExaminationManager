@@ -7,11 +7,12 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import de.hatoma.exman.model.Student;
+import de.hatoma.exman.test.BaseTest;
 
 /**
  * @author Hannes Lemberg
  */
-public class StudentDaoTest extends BaseDaoTest {
+public class StudentDaoTest extends BaseTest {
 	@Test
 	public void testDelete() {
 		long oldID = getDefaultStudent().getId();

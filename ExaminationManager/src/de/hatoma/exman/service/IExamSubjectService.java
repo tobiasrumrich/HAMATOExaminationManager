@@ -5,6 +5,7 @@ import java.util.Map;
 
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
+import de.hatoma.exman.model.Student;
 
 public interface IExamSubjectService {
 
@@ -18,4 +19,24 @@ public interface IExamSubjectService {
 	ExamSubject getExamSubject(long id);
 
 	public long getExamSubjectCount();
+
+	/**
+	 * Liefert die ExamSubjects für den Studenten zurück, die der Student noch
+	 * nicht bestanden.
+	 * 
+	 * @param student
+	 * @param subject
+	 * @return
+	 */
+	String getAvailableExamSubjectsForStudentJson(Student student);
+
+	/**
+	 * Überprüft, ob der Student bereits eine Prüfung für dieses Fach bestanden
+	 * hat. TODO hal: mündliche prüfungen mit einbeziehen.
+	 * 
+	 * @param student
+	 * @param subject
+	 * @return
+	 */
+	boolean hasStudentPassedSubject(Student student, ExamSubject subject);
 }

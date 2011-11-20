@@ -1,6 +1,6 @@
 package de.hatoma.exman.service.impl;
 
-import java.util.AbstractMap.SimpleEntry;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -25,7 +25,6 @@ import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
-import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.model.Student;
@@ -224,27 +223,29 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Override
 	public String getAllCurrentExamAttendancesForStudentAsJSON(Student student) {
-		
+
 		Maniple maniple = manipleDao.load(student.getManiple().getId());
-		
+
 		Collection<ExamSubject> examSubjects = maniple.getExamSubjects();
-		
-		
+
 		List<Map<String, String>> s = new ArrayList<Map<String, String>>();
 		for (ExamSubject examSubject : examSubjects) {
 			ExamAttendance attendance;
 			try {
-				attendance = examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(examSubject, student);
+				attendance = examAttendanceDao
+						.findLatestExamAttendanceOfStudentByExamSubject(
+								examSubject, student);
 			} catch (NoPreviousAttemptException e) {
 				continue;
 			}
-			Map<String,String> m = new HashMap<String,String>();
-			m.put("examSubject", attendance.getExam().getExamSubject().toString());
+			Map<String, String> m = new HashMap<String, String>();
+			m.put("examSubject", attendance.getExam().getExamSubject()
+					.toString());
 			m.put("dateLastExam", attendance.getExam().getDate().toString());
 			m.put("lastGrade", attendance.getExamGrade().getAsExpression());
 			s.add(m);
 		}
-		
+
 		return gson.toJson(s);
 	}
 
@@ -254,5 +255,20 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	public void setStudentDao(IStudentDao studentDao) {
 		this.studentDao = studentDao;
+	}
+
+	@Override
+	public Serializable save(ExamAttendance attendance) {
+		return examAttendanceDao.save(attendance);
+	}
+
+	@Override
+	public boolean hasStudentAttendedExam(Exam exam) {
+		List<ExamAttendance> attendances = getExamAttendancesForExam(exam);
+		if (attendances == null) {
+			return false;
+		}
+
+		return attendances.size() > 0;
 	}
 }

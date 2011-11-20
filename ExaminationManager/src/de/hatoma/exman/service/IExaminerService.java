@@ -15,5 +15,4 @@ public interface IExaminerService {
 
 	public String getAllExamSubjectsJson();
 
-	public String getAllManiplesJson();
 }

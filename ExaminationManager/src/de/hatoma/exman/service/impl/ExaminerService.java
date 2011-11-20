@@ -86,15 +86,6 @@ public class ExaminerService implements IExaminerService {
 		return gson.toJson(examSubjectsByMainple);
 	}
 
-	@Override
-	public String getAllManiplesJson() {
-		List<Entry<Long, String>> maniples = new ArrayList<Entry<Long, String>>();
-		for (Maniple m : getManipleService().findAll()) {
-			maniples.add(new SimpleEntry<Long, String>(m.getId(), m.toString()));
-		}
-		return gson.toJson(maniples);
-	}
-
 	/**
 	 * @return the examinerDao
 	 */

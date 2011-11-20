@@ -8,11 +8,12 @@ import org.junit.Test;
 
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamType;
+import de.hatoma.exman.test.BaseTest;
 
 /**
  * @author Hannes Lemberg 3547
  */
-public class ExamDaoTest extends BaseDaoTest {
+public class ExamDaoTest extends BaseTest {
 	@Test
 	public void testDelete() {
 		long oldID = getDefaultExam().getId();

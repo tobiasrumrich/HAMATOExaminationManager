@@ -107,7 +107,4 @@ public class Exam implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-
 }

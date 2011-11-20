@@ -58,6 +58,15 @@
 			</result>
 		</action>
 
+		<action name="ExamSubjectsFilter" class="de.hatoma.exman.action.ExamSubjectsFilterAction">
+			<result name="json">json.jsp</result>
+		</action>
+
+		<action name="NotAttendedExamsForStudentFilter"
+			class="de.hatoma.exman.action.NotAttendedExamsForStudentFilterAction">
+			<result name="json">json.jsp</result>
+		</action>
+
 		<action name="OralExamination" class="de.hatoma.exman.action.OralExaminationAction">
 			<result name="showList" type="tiles">showListForOralExamAttendance
 			</result>

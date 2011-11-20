@@ -1,9 +1,15 @@
 package de.hatoma.exman.service.impl;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
 
 import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.model.Maniple;
@@ -26,6 +32,15 @@ public class ManipleService implements IManipleService {
 
 		getManipleDao().save(maniple);
 		return maniple;
+	}
+
+	@Override
+	public String getAllManiplesJson() {
+		List<Entry<Long, String>> maniples = new ArrayList<Entry<Long, String>>();
+		for (Maniple m : findAll()) {
+			maniples.add(new SimpleEntry<Long, String>(m.getId(), m.toString()));
+		}
+		return new Gson().toJson(maniples);
 	}
 
 	@Override
@@ -55,6 +70,11 @@ public class ManipleService implements IManipleService {
 
 	public long getManipleCount() {
 		return manipleDao.findAll().size();
+	}
+
+	@Override
+	public Maniple load(long id) {
+		return manipleDao.load(id);
 	}
 
 }

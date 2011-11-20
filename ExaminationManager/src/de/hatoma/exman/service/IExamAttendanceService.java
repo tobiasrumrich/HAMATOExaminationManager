@@ -1,5 +1,6 @@
 package de.hatoma.exman.service;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -126,10 +127,22 @@ public interface IExamAttendanceService {
 			long examAttendanceId);
 
 	/**
-	 * Retrieves a list of all current ExamAttendances for a student as JSON String
+	 * Retrieves a list of all current ExamAttendances for a student as JSON
+	 * String
 	 * 
 	 * @param student
 	 * @return
 	 */
 	String getAllCurrentExamAttendancesForStudentAsJSON(Student student);
+
+	public Serializable save(ExamAttendance attendance);
+
+	/**
+	 * Überprüft, ob der Student bereits an der Prüfung teilgenommen hat. Es
+	 * wird jedoch nicht geprüft, ab er die Prüfung bestanden hat.
+	 * 
+	 * @param exam
+	 * @return
+	 */
+	public boolean hasStudentAttendedExam(Exam exam);
 }

@@ -1,4 +1,4 @@
-package de.hatoma.exman.dao.test;
+package de.hatoma.exman.test;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -28,12 +28,14 @@ import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 import de.hatoma.exman.model.StudyBranch;
+import de.hatoma.exman.service.IExamAttendanceService;
+import de.hatoma.exman.service.IExamService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring-test-config.xml" })
 @Transactional
 @TransactionConfiguration
-public abstract class BaseDaoTest extends
+public abstract class BaseTest extends
 		AbstractTransactionalJUnit4SpringContextTests {
 	private Maniple defaultManiple;
 	private Student defaultStudent;
@@ -56,6 +58,10 @@ public abstract class BaseDaoTest extends
 	private Exam defaultExam;
 	private ExamSubject defaultExamSubject;
 	private Examiner defaultExaminer;
+	@Autowired
+	private IExamAttendanceService examAttendanceService;
+	@Autowired
+	private IExamService examService;
 
 	@Before
 	public void beforeMethod() {
@@ -217,6 +223,22 @@ public abstract class BaseDaoTest extends
 
 	public void setDefaultExaminer(Examiner defaultExaminer) {
 		this.defaultExaminer = defaultExaminer;
+	}
+
+	protected IExamService getExamService() {
+		return examService;
+	}
+
+	protected IExamAttendanceService getExamAttendanceService() {
+		return examAttendanceService;
+	}
+
+	public void setExamService(IExamService examService) {
+		this.examService = examService;
+	}
+
+	public void setExamAttendanceService(IExamAttendanceService examAttendanceService) {
+		this.examAttendanceService = examAttendanceService;
 	}
 
 }
