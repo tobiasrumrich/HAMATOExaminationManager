@@ -126,10 +126,10 @@ public interface IExamAttendanceService {
 			long examAttendanceId);
 
 	/**
-	 * Retrieves a list of all current ExamAttendances for a student
+	 * Retrieves a list of all current ExamAttendances for a student as JSON String
 	 * 
 	 * @param student
 	 * @return
 	 */
-	public List<ExamAttendance> getAllCurrentRecordsForStudent(Student student);
+	String getAllCurrentExamAttendancesForStudentAsJSON(Student student);
 }
