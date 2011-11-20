@@ -66,7 +66,7 @@
 			<result name="protocol" type="tiles">commonProtocol</result>
 		</action>
 
-		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction" method="test">
+		<action name="Trainman" class="de.hatoma.exman.action.TrainmanAction">
 			<result name="input" type="tiles">trainmanIntro</result>
 			<result name="success" type="tiles">trainmanSuccess</result>
 			<result name="error" type="tiles">commonError</result>
