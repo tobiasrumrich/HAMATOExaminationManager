@@ -39,12 +39,12 @@
 	</definition>
 	<definition name="fileSingleOralExamAttendance" extends="mainLayout">
 		<put-attribute name="content"
-			value="/tiles/fileSingleOralExamAttendance.jsp" />
+			value="/tiles/oralExaminations/fileSingleOralExamAttendance.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNFileSingleOralExamAttendance" />
 	</definition>
 	<definition name="showListForOralExamAttendance" extends="mainLayout">
 		<put-attribute name="content"
-			value="/tiles/showListForOralExamAttendance.jsp" />
+			value="/tiles/oralExaminations/showListForOralExamAttendance.jsp" />
 		<put-attribute name="actionDisplayName"
 			value="txtADNShowListForOralExamAttendance" />
 	</definition>

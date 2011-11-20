@@ -67,13 +67,15 @@
 
 	});
 </script>
-<link rel="stylesheet" type="text/css" media="print"
-	href="resources/css/hatoma_print.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="resources/css/hatoma_screen.css" />
-<style type="text/css">
+<link rel="stylesheet" type="text/css" media="print"
+	href="resources/css/hatoma_print.css" />
+<link rel="stylesheet" type="text/css" media="print"
+	href="resources/css/hatoma_print.css" />
+<!--<style type="text/css">
 @import "resources/jquery/js/datatables/media/css/demo_table.css";
-</style>
+</style>-->
 </head>
 <body>
 
@@ -185,7 +187,14 @@
 						</div>
 					</div>
 				</div>
-
+			</div>
+			<div id="left-panel-info">
+				<span class="left-panel-info">Eine J2EE Anwendung von</span><br />
+				Hannes Lemberg, 3547<br />
+				Tobias Rumrich, 3638<br />
+				Marcel Schroeter, 3690<br />
+				<hr>
+				Nordakademie 2011
 			</div>
 		</div>
 		<div id="main-wrapper">
