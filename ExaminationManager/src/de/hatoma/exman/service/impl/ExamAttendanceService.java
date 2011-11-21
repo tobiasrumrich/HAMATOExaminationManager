@@ -88,6 +88,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		} catch (NoPreviousAttemptException e) {
 			examAttendance.setAttempt(1);
 		}
+		
 		examAttendanceDao.save(examAttendance);
 
 		return examAttendance;
@@ -130,8 +131,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 					idString = idPattern
 							.replace(
 									"_STUDID_",
-									String.valueOf(attendance.getExam()
-											.getExamSubject().getId()))
+									String.valueOf(student.getId()))
 							.replace(
 									"_SUBJID_",
 									String.valueOf(attendance.getExam()
@@ -219,8 +219,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 				idString = idPattern
 						.replace(
 								"_STUDID_",
-								String.valueOf(attendance.getExam()
-										.getExamSubject().getId()))
+								String.valueOf(student.getId()))
 						.replace(
 								"_SUBJID_",
 								String.valueOf(attendance.getExam()
