@@ -59,7 +59,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	@Override
 	public void addOralExaminationResultToExamAttendance(
 			ExamAttendance examAttendance, OralExamGrade oralExamGrade,
-			Date oralExamDate) throws Exception {
+			Date oralExamDate) {
 		if (examAttendance.getSupplementOralExamGrade() != null) {
 			throw new OralGradeAlreadyExistantException();
 		}

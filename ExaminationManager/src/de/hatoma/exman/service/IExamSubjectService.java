@@ -10,7 +10,7 @@ import de.hatoma.exman.model.Student;
 
 public interface IExamSubjectService extends Serializable{
 
-	Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple();
+	Map<Maniple, Collection<ExamSubject>> allSubjectsOrderdByManiple();
 
 	Collection<ExamSubject> allSubjectsByManiple(long id);
 

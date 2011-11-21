@@ -22,7 +22,7 @@ import de.hatoma.exman.model.Student;
  * @author Tobias Rumrich - 3638
  * 
  */
-public interface IExamAttendanceService extends Serializable{
+public interface IExamAttendanceService extends Serializable {
 
 	/**
 	 * Adds information about supplemental oral examination to existing
@@ -35,7 +35,7 @@ public interface IExamAttendanceService extends Serializable{
 	 */
 	public void addOralExaminationResultToExamAttendance(
 			ExamAttendance examAttendance, OralExamGrade oralExamGrade,
-			Date oralExamDate) throws Exception;
+			Date oralExamDate);
 
 	/**
 	 * Creates a new ExamAttendance
@@ -186,7 +186,7 @@ public interface IExamAttendanceService extends Serializable{
 	 * 
 	 * @param examAttendance
 	 *            Versuch, für den die Note berechnet werden soll.
-	 * @return 
+	 * @return
 	 */
 	public ExamGrade getCalculatedGrade(ExamAttendance examAttendance);
 

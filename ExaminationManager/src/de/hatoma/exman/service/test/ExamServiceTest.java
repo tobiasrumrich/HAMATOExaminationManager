@@ -7,6 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Iterables;
 
@@ -15,7 +16,10 @@ import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.ExamType;
+import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Student;
+import de.hatoma.exman.service.IExamService;
+import de.hatoma.exman.service.IExaminerService;
 import de.hatoma.exman.test.BaseTest;
 
 public class ExamServiceTest extends BaseTest {
@@ -23,6 +27,9 @@ public class ExamServiceTest extends BaseTest {
 	private Exam exam2;
 	private Student student;
 	private ExamSubject subject;
+	private IExamService service;
+	@Autowired
+	private IExaminerService examinerService;
 
 	@Before
 	public void before() {
@@ -43,6 +50,8 @@ public class ExamServiceTest extends BaseTest {
 		List<ExamAttendance> attendances = getExamAttendanceService()
 				.getExamAttendancesForStudentByExamSubject(subject, student);
 		Assert.assertEquals(1, attendances.size());
+
+		service = getExamService();
 	}
 
 	@Test
@@ -89,5 +98,38 @@ public class ExamServiceTest extends BaseTest {
 						subjectWithoutExamAndAttendances);
 
 		Assert.assertEquals(0, Iterables.size(notAttendedExamsForStudent));
+	}
+
+	@Test
+	public void testCreateExam() {
+		Examiner examiner = examinerService.createExaminer("Aaaa", "Bbbb");
+		service.createExam(ExamType.WrittenExam, getDefaultExamSubject(),
+				getCurrentDate(), examiner);
+		for (Exam e : service.getExamList()) {
+			if (e.getExaminer().equals(examiner)) {
+				Assert.assertEquals(e.getExamSubject(), getDefaultExamSubject());
+				Assert.assertEquals(e.getExamType(), ExamType.WrittenExam);
+				return;
+			}
+		}
+	}
+
+	@Test
+	public void testIsExamEditable() {
+		Assert.assertFalse(service.isExamEditable(getDefaultExam()));
+	}
+	
+	@Test
+	public void testIsExamEditable1() {
+		Assert.assertTrue(service.isExamEditable(exam2));
+	}
+
+
+	public IExaminerService getExaminerService() {
+		return examinerService;
+	}
+
+	public void setExaminerService(IExaminerService examinerService) {
+		this.examinerService = examinerService;
 	}
 }

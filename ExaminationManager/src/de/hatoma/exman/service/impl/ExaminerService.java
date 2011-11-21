@@ -66,7 +66,7 @@ public class ExaminerService implements IExaminerService {
 	@Override
 	public String getAllExamSubjectsJson() {
 		Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple = getExamSubjectService()
-				.allSubjectsByManiple();
+				.allSubjectsOrderdByManiple();
 		Map<Long, List<Entry<Long, String>>> examSubjectsByMainple = new HashMap<Long, List<Entry<Long, String>>>();
 
 		for (Entry<Maniple, Collection<ExamSubject>> e : allSubjectsByManiple

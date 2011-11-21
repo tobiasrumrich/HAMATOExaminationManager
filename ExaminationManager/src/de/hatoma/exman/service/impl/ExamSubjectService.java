@@ -48,7 +48,7 @@ public class ExamSubjectService implements IExamSubjectService {
 	private IManipleDao manipleDao;
 
 	@Override
-	public Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple() {
+	public Map<Maniple, Collection<ExamSubject>> allSubjectsOrderdByManiple() {
 		Map<Maniple, Collection<ExamSubject>> subjects = new HashMap<Maniple, Collection<ExamSubject>>();
 
 		for (Maniple m : getManipleDao().findAll()) {
