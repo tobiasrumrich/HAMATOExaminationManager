@@ -20,6 +20,11 @@ import de.hatoma.exman.model.ExamSubject;
 @Component
 public class ExamDao extends BaseDao<Exam> implements IExamDao {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2685295998106378593L;
+
 	public ExamDao() {
 		super(Exam.class);
 	}

@@ -16,6 +16,11 @@ import de.hatoma.exman.dao.IDao;
  */
 public abstract class BaseDao<T> implements IDao<T> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 622916683037078982L;
+
 	private Class<T> clazz;
 
 	private SessionFactory sessionFactory;

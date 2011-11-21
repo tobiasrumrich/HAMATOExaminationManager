@@ -19,17 +19,16 @@ import de.hatoma.exman.service.IStudentService;
 @Component
 public class StudentService implements IStudentService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4263364411871147875L;
+
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
 
-	private Gson gson;
-
 	@Autowired
 	private IStudentDao studentDao;
-
-	public StudentService() {
-		gson = new Gson();
-	}
 
 	@Override
 	public Student createStudent(String matriculationNumber, String forename,
@@ -55,7 +54,7 @@ public class StudentService implements IStudentService {
 					+ currentStudent.getMatriculationNumber() + "]"));
 		}
 
-		return gson.toJson(s);
+		return new Gson().toJson(s);
 	}
 
 	/**

@@ -1,6 +1,8 @@
 package de.hatoma.exman.service;
 
-public interface ITrainmanService {
+import java.io.Serializable;
+
+public interface ITrainmanService extends Serializable{
 
 	/**
 	 * Creates a minimum of entities in the database and additionally some Exams

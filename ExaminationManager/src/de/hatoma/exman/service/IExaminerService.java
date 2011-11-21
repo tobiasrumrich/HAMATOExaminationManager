@@ -1,10 +1,11 @@
 package de.hatoma.exman.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import de.hatoma.exman.model.Examiner;
 
-public interface IExaminerService {
+public interface IExaminerService extends Serializable{
 	/**
 	 * Erstellt einen neuen Examiner
 	 * @param forename Vorname des Examiners

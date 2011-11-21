@@ -30,6 +30,11 @@ import de.hatoma.exman.service.IExamSubjectService;
 @Component
 public class ExamSubjectService implements IExamSubjectService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5416373556453517863L;
+
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
 

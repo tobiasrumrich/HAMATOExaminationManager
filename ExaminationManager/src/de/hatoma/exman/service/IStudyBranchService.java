@@ -1,8 +1,10 @@
 package de.hatoma.exman.service;
 
+import java.io.Serializable;
+
 import de.hatoma.exman.model.StudyBranch;
 
-public interface IStudyBranchService {
+public interface IStudyBranchService extends Serializable{
 	/**
 	 * Creates a new StudyBranch
 	 * 

@@ -38,12 +38,15 @@ import de.hatoma.exman.service.IManipleService;
 @Component
 public class ExamAttendanceService implements IExamAttendanceService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3100199136848800319L;
 	@Autowired
 	private IExamAttendanceDao examAttendanceDao;
 	@Autowired
 	private IExamSubjectService examSubjectService;
 
-	private Gson gson;
 
 	@Autowired
 	private IManipleDao manipleDao;
@@ -53,10 +56,6 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Autowired
 	private IStudentDao studentDao;
-
-	public ExamAttendanceService() {
-		gson = new Gson();
-	}
 
 	@Override
 	public void addOralExaminationResultToExamAttendance(
@@ -155,7 +154,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		}
 		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
 		map.put("aaData", s);
-		return gson.toJson(map);
+		return new Gson().toJson(map);
 	}
 
 	@Override
@@ -183,7 +182,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			s.add(m);
 		}
 
-		return gson.toJson(s);
+		return new Gson().toJson(s);
 	}
 
 	@Override
@@ -244,7 +243,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 		Map<String, List<List<String>>> map = new HashMap<String, List<List<String>>>();
 		map.put("aaData", s);
-		return gson.toJson(map);
+		return new Gson().toJson(map);
 	}
 
 	@Override

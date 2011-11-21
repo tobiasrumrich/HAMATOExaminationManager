@@ -22,7 +22,7 @@ import de.hatoma.exman.model.Student;
  * @author tobias
  * 
  */
-public interface IExamAttendanceService {
+public interface IExamAttendanceService extends Serializable{
 
 	/**
 	 * Adds information about supplemental oral examination to existing

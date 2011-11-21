@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,10 @@ import de.hatoma.exman.service.ITrainmanService;
 @Component
 public class TrainmanService implements ITrainmanService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7403056340577863909L;
 	private List<Maniple> allBwlManiples;
 	// All Maniples
 	private List<Maniple> allManiples;
@@ -78,12 +83,17 @@ public class TrainmanService implements ITrainmanService {
 	private List<Examiner> wingExaminer;
 	private List<Exam> wingExams;
 	private List<ExamSubject> wingExamSubjects;
+	private Random random;
 
 	@Override
 	public void bootAndExams(int minStudentsPerManiple,
 			int maxStudentsPerManiple) {
 		bootStrapper(minStudentsPerManiple, maxStudentsPerManiple);
 		createExams();
+	}
+
+	public TrainmanService() {
+		random = new Random();
 	}
 
 	@Override
@@ -96,7 +106,7 @@ public class TrainmanService implements ITrainmanService {
 		createExamSubjects();
 
 	}
-	
+
 	@Override
 	public void completeInitializatain(int minStudentsPerManiple,
 			int maxStudentsPerManiple) {
@@ -120,15 +130,15 @@ public class TrainmanService implements ITrainmanService {
 
 				// All students from the current maniple attended to this
 				// exam
-				ExamGrade grade = grades.get((int) (Math.random() * grades
+				ExamGrade grade = grades.get((int) (random.nextFloat() * grades
 						.size()));
 				examAttendanceService.createExamAttendanceForStudent(student,
 						winfExams.get(0), grade);
 
 				// Some people have not attended to this exam. If a person
 				// attended will be determined randomly.
-				if ((int) (Math.random() * 2) == 1) {
-					grade = grades.get((int) (Math.random() * grades.size()));
+				if (random.nextInt(2) == 1) {
+					grade = grades.get((int) (random.nextFloat() * grades.size()));
 					examAttendanceService.createExamAttendanceForStudent(
 							student, winfExams.get(1), grade);
 				}
@@ -142,15 +152,15 @@ public class TrainmanService implements ITrainmanService {
 
 				// All students from the current maniple attended to this
 				// exam
-				ExamGrade grade = grades.get((int) (Math.random() * grades
+				ExamGrade grade = grades.get((int) (random.nextFloat() * grades
 						.size()));
 				examAttendanceService.createExamAttendanceForStudent(student,
 						wingExams.get(0), grade);
 
 				// Some people have not attended to this exam. If a person
 				// attended will be determined randomly.
-				if ((int) (Math.random() * 2) == 1) {
-					grade = grades.get((int) (Math.random() * grades.size()));
+				if (random.nextInt(2) == 1) {
+					grade = grades.get((int) (random.nextFloat() * grades.size()));
 					examAttendanceService.createExamAttendanceForStudent(
 							student, wingExams.get(1), grade);
 				}
@@ -164,15 +174,15 @@ public class TrainmanService implements ITrainmanService {
 
 				// All students from the current maniple attended to this
 				// exam
-				ExamGrade grade = grades.get((int) (Math.random() * grades
+				ExamGrade grade = grades.get((int) (random.nextFloat() * grades
 						.size()));
 				examAttendanceService.createExamAttendanceForStudent(student,
 						bwlExams.get(0), grade);
 
 				// Some people have not attended to this exam. If a person
 				// attended will be determined randomly.
-				if ((int) (Math.random() * 2) == 1) {
-					grade = grades.get((int) (Math.random() * grades.size()));
+				if (random.nextInt(2) == 1) {
+					grade = grades.get((int) (random.nextFloat() * grades.size()));
 					examAttendanceService.createExamAttendanceForStudent(
 							student, bwlExams.get(1), grade);
 				}
@@ -231,21 +241,21 @@ public class TrainmanService implements ITrainmanService {
 		for (ExamSubject exSubject : winfExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
 			int hour = hoursRepository
-					.get((int) (Math.random() * hoursRepository.size()));
+					.get((int) (random.nextFloat() * hoursRepository.size()));
 			int minute = minutesRepository
-					.get((int) (Math.random() * minutesRepository.size()));
+					.get((int) (random.nextFloat() * minutesRepository.size()));
 
 			int year = exSubject.getManiple().getYear();
 
-			int month = (int) (Math.random() * 12);
-			int day = (int) (Math.random() * 28);
+			int month = (int) (random.nextFloat() * 12);
+			int day = (int) (random.nextFloat() * 28);
 			calendar.set(year, month, day, hour, minute);
 
 			winfExams.add(getExamService().createExam(
 					ExamType.WrittenExam,
 					exSubject,
 					calendar.getTime(),
-					winfExaminer.get((int) (Math.random() * (winfExaminer
+					winfExaminer.get((int) (random.nextFloat() * (winfExaminer
 							.size() - 1)))));
 		}
 
@@ -253,21 +263,21 @@ public class TrainmanService implements ITrainmanService {
 		for (ExamSubject exSubject : wingExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
 			int hour = hoursRepository
-					.get((int) (Math.random() * hoursRepository.size()));
+					.get((int) (random.nextFloat() * hoursRepository.size()));
 			int minute = minutesRepository
-					.get((int) (Math.random() * minutesRepository.size()));
+					.get((int) (random.nextFloat() * minutesRepository.size()));
 
 			int year = exSubject.getManiple().getYear();
 
-			int month = (int) (Math.random() * 12);
-			int day = (int) (Math.random() * 28);
+			int month = (int) (random.nextFloat() * 12);
+			int day = (int) (random.nextFloat() * 28);
 			calendar.set(year, month, day, hour, minute);
 
 			wingExams.add(getExamService().createExam(
 					ExamType.WrittenExam,
 					exSubject,
 					calendar.getTime(),
-					wingExaminer.get((int) (Math.random() * (wingExaminer
+					wingExaminer.get((int) (random.nextFloat() * (wingExaminer
 							.size() - 1)))));
 		}
 
@@ -275,14 +285,14 @@ public class TrainmanService implements ITrainmanService {
 		for (ExamSubject exSubject : bwlExamSubjects) {
 			Calendar calendar = Calendar.getInstance();
 			int hour = hoursRepository
-					.get((int) (Math.random() * hoursRepository.size()));
+					.get((int) (random.nextFloat() * hoursRepository.size()));
 			int minute = minutesRepository
-					.get((int) (Math.random() * minutesRepository.size()));
+					.get((int) (random.nextFloat() * minutesRepository.size()));
 
 			int year = exSubject.getManiple().getYear();
 
-			int month = (int) (Math.random() * 12);
-			int day = (int) (Math.random() * 28);
+			int month = (int) (random.nextFloat() * 12);
+			int day = (int) (random.nextFloat() * 28);
 			calendar.set(year, month, day, hour, minute);
 
 			bwlExams.add(getExamService()
@@ -290,7 +300,7 @@ public class TrainmanService implements ITrainmanService {
 							ExamType.WrittenExam,
 							exSubject,
 							calendar.getTime(),
-							bwlExaminer.get((int) (Math.random() * (bwlExaminer
+							bwlExaminer.get((int) (random.nextFloat() * (bwlExaminer
 									.size() - 1)))));
 		}
 	}
@@ -417,11 +427,11 @@ public class TrainmanService implements ITrainmanService {
 
 		for (Maniple currentManiple : allManiples) {
 			// Determine how many students will be created for the maniple
-			for (int i = 0; i < ((int) (Math.random()
+			for (int i = 0; i < ((int) (random.nextFloat()
 					* (maxStudentsPerManiple - minStudentsPerManiple) + minStudentsPerManiple)); i++) {
-				int keyVorname = (int) (Math.random() * (forenameRepository
+				int keyVorname = (int) (random.nextFloat() * (forenameRepository
 						.size()));
-				int keyNachname = (int) (Math.random() * (lastnameRepository
+				int keyNachname = (int) (random.nextFloat() * (lastnameRepository
 						.size()));
 
 				// Add student to maniple
@@ -451,7 +461,8 @@ public class TrainmanService implements ITrainmanService {
 	public Boolean doesDatabaseComplyWithRequirements() {
 		return (studentService.getStudentCount() > 0
 				&& manipleService.getManipleCount() > 0
-				&& examSubjectService.getExamSubjectCount() > 0 && examinerService.getExaminerCount() > 0);
+				&& examSubjectService.getExamSubjectCount() > 0 && examinerService
+				.getExaminerCount() > 0);
 	}
 
 	/**
