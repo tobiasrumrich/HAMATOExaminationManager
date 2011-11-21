@@ -1,6 +1,7 @@
 package de.hatoma.exman.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -122,6 +123,7 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 							revisionEntity, entity, isCurrentRevision));
 
 		}
+		Collections.reverse(auditTrail);
 		return auditTrail;
 	}
 
