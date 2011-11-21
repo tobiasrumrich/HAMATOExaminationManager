@@ -40,3 +40,4 @@
 
 	</tbody>
 </table>
+<s:text name="lblEndOfProtocol" />

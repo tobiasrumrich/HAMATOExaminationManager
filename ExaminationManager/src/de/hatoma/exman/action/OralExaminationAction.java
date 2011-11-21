@@ -158,7 +158,6 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		}
 
 		Student selectedStudent = selectedExamAttendance.getStudent();
-		// TODO: hier gehts 2 Schritte in die Tiefe:
 		ExamSubject selectedExamSubject = selectedExamAttendance.getExam()
 				.getExamSubject();
 
