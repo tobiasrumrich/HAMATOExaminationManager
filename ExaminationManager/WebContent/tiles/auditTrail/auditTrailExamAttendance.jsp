@@ -80,11 +80,11 @@ table tr {
 					<td class="emphasized"><s:property
 							value="%{value.get(0).getEntity().getAttempt()}" /></td>
 					<td><s:property
-							value="%{value.get(0).getEntity().getExamGrade().getAsExpression()}" /></td>
+							value="%{examAttendanceService.getCalculatedGrade(value.get(0).getEntity()).getAsExpression()}" /></td>
 					<td><s:text
 							name="txtIsCurrentRevision%{value.get(0).isCurrentRevision() }" /></td>
 					<td><s:date name="%{examMap[key].date}"
-							format="%{getText('examDateFormat')}" /></td>
+							format="%{getText('examDateFormatNoTimeFormat')}" /></td>
 
 					<td><s:property
 							value="%{getText(examMap[key].examType.getKey())}" /></td>
@@ -135,11 +135,11 @@ table tr {
 												format="%{getText('examDateFormat')}" /></td>
 										<td><s:property value="revisionEntity.changedBy" /></td>
 										<td><s:property
-												value="%{entity.examGrade.getAsExpression() }" /></td>
+												value="%{examAttendanceService.getCalculatedGrade(entity).getAsExpression()}" /></td>
 										<td><s:date name="entity.supplementalOralExamDate"
-												format="%{getText('examDateFormat')}" /></td>
+												format="%{getText('examDateFormatNoTimeFormat')}" /></td>
 										<td><s:property
-												value="%{entity.supplementalOralExamGrade.getAsExpression() }" /></td>
+												value="%{entity.supplementOralExamGrade.getAsExpression() }" /></td>
 									</tr>
 								</s:iterator>
 							</tbody>
