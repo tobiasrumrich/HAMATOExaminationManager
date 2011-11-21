@@ -188,7 +188,6 @@ public class ExamAttendanceDaoTest extends BaseTest {
 				1,
 				getExamAttendanceDao().findbyManipleAndGrade(
 						getDefaultManiple(), ExamGrade.G10).size());
-		// TODO Maniple and Grade ändern
 		// Default Exam Attendance abspeichern
 		ExamAttendance ea1 = getDefaultExamAttendance();
 		ea1.getExam().setExamSubject(getDefaultExamSubject());
