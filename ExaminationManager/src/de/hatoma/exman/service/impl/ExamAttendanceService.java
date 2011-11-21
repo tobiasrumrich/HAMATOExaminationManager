@@ -126,7 +126,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 				} else {
 					m.add(attendance.getExam().getDate().toString());
 				}
-				m.add(attendance.getExamGrade().getAsExpression());
+				m.add(getCalculatedGrade(attendance).getAsExpression());
 				m.add(String.valueOf(attendance.getAttempt()));
 
 				// Match the idPattern
@@ -215,7 +215,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			} else {
 				m.add(attendance.getExam().getDate().toString());
 			}
-			m.add(attendance.getExamGrade().getAsExpression());
+			
+			
+			m.add(getCalculatedGrade(attendance).getAsExpression());
 			m.add(String.valueOf(attendance.getAttempt()));
 
 			// Match the idPattern
