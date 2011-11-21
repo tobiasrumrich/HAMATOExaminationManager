@@ -1,19 +1,23 @@
 package de.hatoma.exman.dao.test;
 
+import java.util.Collection;
 import java.util.List;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
+import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.model.Maniple;
+import de.hatoma.exman.model.Student;
 import de.hatoma.exman.test.BaseTest;
 
 /**
+ * Tests für den Maniple-Dao
  * 
  * @author Hannes Lemberg
  * @author Marcel Schroeter, 3690
- *
+ * 
  */
 public class ManipleDaoText extends BaseTest {
 	@Test
@@ -87,5 +91,23 @@ public class ManipleDaoText extends BaseTest {
 		Maniple m2 = getManipleDao().load(m1.getId());
 		Assert.assertEquals(2008, m2.getYear());
 		Assert.assertEquals(getDefaultStudyBranch(), m2.getStudyBranch());
+	}
+
+	@Test
+	public void testGetStudentsForManiple() {
+		IManipleDao manipleDao2 = getManipleDao();
+
+		Maniple maniple = new Maniple();
+		maniple.setStudyBranch(getDefaultStudyBranch());
+		maniple.setYear(1980);
+		getManipleDao().save(maniple);
+
+		Collection<Student> studentsForManiple = manipleDao2
+				.getStudentsForManiple(maniple.getId());
+		Assert.assertEquals(0, studentsForManiple.size());
+
+		Collection<Student> studentsForManiple2 = manipleDao2
+				.getStudentsForManiple(getDefaultManiple().getId());
+		Assert.assertEquals(1, studentsForManiple2.size());
 	}
 }

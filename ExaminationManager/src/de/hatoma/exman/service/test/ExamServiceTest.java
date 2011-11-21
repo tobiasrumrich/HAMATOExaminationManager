@@ -5,7 +5,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,8 +42,7 @@ public class ExamServiceTest extends BaseTest {
 
 		List<ExamAttendance> attendances = getExamAttendanceService()
 				.getExamAttendancesForStudentByExamSubject(subject, student);
-		Assume.assumeTrue(attendances == null || attendances.size() == 0);
-
+		Assert.assertEquals(1, attendances.size());
 	}
 
 	@Test
@@ -52,7 +50,8 @@ public class ExamServiceTest extends BaseTest {
 		Iterable<Exam> notAttendedExamsForStudent = getExamService()
 				.getAttendableExamsForStudent(student, subject);
 
-		Assert.assertEquals(2, Iterables.size(notAttendedExamsForStudent));
+		// Studi hats bereits bestanden, daher keine
+		Assert.assertEquals(0, Iterables.size(notAttendedExamsForStudent));
 	}
 
 	@Test
@@ -67,14 +66,13 @@ public class ExamServiceTest extends BaseTest {
 		List<ExamAttendance> attendances = getExamAttendanceService()
 				.getExamAttendancesForStudentByExamSubject(subject, student);
 
-		Assume.assumeTrue(attendances != null && attendances.size() == 1);
+		Assert.assertEquals(2, attendances.size());
 
 		// Test
 		Iterable<Exam> notAttendedExamsForStudent = getExamService()
 				.getAttendableExamsForStudent(student, subject);
 
-		Assert.assertEquals(1, Iterables.size(notAttendedExamsForStudent));
-		Assert.assertEquals(exam1, notAttendedExamsForStudent.iterator().next());
+		Assert.assertEquals(0, Iterables.size(notAttendedExamsForStudent));
 	}
 
 	@Test
@@ -91,10 +89,5 @@ public class ExamServiceTest extends BaseTest {
 						subjectWithoutExamAndAttendances);
 
 		Assert.assertEquals(0, Iterables.size(notAttendedExamsForStudent));
-	}
-	
-	@Test
-	public void testgetAttendableExamsForStudent4() {
-		Assert.fail("Prüfen, ob eine bestandene Prüfung rausgefiltert wird, die reine Teilnahme aber nicht.");
 	}
 }

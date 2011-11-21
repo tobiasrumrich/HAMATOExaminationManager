@@ -6,11 +6,13 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
+import de.hatoma.exman.model.Student;
 import de.hatoma.exman.test.BaseTest;
 
 /**
@@ -102,12 +104,15 @@ public class ExamAttendanceDaoTest extends BaseTest {
 	public void testFindByExam() {
 
 		// Die Default Exam Attendance muss schon vorhanden sein.
-		Assert.assertEquals(1,
-				getExamAttendanceDao().findByExam(getDefaultExam()).size());
+		Assert.assertTrue(getExamAttendanceDao().findByExam(getDefaultExam())
+				.size() == 1);
 
 		// Default Exam Attendance abspeichern
-		ExamAttendance ea1 = getDefaultExamAttendance();
+		ExamAttendance ea1 = new ExamAttendance();
 		ea1.setExam(getDefaultExam());
+		ea1.setAttempt(1);
+		ea1.setExamGrade(ExamGrade.G40);
+		ea1.setStudent(getDefaultStudent());
 		getExamAttendanceDao().save(ea1);
 
 		// Persistieren erfolgriech?
@@ -121,7 +126,7 @@ public class ExamAttendanceDaoTest extends BaseTest {
 		// Ein anderes Exam erzeugen und an ea2 anhängen
 		ExamAttendance ea2 = getDefaultExamAttendance();
 		Exam exam2 = getDefaultExam();
-		exam2.setDate(getRandomDate());
+		exam2.setDate(getCurrentDate());
 		ea2.setExam(exam2);
 		// ea1 nochmal abspeichern (nicht updaten!)
 		getExamAttendanceDao().save(ea2);
@@ -137,50 +142,6 @@ public class ExamAttendanceDaoTest extends BaseTest {
 	}
 
 	@Test
-	public void testFindByExamSubject() {
-
-		// Die Default Exam Attendance muss schon vorhanden sein.
-		Assert.assertEquals(
-				1,
-				getExamAttendanceDao().findByExamSubject(
-						getDefaultExamSubject()).size());
-
-		// Default Exam Attendance abspeichern
-		ExamAttendance ea1 = getDefaultExamAttendance();
-		ea1.getExam().setExamSubject(getDefaultExamSubject());
-		getExamAttendanceDao().save(ea1);
-
-		// Persistieren erfolgriech?
-		Assert.assertNotNull(ea1.getId());
-		Assert.assertTrue(ea1.getId() > 0);
-
-		// Es muss ein Result mehr existieren
-		Assert.assertEquals(
-				2,
-				getExamAttendanceDao().findByExamSubject(
-						getDefaultExamSubject()).size());
-
-		// Ein anderes Exam erzeugen und an ea2 anhängen
-		ExamAttendance ea2 = getDefaultExamAttendance();
-		ExamSubject examSubject2 = getDefaultExamSubject();
-		examSubject2.setDescription("andere beschreibung");
-		ea2.getExam().setExamSubject(examSubject2);
-		// ea1 nochmal abspeichern (nicht updaten!)
-		getExamAttendanceDao().save(ea2);
-
-		// Persistieren erfolgriech?
-		Assert.assertNotNull(ea2.getId());
-		Assert.assertTrue(ea2.getId() > 0);
-
-		// Liste muss bei 2 bleiben
-		Assert.assertEquals(
-				2,
-				getExamAttendanceDao().findByExamSubject(
-						getDefaultExamSubject()).size());
-
-	}
-
-	@Test
 	public void testFindByManipleAndGrade() {
 
 		// Die Default Exam Attendance muss schon vorhanden sein.
@@ -189,8 +150,18 @@ public class ExamAttendanceDaoTest extends BaseTest {
 				getExamAttendanceDao().findbyManipleAndGrade(
 						getDefaultManiple(), ExamGrade.G10).size());
 		// Default Exam Attendance abspeichern
-		ExamAttendance ea1 = getDefaultExamAttendance();
-		ea1.getExam().setExamSubject(getDefaultExamSubject());
+		Student s = new Student();
+		s.setForename("asd");
+		s.setLastname("asd");
+		s.setManiple(getDefaultManiple());
+		s.setMatriculationNumber("YXZ");
+		getStudentDao().save(s);
+
+		ExamAttendance ea1 = new ExamAttendance();
+		ea1.setExam(getDefaultExam());
+		ea1.setAttempt(1);
+		ea1.setExamGrade(ExamGrade.G10);
+		ea1.setStudent(s);
 		getExamAttendanceDao().save(ea1);
 
 		// Persistieren erfolgriech?
@@ -210,20 +181,51 @@ public class ExamAttendanceDaoTest extends BaseTest {
 
 		Maniple m2 = getDefaultManiple();
 		m2.setYear(2000);
-		
+
 		ea2.getStudent().setManiple(m2);
 		// ea2 abspeichern
-		getExamAttendanceDao().save(ea2);
+		getExamAttendanceDao().update(ea2);
 
 		// Persistieren erfolgriech?
 		Assert.assertNotNull(ea2.getId());
 		Assert.assertTrue(ea2.getId() > 0);
 
-		// Liste muss bei 2 bleiben
+		// Liste muss 1 sein
 		Assert.assertEquals(
-				2,
+				1,
 				getExamAttendanceDao().findbyManipleAndGrade(
 						getDefaultManiple(), ExamGrade.G10).size());
+	}
+
+	@Test
+	public void testFindLatestExamAttendanceOfStudentByExamSubject() {
+		IExamAttendanceDao attendanceDao = getExamAttendanceDao();
+		Student s = new Student();
+		s.setForename("asd");
+		s.setLastname("asd");
+		s.setManiple(getDefaultManiple());
+		s.setMatriculationNumber("YXZ");
+		getStudentDao().save(s);
+
+		ExamSubject examSubject = getDefaultExamSubject();
+		Exam exam = getDefaultExam();
+
+		Assert.assertEquals(0,
+				attendanceDao.findByStudentAndExamSubject(s, examSubject)
+						.size());
+		Assert.assertTrue(examSubject.equals(exam.getExamSubject()));
+
+		ExamAttendance attendance = new ExamAttendance();
+		attendance.setAttempt(1);
+		attendance.setExam(exam);
+		attendance.setExamGrade(ExamGrade.G13);
+		attendance.setStudent(s);
+		attendanceDao.save(attendance);
+		
+		Assert.assertEquals(1,
+				attendanceDao.findByStudentAndExamSubject(s, examSubject)
+						.size());
+	
 	}
 
 }

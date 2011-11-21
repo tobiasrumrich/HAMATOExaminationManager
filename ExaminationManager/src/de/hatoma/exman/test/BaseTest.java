@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.hamcrest.CoreMatchers;
 import org.hibernate.SessionFactory;
-import org.junit.Assume;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,14 +73,14 @@ public abstract class BaseTest extends
 	@Before
 	public void beforeMethod() {
 		// Annahmen vor den Tests, es existiert nix für niemandend
-		Assume.assumeThat(studyBranchDao.findAll().size(),
+		Assert.assertThat(studyBranchDao.findAll().size(),
 				CoreMatchers.equalTo(0));
-		Assume.assumeThat(manipleDao.findAll().size(), CoreMatchers.equalTo(0));
-		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(0));
-		Assume.assumeThat(examDao.findAll().size(), CoreMatchers.equalTo(0));
-		Assume.assumeThat(examinerDao.findAll().size(), CoreMatchers.equalTo(0));
-		Assume.assumeThat(examAttendanceDao.findAll().size(), CoreMatchers.equalTo(0));
-		Assume.assumeThat(examSubjectDao.findAll().size(),
+		Assert.assertThat(manipleDao.findAll().size(), CoreMatchers.equalTo(0));
+		Assert.assertThat(studentDao.findAll().size(), CoreMatchers.equalTo(0));
+		Assert.assertThat(examDao.findAll().size(), CoreMatchers.equalTo(0));
+		Assert.assertThat(examinerDao.findAll().size(), CoreMatchers.equalTo(0));
+		Assert.assertThat(examAttendanceDao.findAll().size(), CoreMatchers.equalTo(0));
+		Assert.assertThat(examSubjectDao.findAll().size(),
 				CoreMatchers.equalTo(0));
 
 		// Vorbereitungen
@@ -131,14 +131,14 @@ public abstract class BaseTest extends
 		
 		// Annahmen nach den Vorbereitungen: es existiert eine Instanz für
 		// jeweils alle
-		Assume.assumeThat(studyBranchDao.findAll().size(),
+		Assert.assertThat(studyBranchDao.findAll().size(),
 				CoreMatchers.equalTo(1));
-		Assume.assumeThat(manipleDao.findAll().size(), CoreMatchers.equalTo(1));
-		Assume.assumeThat(studentDao.findAll().size(), CoreMatchers.equalTo(1));
-		Assume.assumeThat(examDao.findAll().size(), CoreMatchers.equalTo(1));
-		Assume.assumeThat(examinerDao.findAll().size(), CoreMatchers.equalTo(1));
-		Assume.assumeThat(examAttendanceDao.findAll().size(), CoreMatchers.equalTo(1));
-		Assume.assumeThat(examSubjectDao.findAll().size(),
+		Assert.assertThat(manipleDao.findAll().size(), CoreMatchers.equalTo(1));
+		Assert.assertThat(studentDao.findAll().size(), CoreMatchers.equalTo(1));
+		Assert.assertThat(examDao.findAll().size(), CoreMatchers.equalTo(1));
+		Assert.assertThat(examinerDao.findAll().size(), CoreMatchers.equalTo(1));
+		Assert.assertThat(examAttendanceDao.findAll().size(), CoreMatchers.equalTo(1));
+		Assert.assertThat(examSubjectDao.findAll().size(),
 				CoreMatchers.equalTo(1));
 
 		// Alle lokal setzen
@@ -199,7 +199,7 @@ public abstract class BaseTest extends
 		return manipleDao;
 	}
 
-	protected Date getRandomDate() {
+	protected Date getCurrentDate() {
 		return Calendar.getInstance().getTime();
 	}
 

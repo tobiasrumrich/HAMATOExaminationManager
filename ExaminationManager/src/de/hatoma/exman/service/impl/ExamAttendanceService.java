@@ -292,12 +292,6 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	}
 
 	@Override
-	public List<ExamAttendance> getExamAttendancesByExamSubject(
-			ExamSubject examSubject) {
-		return examAttendanceDao.findByExamSubject(examSubject);
-	}
-
-	@Override
 	public List<ExamAttendance> getExamAttendancesForExam(Exam exam) {
 		return examAttendanceDao.findByExam(exam);
 	}

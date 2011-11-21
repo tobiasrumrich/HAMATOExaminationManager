@@ -6,10 +6,13 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import de.hatoma.exman.dao.IExamSubjectDao;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.test.BaseTest;
 
 /**
+ * Tests für den DAO ExamSubject
+ * 
  * @author Hannes Lemberg 3547
  */
 public class ExamSubjectDaoTest extends BaseTest {
@@ -72,27 +75,24 @@ public class ExamSubjectDaoTest extends BaseTest {
 		Assert.assertEquals("ModuleIdentifier", s2.getModuleIdentifier());
 		Assert.assertEquals("titel", s2.getTitle());
 	}
-	//
-	// @Test
-	// public void testUpdate() {
-	// Student s1 = getDefaultStudent();
-	//
-	// s1.setForename("A1");
-	// s1.setLastname("A2");
-	// s1.setMatriculationNumber("YYY");
-	//
-	// getExamSubjectDao().update(s1);
-	//
-	// // Persistieren erfolgriech
-	// Assert.assertNotNull(s1.getId());
-	// Assert.assertTrue(s1.getId() > 0);
-	//
-	// // Werte vergleichen
-	// Student s2 = getExamSubjectDao().load(s1.getId());
-	// Assert.assertEquals("A1", s2.getForename());
-	// Assert.assertEquals("A2", s2.getLastname());
-	// Assert.assertEquals(getDefaultManiple(), s2.getManiple());
-	// Assert.assertEquals("YYY", s2.getMatriculationNumber());
-	// }
 
+	@Test
+	public void testFindByManiple() {
+		IExamSubjectDao subjectDao = getExamSubjectDao();
+
+		List<ExamSubject> byManiple = subjectDao
+				.findByManiple(getDefaultManiple());
+		Assert.assertEquals(1, byManiple.size());
+
+		//
+		ExamSubject examSubject = new ExamSubject();
+		examSubject.setManiple(getDefaultManiple());
+		examSubject.setDescription("aa");
+		examSubject.setModuleIdentifier("aaa");
+		examSubject.setTitle("aaa");
+		subjectDao.save(examSubject);
+		//
+		List<ExamSubject> list2 = subjectDao.findByManiple(getDefaultManiple());
+		Assert.assertEquals(2, list2.size());
+	}
 }

@@ -50,16 +50,6 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ExamAttendance> findByExamSubject(ExamSubject examSubject) {
-		Criteria criteria = getCurrentSession().createCriteria(
-				ExamAttendance.class).add(
-				Restrictions.eq("exam.examSubject", examSubject));
-		return criteria.list();
-
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<ExamAttendance> findByExamSubjectAndStudent(
 			ExamSubject examSubject, Student student) {
 
@@ -84,22 +74,14 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ExamAttendance> findbyManipleAndGrade(Maniple maniple,
-			ExamGrade examGrade, ExamGrade oralExamGrade) {
-		return getCurrentSession().createCriteria(ExamAttendance.class)
-				.add(Restrictions.eq("examGrade", examGrade))
-				.add(Restrictions.eq("supplementOralExamGrade", oralExamGrade))
-				.createCriteria("student")
-				.add(Restrictions.eq("maniple", maniple)).list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<ExamAttendance> findByStudentAndExamSubject(Student student,
 			ExamSubject examSubject) {
 		return getCurrentSession().createCriteria(ExamAttendance.class)
 				.add(Restrictions.eq("student", student))
-				.add(Restrictions.isNotNull("supplementOralExamGrade"))
+				/*
+				 * .add(Restrictions.isNotNull("supplementOralExamGrade")) TODO
+				 * hal: ist das OK?
+				 */
 				.createCriteria("exam")
 				.add(Restrictions.eq("examSubject", examSubject)).list();
 	}
@@ -131,12 +113,11 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 					ExManRevisionEntity.class, revisionId);
 			ExamAttendance entity = reader.find(ExamAttendance.class, id,
 					revisionId);
-			
+
 			Boolean isCurrentRevision;
 			if (revisionId.longValue() < revisions.size()) {
 				isCurrentRevision = false;
-			}
-			else {
+			} else {
 				isCurrentRevision = true;
 			}
 

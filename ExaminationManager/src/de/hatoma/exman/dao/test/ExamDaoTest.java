@@ -1,5 +1,6 @@
 package de.hatoma.exman.dao.test;
 
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -33,7 +34,7 @@ public class ExamDaoTest extends BaseTest {
 		Assert.assertEquals(1, getExamDao().findAll().size());
 
 		final Exam s = new Exam();
-		s.setDate(getRandomDate());
+		s.setDate(getCurrentDate());
 		s.setExaminer(getDefaultExaminer());
 		s.setExamType(ExamType.OralExam);
 		s.setExamSubject(getDefaultExamSubject());
@@ -56,7 +57,7 @@ public class ExamDaoTest extends BaseTest {
 	@Test
 	public void testSave() {
 		final Exam s = new Exam();
-		s.setDate(getRandomDate());
+		s.setDate(getCurrentDate());
 		s.setExaminer(getDefaultExaminer());
 		s.setExamType(ExamType.OralExam);
 		s.setExamSubject(getDefaultExamSubject());
@@ -72,9 +73,17 @@ public class ExamDaoTest extends BaseTest {
 
 	@Test
 	public void testUpdate() {
-		Exam s1 = getDefaultExam();
+		final Exam s1 = new Exam();
+		Date d1 = getCurrentDate();
+		s1.setDate(d1);
+		s1.setExaminer(getDefaultExaminer());
+		s1.setExamType(ExamType.OralExam);
+		s1.setExamSubject(getDefaultExamSubject());
+		getExamDao().save(s1);
 
-		s1.setDate(getRandomDate());
+		Assert.assertTrue(s1.getId() > 0);
+
+		s1.setDate(getCurrentDate());
 		s1.setExaminer(getDefaultExaminer());
 		s1.setExamType(ExamType.OralExam);
 		s1.setExamSubject(getDefaultExamSubject());

@@ -9,6 +9,11 @@ import de.hatoma.exman.dao.IExamSubjectDao;
 import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
 
+/**
+ * Tests für den DAO ExamSubject
+ * 
+ * @author Hannes Lemberg 3547
+ */
 @Component
 public class ExamSubjectDao extends BaseDao<ExamSubject> implements
 		IExamSubjectDao {

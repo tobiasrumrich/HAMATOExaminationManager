@@ -115,15 +115,6 @@ public interface IExamAttendanceService extends Serializable{
 	public ExamAttendance getExamAttendanceById(long id);
 
 	/**
-	 * Retrieves all ExamAttendances for a specified
-	 * 
-	 * @param examSubject
-	 * @return List<ExamAttendance>
-	 */
-	public List<ExamAttendance> getExamAttendancesByExamSubject(
-			ExamSubject examSubject);
-
-	/**
 	 * Retrieves all ExamAttendances for
 	 * 
 	 * @param exam
