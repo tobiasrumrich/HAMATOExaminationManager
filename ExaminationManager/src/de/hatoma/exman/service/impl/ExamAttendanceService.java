@@ -82,8 +82,12 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendance.setExam(exam);
 		examAttendance.setStudent(student);
 		examAttendance.setExamGrade(examGrade);
-		// TODO Hier muss ermittelt werden, ob das wirklich der erste ist !!!
-		examAttendance.setAttempt(1);
+		try {
+			ExamAttendance latestAttempt = examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(exam.getExamSubject(), student);
+			examAttendance.setAttempt(latestAttempt.getAttempt()+1);
+		} catch (NoPreviousAttemptException e) {
+			examAttendance.setAttempt(1);
+		}
 		examAttendanceDao.save(examAttendance);
 
 		return examAttendance;
