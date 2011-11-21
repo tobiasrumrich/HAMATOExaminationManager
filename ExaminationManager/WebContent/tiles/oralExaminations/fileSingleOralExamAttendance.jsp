@@ -35,7 +35,7 @@
 </script>
 <s:form validate="true">
 	<s:token />
-	<s:hidden name="examAttendanceId" value="%{examAttendanceId}" />
+	<s:hidden name="examAttendanceId"  />
 	<s:hidden name="frmStudent" />
 	<s:hidden name="frmSubject" />
 

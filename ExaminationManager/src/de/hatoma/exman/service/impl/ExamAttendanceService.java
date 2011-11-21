@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import de.hatoma.exman.dao.IExamAttendanceDao;
 import de.hatoma.exman.dao.IManipleDao;
 import de.hatoma.exman.dao.IStudentDao;
+import de.hatoma.exman.dao.exceptions.InvalidEntityIdException;
 import de.hatoma.exman.dao.exceptions.NoPreviousAttemptException;
 import de.hatoma.exman.dao.exceptions.OralGradeAlreadyExistantException;
 import de.hatoma.exman.dao.exceptions.StudentNotEligibleForOralExamException;
@@ -113,26 +114,33 @@ public class ExamAttendanceService implements IExamAttendanceService {
 				m.add(student.getForename());
 				m.add(student.getLastname());
 				m.add(attendance.getExam().getExamSubject().toString());
-				m.add(new SimpleDateFormat("dd.MM.yy").format(attendance
-						.getExam().getDate()));
 				m.add(attendance.getExamGrade().getAsExpression());
 				m.add(String.valueOf(attendance.getAttempt()));
 
 				// Match the idPattern
 				String idString;
 				if (idPattern != null && idPattern.contains("_STUDID_")
-						&& idPattern.contains("_SUBJID_") && dateFormat != null) {
+						&& idPattern.contains("_SUBJID_")
+						&& idPattern.contains("_ATTID_") && dateFormat != null) {
 
-					idString = idPattern.replace(
-							"_STUDID_",
-							String.valueOf(attendance.getExam()
-									.getExamSubject().getId())).replace(
-							"_SUBJID_",
-							String.valueOf(attendance.getExam()
-									.getExamSubject().getId()));
+					idString = idPattern
+							.replace(
+									"_STUDID_",
+									String.valueOf(attendance.getExam()
+											.getExamSubject().getId()))
+							.replace(
+									"_SUBJID_",
+									String.valueOf(attendance.getExam()
+											.getExamSubject().getId()))
+							.replace("_ATTID_",
+									String.valueOf(attendance.getId()));
+					m.add(new SimpleDateFormat(dateFormat).format(attendance
+							.getExam().getDate()));
 				} else {
 					idString = String.valueOf(attendance.getExam()
 							.getExamSubject().getId());
+
+					m.add(attendance.getExam().getDate().toString());
 				}
 				m.add(idString);
 				s.add(m);
@@ -173,7 +181,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 
 	@Override
 	public String getAllCurrentExamAttendancesForStudentAsJSON(Student student,
-			String idPattern) {
+			String idPattern, String dateFormat) {
 		Maniple maniple;
 		try {
 			maniple = manipleDao.load(student.getManiple().getId());
@@ -195,21 +203,31 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			}
 			List<String> m = new LinkedList<String>();
 			m.add(attendance.getExam().getExamSubject().toString());
-			m.add(attendance.getExam().getDate().toString());
 			m.add(attendance.getExamGrade().getAsExpression());
 			m.add(String.valueOf(attendance.getAttempt()));
 
 			// Match the idPattern
 			String idString;
-			if (idPattern != null && idPattern.contains("_ID_")) {
+			if (idPattern != null && idPattern.contains("_STUDID_")
+					&& idPattern.contains("_SUBJID_")
+					&& idPattern.contains("_ATTID_") && dateFormat != null) {
 
-				idString = idPattern.replace(
-						"_ID_",
-						String.valueOf(attendance.getExam().getExamSubject()
-								.getId()));
+				idString = idPattern
+						.replace(
+								"_STUDID_",
+								String.valueOf(attendance.getExam()
+										.getExamSubject().getId()))
+						.replace(
+								"_SUBJID_",
+								String.valueOf(attendance.getExam()
+										.getExamSubject().getId()))
+						.replace("_ATTID_", String.valueOf(attendance.getId()));
+				m.add(new SimpleDateFormat(dateFormat).format(attendance
+						.getExam().getDate()));
 			} else {
 				idString = String.valueOf(attendance.getExam().getExamSubject()
 						.getId());
+				m.add(attendance.getExam().getDate().toString());
 			}
 			m.add(idString);
 			s.add(m);
@@ -395,6 +413,15 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	@Override
 	public void update(ExamAttendance examAttendance) {
 		examAttendanceDao.update(examAttendance);
+
+	}
+
+	@Override
+	public void delete(long id) throws InvalidEntityIdException {
+		ExamAttendance examAttendance = examAttendanceDao.load(id);
+		if (examAttendance == null)
+			throw new InvalidEntityIdException();
+		examAttendanceDao.delete(examAttendance);
 
 	}
 }

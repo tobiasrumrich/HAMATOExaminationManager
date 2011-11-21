@@ -20,8 +20,4 @@ public class ProtocolAction extends ActionSupport {
 		return message;
 	}
 
-	public String save() {
-		return SUCCESS;
-	}
-
 }
