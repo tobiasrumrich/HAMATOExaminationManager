@@ -83,12 +83,14 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		examAttendance.setStudent(student);
 		examAttendance.setExamGrade(examGrade);
 		try {
-			ExamAttendance latestAttempt = examAttendanceDao.findLatestExamAttendanceOfStudentByExamSubject(exam.getExamSubject(), student);
-			examAttendance.setAttempt(latestAttempt.getAttempt()+1);
+			ExamAttendance latestAttempt = examAttendanceDao
+					.findLatestExamAttendanceOfStudentByExamSubject(
+							exam.getExamSubject(), student);
+			examAttendance.setAttempt(latestAttempt.getAttempt() + 1);
 		} catch (NoPreviousAttemptException e) {
 			examAttendance.setAttempt(1);
 		}
-		
+
 		examAttendanceDao.save(examAttendance);
 
 		return examAttendance;
@@ -119,6 +121,12 @@ public class ExamAttendanceService implements IExamAttendanceService {
 				m.add(student.getForename());
 				m.add(student.getLastname());
 				m.add(attendance.getExam().getExamSubject().toString());
+				if (dateFormat != null) {
+					m.add(new SimpleDateFormat(dateFormat).format(attendance
+							.getExam().getDate()));
+				} else {
+					m.add(attendance.getExam().getDate().toString());
+				}
 				m.add(attendance.getExamGrade().getAsExpression());
 				m.add(String.valueOf(attendance.getAttempt()));
 
@@ -129,8 +137,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 						&& idPattern.contains("_ATTID_") && dateFormat != null) {
 
 					idString = idPattern
-							.replace(
-									"_STUDID_",
+							.replace("_STUDID_",
 									String.valueOf(student.getId()))
 							.replace(
 									"_SUBJID_",
@@ -138,13 +145,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 											.getExamSubject().getId()))
 							.replace("_ATTID_",
 									String.valueOf(attendance.getId()));
-					m.add(new SimpleDateFormat(dateFormat).format(attendance
-							.getExam().getDate()));
 				} else {
 					idString = String.valueOf(attendance.getExam()
 							.getExamSubject().getId());
-
-					m.add(attendance.getExam().getDate().toString());
 				}
 				m.add(idString);
 				s.add(m);
@@ -207,6 +210,12 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			}
 			List<String> m = new LinkedList<String>();
 			m.add(attendance.getExam().getExamSubject().toString());
+			if (dateFormat != null) {
+				m.add(new SimpleDateFormat(dateFormat).format(attendance
+						.getExam().getDate()));
+			} else {
+				m.add(attendance.getExam().getDate().toString());
+			}
 			m.add(attendance.getExamGrade().getAsExpression());
 			m.add(String.valueOf(attendance.getAttempt()));
 
@@ -214,23 +223,20 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			String idString;
 			if (idPattern != null && idPattern.contains("_STUDID_")
 					&& idPattern.contains("_SUBJID_")
-					&& idPattern.contains("_ATTID_") && dateFormat != null) {
+					&& idPattern.contains("_ATTID_")) {
 
 				idString = idPattern
-						.replace(
-								"_STUDID_",
-								String.valueOf(student.getId()))
+						.replace("_STUDID_", String.valueOf(student.getId()))
 						.replace(
 								"_SUBJID_",
 								String.valueOf(attendance.getExam()
 										.getExamSubject().getId()))
 						.replace("_ATTID_", String.valueOf(attendance.getId()));
-				m.add(new SimpleDateFormat(dateFormat).format(attendance
-						.getExam().getDate()));
+
 			} else {
 				idString = String.valueOf(attendance.getExam().getExamSubject()
 						.getId());
-				m.add(attendance.getExam().getDate().toString());
+
 			}
 			m.add(idString);
 			s.add(m);
