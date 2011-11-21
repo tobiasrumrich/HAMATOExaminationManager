@@ -94,6 +94,9 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		return examAttendance;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.hatoma.exman.service.IExamAttendanceService#getAllCurrentExamAttendancesForManipleAsJSON(de.hatoma.exman.model.Maniple, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public String getAllCurrentExamAttendancesForManipleAsJSON(Maniple maniple,
 			String idPattern, String dateFormat) {

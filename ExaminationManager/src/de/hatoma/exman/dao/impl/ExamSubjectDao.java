@@ -10,7 +10,7 @@ import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
 
 /**
- * Tests für den DAO ExamSubject
+ * DAO für ExamSubject
  * 
  * @author Hannes Lemberg 3547
  */

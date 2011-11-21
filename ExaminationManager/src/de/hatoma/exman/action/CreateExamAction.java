@@ -4,6 +4,12 @@ import com.opensymphony.xwork2.Action;
 
 import de.hatoma.exman.model.Exam;
 
+/**
+ * Action zum Anlegen einer Prüfung
+ * 
+ * @author Hannes Lemberg 3547
+ * 
+ */
 public class CreateExamAction extends AbstractExamAction {
 
 	private static final long serialVersionUID = 5425944372766400873L;

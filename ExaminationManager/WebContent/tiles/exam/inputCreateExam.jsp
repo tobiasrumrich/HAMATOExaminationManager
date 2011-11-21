@@ -1,46 +1,47 @@
+<!-- Autor: Hannes Lemberg - 3547 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<s:debug />
 <script type="text/javascript">
 	var availableExaminers = <s:property value="availableExaminersJson" escape="false" />;
 	var availableExamSubjectsByManiple = <s:property value="availableExamSubjectsByManipleJson" escape="false" />;
 	var availableManiples = <s:property value="availableManiplesJson" escape="false" />;
-
 
 	$(function() {
 		hamatoAutocomplete($("#lecturerI"), $("#lecturerIid"),
 				availableExaminers);
 		hamatoAutocomplete($("#examManipleI"), $("#examManipleIid"),
 				availableManiples);
-///////////
-		$("#examDateI").datepicker(
-				{
-					dateFormat : '<s:text name="examDateFormatNoTimeJQuery" />',
-					firstDay : 0,
-					currentText : '<s:text name="jQueryDatePickerToday" />',
-					dayNamesMin : [
-							'<s:text name="jQueryDatePickerMondayShort" />',
-							'<s:text name="jQueryDatePickerTuesdayShort" />',
-							'<s:text name="jQueryDatePickerWednesdayShort" />',
-							'<s:text name="jQueryDatePickerThursdayShort" />',
-							'<s:text name="jQueryDatePickerFridayShort" />',
-							'<s:text name="jQueryDatePickerSaturdayShort" />',
-							'<s:text name="jQueryDatePickerSundayShort" />' ],
-					monthNames : [ '<s:text name="jQueryDatePickerJanuary" />',
-							'<s:text name="jQueryDatePickerFebruary" />',
-							'<s:text name="jQueryDatePickerMarch" />',
-							'<s:text name="jQueryDatePickerApril" />',
-							'<s:text name="jQueryDatePickerMay" />',
-							'<s:text name="jQueryDatePickerJune" />',
-							'<s:text name="jQueryDatePickerJuly" />',
-							'<s:text name="jQueryDatePickerAugust" />',
-							'<s:text name="jQueryDatePickerSeptember" />',
-							'<s:text name="jQueryDatePickerOctober" />',
-							'<s:text name="jQueryDatePickerNovember" />',
-							'<s:text name="jQueryDatePickerDecember" />' ]
-				});
+		///////////
+		$("#examDateI")
+				.datepicker(
+						{
+							dateFormat : '<s:text name="examDateFormatNoTimeJQuery" />',
+							firstDay : 0,
+							currentText : '<s:text name="jQueryDatePickerToday" />',
+							dayNamesMin : [
+									'<s:text name="jQueryDatePickerMondayShort" />',
+									'<s:text name="jQueryDatePickerTuesdayShort" />',
+									'<s:text name="jQueryDatePickerWednesdayShort" />',
+									'<s:text name="jQueryDatePickerThursdayShort" />',
+									'<s:text name="jQueryDatePickerFridayShort" />',
+									'<s:text name="jQueryDatePickerSaturdayShort" />',
+									'<s:text name="jQueryDatePickerSundayShort" />' ],
+							monthNames : [
+									'<s:text name="jQueryDatePickerJanuary" />',
+									'<s:text name="jQueryDatePickerFebruary" />',
+									'<s:text name="jQueryDatePickerMarch" />',
+									'<s:text name="jQueryDatePickerApril" />',
+									'<s:text name="jQueryDatePickerMay" />',
+									'<s:text name="jQueryDatePickerJune" />',
+									'<s:text name="jQueryDatePickerJuly" />',
+									'<s:text name="jQueryDatePickerAugust" />',
+									'<s:text name="jQueryDatePickerSeptember" />',
+									'<s:text name="jQueryDatePickerOctober" />',
+									'<s:text name="jQueryDatePickerNovember" />',
+									'<s:text name="jQueryDatePickerDecember" />' ]
+						});
 		$("#examManipleIid").change(checkIsManipleSet);
 		// Überprüfung, ob manipel gesetzt ist, 
 		checkIsManipleSet();
@@ -89,5 +90,4 @@
 	<s:hidden name="examId" />
 	<s:submit key="btnSave" action="%{targetAction}"
 		method="%{targetMethod}" />
-	<s:submit key="btnCancel" action="SaveNewExam" name="btnCancel" />
 </s:form>

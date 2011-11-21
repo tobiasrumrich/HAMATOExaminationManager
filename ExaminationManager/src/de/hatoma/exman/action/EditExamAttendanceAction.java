@@ -19,6 +19,8 @@ import de.hatoma.exman.model.OralExamGrade;
 import de.hatoma.exman.service.IExamAttendanceService;
 
 /**
+ * Action zum Bearbeiten einer Teilnahme an einer Prüfung
+ * 
  * @author Hannes Lemberg 3547
  * 
  */
@@ -65,7 +67,7 @@ public class EditExamAttendanceAction extends ActionSupport implements
 			frmSupplementalOralExaminationDate = dateFormat.format(attendance
 					.getSupplementalOralExamDate());
 			frmSupplementalOralExaminationGrade = getText(attendance
-					.getSupplementOralExamGrade().getAsExpression());
+					.getSupplementOralExamGrade().toString());
 		}
 
 		return Action.INPUT;

@@ -18,6 +18,13 @@ import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IExaminerService;
 import de.hatoma.exman.service.IManipleService;
 
+/**
+ * Action, um die Gemeinsamkeiten von Prüfung anlegen und Prüfung bearbeiten zu
+ * verarbeiten
+ * 
+ * @author Hannes Lemberg 3547
+ * 
+ */
 public abstract class AbstractExamAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String availableExaminersJson;

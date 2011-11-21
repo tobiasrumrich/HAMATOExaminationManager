@@ -1,3 +1,5 @@
+/* Autor: Hannes Lemberg - 3547 */
+
 Array.prototype.findBy = function(callbfn) {
 	for (i in this) {
 		o = this[i];

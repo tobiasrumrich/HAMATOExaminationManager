@@ -9,16 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.hatoma.exman.dao.IDao;
 
 /**
+ * Basisdao, der die grundlegenden CRUD-Operationen implemntiert.
  * 
  * @author Hannes Lemberg, 3547
  * 
- * @param <T>
+ * @param <T> zum Dao gehörende Modelklasse
  */
 public abstract class BaseDao<T> implements IDao<T> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 622916683037078982L;
 
 	private Class<T> clazz;

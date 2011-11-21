@@ -1,3 +1,4 @@
+<!-- Autor: Hannes Lemberg - 3547 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
@@ -33,7 +34,7 @@
 									'<s:text name="jQueryDatePickerDecember" />' ],
 							maxDate : '+0m +0w +0d'
 						});
-	})
+	});
 </script>
 <s:form validate="true">
 	<s:token />
@@ -57,9 +58,5 @@
 	<s:select key="lblSupplementalOralExaminationGrade"
 		list="oralExamGrades" required="%{oralAllowed}"
 		name="frmSupplementalOralExaminationGrade" disabled="%{!oralAllowed}" />
-
 	<s:submit key="btnSave" action="EditExamAttendance" method="save" />
-	<s:submit key="btnCancel" action="EditExamAttendance" method="execute" />
 </s:form>
-
-<s:debug />

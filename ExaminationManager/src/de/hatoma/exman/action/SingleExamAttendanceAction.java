@@ -17,6 +17,9 @@ import de.hatoma.exman.service.IExamSubjectService;
 import de.hatoma.exman.service.IStudentService;
 
 /**
+ * Action zum Anlegen einer einzelnen Prüfungsteilnahme (ohne mündliche
+ * Prüfungsleistungen)
+ * 
  * @author Hannes Lemberg 3547
  * 
  */
