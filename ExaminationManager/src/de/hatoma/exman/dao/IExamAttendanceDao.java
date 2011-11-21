@@ -16,7 +16,7 @@ import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
 /**
- * @author tobias
+ * @author Tobias Rumrich, 3638
  * 
  */
 public interface IExamAttendanceDao extends IDao<ExamAttendance> {

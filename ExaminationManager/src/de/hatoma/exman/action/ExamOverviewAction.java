@@ -26,18 +26,11 @@ public class ExamOverviewAction extends ActionSupport {
 
 	@Autowired
 	private IExamService examService;
-	private String target;
-	private String targetActionName;
+
 
 	@Override
 	public String execute() {
 		examList = examService.getExamList();
-		if (target != null && target.equals("bulkInsert")) {
-			targetActionName = "ExamAttendanceBulkUpdate";
-		} else {
-			targetActionName = "EditExam";
-		}
-
 		return "showTable";
 	}
 
@@ -57,20 +50,6 @@ public class ExamOverviewAction extends ActionSupport {
 	 */
 	public IExamService getExamService() {
 		return examService;
-	}
-
-	/**
-	 * @return the target
-	 */
-	public String getTarget() {
-		return target;
-	}
-
-	/**
-	 * @return the targetActionName
-	 */
-	public String getTargetActionName() {
-		return targetActionName;
 	}
 
 	public Boolean isExamEditable(long id) {
@@ -99,21 +78,4 @@ public class ExamOverviewAction extends ActionSupport {
 	public void setExamService(IExamService examService) {
 		this.examService = examService;
 	}
-
-	/**
-	 * @param target
-	 *            the target to set
-	 */
-	public void setTarget(String target) {
-		this.target = target;
-	}
-
-	/**
-	 * @param targetActionName
-	 *            the targetActionName to set
-	 */
-	public void setTargetActionName(String targetActionName) {
-		this.targetActionName = targetActionName;
-	}
-
 }

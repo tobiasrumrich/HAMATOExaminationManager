@@ -19,7 +19,7 @@
 
 	<!-- Screens -->
 	<definition name="home" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/home.jsp" />
+		<put-attribute name="content" value="/tiles/common/home.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNWelcome" />
 	</definition>
 
@@ -30,7 +30,7 @@
 
 	<definition name="inputSingleExamAttendance" extends="mainLayout">
 		<put-attribute name="content"
-			value="/tiles/inputSingleExamAttendance.jsp" />
+			value="/tiles/examAttendance/inputSingleExamAttendance.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNInputSingleExamAttendance" />
 	</definition>
 	<definition name="fileSingleOralExamAttendance" extends="mainLayout">
@@ -45,7 +45,7 @@
 			value="txtADNShowListForOralExamAttendance" />
 	</definition>
 	<definition name="inputCreateExam" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/inputCreateExam.jsp" />
+		<put-attribute name="content" value="/tiles/exam/inputCreateExam.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNInputCreateExam" />
 	</definition>
 	<definition name="inputEditExam" extends="mainLayout">
@@ -110,7 +110,7 @@
 		<put-attribute name="actionDisplayName" value="txtADNExamOverviewPerManiple" />
 	</definition>
 	<definition name="editExamAttendance" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/editExamAttendance.jsp" />
+		<put-attribute name="content" value="/tiles/examAttendance/editExamAttendance.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNExamEditAttendance" />
 	</definition>
 </tiles-definitions>

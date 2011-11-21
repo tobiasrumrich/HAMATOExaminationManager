@@ -45,6 +45,7 @@ public abstract class BaseTest extends
 	private ExamSubject defaultExamSubject;
 	private Maniple defaultManiple;
 	private ExamAttendance defaultExamAttendance;
+	private ExamGrade defaultExamGrade;
 
 	private Student defaultStudent;
 	private StudyBranch defaultStudyBranch;
@@ -272,6 +273,14 @@ public abstract class BaseTest extends
 
 	public void setExamAttendanceDao(IExamAttendanceDao examAttendanceDao) {
 		this.examAttendanceDao = examAttendanceDao;
+	}
+
+	public ExamGrade getDefaultExamGrade() {
+		return defaultExamGrade;
+	}
+
+	public void setDefaultExamGrade(ExamGrade defaultExamGrade) {
+		this.defaultExamGrade = defaultExamGrade;
 	}
 
 }

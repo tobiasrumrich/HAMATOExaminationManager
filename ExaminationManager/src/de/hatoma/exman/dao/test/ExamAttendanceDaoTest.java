@@ -169,4 +169,40 @@ public class ExamAttendanceDaoTest extends BaseTest {
 	
 	 }
 	 
+	 @Test
+	 public void testFindByManipleAndGrade() {
+
+	 // Die Default Exam Attendance muss schon vorhanden sein.
+	 Assert.assertEquals(1, getExamAttendanceDao().findByManipleAndGrade(getDefaultExamSubject()).size());
+
+	 // Default Exam Attendance abspeichern
+	 ExamAttendance ea1 = getDefaultExamAttendance();
+	 ea1.getExam().setExamSubject(getDefaultExamSubject());
+	 getExamAttendanceDao().save(ea1);
+	 
+	 // Persistieren erfolgriech?
+	 Assert.assertNotNull(ea1.getId());
+	 Assert.assertTrue(ea1.getId() > 0);
+	 
+	 // Es muss ein Result mehr existieren
+	 Assert.assertEquals(2, getExamAttendanceDao().findByManipleAndGrade(getDefaultExamSubject()).size());
+	 
+	 // Ein anderes Exam erzeugen und an ea2 anhängen
+	 ExamAttendance ea2 = getDefaultExamAttendance();
+	 ExamSubject examSubject2 = getDefaultExamSubject();
+	 examSubject2.setDescription("andere beschreibung");
+	 ea2.getExam().setExamSubject(examSubject2);
+	 // ea1 nochmal abspeichern (nicht updaten!)
+	 getExamAttendanceDao().save(ea2);
+
+	 // Persistieren erfolgriech?
+	 Assert.assertNotNull(ea2.getId());
+	 Assert.assertTrue(ea2.getId() > 0);
+	 
+	 
+	 // Liste muss bei 2 bleiben
+	 Assert.assertEquals(2, getExamAttendanceDao().findByManipleAndGrade(getDefaultExamSubject()).size());
+	
+	 }
+	 
 }

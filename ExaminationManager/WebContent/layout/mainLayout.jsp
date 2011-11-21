@@ -34,6 +34,13 @@
 <script type="text/javascript"
 	src="resources/jquery/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="resources/hatoma.js"></script>
+<style type="text/css">
+@import "resources/jquery/js/datatables/media/css/demo_table.css";
+</style>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="resources/css/hatoma_screen.css" />
+<link rel="stylesheet" type="text/css" media="print"
+	href="resources/css/hatoma_print.css" />
 <script type="text/javascript">
 	jQuery(document).ready(function() {
 
@@ -66,14 +73,6 @@
 
 	});
 </script>
-<style type="text/css">
-@import "resources/jquery/js/datatables/media/css/demo_table.css";
-</style>
-<link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/hatoma_screen.css" />
-<link rel="stylesheet" type="text/css" media="print"
-	href="resources/css/hatoma_print.css" />
-
 </head>
 <body>
 
@@ -124,9 +123,7 @@
 						</h3>
 						<div>
 							<p>
-								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl">
-									<s:param name="target">bulkInsert</s:param>
-								</s:url>
+								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl"/>
 								<s:a href="%{examAttendanceBulkUpdateUrl}">
 									<img src="resources/img/icons/group_add.png" />
 									<s:text name="lblNavExamAttendanceBulkInsert" />

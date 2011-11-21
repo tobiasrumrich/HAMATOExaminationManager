@@ -6,7 +6,7 @@
 	$(function() {
 		$("#date").datepicker(
 				{
-					dateFormat : 'dd.mm.yy',
+					dateFormat : '<s:text name="examDateFormatNoTimeJQuery" />',
 					firstDay : 0,
 					currentText : '<s:text name="jQueryDatePickerToday" />',
 					dayNamesMin : [

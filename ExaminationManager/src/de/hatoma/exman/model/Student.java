@@ -17,7 +17,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @Table(name = "Students")
-@AuditTable(value = "Student_Revisions")
+@AuditTable(value = "Student_AuditTrail")
 public class Student implements Serializable {
 
 	private static final long serialVersionUID = 1L;

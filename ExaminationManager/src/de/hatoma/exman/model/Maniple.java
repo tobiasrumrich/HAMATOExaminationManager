@@ -18,7 +18,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @Table(name = "Maniple")
-@AuditTable(value = "ADT_Maniple")
+@AuditTable(value = "Maniple_AuditTrail")
 public class Maniple implements Serializable {
 
 	private static final long serialVersionUID = 1L;
