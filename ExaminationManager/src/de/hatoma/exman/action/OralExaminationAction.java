@@ -3,7 +3,6 @@ package de.hatoma.exman.action;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -182,41 +181,23 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 
 	public String save() throws Exception {
 		// Validierung
-		Calendar calendar = Calendar.getInstance();
-		Calendar currentCalendar = Calendar.getInstance();
 		ExamAttendance examAttendance;
 		OralExamGrade oralExamGrade;
 		//Datumsformat korrekt?
+		SimpleDateFormat dateFormat;
+		Date date = null;
+		dateFormat = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
+		
 		try {
-			if ((frmSupplementalOralExaminationDate.length() != 10)
-					|| (!frmSupplementalOralExaminationDate.substring(2, 3)
-							.equals("."))
-					|| (!frmSupplementalOralExaminationDate.substring(5, 6)
-							.equals("."))) {
-				addActionError(getText("txtErrorWrongDateFormat"));
-				return "input";
-			}
+			date = dateFormat.parse(frmSupplementalOralExaminationDate);
 		} catch (Exception e) {
 			addActionError(getText("txtErrorWrongDateFormat"));
 			return "input";
 		}
-
-		try {
-			int date = Integer.valueOf(frmSupplementalOralExaminationDate
-					.substring(0, 2));
-			int month = Integer.valueOf(frmSupplementalOralExaminationDate
-					.substring(3, 5)) - 1;
-			int year = Integer.valueOf(frmSupplementalOralExaminationDate
-					.substring(6, 10));
-			calendar.clear();
-			calendar.set(year, month, date);
-		} catch (Exception e) {
-			addActionError(getText("txtErrorWrongDateFormat"));
-			return "input";
-		}
+		Date currentDate = new Date();
 		//Datum scheint korrekt formatiert zu sein
 		//Liegt es auch nicht in der Zukunft?
-		if (calendar.after(currentCalendar)) {
+		if (date.after(currentDate)) {
 			addActionError(getText("txtErrorDateInFuture"));
 			return "input";
 		}
@@ -230,7 +211,7 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 			oralExamGrade = OralExamGrade
 					.valueOf(frmSupplementalOralExaminationGrade);
 			examAttendanceService.addOralExaminationResultToExamAttendance(
-					examAttendance, oralExamGrade, calendar.getTime());
+					examAttendance, oralExamGrade, date);
 			getProtocolledExamAttendances().clear();
 			getProtocolledExamAttendances().add(
 					examAttendanceService
@@ -250,13 +231,12 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		// als da wären: ein Datum
 		DateFormat dateDay = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
 		DateFormat dateTime = new SimpleDateFormat("HH:mm");
-		Date date = new Date();
 		// und der aktuelle Benutzername
 		UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		addActionMessage(getText("txtUiProtocolHeader"));
 		// Alles beisammen? Dann können wir ja ein paar Nachrichten feuern
-		addActionMessage(getText("lblDate") + ": " + dateDay.format(date));		
-		addActionMessage(getText("lblTime") + ": " + dateTime.format(date));
+		addActionMessage(getText("lblDate") + ": " + dateDay.format(currentDate));		
+		addActionMessage(getText("lblTime") + ": " + dateTime.format(currentDate));
 		addActionMessage(getText("lblUser") + ": " + currentUser.getUsername());
 		// und zum Protokoll abspringen
 		return "protocol";
