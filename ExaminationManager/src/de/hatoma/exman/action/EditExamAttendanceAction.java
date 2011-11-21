@@ -177,7 +177,7 @@ public class EditExamAttendanceAction extends ActionSupport implements
 		}
 
 		examAttendanceService.update(attendance);
-		addActionMessage("txtEditExamAttendanceSuccess");
+		addActionMessage(getText("txtEditExamAttendanceSuccess"));
 		return SUCCESS;
 	}
 

@@ -59,7 +59,4 @@
 		name="frmSupplementalOralExaminationGrade" disabled="%{!oralAllowed}" />
 
 	<s:submit key="btnSave" action="EditExamAttendance" method="save" />
-	<s:submit key="btnCancel" action="EditExamAttendance" method="execute" />
 </s:form>
-
-<s:debug />

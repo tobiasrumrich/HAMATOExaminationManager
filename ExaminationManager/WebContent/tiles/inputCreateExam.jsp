@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<s:debug />
 <script type="text/javascript">
 	var availableExaminers = <s:property value="availableExaminersJson" escape="false" />;
 	var availableExamSubjectsByManiple = <s:property value="availableExamSubjectsByManipleJson" escape="false" />;
@@ -89,5 +88,4 @@
 	<s:hidden name="examId" />
 	<s:submit key="btnSave" action="%{targetAction}"
 		method="%{targetMethod}" />
-	<s:submit key="btnCancel" action="SaveNewExam" name="btnCancel" />
 </s:form>

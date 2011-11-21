@@ -119,7 +119,6 @@
 		}
 	}
 </script>
-<s:debug />
 <div class="ui-state-error ui-corner-all"
 	style="padding: 0 .7em; display: none;" id="selectionWarning">
 	<p>
@@ -127,7 +126,6 @@
 			style="float: left; margin-right: .3em;"></span>
 		<s:text name="wrnSingleAttendanceNoExamAvailable" />
 	</p>
-
 </div>
 <s:form validate="true" onkeypress="allowSubmit">
 	<s:token />
