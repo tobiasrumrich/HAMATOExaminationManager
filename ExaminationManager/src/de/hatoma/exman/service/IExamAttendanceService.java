@@ -19,10 +19,10 @@ import de.hatoma.exman.model.Student;
 /**
  * Interface for an ExamAttendance Service
  * 
- * @author tobias
+ * @author Tobias Rumrich - 3638
  * 
  */
-public interface IExamAttendanceService {
+public interface IExamAttendanceService extends Serializable{
 
 	/**
 	 * Adds information about supplemental oral examination to existing
@@ -56,10 +56,9 @@ public interface IExamAttendanceService {
 	 *            the Maniple to query for
 	 * @param idPattern
 	 *            String with the pattern to use to encapsulate the
-	 *            studyBranchId.
-	 *            _STUDID_ wird mit der id der Student ersetzt
-	 *            _SUBJID_ wird mit der id des ExamSubjects ersetzt
-	 *            _ATTID_ wird mit der id der ExamAttendance ersetzt
+	 *            studyBranchId. _STUDID_ wird mit der id der Student ersetzt
+	 *            _SUBJID_ wird mit der id des ExamSubjects ersetzt _ATTID_ wird
+	 *            mit der id der ExamAttendance ersetzt
 	 * @return
 	 */
 	String getAllCurrentExamAttendancesForManipleAsJSON(Maniple maniple,
@@ -179,13 +178,25 @@ public interface IExamAttendanceService {
 	 * @throws Exception
 	 */
 	public void update(ExamAttendance examAttendance);
-	
-	
+
 	/**
 	 * Löscht eine ExamAttendance. Diese bleibt im Audit Trail enthalten.
+	 * 
 	 * @param id
-	 * @throws Exception wenn die Id nicht existiert
+	 * @throws Exception
+	 *             wenn die Id nicht existiert
 	 */
 	public void delete(long id) throws InvalidEntityIdException;
+
+	/**
+	 * Berechnet den Mittelwert der Noten. Falls keine mündliche
+	 * Ergänzungsprüfung erfasst wurde wird die ursprüngliche Note des
+	 * Prüfungsversuchs zurückgegeben
+	 * 
+	 * @param examAttendance
+	 *            Versuch, für den die Note berechnet werden soll.
+	 * @return 
+	 */
+	public ExamGrade getCalculatedGrade(ExamAttendance examAttendance);
 
 }

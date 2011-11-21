@@ -123,36 +123,36 @@ div#main h1 {
 	background-color: #eeeeee;
 }
 
-.trailTable{
-	display:none;
-	width:auto;
-	border:0;
-	border-collapse:collapse;
+.trailTable {
+	display: none;
+	width: auto;
+	border: 0;
+	border-collapse: collapse;
 }
 
-.historyLink{
-	color:black;
-	text-decoration:none !important;
+.historyLink {
+	color: black;
+	text-decoration: none !important;
 }
 
-.historyLink:hover{
-	font-weight:bold;
+.historyLink:hover {
+	font-weight: bold;
 }
 
-.trailTable td, .trailTable th{
-	border:1px solid black;
-	padding:5px;
-	vertical-align:middle;
+.trailTable td,.trailTable th {
+	border: 1px solid black;
+	padding: 5px;
+	vertical-align: middle;
 }
 
-img.trailPlus{
-	display:inline;
-	margin:0;
+img.trailPlus {
+	display: inline;
+	margin: 0;
 }
 
-img.trailMinus{
-	display:none;
-	margin:0;
+img.trailMinus {
+	display: none;
+	margin: 0;
 }
 
 #legend {
@@ -168,27 +168,27 @@ img.trailMinus{
 }
 
 #examList {
-	border-spacing:5px;
+	border-spacing: 5px;
 	border-collapse: collapse;
 	border: 2px grey solid;
 	margin: 05px;
 }
 
-#examList thead{
-	border-bottom:1 px solid black;
+#examList thead {
+	border-bottom: 1 px solid black;
 }
 
-#examList td{
-	border:none;
+#examList td {
+	border: none;
 }
 
-.centered{
-	text-align:center;
+.centered {
+	text-align: center;
 }
 
 #printButton {
-	width:100%;
-	text-align:center;
+	width: 100%;
+	text-align: center;
 }
 
 /******/
@@ -332,4 +332,8 @@ td {
 
 #hatoma_accordion {
 	display: none;
+}
+
+input[disabled='disabled'] {
+	background-color: #ededed;
 }

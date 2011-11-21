@@ -18,6 +18,11 @@ import de.hatoma.exman.model.Student;
 @Component
 public class ManipleDao extends BaseDao<Maniple> implements IManipleDao {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -700846041149929109L;
+
 	public ManipleDao() {
 		super(Maniple.class);
 	}

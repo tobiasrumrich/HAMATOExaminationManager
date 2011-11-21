@@ -1,9 +1,11 @@
 package de.hatoma.exman.service;
 
+import java.io.Serializable;
+
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
-public interface IStudentService {
+public interface IStudentService extends Serializable{
 	public Student createStudent(String matriculationNumber, String forename,
 			String lastname, Maniple maniple);
 

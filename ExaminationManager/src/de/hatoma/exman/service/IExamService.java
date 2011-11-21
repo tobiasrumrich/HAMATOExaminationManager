@@ -12,7 +12,7 @@ import de.hatoma.exman.model.ExamType;
 import de.hatoma.exman.model.Examiner;
 import de.hatoma.exman.model.Student;
 
-public interface IExamService {
+public interface IExamService extends Serializable{
 
 	public Exam createExam(ExamType examType, ExamSubject examSubject,
 			Date date, Examiner examiner);

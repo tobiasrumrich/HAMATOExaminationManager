@@ -30,6 +30,11 @@ import de.hatoma.exman.service.IExamSubjectService;
 @Component
 public class ExamSubjectService implements IExamSubjectService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5416373556453517863L;
+
 	@Autowired
 	private IExamAttendanceService examAttendanceService;
 
@@ -92,7 +97,6 @@ public class ExamSubjectService implements IExamSubjectService {
 					examSubjects, new Predicate<ExamSubject>() {
 						@Override
 						public boolean apply(ExamSubject subject) {
-							// TODO: hal FALSCH!!
 							return !hasStudentPassedSubject(student, subject);
 						}
 					});

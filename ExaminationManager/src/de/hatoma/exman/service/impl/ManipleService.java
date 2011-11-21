@@ -21,6 +21,10 @@ import de.hatoma.exman.service.IManipleService;
 @Component
 public class ManipleService implements IManipleService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7011372144082987489L;
 	@Autowired
 	private IManipleDao manipleDao;
 

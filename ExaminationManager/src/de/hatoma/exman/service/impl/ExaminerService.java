@@ -24,17 +24,17 @@ import de.hatoma.exman.service.IManipleService;
 @Component
 public class ExaminerService implements IExaminerService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6864107669279663106L;
 	@Autowired
 	private IExaminerDao examinerDao;
 	@Autowired
 	private IExamSubjectService examSubjectService;
-	private Gson gson;
 	@Autowired
 	private IManipleService manipleService;
 
-	public ExaminerService() {
-		gson = new Gson();
-	}
 
 	@Override
 	public Examiner createExaminer(String forename, String lastname) {
@@ -60,7 +60,7 @@ public class ExaminerService implements IExaminerService {
 					.getForename() + " " + e.getLastname()));
 		}
 
-		return gson.toJson(s);
+		return new Gson().toJson(s);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ExaminerService implements IExaminerService {
 			examSubjectsByMainple.put(manipleId, subjectIdsAndNames);
 		}
 
-		return gson.toJson(examSubjectsByMainple);
+		return new Gson().toJson(examSubjectsByMainple);
 	}
 
 	@Override

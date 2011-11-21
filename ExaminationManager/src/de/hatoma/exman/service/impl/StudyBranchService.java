@@ -10,6 +10,10 @@ import de.hatoma.exman.service.IStudyBranchService;
 @Component
 public class StudyBranchService implements IStudyBranchService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1860966614878909855L;
 	@Autowired
 	private IStudyBranchDao studyBranchDao;
 

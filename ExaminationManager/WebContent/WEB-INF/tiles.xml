@@ -22,10 +22,6 @@
 		<put-attribute name="content" value="/tiles/common/home.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNWelcome" />
 	</definition>
-	<definition name="inputSingle" extends="mainLayout">
-		<put-attribute name="content" value="/tiles/inputSingle.jsp" />
-		<put-attribute name="actionDisplayName" value="txtADNIDoNotExistPleasReplaceMe" />
-	</definition>
 
 	<definition name="commonProtocol" extends="mainLayout">
 		<put-attribute name="content" value="/tiles/common/protocol.jsp" />

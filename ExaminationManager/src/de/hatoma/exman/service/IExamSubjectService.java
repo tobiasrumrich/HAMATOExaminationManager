@@ -1,5 +1,6 @@
 package de.hatoma.exman.service;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.model.Maniple;
 import de.hatoma.exman.model.Student;
 
-public interface IExamSubjectService {
+public interface IExamSubjectService extends Serializable{
 
 	Map<Maniple, Collection<ExamSubject>> allSubjectsByManiple();
 

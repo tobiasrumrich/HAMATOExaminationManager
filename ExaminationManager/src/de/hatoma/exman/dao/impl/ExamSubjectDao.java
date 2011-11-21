@@ -13,6 +13,11 @@ import de.hatoma.exman.model.Maniple;
 public class ExamSubjectDao extends BaseDao<ExamSubject> implements
 		IExamSubjectDao {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4477812101443988160L;
+
 	public ExamSubjectDao() {
 		super(ExamSubject.class);
 	}
