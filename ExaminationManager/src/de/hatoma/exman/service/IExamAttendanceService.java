@@ -87,7 +87,7 @@ public interface IExamAttendanceService {
 	 * @return
 	 */
 	String getAllCurrentExamAttendancesForStudentAsJSON(Student student,
-			String idPattern);
+			String idPattern, String dateFormat);
 
 	/**
 	 * Returns a list of all Students that eligible to attend to an exam

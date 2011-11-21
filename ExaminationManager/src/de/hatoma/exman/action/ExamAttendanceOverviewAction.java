@@ -36,8 +36,6 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 
 	private String studentsAsJson;
 
-
-	
 	@Autowired
 	private IStudentService studentService;
 
@@ -96,18 +94,18 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 	}
 
 	public String jsonResponderDeleteExamAttendance() {
-		
+
 		Long deleteId = Long.valueOf(jsonExamAttendanceId);
 		try {
 			examAttendanceService.delete(deleteId);
 		} catch (InvalidEntityIdException e) {
-			jsonValueString ="{\"result\":\"error\"}";
+			jsonValueString = "{\"result\":\"error\"}";
 			return "json";
 		}
-		jsonValueString ="{\"result\":\"success\"}";
+		jsonValueString = "{\"result\":\"success\"}";
 		return "json";
 	}
-	
+
 	public String jsonResponderManiple() {
 		Maniple jsonManiple;
 		try {
@@ -138,13 +136,16 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 			jsonValueString = "{}";
 			return "json";
 		}
-		String pattern = "<a href=\"AuditTrail?studentId="
-				+ jsonStudentId
-				+ "&examSubjectId=_ID_\"><img src=\"resources/img/icons/database_key.png\" /> "
-				+ getText("txtViewAuditTrail") + "</a>";
+		String pattern = "<p><a href=\"AuditTrail?studentId=_STUDID_&examSubjectId=_SUBJID_\" title=\""
+				+ getText("txtShowAuditTrailForThisRecord")
+				+ "\" ><img src=\"resources/img/icons/database_key.png\" /></a><a href=\"EditExamAttendance?examAttendanceId=_ATTID_\" title=\""
+				+ getText("lblEditExamAttendance")
+				+ "\" /><img src=\"resources/img/icons/pencil_go.png\"></a><a href=\"#\" onClick=\"confirmDeleteOfExamAttendance(_ATTID_);\" title=\""
+				+ getText("lblDeleteExamAttendance")
+				+ "\" /><img src=\"resources/img/icons/cancel.png\"></a></p>";
 		jsonValueString = examAttendanceService
 				.getAllCurrentExamAttendancesForStudentAsJSON(jsonStudent,
-						pattern);
+						pattern, getText("examDateFormatNoTimeFormat"));
 		return "json";
 	}
 
@@ -229,7 +230,8 @@ public class ExamAttendanceOverviewAction extends ActionSupport implements
 	}
 
 	/**
-	 * @param jsonExamAttendanceId the jsonExamAttendanceId to set
+	 * @param jsonExamAttendanceId
+	 *            the jsonExamAttendanceId to set
 	 */
 	public void setJsonExamAttendanceId(String jsonExamAttendanceId) {
 		this.jsonExamAttendanceId = jsonExamAttendanceId;

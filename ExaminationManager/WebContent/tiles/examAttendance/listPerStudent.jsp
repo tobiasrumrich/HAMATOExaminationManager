@@ -44,7 +44,7 @@
 		}, oSettings);
 	}
 	//END 
-
+	var dataTable;
 	var availableStudents = <s:property value="studentsAsJson" escape="false" />;
 	$(function() {
 
@@ -65,7 +65,7 @@
 
 						});
 
-		var dataTable = $('#examList')
+		dataTable = $('#examList')
 				.dataTable(
 						{
 							"bAutoWidth" : false,
@@ -114,8 +114,93 @@
 							}
 						});
 	});
+
+	<s:url action="ExamAttendanceOverview" id="deleteExamAttendanceJsonUrl" method="jsonResponderDeleteExamAttendance" />
+	function confirmDeleteOfExamAttendance(id) {
+		$("#dialog-confirm")
+				.dialog(
+						{
+							resizable : false,
+							height : 400,
+							width : 600,
+							show : 'puff',
+							modal : true,
+							buttons : {
+								"<s:text name="btnDelete" />" : function() {
+
+									$
+											.post(
+													"<s:property value="deleteExamAttendanceJsonUrl" />?jsonExamAttendanceId="
+															+ id,
+													function(data) {
+														if (data.result == "success") {
+															dataTable
+																	.fnReloadAjax('ExamAttendanceOverview!jsonResponderStudent?jsonStudentId='
+																			+ $("#studentId")
+																					.val());
+															$("#dialog-result")
+																	.attr(
+																			"title",
+																			"<s:text name="txtDoneDeleteExamAttendanceSuccessTitle"/>");
+															$("#dialog-result")
+																	.html(
+																			"<s:text name="txtDoneDeleteExamAttendanceSuccessMessage"/>");
+
+														} else {
+															$("#dialog-result")
+																	.attr(
+																			"title",
+																			"<s:text name="txtDoneDeleteExamAttendanceErrorTitle"/>");
+															$("#dialog-result")
+																	.html(
+																			"<s:text name="txtDoneDeleteExamAttendanceErrorMessage"/>");
+														}
+														$("#dialog-result")
+																.dialog(
+																		{
+																			resizable : false,
+																			height : 400,
+																			width : 600,
+																			show : 'puff',
+																			modal : true,
+																			buttons : {
+																				"OK" : function() {
+																					$(
+																							this)
+																							.dialog(
+																									"close");
+																				}
+																			}
+																		});
+													});
+									$(this).dialog("close");
+
+								},
+								Cancel : function() {
+									$(this).dialog("close");
+								}
+							}
+						});
+	}
 </script>
 
+
+<div id="dialog-confirm"
+	title="<s:text name="txtConfirmReallyDeleteExamAttendanceTitle" /> "
+	style="display: none;">
+	<p>
+		<span class="ui-icon ui-icon-alert"
+			style="float: left; margin: 0 7px 20px 0;"></span>
+		<s:text name="txtConfirmReallyDeleteExamAttendanceInfo" />
+	</p>
+	<p>
+		<s:text name="txtConfirmReallyDeleteExamAttendanceAuditTrailInfo" />
+	</p>
+	<p>
+		<s:text name="txtConfirmReallyDeleteExamAttendanceReverse" />
+	</p>
+</div>
+<div id="dialog-result" title="" style="display: none;"></div>
 
 <s:form>
 	<s:textfield required="true" name="studentN" key="lblStudentName"
@@ -138,15 +223,19 @@
 
 		</tbody>
 	</table>
-</div>
-<div id="legend">
-	<s:text name="txtCaption" />
-	:<br /> <img src="resources/img/icons/database_key.png"
-		title="<s:text name="txtShowAuditTrailForThisRecord" />">
-	<s:text name="txtShowAuditTrailForThisRecord" />
+	<div id="legend">
+		<s:text name="txtCaption" />
+		:<br /> <img src="resources/img/icons/database_key.png"
+			title="<s:text name="txtShowAuditTrailForThisRecord" />">
+		<s:text name="txtShowAuditTrailForThisRecord" />
 
-	<br /> <img src="resources/img/icons/pencil_go.png"
-		title="<s:text name="txtShowAuditTrailForThisRecord" />">
-	<s:text name="lblEditExamAttendance" />
+		<br /> <img src="resources/img/icons/pencil_go.png"
+			title="<s:text name="txtShowAuditTrailForThisRecord" />">
+		<s:text name="lblEditExamAttendance" />
 
+		<br /> <img src="resources/img/icons/cancel.png"
+			title="<s:text name="lblDeleteExamAttendance" />">
+		<s:text name="lblDeleteExamAttendance" />
+
+	</div>
 </div>
