@@ -66,9 +66,8 @@ public class ExamDaoTest extends BaseTest {
 		Assert.assertNotNull(s.getId());
 		Assert.assertTrue(s.getId() > 0);
 
-		// Werte vergleichen
 		Exam s2 = getExamDao().load(s.getId());
-
+		Assert.assertNotNull(s2);
 	}
 
 	@Test
@@ -88,7 +87,7 @@ public class ExamDaoTest extends BaseTest {
 
 		// Werte vergleichen
 		Exam s2 = getExamDao().load(s1.getId());
-
+		Assert.assertNotNull(s2);
 	}
 
 }

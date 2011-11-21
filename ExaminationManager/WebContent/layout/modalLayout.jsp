@@ -27,7 +27,9 @@
 	src="resources/jquery/js/datatables/media/js/jquery.dataTables.js"></script>
 <script type="text/javascript"
 	src="resources/jquery/js/jquery-ui-1.8.16.custom.min.js"></script>
-
+<link type="text/css"
+	href="resources/css/hatoma_screen.css"
+	rel="stylesheet" />
 <style type="text/css">
 html {
 	height: 100%;
@@ -83,8 +85,8 @@ div#container {
 	<div id="headerbar">
 		<div id="header">
 			<span id="sessioninfo"><s:text name="txtLoggedInAs" /> <strong><sec:authentication
-						property="principal.username" /></strong> <a
-				href="<s:url value="j_spring_security_logout" />">Logout</a></span>
+						property="principal.username" /></strong> (<a
+				href="<s:url value="j_spring_security_logout" />">Logout</a>)</span>
 			<h1>HATOMA Examination Manager</h1>
 		</div>
 	</div>

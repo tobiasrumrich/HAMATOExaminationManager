@@ -64,9 +64,10 @@
 		<put-attribute name="content" value="/tiles/trainman/success.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
 	</definition>
-	
+
 	<definition name="trainmanDatabaseNotCompliant" extends="modalLayout">
-		<put-attribute name="content" value="/tiles/trainman/databaseNotCompliant.jsp" />
+		<put-attribute name="content"
+			value="/tiles/trainman/databaseNotCompliant.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNEmptyDatabase" />
 	</definition>
 
@@ -111,5 +112,9 @@
 		<put-attribute name="content"
 			value="/tiles/examAttendance/listPerManiple.jsp" />
 		<put-attribute name="actionDisplayName" value="txtADNExamOverviewPerManiple" />
+	</definition>
+	<definition name="editExamAttendance" extends="mainLayout">
+		<put-attribute name="content" value="/tiles/editExamAttendance.jsp" />
+		<put-attribute name="actionDisplayName" value="txtADNExamEditAttendance" />
 	</definition>
 </tiles-definitions>

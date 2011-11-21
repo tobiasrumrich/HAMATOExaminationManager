@@ -187,4 +187,5 @@ public interface IExamAttendanceService {
 	 * @throws Exception wenn die Id nicht existiert
 	 */
 	public void delete(long id) throws InvalidEntityIdException;
+
 }
