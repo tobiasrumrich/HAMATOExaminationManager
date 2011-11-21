@@ -20,9 +20,11 @@ import de.hatoma.exman.service.IManipleService;
 import de.hatoma.exman.service.IStudentService;
 
 /**
- * This action displays
+ * Über diese Action kann der Audit Trail, also die Auflistung aller Änderungen
+ * an den Prüfungsteilnahmen eines Studenten zu einem Prüfungsfach eingesehen
+ * werden.
  * 
- * @author tobias
+ * @author Tobias Rumrich, 3638
  * 
  */
 public class AuditTrailAction extends ActionSupport {
@@ -60,40 +62,46 @@ public class AuditTrailAction extends ActionSupport {
 
 	@Override
 	public String execute() {
-
+		// Übergebene Parameter überprüfen
 		try {
 			selectedStudentId = Long.valueOf(studentId);
 		} catch (Exception e) {
-			addActionError("Ungültige Student ID");
+			addActionError(getText("txtErrorInvalidStudentId"));
 			return "error";
 		}
 
 		student = studentService.getStudent(selectedStudentId);
 		if (student == null) {
-			addActionError("Ungültige Student ID");
+			addActionError(getText("txtErrorInvalidStudentId"));
 			return "error";
 		}
 
 		try {
 			selectedExamSubjectId = Long.valueOf(examSubjectId);
 		} catch (Exception e) {
-			addActionError("Ungültige Prüfungsfach ID");
+			addActionError(getText("txtErrorInvalidExamSubjectId"));
 			return "error";
 		}
 
 		examSubject = examSubjectService.getExamSubject(selectedExamSubjectId);
 		if (examSubject == null) {
-			addActionError("Ungültige Prüfungsfach ID");
+			addActionError(getText("txtErrorInvalidExamSubjectId"));
 			return "error";
 		}
 
 		map = new HashMap<String, List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>>>();
 		examMap = new HashMap<String, Exam>();
+
+		// Alle Prüfungsteilnahmen des Studenten abfragen
 		examAttendances = examAttendanceService
 				.getExamAttendancesForStudentByExamSubject(examSubject, student);
+
+		// Über die Prüfungsteilnahmen iterieren
 		for (ExamAttendance examAttendance : examAttendances) {
+			// Für jede Prüfungsteilnahme den AuditTrail abrufen
 			List<AuditTrailBean<ExManRevisionEntity, ExamAttendance>> auditTrail = examAttendanceService
 					.getAuditTrail(examAttendance.getId());
+			// AuditTrail in der Map ablegen
 			map.put(String.valueOf(examAttendance.getId()), auditTrail);
 			examMap.put(String.valueOf(examAttendance.getId()),
 					examAttendance.getExam());
