@@ -124,7 +124,6 @@ public class ExamSubjectService implements IExamSubjectService {
 		return examAttendanceService;
 	}
 
-	
 	public IExamService getExamService() {
 		return examService;
 	}
@@ -159,8 +158,8 @@ public class ExamSubjectService implements IExamSubjectService {
 			@Override
 			public boolean apply(ExamAttendance att) {
 				// minimum eine 4 ist benötigt.
-				
-				return examAttendanceService.getCalculatedGrade(att).compareTo(ExamGrade.G40) <= 0;
+				return examAttendanceService.getCalculatedGrade(att).compareTo(
+						ExamGrade.G40) <= 0;
 			}
 
 		});

@@ -78,10 +78,6 @@ public class ExamAttendanceDao extends BaseDao<ExamAttendance> implements
 			ExamSubject examSubject) {
 		return getCurrentSession().createCriteria(ExamAttendance.class)
 				.add(Restrictions.eq("student", student))
-				/*
-				 * .add(Restrictions.isNotNull("supplementOralExamGrade")) TODO
-				 * hal: ist das OK?
-				 */
 				.createCriteria("exam")
 				.add(Restrictions.eq("examSubject", examSubject)).list();
 	}

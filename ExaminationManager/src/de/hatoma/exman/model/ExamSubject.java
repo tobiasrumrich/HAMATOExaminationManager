@@ -45,8 +45,6 @@ public class ExamSubject implements Serializable {
 	/**
 	 * @return the moduleIdentifier
 	 */
-	// TODO: Es muss noch eine ID über ModulIdentifier und Manipel gebildet
-	// werden!!
 	public String getModuleIdentifier() {
 		return moduleIdentifier;
 	}

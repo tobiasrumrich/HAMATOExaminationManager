@@ -33,7 +33,7 @@ public interface IExamSubjectService extends Serializable{
 
 	/**
 	 * Überprüft, ob der Student bereits eine Prüfung für dieses Fach bestanden
-	 * hat. TODO hal: mündliche prüfungen mit einbeziehen.
+	 * hat.
 	 * 
 	 * @param student
 	 * @param subject
