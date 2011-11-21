@@ -15,9 +15,9 @@
 		hamatoAutocomplete($("#examManipleI"), $("#examManipleIid"),
 				availableManiples);
 ///////////
-		$("#date").datepicker(
+		$("#examDateI").datepicker(
 				{
-					dateFormat : 'dd.mm.yy',
+					dateFormat : '<s:text name="examDateFormatNoTimeJQuery" />',
 					firstDay : 0,
 					currentText : '<s:text name="jQueryDatePickerToday" />',
 					dayNamesMin : [
@@ -39,8 +39,7 @@
 							'<s:text name="jQueryDatePickerSeptember" />',
 							'<s:text name="jQueryDatePickerOctober" />',
 							'<s:text name="jQueryDatePickerNovember" />',
-							'<s:text name="jQueryDatePickerDecember" />' ],
-					maxDate : '+0m +0w +0d'
+							'<s:text name="jQueryDatePickerDecember" />' ]
 				});
 		$("#examManipleIid").change(checkIsManipleSet);
 		// Überprüfung, ob manipel gesetzt ist, 

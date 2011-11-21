@@ -71,9 +71,7 @@
 <s:form validate="true">
 	<s:token />
 	<s:select key="lblManiple" name="selectedManiple" list="maniples"
-		listKey="Id" />
-	<s:submit name="submit" key="lblShowOtherManipleSubmit"
-		action="OralExamination" method="execute" />
+		listKey="Id" onchange="document.forms(0).submit();" />
 </s:form>
 
 

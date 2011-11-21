@@ -51,7 +51,8 @@ public class StudentService implements IStudentService {
 		for (Student currentStudent : allStudents) {
 			s.add(new SimpleEntry<String, String>(String.valueOf(currentStudent
 					.getId()), currentStudent.getForename() + " "
-					+ currentStudent.getLastname()));
+					+ currentStudent.getLastname() + " ["
+					+ currentStudent.getMatriculationNumber() + "]"));
 		}
 
 		return gson.toJson(s);

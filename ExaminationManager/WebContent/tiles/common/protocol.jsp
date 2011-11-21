@@ -2,11 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-
+<!-- Die Action Nachricht nochmal für den Druck. Standardmäßig ausgeblendet. -->
 <div class="protocolPrint"><s:actionmessage /></div>
+<!-- Ein Druckbutton. Verschwindet beim Druck. -->
 <FORM id="printButton">
-<INPUT TYPE="button" onClick="window.print()" value="<s:text name="Print" />" />
+	<INPUT TYPE="button" onClick="window.print()"
+		value="<s:text name="btnPrint" />" />
 </FORM>
+<!-- Tabelle mit allen abgelegten Datensätzen. -->
 <table id="examList" style="width:100%; padding:0px; margin:0px;">
 	<thead>
 		<tr>
