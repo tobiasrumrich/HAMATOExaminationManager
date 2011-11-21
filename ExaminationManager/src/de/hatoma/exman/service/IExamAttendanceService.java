@@ -178,7 +178,7 @@ public interface IExamAttendanceService {
 	 * @param examAttendance
 	 * @throws Exception
 	 */
-	public void update(ExamAttendance examAttendance) throws Exception;
+	public void update(ExamAttendance examAttendance);
 	
 	
 	/**
