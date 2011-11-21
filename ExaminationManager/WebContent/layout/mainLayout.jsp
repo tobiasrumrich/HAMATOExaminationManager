@@ -124,9 +124,7 @@
 						</h3>
 						<div>
 							<p>
-								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl">
-									<s:param name="target">bulkInsert</s:param>
-								</s:url>
+								<s:url action="ExamOverview" id="examAttendanceBulkUpdateUrl"/>
 								<s:a href="%{examAttendanceBulkUpdateUrl}">
 									<img src="resources/img/icons/group_add.png" />
 									<s:text name="lblNavExamAttendanceBulkInsert" />
