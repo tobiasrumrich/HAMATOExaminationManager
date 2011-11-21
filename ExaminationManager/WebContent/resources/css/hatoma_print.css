@@ -81,8 +81,8 @@ div#main h1 {
 	border:1px solid black;
 }
 
-img.trailMinus, img.trailPlus,{
-	display:none;
+img.trailMinus, img.trailPlus{
+	display:none !important;
 }
 
 #legend {

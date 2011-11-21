@@ -6,8 +6,10 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import de.hatoma.exman.model.Exam;
 import de.hatoma.exman.model.ExamAttendance;
 import de.hatoma.exman.model.ExamGrade;
+import de.hatoma.exman.model.ExamSubject;
 import de.hatoma.exman.test.BaseTest;
 
 /**
@@ -95,4 +97,76 @@ public class ExamAttendanceDaoTest extends BaseTest {
 	 Assert.assertEquals(ExamGrade.G20, e2.getExamGrade());
 	 }
 
+	 @Test
+	 public void testFindByExam() {
+
+	 // Die Default Exam Attendance muss schon vorhanden sein.
+	 Assert.assertEquals(1, getExamAttendanceDao().findByExam(getDefaultExam()).size());
+
+	 // Default Exam Attendance abspeichern
+	 ExamAttendance ea1 = getDefaultExamAttendance();
+	 ea1.setExam(getDefaultExam());
+	 getExamAttendanceDao().save(ea1);
+	 
+	 // Persistieren erfolgriech?
+	 Assert.assertNotNull(ea1.getId());
+	 Assert.assertTrue(ea1.getId() > 0);
+	 
+	 // Es muss ein Result mehr existieren
+	 Assert.assertEquals(2, getExamAttendanceDao().findByExam(getDefaultExam()).size());
+	 
+	 // Ein anderes Exam erzeugen und an ea2 anhängen
+	 ExamAttendance ea2 = getDefaultExamAttendance();
+	 Exam exam2 = getDefaultExam();
+	 exam2.setDate(getRandomDate());
+	 ea2.setExam(exam2);
+	 // ea1 nochmal abspeichern (nicht updaten!)
+	 getExamAttendanceDao().save(ea2);
+
+	 // Persistieren erfolgriech?
+	 Assert.assertNotNull(ea2.getId());
+	 Assert.assertTrue(ea2.getId() > 0);
+	 
+	 
+	 // Liste muss bei 2 bleiben
+	 Assert.assertEquals(2, getExamAttendanceDao().findByExam(getDefaultExam()).size());
+	
+	 }
+
+	 @Test
+	 public void testFindByExamSubject() {
+
+	 // Die Default Exam Attendance muss schon vorhanden sein.
+	 Assert.assertEquals(1, getExamAttendanceDao().findByExamSubject(getDefaultExamSubject()).size());
+
+	 // Default Exam Attendance abspeichern
+	 ExamAttendance ea1 = getDefaultExamAttendance();
+	 ea1.getExam().setExamSubject(getDefaultExamSubject());
+	 getExamAttendanceDao().save(ea1);
+	 
+	 // Persistieren erfolgriech?
+	 Assert.assertNotNull(ea1.getId());
+	 Assert.assertTrue(ea1.getId() > 0);
+	 
+	 // Es muss ein Result mehr existieren
+	 Assert.assertEquals(2, getExamAttendanceDao().findByExamSubject(getDefaultExamSubject()).size());
+	 
+	 // Ein anderes Exam erzeugen und an ea2 anhängen
+	 ExamAttendance ea2 = getDefaultExamAttendance();
+	 ExamSubject examSubject2 = getDefaultExamSubject();
+	 examSubject2.setDescription("andere beschreibung");
+	 ea2.getExam().setExamSubject(examSubject2);
+	 // ea1 nochmal abspeichern (nicht updaten!)
+	 getExamAttendanceDao().save(ea2);
+
+	 // Persistieren erfolgriech?
+	 Assert.assertNotNull(ea2.getId());
+	 Assert.assertTrue(ea2.getId() > 0);
+	 
+	 
+	 // Liste muss bei 2 bleiben
+	 Assert.assertEquals(2, getExamAttendanceDao().findByExamSubject(getDefaultExamSubject()).size());
+	
+	 }
+	 
 }

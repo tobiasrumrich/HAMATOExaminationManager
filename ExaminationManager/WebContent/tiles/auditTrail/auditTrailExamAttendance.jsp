@@ -1,5 +1,5 @@
-<!-- author Marcel Schroeter, 3690 -->
 <!-- author Tobias Rumrich, 3638 -->
+<!-- author Marcel Schroeter, 3690 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
@@ -48,6 +48,7 @@ table tr {
 			value="<s:text name="btnPrint" />" />
 	</form>
 </div>
+<!-- kurze Übersichtstabelle, die zeigt um wen und was es grad geht. -->
 <table>
 	<tr>
 		<td><strong><s:text name="lblStudentName" /></strong></td>
@@ -59,6 +60,8 @@ table tr {
 	</tr>
 </table>
 <hr>
+<!-- Iterator erzeugt eine eigene kleine Tabelle für jeden Versuch. -->
+<!-- Innerhalb der Tabelle wird eine weitere Tabelle eingeschachtelt, die die Versionshistorie anzeigt.  -->
 <s:iterator value="map" status="mapStatus">
 	<div>
 		<table>
@@ -77,7 +80,7 @@ table tr {
 					<td class="emphasized"><s:property
 							value="%{value.get(0).getEntity().getAttempt()}" /></td>
 					<td><s:property
-							value="%{value.get(0).getEntity().getExamGrade()}" /></td>
+							value="%{value.get(0).getEntity().getExamGrade().getAsExpression()}" /></td>
 					<td><s:text
 							name="txtIsCurrentRevision%{value.get(0).isCurrentRevision() }" /></td>
 					<td><s:date name="%{examMap[key].date}"
@@ -89,18 +92,24 @@ table tr {
 				</tr>
 
 				<tr>
+					<!-- linken Rand freilassen -->
 					<td>&nbsp;</td>
-					<td colspan="5"><a href="javascript: void(0);"
-							class="historyLink"
-							onClick="toggleTrailTable('<s:property value="%{#mapStatus.count}" />');"
-							title="<s:text name="showHistory" />">
-							<img id="trailPlus_<s:property value="%{#mapStatus.count}" />" class="trailPlus"
-								src="resources/img/icons/bullet_toggle_plus.png" />
-							<img id="trailMinus_<s:property value="%{#mapStatus.count}" />" class="trailMinus"
-								src="resources/img/icons/bullet_toggle_minus.png" />
-							<s:text name="txtHistoryOfDataset" /></a>
-							<br />
-						<table class="trailTable" id="trailTable_<s:property value="%{#mapStatus.count}" />">
+					<td colspan="5">
+					<!-- einen Link anbieten zum auf und zu klappen. Ganz fancy mit einer plus und minus grafik -->
+					<!-- die Links und Tabellen werden mit eindeutiger ID versehen mit Hilfe des Interator Counts -->
+					<a href="javascript: void(0);"
+						class="historyLink"
+						onClick="toggleTrailTable('<s:property value="%{#mapStatus.count}" />');"
+						title="<s:text name="showHistory" />"> <img
+							id="trailPlus_<s:property value="%{#mapStatus.count}" />"
+							class="trailPlus"
+							src="resources/img/icons/bullet_toggle_plus.png" /> <img
+							id="trailMinus_<s:property value="%{#mapStatus.count}" />"
+							class="trailMinus"
+							src="resources/img/icons/bullet_toggle_minus.png" /> <s:text
+								name="txtHistoryOfDataset" /></a> <br />
+						<table class="trailTable"
+							id="trailTable_<s:property value="%{#mapStatus.count}" />">
 							<thead>
 								<tr>
 									<th rowspan="2"><s:text name="txtRecordType" /></th>
@@ -116,6 +125,7 @@ table tr {
 								</tr>
 							</thead>
 							<tbody>
+							<!-- itarieren über revisionshistorie -->
 								<s:iterator value="value">
 									<tr>
 										<td><s:text

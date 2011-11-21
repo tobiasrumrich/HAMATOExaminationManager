@@ -21,7 +21,7 @@
 				"aTargets" : [ 1 ]
 			}, {
 				"bSortable" : false,
-				"aTargets" : [ 7 ]
+				"aTargets" : [ 6 ]
 			} ],
 			"bStateSave" : true,
 			"oLanguage" : {

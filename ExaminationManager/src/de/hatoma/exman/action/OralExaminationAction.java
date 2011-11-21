@@ -138,6 +138,9 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		return students;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public String input() throws Exception {
 		ExamAttendance selectedExamAttendance;
@@ -183,6 +186,7 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		Calendar currentCalendar = Calendar.getInstance();
 		ExamAttendance examAttendance;
 		OralExamGrade oralExamGrade;
+		//Datumsformat korrekt?
 		try {
 			if ((frmSupplementalOralExaminationDate.length() != 10)
 					|| (!frmSupplementalOralExaminationDate.substring(2, 3)
@@ -210,12 +214,15 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 			addActionError(getText("txtErrorWrongDateFormat"));
 			return "input";
 		}
+		//Datum scheint korrekt formatiert zu sein
+		//Liegt es auch nicht in der Zukunft?
 		if (calendar.after(currentCalendar)) {
 			addActionError(getText("txtErrorDateInFuture"));
 			return "input";
 		}
 
-		// Speichern
+		// Speichern mit Abfangen der möglichen Exceptions.
+		// Exceptions sind sprechend benannt.
 
 		try {
 			examAttendance = examAttendanceService
@@ -239,14 +246,19 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 			return "input";
 		}
 
+		// Systeminformationen abrufen und in brauchbares Format bringen
+		// als da wären: ein Datum
 		DateFormat dateDay = new SimpleDateFormat(getText("examDateFormatNoTimeFormat"));
 		DateFormat dateTime = new SimpleDateFormat("HH:mm");
 		Date date = new Date();
+		// und der aktuelle Benutzername
 		UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		addActionMessage(getText("txtUiProtocolHeader"));
+		// Alles beisammen? Dann können wir ja ein paar Nachrichten feuern
 		addActionMessage(getText("lblDate") + ": " + dateDay.format(date));		
 		addActionMessage(getText("lblTime") + ": " + dateTime.format(date));
 		addActionMessage(getText("lblUser") + ": " + currentUser.getUsername());
+		// und zum Protokoll abspringen
 		return "protocol";
 
 	}
@@ -324,13 +336,18 @@ public class OralExaminationAction extends ActionSupport implements Preparable {
 		this.students = students;
 	}
 
+	/**
+	 * Diese Methode stellt die Liste aller mündlichen Kandidaten zum momentan gewählten Manipel bereit
+	 */
 	public void retrieveList() {
+		//ist schon ein Manipel ausgewählt? Wenn nicht nimm die 1.
 		if (selectedManiple == null || selectedManiple.isEmpty()) {
 			manipleToFetch = 1;
 		} else {
 			manipleToFetch = Integer.valueOf(selectedManiple);
 		}
 		maniples = (List<Maniple>) manipleService.getAll();
+		// und jetzt alle Mündlichen Kandidaten beim Service erfragen
 		examAttendances = getExamAttendanceService().getOralCandidates(
 				manipleToFetch);
 	}
