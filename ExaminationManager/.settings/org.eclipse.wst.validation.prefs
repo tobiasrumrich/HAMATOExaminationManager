@@ -1,4 +1,4 @@
-#Mon Nov 14 03:13:08 CET 2011
+#Mon Nov 21 11:15:08 CET 2011
 DELEGATES_PREFERENCE=delegateValidatorList
 USER_BUILD_PREFERENCE=enabledBuildValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
 USER_MANUAL_PREFERENCE=enabledManualValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
@@ -7,4 +7,6 @@ eclipse.preferences.version=1
 override=true
 suspend=false
 vals/org.eclipse.wst.html.ui.HTMLValidator/groups=0107include06111contentType136org.eclipse.wst.html.core.htmlsourceT07fileext04htmlF07fileext05xhtmlF07fileext03htmF07fileext04htplF07fileext03wmlF0107exclude0104file120WebContent/resourcesF02
+vals/org.eclipse.wst.xml.core.xml/global=FT03
+vals/org.eclipse.wst.xsd.core.xsd/global=FT02162org.eclipse.wst.xsd.core.internal.validation.eclipse.Validator
 vf.version=3
