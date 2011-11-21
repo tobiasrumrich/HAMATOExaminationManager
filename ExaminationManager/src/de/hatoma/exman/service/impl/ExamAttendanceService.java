@@ -47,7 +47,6 @@ public class ExamAttendanceService implements IExamAttendanceService {
 	@Autowired
 	private IExamSubjectService examSubjectService;
 
-
 	@Autowired
 	private IManipleDao manipleDao;
 
@@ -215,8 +214,7 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			} else {
 				m.add(attendance.getExam().getDate().toString());
 			}
-			
-			
+
 			m.add(getCalculatedGrade(attendance).getAsExpression());
 			m.add(String.valueOf(attendance.getAttempt()));
 
@@ -263,7 +261,8 @@ public class ExamAttendanceService implements IExamAttendanceService {
 				eligibleStudents.add(student);
 				continue;
 			}
-			if ((latestAttendance.getExamGrade().equals(ExamGrade.G50) || latestAttendance
+			if (((latestAttendance.getExamGrade().equals(ExamGrade.G50) && getCalculatedGrade(
+					latestAttendance).equals(OralExamGrade.G50)) || latestAttendance
 					.getExamGrade().equals(ExamGrade.G60))
 					&& latestAttendance.getAttempt() < 3
 					&& !latestAttendance.getExam().equals(exam)) {
@@ -436,13 +435,14 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			return examGrade;
 		}
 
-		int iAVG = (examGrade.getAsNumber() + oralExamGrade.getAsNumber()) / 2; // z.B. 33
-		
+		int iAVG = (examGrade.getAsNumber() + oralExamGrade.getAsNumber()) / 2; // z.B.
+																				// 33
+
 		ExamGrade avg = null;
 		int lastDiff = Integer.MAX_VALUE;
-		for(ExamGrade currentGrade : ExamGrade.values()) {
+		for (ExamGrade currentGrade : ExamGrade.values()) {
 			int currentDiff = iAVG - currentGrade.getAsNumber();
-			if(currentDiff >= 0 && currentDiff < lastDiff) {
+			if (currentDiff >= 0 && currentDiff < lastDiff) {
 				avg = currentGrade;
 				lastDiff = currentDiff;
 			}
