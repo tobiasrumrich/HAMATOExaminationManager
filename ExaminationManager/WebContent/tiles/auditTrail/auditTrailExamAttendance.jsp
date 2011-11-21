@@ -100,7 +100,7 @@ table tr {
 					<a href="javascript: void(0);"
 						class="historyLink"
 						onClick="toggleTrailTable('<s:property value="%{#mapStatus.count}" />');"
-						title="<s:text name="showHistory" />"> <img
+						title="<s:text name="btnShowHistory" />"> <img
 							id="trailPlus_<s:property value="%{#mapStatus.count}" />"
 							class="trailPlus"
 							src="resources/img/icons/bullet_toggle_plus.png" /> <img

@@ -345,10 +345,6 @@ public class ExamAttendanceService implements IExamAttendanceService {
 		for (ExamAttendance attendance : allAttendances) {
 
 			currentSubject = attendance.getExam().getExamSubject();
-			// TODO Hannes, ich steh grad aufm Schlauch, ich wei� dass es gegen
-			// den Nachbarschaftskodex (oder wie dat heisst^^) verstoesst, aber
-			// ich
-			// hab grad ne Blockade, wie ichs besser mach
 
 			int numberOfOralExams;
 			numberOfOralExams = examAttendanceDao.findByStudentAndExamSubject(
@@ -356,13 +352,6 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			if (numberOfOralExams >= 2) {
 				allAttendances.remove(attendance);
 			}
-
-			// for every modul in modulliste
-			// List list = hole gesamte historie where supplemental oral != 0
-			// if list.size >= 2
-			// l�sche modul from modulliste
-			// endif
-			// endfor
 		}
 		return allAttendances;
 	}
@@ -431,5 +420,32 @@ public class ExamAttendanceService implements IExamAttendanceService {
 			throw new InvalidEntityIdException();
 		examAttendanceDao.delete(examAttendance);
 
+	}
+
+	@Override
+	public ExamGrade getCalculatedGrade(ExamAttendance examAttendance) {
+		ExamGrade examGrade = examAttendance.getExamGrade();
+		OralExamGrade oralExamGrade = examAttendance
+				.getSupplementOralExamGrade();
+		if (examGrade == null) {
+			return null;
+		}
+		if (!examGrade.equals(ExamGrade.G50) || oralExamGrade == null) {
+			return examGrade;
+		}
+
+		int iAVG = (examGrade.getAsNumber() + oralExamGrade.getAsNumber()) / 2; // z.B. 33
+		
+		ExamGrade avg = null;
+		int lastDiff = Integer.MAX_VALUE;
+		for(ExamGrade currentGrade : ExamGrade.values()) {
+			int currentDiff = iAVG - currentGrade.getAsNumber();
+			if(currentDiff >= 0 && currentDiff < lastDiff) {
+				avg = currentGrade;
+				lastDiff = currentDiff;
+			}
+		}
+
+		return avg;
 	}
 }

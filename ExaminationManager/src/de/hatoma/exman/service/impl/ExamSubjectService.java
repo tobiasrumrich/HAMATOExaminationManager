@@ -97,7 +97,6 @@ public class ExamSubjectService implements IExamSubjectService {
 					examSubjects, new Predicate<ExamSubject>() {
 						@Override
 						public boolean apply(ExamSubject subject) {
-							// TODO: hal FALSCH!!
 							return !hasStudentPassedSubject(student, subject);
 						}
 					});

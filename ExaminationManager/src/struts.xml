@@ -23,10 +23,6 @@
 			<result name="globalTrainmanDatabaseNotCompliant" type="tiles">trainmanDatabaseNotCompliant
 			</result>
 		</global-results>
-
-
-
-
 		<!-- es darf bei den results nur die Typen "tiles" und "chain" geben. Direktes 
 			verlinken auf JSP muss wegen der Templating Engine vermieden werden. -->
 
@@ -41,9 +37,6 @@
 			<result type="tiles">inputSingle</result>
 		</action>
 		<!-- Dummy Ende -->
-
-
-
 		<action name="SaveNewExam" class="de.hatoma.exman.action.HandleExamAction"
 			method="save">
 			<result name="input" type="tiles">inputSingle</result>
